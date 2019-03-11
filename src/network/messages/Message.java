@@ -1,4 +1,4 @@
-package messages;
+package network.messages;
 
 import java.io.Serializable;
 

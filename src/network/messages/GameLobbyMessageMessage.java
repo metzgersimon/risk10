@@ -1,4 +1,4 @@
-package messages;
+package network.messages;
 
 
 public class GameLobbyMessageMessage extends Message {

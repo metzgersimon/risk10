@@ -1,4 +1,4 @@
-package messages;
+package network.messages;
 
 
 public class SendChatMessageMessage extends Message {

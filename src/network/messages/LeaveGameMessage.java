@@ -1,4 +1,4 @@
-package messages;
+package network.messages;
 
 public class LeaveGameMessage extends Message {
 
