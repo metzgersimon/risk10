@@ -2,8 +2,13 @@ package game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * 
+ * @author qiychen
+ *
+ */
 public class Player {
+	
     // type of player
 	public static int PLAYER_HUMAN = 0;
 	public static int PLAYER_AI_EASY = 1;
