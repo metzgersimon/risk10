@@ -22,7 +22,7 @@
                      <center>
                         <ImageView fitHeight="425.0" fitWidth="677.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@../../../../Requirements/Karten%20Material/risk_map_test.gif" />
+                              <Image url="@../resources/gui/risk_map_test.gif" />
                            </image>
                            <BorderPane.margin>
                               <Insets />
