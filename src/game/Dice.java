@@ -1,15 +1,10 @@
 package game;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.stage.Stage;
 
 public class Dice {
   
@@ -49,6 +44,26 @@ public class Dice {
       this.sidesOfDice = sidesOfDice;
     }
 
+    public ImageView changeColor(Image diceImage) {
+      HBox hbox = new HBox();
+      int height = (int) diceImage.getHeight();
+      int width = (int) diceImage.getWidth();
+      
+      ImageView image = new ImageView(diceImage);
+      hbox.getChildren().add(image);
+      
+      Lighting lighting = new Lighting();
+      
+      lighting.setDiffuseConstant(1.0);
+      lighting.setSpecularConstant(0.0);
+      lighting.setSpecularExponent(0.0);
+      lighting.setSurfaceScale(0.0);
+      lighting.setLight(new Light.Distant(45, 45, Color.RED));
+      
+      image.setEffect(lighting);
+      
+      return image;
+    }
 
 
     public  int rollSingleDice() {
