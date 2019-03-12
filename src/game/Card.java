@@ -120,8 +120,6 @@ public class Card {
       return imgCard;
     }
     
-    public ImageView drawWildcard(ArmyType infantry, ArmyType cavalry, ArmyType artillery) {
-      VBox vbox = new VBox();
-      this.
+   
 //    }
 }
