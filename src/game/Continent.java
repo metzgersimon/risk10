@@ -13,14 +13,27 @@ public class Continent {
     this.territories = territories;
   }
 
+  /**
+   * @param -
+   * @return - method returns the territories that belong to the instance of Continent
+   */
   public HashSet<Territory> getTerritories() {
     return territories;
   }
 
+  /**
+   * @param -
+   * @return - method returns the name of the instance of Continent
+   */
   public Continente getName() {
     return name;
   }
 
+  /**
+   * @param -
+   * @return - method returns the bonus armies a player receives if he
+   *           owns all territories of a continent
+   */
   public int getValue() {
     return value;
   }  

@@ -10,6 +10,9 @@ public class World {
   static HashMap<Integer, Territory> territories = new HashMap<>();
   static HashMap<Continente, Continent> continent = new HashMap<>();
 
+  /**
+   * Constructor
+   */
   public World() {
     this.initialiseTerritories();
     this.initialiseNeighbors();
@@ -17,7 +20,7 @@ public class World {
   }
   
   /**
-   * initialises all territories existing in risk world
+   * Method initialises all territories existing in risk world
    */
   public void initialiseTerritories() {
     territories.put(1, new Territory("Alaska", 1, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
@@ -65,7 +68,7 @@ public class World {
   }
   
 /**
- * initialises all neighbor-relationships between territories
+ * Method initialises all neighbor-relationships between territories
  */
   public void initialiseNeighbors() {
     // Alaska
@@ -400,7 +403,7 @@ public class World {
   }
   
   /**
-   * initialises all continents and links them with territories
+   * Method initialises all continents and links them with territories
    */
   public void initialiseContinents() {    
     HashSet<Territory> c1 = new HashSet<>();
