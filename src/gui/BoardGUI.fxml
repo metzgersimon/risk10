@@ -12,17 +12,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
    <children>
-      <SplitPane dividerPositions="0.7945891783567134" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitter" dividerPositions="0.8" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <BorderPane prefHeight="798.0" prefWidth="822.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
-                        <ImageView fitHeight="425.0" fitWidth="677.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                        <ImageView nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@../resources/gui/risk_map_test.gif" />
+                              <Image url="@../../resources/gui/risk_map_test.gif" />
                            </image>
                            <BorderPane.margin>
                               <Insets />
@@ -77,16 +77,15 @@
                                     <Insets top="20.0" />
                                  </opaqueInsets>
                               </VBox>
-                              <TableView cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                              <TableView cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="200.0" scaleShape="false" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                 <columns>
                                   <TableColumn editable="false" minWidth="5.0" prefWidth="24.0" />
                                   <TableColumn editable="false" prefWidth="60.0" text="Player" />
                                     <TableColumn editable="false" prefWidth="77.0" text="Territories" />
-                                    <TableColumn editable="false" prefWidth="58.0" text="Armies" />
                                     <TableColumn editable="false" prefWidth="77.0" text="Risk Cards" />
                                 </columns>
                                  <GridPane.margin>
-                                    <Insets left="20.0" top="20.0" />
+                                    <Insets left="20.0" right="70.0" top="20.0" />
                                  </GridPane.margin>
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
@@ -102,7 +101,7 @@
                <children>
                   <VBox prefHeight="798.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Chat Room" textAlignment="CENTER">
+                        <Button fx:id="chatRoomButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleClickCRB" text="Chat Room" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>

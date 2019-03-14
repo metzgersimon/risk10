@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,7 +23,7 @@ public class BoardGUI_Main extends Application {
   
   public void mainWindow() {
     try {
-      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("BoardGUI.fxml"));
+      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("BoardGUI_test.fxml"));
       AnchorPane pane  = loader.load();
       
      //primaryStage.setMinHeight(800.00);
@@ -33,7 +34,8 @@ public class BoardGUI_Main extends Application {
       
       Scene scene = new Scene(pane);
       primaryStage.setScene(scene);
-      
+      primaryStage.setMaximized(true);
+     // primaryStage.setResizable(false);
       primaryStage.show();
       
     } catch (IOException e) {

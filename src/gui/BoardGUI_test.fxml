@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import com.jfoenix.svg.*?>
+<?import javafx.scene.canvas.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1012.0" prefWidth="1434.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+   <children>
+      <SplitPane dividerPositions="0.9371508379888268" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(100,100,100,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <AnchorPane prefHeight="1010.0" prefWidth="1030.0" stylesheets="@main.css">
+               <children>
+                  <ImageView fitHeight="1010.0" fitWidth="1336.0" layoutX="6.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Requirements/Karten%20Material/risk_pic.png" />
+                     </image>
+                  </ImageView>
+                  <Region layoutX="399.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0" styleClass="iceland" stylesheets="@main.css" />
+                  <Region layoutX="840.0" layoutY="244.0" prefHeight="200.0" prefWidth="200.0" styleClass="afgahnistan" stylesheets="@main.css" />
+                  <Region fx:id="eastAust" depthTest="DISABLE" layoutX="765.0" layoutY="496.0" onMouseClicked="#pressed" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" styleClass="eastern-australia" stylesheets="@main.css" />
+                  <Region fx:id="westAust" layoutX="622.0" layoutY="483.0" onMouseClicked="#pressed" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" styleClass="Western_Australia" stylesheets="@main.css" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="175.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <VBox prefHeight="798.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Chat Room &gt;" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="776.0" prefWidth="202.0">
+                           <content>
+                              <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="766.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextField maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="160.0" promptText="Enter your Message" HBox.hgrow="ALWAYS" />
+                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="send" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
