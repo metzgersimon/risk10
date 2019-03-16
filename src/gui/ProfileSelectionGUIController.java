@@ -10,20 +10,23 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * @author liwang Controller class for LoginGUI
+ * @author liwang Controller class for ProfileSelectionGUI
  */
-public class LoginGUIController {
+public class ProfileSelectionGUIController {
 
   @FXML
-  private Button klickToStart;
+  private Button back;
+
+  @FXML
+  private Button createNewProfile;
 
   /**
-   * Event handle class invoked when the klickToStart Button clicked to open the MainMenuGUI
+   * Event handle class invoked when back Button clicked to go back to the MainMenuGUI
    * 
    * @param event
    */
   @FXML
-  void handleKlickToStastButton(ActionEvent event) {
+  void handleBackButton(ActionEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -35,6 +38,11 @@ public class LoginGUIController {
     } catch (Exception e) {
       System.out.println("Can't load MainMenuGUI.fxml");
     }
+  }
+
+  @FXML
+  void handleCreateNewProfileButton(ActionEvent event) {
+
   }
 
 }
