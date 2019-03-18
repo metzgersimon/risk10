@@ -8,7 +8,7 @@ package gui;
 public class PlayerProfile {
 
   public String profileName;
-  public int profileImageID;
+  public int imageID;
   private int matchesPlayed;
   private int matchesWon;
   private int matchesLost;
@@ -17,7 +17,7 @@ public class PlayerProfile {
   // Constructor is used when a new player profile is created
   public PlayerProfile(String name, int imageID) {
     this.profileName = name;
-    this.profileImageID = imageID;
+    this.imageID = imageID;
     this.matchesPlayed = 0;
     this.matchesWon = 0;
     this.matchesLost = 0;
@@ -30,7 +30,7 @@ public class PlayerProfile {
 
   // Image ID change method is used when an existing player profile image is being changed
   public void changePlayerImageID(int id) {
-    this.profileImageID = id;
+    this.imageID = id;
   }
 
 
