@@ -24,14 +24,14 @@ public class World {
    */
   public void initialiseTerritories() {
     territories.put(1, new Territory("Alaska", 1, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
-    territories.put(2, new Territory("North-West-Territory", 2, CardSymbol.CANNON, Continente.NORTHAMERICA));
+    territories.put(2, new Territory("North_West_Territory", 2, CardSymbol.CANNON, Continente.NORTHAMERICA));
     territories.put(3, new Territory("Alberta", 3, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
-    territories.put(4, new Territory("Western-United-States", 4, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
-    territories.put(5, new Territory("Central-America", 5, CardSymbol.CAVALRY, Continente.NORTHAMERICA));
+    territories.put(4, new Territory("Western_United_States", 4, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
+    territories.put(5, new Territory("Central_America", 5, CardSymbol.CAVALRY, Continente.NORTHAMERICA));
     territories.put(6, new Territory("Greenland", 6, CardSymbol.CAVALRY, Continente.NORTHAMERICA));
     territories.put(7, new Territory("Ontario", 7, CardSymbol.CAVALRY, Continente.NORTHAMERICA));
     territories.put(8, new Territory("Quebec", 8, CardSymbol.CANNON, Continente.NORTHAMERICA));
-    territories.put(9, new Territory("Eastern-United-States", 9, CardSymbol.CANNON, Continente.NORTHAMERICA));
+    territories.put(9, new Territory("Eastern_United_States", 9, CardSymbol.CANNON, Continente.NORTHAMERICA));
     territories.put(10, new Territory("Venezuela", 10, CardSymbol.CANNON, Continente.SOUTHAMERICA));
     territories.put(11, new Territory("Peru", 11, CardSymbol.CAVALRY, Continente.SOUTHAMERICA));
     territories.put(12, new Territory("Brazil", 12, CardSymbol.CANNON, Continente.SOUTHAMERICA));
@@ -39,21 +39,21 @@ public class World {
     territories.put(14, new Territory("Iceland", 14, CardSymbol.INFANTRY, Continente.EUROPE));
     territories.put(15, new Territory("Scandinavia", 15, CardSymbol.CANNON, Continente.EUROPE));
     territories.put(16, new Territory("Ukraine", 16, CardSymbol.CANNON, Continente.EUROPE));
-    territories.put(17, new Territory("Great-Britain", 17, CardSymbol.CAVALRY, Continente.EUROPE));
-    territories.put(18, new Territory("Northern-Europe", 18, CardSymbol.CAVALRY, Continente.EUROPE));
-    territories.put(19, new Territory("Western-Europe", 19, CardSymbol.INFANTRY, Continente.EUROPE));
-    territories.put(20, new Territory("Southern-Europe", 20, CardSymbol.CAVALRY, Continente.EUROPE));
-    territories.put(21, new Territory("North-Africa", 21, CardSymbol.INFANTRY, Continente.AFRICA));
+    territories.put(17, new Territory("Great_Britain", 17, CardSymbol.CAVALRY, Continente.EUROPE));
+    territories.put(18, new Territory("Northern_Europe", 18, CardSymbol.CAVALRY, Continente.EUROPE));
+    territories.put(19, new Territory("Western_Europe", 19, CardSymbol.INFANTRY, Continente.EUROPE));
+    territories.put(20, new Territory("Southern_Europe", 20, CardSymbol.CAVALRY, Continente.EUROPE));
+    territories.put(21, new Territory("North_Africa", 21, CardSymbol.INFANTRY, Continente.AFRICA));
     territories.put(22, new Territory("Egypt", 22, CardSymbol.INFANTRY, Continente.AFRICA));
     territories.put(23, new Territory("Congo", 23, CardSymbol.CAVALRY, Continente.AFRICA));
-    territories.put(24, new Territory("East-Africa", 24, CardSymbol.CANNON, Continente.AFRICA));
-    territories.put(25, new Territory("South-Africa", 25, CardSymbol.CANNON, Continente.AFRICA));
+    territories.put(24, new Territory("East_Africa", 24, CardSymbol.CANNON, Continente.AFRICA));
+    territories.put(25, new Territory("South_Africa", 25, CardSymbol.CANNON, Continente.AFRICA));
     territories.put(26, new Territory("Madagascar", 26, CardSymbol.INFANTRY, Continente.AFRICA));
     territories.put(27, new Territory("Siberia", 27, CardSymbol.CANNON, Continente.ASIA));
     territories.put(28, new Territory("Ural", 28, CardSymbol.CAVALRY, Continente.ASIA));
     territories.put(29, new Territory("China", 29, CardSymbol.CAVALRY, Continente.ASIA));
-    territories.put(30, new Territory("Afgahnistan", 30, CardSymbol.INFANTRY, Continente.ASIA));
-    territories.put(31, new Territory("Middle-East", 31, CardSymbol.CANNON, Continente.ASIA));
+    territories.put(30, new Territory("Afghanistan", 30, CardSymbol.INFANTRY, Continente.ASIA));
+    territories.put(31, new Territory("Middle_East", 31, CardSymbol.CANNON, Continente.ASIA));
     territories.put(32, new Territory("India", 32, CardSymbol.INFANTRY, Continente.ASIA));
     territories.put(33, new Territory("Siam", 33, CardSymbol.CANNON, Continente.ASIA));
     territories.put(34, new Territory("Yakutsk", 34, CardSymbol.CAVALRY, Continente.ASIA));
@@ -62,9 +62,9 @@ public class World {
     territories.put(37, new Territory("Japan", 37, CardSymbol.INFANTRY, Continente.ASIA));
     territories.put(38, new Territory("Kamchatka", 38, CardSymbol.CAVALRY, Continente.ASIA));
     territories.put(39, new Territory("Indonesia", 39, CardSymbol.CAVALRY, Continente.AUSTRALIA));
-    territories.put(40, new Territory("New-Guinea", 40, CardSymbol.CAVALRY, Continente.AUSTRALIA));
-    territories.put(41, new Territory("Western-Australia", 41, CardSymbol.CANNON, Continente.AUSTRALIA));
-    territories.put(42, new Territory("Eastern-Australia", 42, CardSymbol.INFANTRY, Continente.AUSTRALIA));
+    territories.put(40, new Territory("New_Guinea", 40, CardSymbol.CAVALRY, Continente.AUSTRALIA));
+    territories.put(41, new Territory("Western_Australia", 41, CardSymbol.CANNON, Continente.AUSTRALIA));
+    territories.put(42, new Territory("Eastern_Australia", 42, CardSymbol.INFANTRY, Continente.AUSTRALIA));
   }
   
 /**
