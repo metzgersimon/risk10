@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<risk10>
+	<Player>
+		<name>Testname</name>
+		<imageID>1</imageID>
+		<matchesPlayed>100</matchesPlayed>
+		<matchesWon>50</matchesWon>
+		<matchesLost>50</matchesLost>
+		<territoriesConquered>500</territoriesConquered>
+	</Player>
+</risk10>

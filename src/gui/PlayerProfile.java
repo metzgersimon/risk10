@@ -21,6 +21,17 @@ public class PlayerProfile {
     this.matchesPlayed = 0;
     this.matchesWon = 0;
     this.matchesLost = 0;
+    this.territoriesConquered = 0;
+  }
+  
+  //This constructor is used when the game loads data from the XML file
+  public PlayerProfile(String name, int imageID, int mP, int mW, int mL, int tC) {
+    this.profileName = name;
+    this.imageID = imageID;
+    this.matchesPlayed = mP;
+    this.matchesWon = mW;
+    this.matchesLost = mL;
+    this.territoriesConquered = tC;
   }
 
   // Name change method is used when an existing player profile name is being changed
