@@ -1,5 +1,6 @@
 package game;
 import java.util.HashSet;
+import javafx.scene.layout.Region;
 
 /**
  * @author pcoberge
@@ -10,10 +11,12 @@ import java.util.HashSet;
 public class Territory {
   private String name;
   private int id;
+  private int numberOfArmies;
   private CardSymbol sym;
   private Player owner;
   private Continente c;
   private HashSet<Territory> neighbor;
+  private Region r;
   
   /**
    * Contructor
@@ -70,6 +73,14 @@ public class Territory {
     return name;
   }
 
+  public void setNumberOfArmies(int amount) {
+    this.numberOfArmies += amount;
+  }
+  
+  public int getNumberOfArmies() {
+    return this.numberOfArmies;
+  }
+ 
   /**
    * Getter-method
    * @return int = id of a territory
@@ -92,6 +103,10 @@ public class Territory {
    */
   public Continente getContinent() {
     return c;
+  }
+  
+  public Region getRegion() {
+    return this.r;
   }
   
   @Override
