@@ -1,10 +1,13 @@
 package gui;
 
+import game.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**
@@ -14,13 +17,26 @@ import javafx.scene.layout.Region;
  */
 public class BoardController {
 
+  // TEST PARTS
+  @FXML
+  private Button button;
+  @FXML
+  private GridPane popup;
+  // TEST PARTS ENDE
+  private Game game;
+  private Territory selectedTerritory = null;
   // Views
-  @FXML private Button chatRoomButton;
-  @FXML private SplitPane splitter;
-  @FXML private Button kamschatka;
-  
-  @FXML private Region eastAust;
-  @FXML private Region westAust;
+  @FXML
+  private Button chatRoomButton;
+  @FXML
+  private SplitPane splitter;
+  @FXML
+  private Button kamschatka;
+
+  @FXML
+  private Region eastAust;
+  @FXML
+  private Region westAust;
 
 
   public BoardGUI_Main boardGui;
@@ -39,20 +55,66 @@ public class BoardController {
       chatRoomButton.setText("<");
     }
   }
-  
+
   @FXML
   public void handleButton() {
     System.out.println("TEST");
   }
-  
+
   @FXML
-  public void pressed(MouseEvent e) {
-    Region b = (Region) e.getSource();
-    if (b.getEffect()==null) {
-      b.setEffect(new Glow(0.3));
-    } else {
-      b.setEffect(null);
+  public void clicked(MouseEvent e) {
+    Player p = null;
+    Region r = (Region) e.getSource();
+    Territory territory = game.getWorld().getTerritoriesRegion().get(r);
+    switch (game.getState()) {
+      case INITIALISING:
+        /**
+         * if a player selects a territory, he becomes the owner of this territory and places his
+         * army at this territory
+         */
+        for (Territory t : game.getWorld().getTerritories().values()) {
+          t.getRegion().setEffect(new Glow(0.0));
+        }
+        r.setEffect(new Glow(0.0));
+        territory.setOwner(p);
+        territory.setNumberOfArmies(1);
+        break;
+      case ARMY_REINFORCEMENT:
+        // Methode mit Eingabe der Anzahl der Armeen
+        break;
+      case ATTACKING:
+        /**
+         * if a player selects a territory he owns, all territories that aren't neighbors and belong
+         * to him will be disabled. if a player selects a territory his selected territory is
+         * neighbor of,
+         */
+        if (selectedTerritory == null) {
+          r.setEffect(new Glow(0.3));
+          selectedTerritory = territory;
+          for (Territory t : game.getWorld().getTerritories().values()) {
+            if (!t.equals(territory) && !(territory.getNeighbor().contains(t))) {
+              t.getRegion().setDisable(true);
+            }
+          }
+        } else {
+          /*
+           * Boolean winner = attack(selectedTerritory, territory, numberOfArmies); Pop-Up Eingabe
+           * mit Anzahl der Armeen if (winner) { r.getShape().setFill(p.color);
+           * territory.setOwner(p); //Pop-UP Eingabe mit Anzahl der Armeen
+           * territory.setNumberOfArmies(amount); selectedTerritory.setNumberOfArmies(-amount);
+           */
+        }
+        selectedTerritory = null;
+        r.setEffect(new Glow(0.0));
+        selectedTerritory.getRegion().setEffect(new Glow(0.0));
+        break;
     }
   }
-  
-}
+
+  @FXML
+  public void motion(MouseEvent e) {
+    Region r = (Region) e.getSource();
+    if (r.getEffect() == null) {
+      r.setEffect(new Glow(0.2));
+    }
+  }
