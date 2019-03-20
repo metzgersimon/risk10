@@ -3,9 +3,12 @@ package gui;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class BoardGUI_Main extends Application {
@@ -23,25 +26,36 @@ public class BoardGUI_Main extends Application {
   
   public void mainWindow() {
     try {
-      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("BoardGUI_test.fxml"));
+      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("Karte_test2.fxml"));
       AnchorPane pane  = loader.load();
-      
-     //primaryStage.setMinHeight(800.00);
-     //primaryStage.setMinWidth(1000.00);
-      
+            
       BoardController boardController = loader.getController();
       //boardController.setMain(this);
       
       Scene scene = new Scene(pane);
       primaryStage.setScene(scene);
-      primaryStage.setMaximized(true);
-     // primaryStage.setResizable(false);
+      
+      //Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+      //primaryStage.setX((primaryScreenBounds.getWidth()-primaryStage.getWidth())/2);
+      //primaryStage.setY((primaryScreenBounds.getHeight()-primaryStage.getHeight())/4);
+     //primaryStage.setMaximized(true);
+     primaryStage.setResizable(false);
+      //primaryStage.setFullScreen(true);
+      
+//      for(Node n : p.getChildren()) {
+//        Region r = (Region) n;
+//        r.minWidthProperty().bind(scene.widthProperty());
+//        r.minHeightProperty().bind(scene.heightProperty());
+//      }
+
+      
       primaryStage.show();
       
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    
   }
   
   
