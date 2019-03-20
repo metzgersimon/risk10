@@ -277,6 +277,18 @@
                         </GridPane>
                      </top>
                   </BorderPane>
+                  <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Region layoutX="843.0" layoutY="530.0" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@main.css" />
+                        <Region layoutX="915.0" layoutY="539.0" prefHeight="131.0" prefWidth="88.0" styleClass="eastern-australia" stylesheets="@main.css" />
+                        <Region layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@main.css" />
+                        <Label layoutX="922.0" layoutY="590.0" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
+                        <Label layoutX="864.0" layoutY="582.0" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
+                        <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
+                        <Region layoutX="808.0" layoutY="439.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@main.css" />
+                        <Label layoutX="829.0" layoutY="485.0" text="Indonesia" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
             <BorderPane>
