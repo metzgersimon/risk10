@@ -36,7 +36,7 @@ public class HostGameLobbyGUI extends Application{
             primaryStage.show();
         } catch (Exception e) {
           e.printStackTrace();
-            System.out.println("Can't load Anfang.fxml");
+            System.out.println("Can't load HostGameLobby.fxml");
         }
 
 }
