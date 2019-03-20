@@ -14,7 +14,7 @@ public class PlayerProfile {
   private int matchesLost;
   private int territoriesConquered;
 
-  // Constructor is used when a new player profile is created
+  //This constructor is used when a new player profile is created
   public PlayerProfile(String name, int imageID) {
     this.profileName = name;
     this.imageID = imageID;
