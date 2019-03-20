@@ -16,15 +16,6 @@ public class HostGameLobbyGUI extends Application{
   public static void main(String[] args) {
     launch();
   }
-//  /*textfield in which a player writes his/her message to send to chatbox*/
-//@FXML TextField textField; 
-//
-///*to send a message in the chat box this button should be clicked*/
-//@FXML Button sendButton;
-//
-///*text area in which all the players can see the message*/
-//@FXML TextArea chatBox;
-
 
        public void start(Stage primaryStage) {
         try {
