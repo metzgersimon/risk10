@@ -63,6 +63,31 @@ public class PlayerProfile {
     this.territoriesConquered += n;
   }
 
+  
+  //get-methods
+  public String getName() {
+    return this.profileName;
+  }
+  
+  public String getID() {
+    return "" + this.imageID;
+  }
+  
+  public String getMatchesPlayed() {
+    return "" + this.matchesPlayed;
+  }
+  
+  public String getMatchesWon() {
+    return "" + this.matchesWon;
+  }
+  
+  public String getMatchesLost() {
+    return "" + this.matchesLost;
+  }
+  
+  public String getTerritoriesConquered() {
+    return "" + this.territoriesConquered;
+  }
   // TODO: add function to update XML file after updating profile stats
 
 }
