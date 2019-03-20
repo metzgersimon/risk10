@@ -1,0 +1,29 @@
+.lobbyBackground {
+	-fx-background-color: lightYellow;
+}
+
+.headlines{
+	-fx-background-color: darkKhaki;
+	-fx-font-weight:bold;
+	-fx-size:18px;
+}
+
+.leftPanelLabel{
+	-fx-font-weight:bold;
+	-fx-size:30px;
+}
+
+.subHeadlines {
+	 -fx-font-weight:bold;
+	-fx-size:18px;
+}
+
+.roundButton {
+	 -fx-radius: 50em; 
+	
+                -fx-min-width: 5px; 
+                -fx-min-height:5px;
+                -fx-max-width: 5px;  
+                 
+                 -fx-max-height: 5px;
+}
