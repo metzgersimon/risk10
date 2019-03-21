@@ -70,10 +70,7 @@ public class ProfileManager {
 
   // Saves profileList to xml
   public static void saveXML() {
-    
-    //TODO:
-    //method doesn't remove old player entries
-    
+
     try {
 
       SAXBuilder builder = new SAXBuilder();
@@ -81,8 +78,9 @@ public class ProfileManager {
 
       Document doc = (Document) builder.build(xml);
       Element root = doc.getRootElement();
-      root.detach();
+      root.removeContent();
       Element player;
+
 
       // Write elements
       for (PlayerProfile x : profileList.values()) {
@@ -95,8 +93,7 @@ public class ProfileManager {
         player.addContent(new Element("territoriesConquered").setText(x.getTerritoriesConquered()));
         root.addContent(player);
       }
-      
-      doc.setRootElement(root);
+
 
       // Save to xml
       XMLOutputter xmlO = new XMLOutputter();
