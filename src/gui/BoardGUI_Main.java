@@ -39,7 +39,7 @@ public class BoardGUI_Main extends Application {
       //primaryStage.setX((primaryScreenBounds.getWidth()-primaryStage.getWidth())/2);
       //primaryStage.setY((primaryScreenBounds.getHeight()-primaryStage.getHeight())/4);
      //primaryStage.setMaximized(true);
-     primaryStage.setResizable(false);
+    primaryStage.setResizable(false);
       //primaryStage.setFullScreen(true);
       
 //      for(Node n : p.getChildren()) {
