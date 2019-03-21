@@ -16,13 +16,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
    <children>
       <SplitPane dividerPositions="0.8" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <AnchorPane SplitPane.resizableWithParent="false">
                <children>
-                  <Pane layoutX="362.0" layoutY="160.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
+                  <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane fx:id="quitPane" layoutX="362.0" layoutY="160.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="350.0">
                            <children>
@@ -36,8 +37,8 @@
                               </Label>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                                  <children>
-                                    <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" text="Yes" />
-                                    <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="70.0" text="No" />
+                                    <Button fx:id="yesLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLeave" prefWidth="70.0" text="Yes" />
+                                    <Button fx:id="noLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNoLeave" prefWidth="70.0" text="No" />
                                  </children>
                               </HBox>
                            </children>
@@ -101,6 +102,31 @@
                               </Slider>
                            </children>
                         </VBox>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="828.0" fitWidth="1007.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Requirements/Karten%20Material/risk_pic.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Region layoutX="843.0" layoutY="530.0" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@main.css" />
+                        <Region layoutX="915.0" layoutY="539.0" prefHeight="131.0" prefWidth="88.0" styleClass="eastern-australia" stylesheets="@main.css" />
+                        <Region layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@main.css" />
+                        <Label layoutX="922.0" layoutY="590.0" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
+                        <Label layoutX="864.0" layoutY="582.0" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
+                        <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
+                        <Region layoutX="808.0" layoutY="439.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@main.css" />
+                        <Label layoutX="817.0" layoutY="493.0" text="Indonesia" />
+                        <Region layoutX="250.0" layoutY="447.0" prefHeight="131.0" prefWidth="135.0" styleClass="Brazil" stylesheets="@main.css" />
+                        <Region layoutX="222.0" layoutY="471.0" prefHeight="100.0" prefWidth="97.0" styleClass="Peru" stylesheets="@main.css" />
+                        <Label layoutX="326.0" layoutY="501.0" text="Brazil" />
+                        <Region layoutX="264.0" layoutY="544.0" prefHeight="135.0" prefWidth="76.0" styleClass="argentinia" stylesheets="@main.css" />
+                        <Label layoutX="275.0" layoutY="574.0" text="Argentinia" />
+                        <Label layoutX="259.0" layoutY="520.0" text="Peru" />
+                        <Region layoutX="496.0" layoutY="516.0" prefHeight="131.0" prefWidth="118.0" styleClass="South_Africa" stylesheets="@main.css" />
+                        <Region layoutX="223.0" layoutY="420.0" prefHeight="71.0" prefWidth="104.0" styleClass="Venezuela" stylesheets="@main.css" />
                      </children>
                   </Pane>
                   <BorderPane prefHeight="720.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -213,8 +239,22 @@
                                     </SplitPane>
                                     <AnchorPane prefHeight="718.0" prefWidth="856.0">
                                        <children>
-                                          <Circle fill="#1e1d1d" layoutX="53.0" layoutY="150.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="32.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                                          <Circle fx:id="circleLeave" fill="#1e1d1d" layoutX="53.0" layoutY="150.0" onMousePressed="#pressLeave" radius="28.0" stroke="BLACK" strokeType="INSIDE">
+                                             <effect>
+                                                <SepiaTone level="0.26">
+                                                   <input>
+                                                      <Lighting>
+                                                         <bumpInput>
+                                                            <Shadow />
+                                                         </bumpInput>
+                                                         <light>
+                                                            <Light.Distant />
+                                                         </light>
+                                                      </Lighting>
+                                                   </input>
+                                                </SepiaTone>
+                                             </effect></Circle>
+                                          <ImageView fx:id="imageLeave" fitHeight="44.0" fitWidth="38.0" layoutX="32.0" layoutY="131.0" onMousePressed="#pressLeave" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../resources/gui/exit.png" />
                                              </image>
@@ -272,30 +312,6 @@
                         </GridPane>
                      </top>
                   </BorderPane>
-                  <ImageView fitHeight="828.0" fitWidth="1007.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../alte%20Git-Projekte/GitProjekt/risk10/risk10/resources/gui/risk_map.gif" />
-                     </image>
-                  </ImageView>
-                  <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Region layoutX="843.0" layoutY="530.0" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@main.css" />
-                        <Region layoutX="915.0" layoutY="539.0" prefHeight="131.0" prefWidth="88.0" styleClass="eastern-australia" stylesheets="@main.css" />
-                        <Region layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@main.css" />
-                        <Label layoutX="922.0" layoutY="590.0" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
-                        <Label layoutX="864.0" layoutY="582.0" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
-                        <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
-                        <Region layoutX="808.0" layoutY="439.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@main.css" />
-                        <Label layoutX="829.0" layoutY="485.0" text="Indonesia" />
-                        <Region layoutX="226.0" layoutY="479.0" prefHeight="79.0" prefWidth="88.0" styleClass="Peru" stylesheets="@../../../alte%20Git-Projekte/GitProjekt/risk10/risk10/src/gui/main.css" />
-                        <Region layoutX="255.0" layoutY="448.0" prefHeight="124.0" prefWidth="127.0" styleClass="Brazil" stylesheets="@../../../alte%20Git-Projekte/GitProjekt/risk10/risk10/src/gui/main.css" />
-                        <Label layoutX="326.0" layoutY="501.0" text="Brazil" />
-                        <Region layoutX="264.0" layoutY="545.0" prefHeight="135.0" prefWidth="76.0" styleClass="argentinia" stylesheets="@../../../alte%20Git-Projekte/GitProjekt/risk10/risk10/src/gui/main.css" />
-                        <Label layoutX="275.0" layoutY="574.0" text="Argentinia" />
-                        <Region layoutX="225.0" layoutY="421.0" prefHeight="71.0" prefWidth="97.0" styleClass="Venezuela" stylesheets="@../../../alte%20Git-Projekte/GitProjekt/risk10/risk10/src/gui/main.css" />
-                        <Label layoutX="256.0" layoutY="520.0" text="Peru" />
-                     </children>
-                  </Pane>
                </children>
             </AnchorPane>
             <BorderPane>
