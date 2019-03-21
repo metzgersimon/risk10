@@ -1,17 +1,27 @@
 package gui;
 
+import java.awt.Color;
 import game.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -19,6 +29,7 @@ import javafx.scene.shape.Shape;
  *
  */
 public class BoardController {
+  Player p;
 
   // TEST PARTS
   @FXML
@@ -45,18 +56,18 @@ public class BoardController {
   /**
    * Elements that handle leave option
    */
-  @FXML
-  private Shape circleLeave;
-  @FXML
-  private ImageView imageLeave;
-  @FXML
-  private Pane quitPane;
-  @FXML
-  private Pane grayPane;
-  @FXML
-  private Button yesLeave;
-  private Button noLeave;
+  @FXML private Shape circleLeave;
+  @FXML private ImageView imageLeave;
+  @FXML private Pane quitPane;
+  @FXML private Pane grayPane;
+  @FXML private Button yesLeave;
+  @FXML private Button noLeave;
   
+  /**
+   * Elements that show the current game state and
+   * illustrate who is the current player
+   */
+  @FXML private ProgressBar progress;
 
   public BoardGUI_Main boardGui;
 
@@ -69,10 +80,10 @@ public class BoardController {
   /**
    * @param e
    */
-  @FXML
   public void pressLeave() {
     this.grayPane.toFront();
     this.quitPane.toFront();
+    handleProgressBar();
   }
   
   public void handleNoLeave() {
@@ -80,12 +91,32 @@ public class BoardController {
     this.quitPane.toBack();
   }
   
-  public void handleLeave() {
-    // weiter zu END-GAME Statistics!!!
-    // end-Game Methoden Aufruf
+  /**
+   * @param event : ActionEvent
+   * This parameter represents the element that invokes this method.
+   * This action method changes the current stage to the statistic stage.
+   */
+  public void handleLeave(ActionEvent event) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+      AnchorPane root = fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Statistics");
+      stage.setScene(new Scene(root));
+      stage.show();
+     //((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      System.out.println("Can't load StatisticGUI.fxml");
+    }
   }
   
-  
+  /**
+   * This method is a dummy Method, to get to know, how the ProgressBAr can be handled
+   */
+  public void handleProgressBar() {
+    this.progress.setStyle("-fx-accent: red;");
+    this.progress.setProgress(0.4);
+  }
   
   //#############################################
   

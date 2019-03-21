@@ -30,7 +30,7 @@ public class BoardGUI_Main extends Application {
       AnchorPane pane  = loader.load();
             
       BoardController boardController = loader.getController();
-      //boardController.setMain(this);
+      boardController.setMain(this);
       
       Scene scene = new Scene(pane);
       primaryStage.setScene(scene);

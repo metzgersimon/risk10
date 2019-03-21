@@ -20,7 +20,7 @@
    <children>
       <SplitPane dividerPositions="0.8" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-            <AnchorPane SplitPane.resizableWithParent="false">
+            <AnchorPane minWidth="1024.0" SplitPane.resizableWithParent="false">
                <children>
                   <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Pane fx:id="quitPane" layoutX="362.0" layoutY="160.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
@@ -143,18 +143,18 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <SplitPane dividerPositions="0.1" orientation="VERTICAL" prefHeight="200.0" prefWidth="650.0" GridPane.columnIndex="1">
+                                    <SplitPane dividerPositions="0.1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="200.0" prefWidth="650.0" GridPane.columnIndex="1">
                                       <items>
-                                        <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+                                        <AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="-Infinity" prefHeight="20.0" prefWidth="650.0" SplitPane.resizableWithParent="false">
                                              <children>
-                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="V" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="160.0" text="V" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Button>
                                              </children>
                                           </AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+                                        <AnchorPane minHeight="175.0" minWidth="-Infinity" prefHeight="175.0" prefWidth="650.0" SplitPane.resizableWithParent="false">
                                              <children>
                                                 <VBox prefHeight="186.0" prefWidth="483.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
@@ -298,7 +298,7 @@
                                                 <Font size="23.0" />
                                              </font>
                                           </Label>
-                                          <ProgressBar layoutX="176.0" layoutY="44.0" prefWidth="269.0" progress="0.0" />
+                                          <ProgressBar fx:id="progress" layoutX="176.0" layoutY="44.0" prefWidth="269.0" progress="0.0" />
                                        </children>
                                     </VBox>
                                     <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="447.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
@@ -314,7 +314,7 @@
                   </BorderPane>
                </children>
             </AnchorPane>
-            <BorderPane>
+            <BorderPane minWidth="256.0">
                <bottom>
                   <HBox BorderPane.alignment="CENTER">
                      <children>
