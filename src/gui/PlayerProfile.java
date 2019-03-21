@@ -14,7 +14,7 @@ public class PlayerProfile {
   private int matchesLost;
   private int territoriesConquered;
 
-  //This constructor is used when a new player profile is created
+  // This constructor is used when a new player profile is created
   public PlayerProfile(String name, int imageID) {
     this.profileName = name;
     this.imageID = imageID;
@@ -23,8 +23,8 @@ public class PlayerProfile {
     this.matchesLost = 0;
     this.territoriesConquered = 0;
   }
-  
-  //This constructor is used when the game loads data from the XML file
+
+  // This constructor is used when the game loads data from the XML file
   public PlayerProfile(String name, int imageID, int mP, int mW, int mL, int tC) {
     this.profileName = name;
     this.imageID = imageID;
@@ -63,31 +63,40 @@ public class PlayerProfile {
     this.territoriesConquered += n;
   }
 
-  
-  //get-methods
+
+  // get-methods
   public String getName() {
     return this.profileName;
   }
-  
+
   public String getID() {
     return "" + this.imageID;
   }
-  
+
   public String getMatchesPlayed() {
     return "" + this.matchesPlayed;
   }
-  
+
   public String getMatchesWon() {
     return "" + this.matchesWon;
   }
-  
+
   public String getMatchesLost() {
     return "" + this.matchesLost;
   }
-  
+
   public String getTerritoriesConquered() {
     return "" + this.territoriesConquered;
   }
-  // TODO: add function to update XML file after updating profile stats
 
+  // Test print of profile data
+  public void printProfile() {
+    System.out.println("Name:\t" + this.profileName);
+    System.out.println("ImageID:\t" + this.imageID);
+    System.out.println("Matches played:\t" + this.matchesPlayed);
+    System.out.println("Matches won:\t" + this.matchesWon);
+    System.out.println("Matches lost:\t" + this.matchesLost);
+    System.out.println("Territories conquered:\t" + this.territoriesConquered);
+    System.out.println();
+  }
 }

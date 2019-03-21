@@ -5,6 +5,9 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
+import gui.ProfileManager;
+import gui.PlayerProfile;
+
 
 /**
  * @author liwang Main method to invoke LoginGUI
@@ -25,6 +28,19 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    launch(args);
+    // launch(args);
+
+    // Testing of xml reader and writer
+    ProfileManager.readXML();
+    ProfileManager.printAllProfiles();
+    ProfileManager.addNewProfile("Susan", 8);
+    System.out.println("***************Adding Susan*****************");
+    ProfileManager.printAllProfiles();
+    System.out.println("Saving...");
+    ProfileManager.saveXML();
+    System.out.println("Reading...");
+    ProfileManager.readXML();
+    System.out.println("******Printing all profiles again*******");
+    ProfileManager.printAllProfiles();
   }
 }

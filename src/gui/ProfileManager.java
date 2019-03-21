@@ -8,9 +8,7 @@ import org.jdom2.input.*;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author prto Class to manage multiple player profiles
@@ -21,7 +19,7 @@ public class ProfileManager {
   PlayerProfile selectedProfile;
 
   // Add new profile to profileList
-  public void addNewProfile(String name, int imageID) {
+  public static void addNewProfile(String name, int imageID) {
     readXML();
     PlayerProfile temp = new PlayerProfile(name, imageID);
     profileList.put(name, temp);
@@ -37,9 +35,9 @@ public class ProfileManager {
 
 
   // Loads all player profiles from PlayerProfiles.xml file
-  public void readXML() {
+  public static void readXML() {
     SAXBuilder builder = new SAXBuilder();
-    File xml = new File("PlayerProfiles.xml");
+    File xml = new File("src\\gui\\PlayerProfiles.xml");
 
     try {
       Document doc = (Document) builder.build(xml);
@@ -71,11 +69,19 @@ public class ProfileManager {
   }
 
   // Saves profileList to xml
-  public void saveXML() {
+  public static void saveXML() {
+    
+    //TODO:
+    //method doesn't remove old player entries
+    
     try {
-      Element root = new Element("risk10");
-      Document doc = new Document(root);
-      doc.setRootElement(root);
+
+      SAXBuilder builder = new SAXBuilder();
+      File xml = new File("src\\gui\\PlayerProfiles.xml");
+
+      Document doc = (Document) builder.build(xml);
+      Element root = doc.getRootElement();
+      root.detach();
       Element player;
 
       // Write elements
@@ -87,16 +93,28 @@ public class ProfileManager {
         player.addContent(new Element("matchesWon").setText(x.getMatchesWon()));
         player.addContent(new Element("matchesLost").setText(x.getMatchesLost()));
         player.addContent(new Element("territoriesConquered").setText(x.getTerritoriesConquered()));
+        root.addContent(player);
       }
+      
+      doc.setRootElement(root);
 
       // Save to xml
-      XMLOutputter xml = new XMLOutputter();
-      xml.setFormat(Format.getPrettyFormat());
-      xml.output(doc, new FileWriter("PlayerProfiles.xml"));
+      XMLOutputter xmlO = new XMLOutputter();
+      xmlO.setFormat(Format.getPrettyFormat());
+      xmlO.output(doc, new FileWriter("src\\gui\\PlayerProfiles.xml"));
 
     } catch (IOException ioe) {
       System.out.println(ioe.getMessage());
+    } catch (JDOMException jde) {
+      System.out.println(jde.getMessage());
     }
   }
+
+  public static void printAllProfiles() {
+    for (PlayerProfile x : profileList.values()) {
+      x.printProfile();
+    }
+  }
+
 
 }

@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <risk10>
-	<Player>
-		<name>Testname</name>
-		<imageID>1</imageID>
-		<matchesPlayed>100</matchesPlayed>
-		<matchesWon>50</matchesWon>
-		<matchesLost>50</matchesLost>
-		<territoriesConquered>500</territoriesConquered>
-	</Player>
+  <Player>
+    <name>Billy</name>
+    <imageID>1</imageID>
+    <matchesPlayed>100</matchesPlayed>
+    <matchesWon>50</matchesWon>
+    <matchesLost>50</matchesLost>
+    <territoriesConquered>500</territoriesConquered>
+  </Player>
+  <Player>
+    <name>Bob</name>
+    <imageID>3</imageID>
+    <matchesPlayed>3</matchesPlayed>
+    <matchesWon>1</matchesWon>
+    <matchesLost>2</matchesLost>
+    <territoriesConquered>10</territoriesConquered>
+  </Player>
+  <Player>
+    <name>Billy</name>
+    <imageID>1</imageID>
+    <matchesPlayed>100</matchesPlayed>
+    <matchesWon>50</matchesWon>
+    <matchesLost>50</matchesLost>
+    <territoriesConquered>500</territoriesConquered>
+  </Player>
+  <Player>
+    <name>Bob</name>
+    <imageID>3</imageID>
+    <matchesPlayed>3</matchesPlayed>
+    <matchesWon>1</matchesWon>
+    <matchesLost>2</matchesLost>
+    <territoriesConquered>10</territoriesConquered>
+  </Player>
+  <Player>
+    <name>Susan</name>
+    <imageID>8</imageID>
+    <matchesPlayed>0</matchesPlayed>
+    <matchesWon>0</matchesWon>
+    <matchesLost>0</matchesLost>
+    <territoriesConquered>0</territoriesConquered>
+  </Player>
 </risk10>
