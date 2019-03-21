@@ -8,16 +8,16 @@ package gui;
 public class PlayerProfile {
 
   public String profileName;
-  public int imageID;
+  public int imageId;
   private int matchesPlayed;
   private int matchesWon;
   private int matchesLost;
   private int territoriesConquered;
 
   // This constructor is used when a new player profile is created
-  public PlayerProfile(String name, int imageID) {
+  public PlayerProfile(String name, int imageId) {
     this.profileName = name;
-    this.imageID = imageID;
+    this.imageId = imageId;
     this.matchesPlayed = 0;
     this.matchesWon = 0;
     this.matchesLost = 0;
@@ -25,13 +25,13 @@ public class PlayerProfile {
   }
 
   // This constructor is used when the game loads data from the XML file
-  public PlayerProfile(String name, int imageID, int mP, int mW, int mL, int tC) {
+  public PlayerProfile(String name, int imageId, int mp, int mw, int ml, int tc) {
     this.profileName = name;
-    this.imageID = imageID;
-    this.matchesPlayed = mP;
-    this.matchesWon = mW;
-    this.matchesLost = mL;
-    this.territoriesConquered = tC;
+    this.imageId = imageId;
+    this.matchesPlayed = mp;
+    this.matchesWon = mw;
+    this.matchesLost = ml;
+    this.territoriesConquered = tc;
   }
 
   // Name change method is used when an existing player profile name is being changed
@@ -40,8 +40,8 @@ public class PlayerProfile {
   }
 
   // Image ID change method is used when an existing player profile image is being changed
-  public void changePlayerImageID(int id) {
-    this.imageID = id;
+  public void changePlayerimageId(int id) {
+    this.imageId = id;
   }
 
 
@@ -69,8 +69,8 @@ public class PlayerProfile {
     return this.profileName;
   }
 
-  public String getID() {
-    return "" + this.imageID;
+  public String getId() {
+    return "" + this.imageId;
   }
 
   public String getMatchesPlayed() {
@@ -92,7 +92,7 @@ public class PlayerProfile {
   // Test print of profile data
   public void printProfile() {
     System.out.println("Name:\t" + this.profileName);
-    System.out.println("ImageID:\t" + this.imageID);
+    System.out.println("imageId:\t" + this.imageId);
     System.out.println("Matches played:\t" + this.matchesPlayed);
     System.out.println("Matches won:\t" + this.matchesWon);
     System.out.println("Matches lost:\t" + this.matchesLost);
