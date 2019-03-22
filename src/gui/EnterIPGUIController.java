@@ -24,15 +24,14 @@ public class EnterIPGUIController {
   @FXML
   void back(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SinglePlayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Single Player");
+      stage.setTitle("Multi Player");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load SinglePlayerGUI.fxml");
       e.printStackTrace();
     }
   }

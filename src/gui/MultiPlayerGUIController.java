@@ -23,15 +23,15 @@ public class MultiPlayerGUIController {
   @FXML
   void back(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Profile Selection");
+      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load ProfileSelectionGUI.fxml");
+      e.printStackTrace();
     }
   }
 

@@ -25,15 +25,15 @@ public class LoginGUIController {
   @FXML
   void handleKlickToStastButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Main Menu");
+      stage.setTitle("Select Profile");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load MainMenuGUI.fxml");
+      e.printStackTrace();
     }
   }
 

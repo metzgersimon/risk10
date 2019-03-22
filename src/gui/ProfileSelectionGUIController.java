@@ -21,10 +21,10 @@ public class ProfileSelectionGUIController {
 
   @FXML
   private Button createNewProfile;
-  
+
   @FXML
   private ImageView image;
-  
+
   @FXML
   private ImageView image2;
 
@@ -36,15 +36,15 @@ public class ProfileSelectionGUIController {
   @FXML
   void handleBackButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Main Menu");
+      stage.setTitle("Log in");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load MainMenuGUI.fxml");
+      e.printStackTrace();
     }
   }
 
@@ -62,35 +62,18 @@ public class ProfileSelectionGUIController {
       System.out.println("Can't load CreateProfileGUI.fxml");
     }
   }
-  
+
   @FXML
-  void select(MouseEvent event) {
+  void choose(MouseEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Multi Player");
+      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load MultiPlayerGUI.fxml");
-      e.printStackTrace();
-    }
-  }
-  
-  @FXML
-  void startSingle(MouseEvent event) {
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SinglePlayerGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.setTitle("Single Player");
-      stage.setScene(new Scene(root));
-      stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      System.out.println("Can't load SinglePlayerGUI.fxml");
       e.printStackTrace();
     }
   }
