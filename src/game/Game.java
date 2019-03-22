@@ -7,23 +7,35 @@ public class Game {
   public final static int NEW_GAME = 0;
   public final static int PLACE_ARMIES = 1;
   public final static int ATTACKING = 2;
-  public final static int GAME_OVER = 3;
+  public final static int FORTIFY = 3;
+  public final static int GAME_OVER = 4;
 
   private ArrayList<Player> players;
   private ArrayList<Card> cards;
   private ArrayList<Continent> continents;
+  private ArrayList<Territory> territories;
   private Player currentPlayer;
   private int gameState;
 
-  // To add more
+  /**
+   * Constructor
+   */
   public Game() {
     players = new ArrayList<>();
+    territories = new ArrayList<>(); // To do
+    continents = new ArrayList<>();
+    cards = new ArrayList<>();
     currentPlayer = null;
     gameState = NEW_GAME;
 
   }
 
-  // add new player to the player list
+  /**
+   * Add a new player in the list
+   * 
+   * @param name
+   * @return
+   */
   public boolean addPlayer(String name) {
     if (gameState == NEW_GAME) {
       for (int i = 0; i < players.size(); i++) {
@@ -44,10 +56,23 @@ public class Game {
 
   }
 
-  // to get current state
-  public int getGameState() {
-    return this.gameState;
+  /**
+   * determine the current player
+   * 
+   * @param name
+   * @return
+   */
+  public Player getCurrentPlayer(String name) {
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getName().equals(name)) {
+        currentPlayer = players.get(i);
+      }
+    }
+    return currentPlayer;
+
   }
 
 
+
 }
+
