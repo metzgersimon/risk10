@@ -9,50 +9,61 @@ import javafx.scene.control.TextField;
 
 public class HostGameLobbyController {
 
-  
-/**textfield in which a player writes his/her message to send to chatbox*/
-@FXML TextField textField; 
 
-/**to send a message in the chat box this button should be clicked*/
-@FXML Button sendButton;
+  /** textfield in which a player writes his/her message to send to chatbox */
+  @FXML
+  TextField textField;
 
-/**text area in which all the players can see the message*/
-@FXML TextArea chatBox;
+  /** to send a message in the chat box this button should be clicked */
+  @FXML
+  Button sendButton;
 
-
-@FXML Button leaveGame;
-
-@FXML Button startGame;
-
-@FXML Button addBots;
-
-@FXML Slider botLevel;
+  /** text area in which all the players can see the message */
+  @FXML
+  TextArea chatBox;
 
 
+  @FXML
+  Button leaveGame;
 
-/**to handle the event when the button "send" is clicked*/
-@FXML void handleSendMessage(ActionEvent event){
-try {
+  @FXML
+  Button startGame;
 
-    String message = textField.getText() + " \n";
-    chatBox.appendText(message);
-    System.out.println(message);
-} catch (Exception e) {
-    e.printStackTrace();
-}
-}
+  @FXML
+  Button addBots;
 
-@FXML void handleAddBot(ActionEvent event) {
-  //TODO
-}
+  @FXML
+  Slider botLevel;
 
-@FXML void handleBotLevel(ActionEvent event) {
-  //TODO
-}
 
-@FXML void handle(ActionEvent event) {
-  //TODO
-}
+
+  /** to handle the event when the button "send" is clicked */
+  @FXML
+  void handleSendMessage(ActionEvent event) {
+    try {
+
+      String message = textField.getText() + " \n";
+      chatBox.appendText(message);
+      System.out.println(message);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  void handleAddBot(ActionEvent event) {
+    // TODO
+  }
+
+  @FXML
+  void handleBotLevel(ActionEvent event) {
+    // TODO
+  }
+
+  @FXML
+  void handle(ActionEvent event) {
+    // TODO
+  }
 
 
 }

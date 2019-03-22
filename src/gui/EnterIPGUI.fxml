@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EnterIPGUIController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/gui/Background.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="back" layoutX="172.0" layoutY="595.0" mnemonicParsing="false" onAction="#back" prefHeight="62.0" prefWidth="251.0" text="back" textAlignment="CENTER">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <Button fx:id="connect" layoutX="811.0" layoutY="347.0" mnemonicParsing="false" onAction="#connect" prefHeight="62.0" prefWidth="251.0" text="Connect" textAlignment="CENTER">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Button>
+      <TextField fx:id="ip" layoutX="261.0" layoutY="339.0" prefHeight="85.0" prefWidth="474.0" promptText="Please enter the IP of Host">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

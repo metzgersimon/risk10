@@ -14,33 +14,33 @@ import javafx.stage.Stage;
 
 public class CreateProfileGUIController {
 
-    @FXML
-    private Button conform;
+  @FXML
+  private Button conform;
 
-    @FXML
-    private TextField name;
+  @FXML
+  private TextField name;
 
-    @FXML
-    void conform(ActionEvent event) {
-      try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
-        BorderPane root = (BorderPane) fxmlLoader.load();
-        Stage stage = new Stage();
-        
-        Label username  = new Label();
-        username.setText(name.getText());
-        
-        
-        root.getChildren().add(username);
+  @FXML
+  void conform(ActionEvent event) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+      BorderPane root = (BorderPane) fxmlLoader.load();
+      Stage stage = new Stage();
+
+      Label username = new Label();
+      username.setText(name.getText());
+
+
+      root.getChildren().add(username);
       // root.getChildren().add(name);
-        
-        stage.setTitle("Profile Selection");
-        stage.setScene(new Scene(root));
-        stage.show();
-        ((Node) event.getSource()).getScene().getWindow().hide();
-      } catch (Exception e) {
-        System.out.println("Can't load ProfileSelectionGUI.fxml");
-      }
+
+      stage.setTitle("Profile Selection");
+      stage.setScene(new Scene(root));
+      stage.show();
+      ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      System.out.println("Can't load ProfileSelectionGUI.fxml");
     }
+  }
 
 }
