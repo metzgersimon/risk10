@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -29,7 +38,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
    <children>
       <SplitPane dividerPositions="0.8" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -115,31 +124,6 @@
                               </Slider>
                            </children>
                         </VBox>
-                     </children>
-                  </Pane>
-                  <ImageView fitHeight="828.0" fitWidth="1007.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../Requirements/Karten%20Material/risk_pic.png" />
-                     </image>
-                  </ImageView>
-                  <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Region layoutX="843.0" layoutY="530.0" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@main.css" />
-                        <Region layoutX="915.0" layoutY="539.0" prefHeight="131.0" prefWidth="88.0" styleClass="eastern-australia" stylesheets="@main.css" />
-                        <Region layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@main.css" />
-                        <Label layoutX="922.0" layoutY="590.0" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
-                        <Label layoutX="864.0" layoutY="582.0" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
-                        <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
-                        <Region layoutX="808.0" layoutY="439.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@main.css" />
-                        <Label layoutX="817.0" layoutY="493.0" text="Indonesia" />
-                        <Region layoutX="250.0" layoutY="447.0" prefHeight="131.0" prefWidth="135.0" styleClass="Brazil" stylesheets="@main.css" />
-                        <Region layoutX="222.0" layoutY="471.0" prefHeight="100.0" prefWidth="97.0" styleClass="Peru" stylesheets="@main.css" />
-                        <Label layoutX="326.0" layoutY="501.0" text="Brazil" />
-                        <Region layoutX="264.0" layoutY="544.0" prefHeight="135.0" prefWidth="76.0" styleClass="argentinia" stylesheets="@main.css" />
-                        <Label layoutX="275.0" layoutY="574.0" text="Argentinia" />
-                        <Label layoutX="259.0" layoutY="520.0" text="Peru" />
-                        <Region layoutX="496.0" layoutY="516.0" prefHeight="131.0" prefWidth="118.0" styleClass="South_Africa" stylesheets="@main.css" />
-                        <Region layoutX="223.0" layoutY="420.0" prefHeight="71.0" prefWidth="104.0" styleClass="Venezuela" stylesheets="@main.css" />
                      </children>
                   </Pane>
                   <BorderPane prefHeight="720.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -325,6 +309,45 @@
                         </GridPane>
                      </top>
                   </BorderPane>
+                  <ImageView fitHeight="828.0" fitWidth="1007.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../Requirements/Karten%20Material/risk_pic.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Region layoutX="843.0" layoutY="530.0" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@boardGUI.css" />
+                        <Region layoutX="914.0" layoutY="539.0" prefHeight="131.0" prefWidth="88.0" styleClass="Eastern-Australia" stylesheets="@boardGUI.css" />
+                        <Region layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@boardGUI.css" />
+                        <Label layoutX="922.0" layoutY="590.0" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
+                        <Label layoutX="864.0" layoutY="582.0" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
+                        <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
+                        <Region layoutX="809.0" layoutY="438.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@boardGUI.css" />
+                        <Label layoutX="817.0" layoutY="493.0" text="Indonesia" />
+                        <Region layoutX="250.0" layoutY="448.0" prefHeight="122.0" prefWidth="133.0" styleClass="Brazil" stylesheets="@boardGUI.css" />
+                        <Region layoutX="222.0" layoutY="475.0" prefHeight="82.0" prefWidth="91.0" styleClass="Peru" stylesheets="@boardGUI.css" />
+                        <Label layoutX="326.0" layoutY="501.0" text="Brazil" />
+                        <Region layoutX="264.0" layoutY="545.0" prefHeight="134.0" prefWidth="76.0" styleClass="Argentinia" stylesheets="@boardGUI.css" />
+                        <Label layoutX="275.0" layoutY="574.0" text="Argentinia" />
+                        <Label layoutX="259.0" layoutY="520.0" text="Peru" />
+                        <Region layoutX="495.0" layoutY="514.0" prefHeight="138.0" prefWidth="119.0" styleClass="South_Africa" stylesheets="@BoardGUI.css" />
+                        <Region layoutX="224.0" layoutY="422.0" prefHeight="67.0" prefWidth="96.0" styleClass="Venezuela" stylesheets="@boardGUI.css" />
+                        <Label layoutX="506.0" layoutY="570.0" text="South Africa" />
+                        <Region layoutX="611.0" layoutY="540.0" prefHeight="71.0" prefWidth="37.0" styleClass="Madagascar" stylesheets="@BoardGUI.css" />
+                        <Label layoutX="606.0" layoutY="570.0" text="Madagascar" />
+                        <Region layoutX="481.0" layoutY="442.0" prefHeight="84.0" prefWidth="102.0" styleClass="Congo" stylesheets="@BoardGUI.css" />
+                        <Label layoutX="520.0" layoutY="485.0" text="Congo" />
+                        <Region layoutX="525.0" layoutY="371.0" prefHeight="153.0" prefWidth="132.0" styleClass="East_Africa" stylesheets="@BoardGUI.css" />
+                        <Label layoutX="579.0" layoutY="447.0" text="East Africa" />
+                        <Region layoutX="382.0" layoutY="324.0" prefHeight="158.0" prefWidth="154.0" styleClass="North_Africa" stylesheets="@main.css" />
+                        <Label layoutX="418.0" layoutY="395.0" text="North Africa" />
+                        <Region layoutX="480.0" layoutY="323.0" prefHeight="85.0" prefWidth="107.0" styleClass="Egypt" stylesheets="@BoardGUI.css" />
+                        <Label layoutX="511.0" layoutY="363.0" text="Egypt" />
+                        <Label layoutX="250.0" layoutY="440.0" text="Venezuela" />
+                        <Region layoutX="131.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="127.0" styleClass="Central_America" stylesheets="@BoardGUI.css" />
+                        <Label layoutX="159.0" layoutY="363.0" prefHeight="43.0" prefWidth="46.0" text="Central America" wrapText="true" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
             <BorderPane minWidth="256.0">
