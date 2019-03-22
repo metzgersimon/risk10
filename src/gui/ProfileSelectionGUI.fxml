@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileSelectionGUIController">
    <bottom>
-      <AnchorPane prefHeight="800.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="720.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="back" layoutX="55.0" layoutY="717.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="27.0" prefWidth="106.0" text="Back" textAlignment="CENTER">
+            <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/gui/Background.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="back" layoutX="79.0" layoutY="627.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="27.0" prefWidth="106.0" text="Back" textAlignment="CENTER">
                <font>
                   <Font size="23.0" />
                </font>
             </Button>
-            <Button fx:id="createNewProfile" layoutX="351.0" layoutY="571.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="65.0" prefWidth="290.0" text="create new profile">
+            <Button fx:id="createNewProfile" layoutX="476.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="65.0" prefWidth="290.0" text="Create new profile">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
+            <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="213.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/avatars/1.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </bottom>
