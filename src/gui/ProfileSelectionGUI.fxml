@@ -26,9 +26,14 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="213.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="286.0" layoutY="230.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../resources/avatars/1.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="image2" fitHeight="150.0" fitWidth="200.0" layoutX="756.0" layoutY="235.0" onMouseClicked="#startSingle" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/avatars/6.jpg" />
                </image>
             </ImageView>
          </children>

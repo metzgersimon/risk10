@@ -24,7 +24,9 @@ public class ProfileSelectionGUIController {
   
   @FXML
   private ImageView image;
-
+  
+  @FXML
+  private ImageView image2;
 
   /**
    * Event handle class invoked when back Button clicked to go back to the MainMenuGUI
@@ -73,6 +75,22 @@ public class ProfileSelectionGUIController {
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load MultiPlayerGUI.fxml");
+      e.printStackTrace();
+    }
+  }
+  
+  @FXML
+  void startSingle(MouseEvent event) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SinglePlayerGUI.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Single Player");
+      stage.setScene(new Scene(root));
+      stage.show();
+      ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      System.out.println("Can't load SinglePlayerGUI.fxml");
       e.printStackTrace();
     }
   }
