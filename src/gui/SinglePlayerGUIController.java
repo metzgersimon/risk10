@@ -38,7 +38,6 @@ public class SinglePlayerGUIController {
 
   @FXML
   void startGame(ActionEvent event) {
-
   }
 
 }

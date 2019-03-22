@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -35,14 +36,22 @@
             </Label>
             <CheckBox fx:id="sound" layoutX="440.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSoundCheckBox" prefHeight="160.0" prefWidth="391.0" text="        Sound" textAlignment="CENTER" textFill="#fdf9f9">
                <font>
-                  <Font size="51.0" />
+                  <Font name="System Bold" size="51.0" />
                </font>
             </CheckBox>
             <CheckBox fx:id="music" layoutX="441.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleMusicCheckBox" prefHeight="160.0" prefWidth="391.0" text="        Music" textFill="#faf7f7">
                <font>
-                  <Font size="51.0" />
+                  <Font name="System Bold" size="51.0" />
                </font>
             </CheckBox>
+            <Label ellipsisString="" layoutX="497.0" layoutY="76.0" prefHeight="113.0" prefWidth="445.0" text="Settings" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+               <font>
+                  <Font name="Bernard MT Condensed" size="96.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
          </children>
       </AnchorPane>
    </top>
