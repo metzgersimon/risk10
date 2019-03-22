@@ -2,6 +2,12 @@ package gui;
 
 import java.awt.Color;
 import game.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * 
@@ -68,6 +75,13 @@ public class BoardController {
    * illustrate who is the current player
    */
   @FXML private ProgressBar progress;
+  
+  /**
+   * Elements to handle the card split-pane
+   */
+  @FXML private SplitPane cardPane;
+  @FXML private Button upAndDown;
+  
 
   public BoardGUI_Main boardGui;
 
@@ -121,7 +135,23 @@ public class BoardController {
   //#############################################
   
   
-  
+  /**
+   * 
+   */
+  @FXML
+  public void Card(MouseEvent e) {
+    BooleanProperty collapsed = new SimpleBooleanProperty();
+    collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.11));
+    Button button = new Button();
+    button.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
+    button.setOnAction(f -> {
+      double target = collapsed.get() ? 0.4: 0.1;
+      KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(),target);
+      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
+      timeline.play();
+    });
+    
+  }
   
   
   
