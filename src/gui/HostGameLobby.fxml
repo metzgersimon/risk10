@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.*?>
@@ -16,33 +17,43 @@
           <children>
             <SplitPane dividerPositions="0.5362595419847328" focusTraversable="true" layoutX="0.0" layoutY="41.0" prefHeight="755.9998779296875" prefWidth="526.0">
               <items>
-                <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="267.0" styleClass="lobbyBackground">
+                <AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="267.0">
                   <children>
-                    <Label layoutX="14.0" layoutY="26.0" prefHeight="99.0" prefWidth="217.0" styleClass="leftPanelLabel" text="                 Game Setting ">
+                    <Label layoutX="14.0" layoutY="26.0" mouseTransparent="false" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" styleClass="leftPanelLabel, settings, headlines" text="        Game Settings ">
+                      <effect>
+                        <Glow />
+                      </effect>
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
-                    <Slider layoutX="33.0" layoutY="413.0" prefHeight="56.0" prefWidth="210.0" />
-                    <Label layoutX="70.0" layoutY="358.0" prefWidth="147.0" styleClass="subHeadlines" text="Choose game level">
+                    <Slider layoutX="33.0" layoutY="413.0" prefHeight="56.0" prefWidth="210.0">
+                      <effect>
+                        <DropShadow color="#fff500" />
+                      </effect>
+                    </Slider>
+                    <Label layoutX="70.0" layoutY="358.0" prefWidth="147.0" styleClass="subHeadlines" text="Choose game level" textFill="BLACK" />
+                    <Label layoutX="20.0" layoutY="405.0" styleClass="subHeadlines" text="Easy" textFill="BLACK" />
+                    <Label layoutX="103.0" layoutY="402.0" styleClass="subHeadlines" text="Average" textFill="BLACK" />
+                    <Label layoutX="209.0" layoutY="405.0" styleClass="subHeadlines" text="Hard">
                       <textFill>
-                        <Color blue="0.000" green="0.288" red="0.600" fx:id="x2" />
+                        <Color blue="0.000" green="0.000" red="0.200" fx:id="x1" />
                       </textFill>
                     </Label>
-                    <Label layoutX="20.0" layoutY="405.0" styleClass="subHeadlines" text="Easy">
-                      <textFill>
-                        <Color blue="0.000" green="0.384" red="0.800" fx:id="x3" />
-                      </textFill>
-                    </Label>
-                    <Label layoutX="103.0" layoutY="402.0" styleClass="subHeadlines" text="Average" textFill="$x3" />
-                    <Label layoutX="209.0" layoutY="405.0" styleClass="subHeadlines" text="Hard" textFill="$x3" />
-                    <Button layoutX="41.0" layoutY="205.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="190.0" text="CLICK HERE TO ADD BOTS" />
-                    <Label layoutX="14.0" layoutY="118.0" prefHeight="73.0" prefWidth="258.0" styleClass="subHeadlines" text="     Not enough players in the lobby? " textFill="$x2">
+                    <Button layoutX="41.0" layoutY="205.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text=" ADD BOTS">
+                      <effect>
+                        <DropShadow />
+                      </effect>
+                    </Button>
+                    <Label layoutX="14.0" layoutY="118.0" prefHeight="73.0" prefWidth="258.0" styleClass="subHeadlines" text="     Not enough players in the lobby? " textFill="BLACK">
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
-                    <Button layoutX="41.0" layoutY="670.0" minWidth="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="173.0" text="LEAVE THE GAME">
+                    <Button layoutX="40.0" layoutY="670.0" minWidth="28.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                      <effect>
+                        <DropShadow />
+                      </effect>
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
@@ -52,28 +63,59 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </AnchorPane>
-                <AnchorPane maxWidth="240.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="234.0" styleClass="lobbyBackground">
+                <AnchorPane maxWidth="240.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="234.0">
                   <children>
-                    <Button layoutX="43.0" layoutY="668.0" minWidth="28.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="173.0" text="START THE GAME">
+                    <Button layoutX="40.0" layoutY="670.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
+                      <effect>
+                        <DropShadow />
+                      </effect>
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Button>
-                    <CheckBox layoutX="28.0" layoutY="108.0" minHeight="3.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="202.0" text="                        Host" />
-                    <Label layoutX="14.0" layoutY="31.0" prefHeight="99.0" prefWidth="217.0" styleClass="leftPanelLabel" text="               List of players">
+                    <CheckBox layoutX="20.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                            Host">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
+                    <Label layoutX="9.0" layoutY="23.0" prefHeight="100.0" prefWidth="200.0" styleClass="leftPanelLabel, headlines" text="  List of players">
+                      <effect>
+                        <Glow />
+                      </effect>
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
+                    <CheckBox layoutX="20.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                        Client 1">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
+                    <CheckBox layoutX="20.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                        Client 2">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
+                    <CheckBox layoutX="20.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                        Client 3">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
+                    <CheckBox layoutX="20.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                        Client 4">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
+                    <CheckBox layoutX="20.0" layoutY="440.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="check-box-text" text="                        Client 5">
+                      <effect>
+                        <SepiaTone />
+                      </effect>
+                    </CheckBox>
                   </children>
                 </AnchorPane>
               </items>
             </SplitPane>
-            <Label layoutX="-1.0" layoutY="0.0" prefHeight="42.0" prefWidth="525.0" styleClass="headlines" text="                                        Welcome to the Game Lobby" wrapText="false">
-              <textFill>
-                <Color blue="0.000" green="0.000" red="0.200" fx:id="x1" />
-              </textFill>
-            </Label>
+            <Label layoutX="0.0" layoutY="0.0" prefHeight="42.0" prefWidth="525.0" text="                                        Welcome to the Game Lobby" textFill="$x1" wrapText="false" />
           </children>
           <stylesheets>
             <URL value="@HostGameLobby.css" />
@@ -105,7 +147,7 @@
                     </AnchorPane>
                   </items>
                 </SplitPane>
-                <Label prefHeight="61.0" prefWidth="267.0001220703125" styleClass="headlines" text="                      CHATROOM" textAlignment="CENTER" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label prefHeight="61.0" prefWidth="267.0001220703125" text="                      CHATROOM" textAlignment="CENTER" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="0">
                   <stylesheets>
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>

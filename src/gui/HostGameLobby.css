@@ -2,16 +2,20 @@
 	-fx-background-color: lightYellow;
 }
 
-.headlines{
-	-fx-background-color: darkKhaki;
-	-fx-font-weight:bold;
-	-fx-size:25px;
-}
 
-.leftPanelLabel{
-	-fx-font-weight:bold;
-	-fx-size:30px;
+
+.headlines {
+	-fx-background-color: transparent;
+   -fx-font-size: 20px;
+   -fx-font-family: "Helvetica";
+   -fx-fill: #818181;
+    -fx-alignment: center;
 }
+ 
+ .check-box-text {
+ 	  -fx-font-size: 15px;
+   -fx-font-family: "Helvetica";
+ }
 
 .subHeadlines {
 	 -fx-font-weight:bold;
@@ -26,4 +30,52 @@
                 -fx-max-width: 5px;  
                  
                  -fx-max-height: 5px;
+}
+
+.slider .fill {
+ -fx-background-color: transparent;
+ -fx-padding: 0.333333em; 
+}
+
+.slider .thumb {
+ -fx-background-color: green;
+
+}
+
+.slider .track{
+	 -fx-background-color: lightGreen;
+}
+
+.circleButton
+{
+    -fx-border-radius: 20;
+}
+
+.circleButton {
+    -fx-background-color: 
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 30;
+    -fx-text-fill: #654b00;
+    -fx-font-family: "Helvetica";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-padding: 10 20 10 20;
+}
+
+.bot-button {
+    -fx-background-color: 
+        linear-gradient(#ffd65b, #e68400),
+        linear-gradient(#ffef84, #f2ba44),
+        linear-gradient(#ffea6a, #efaa22),
+        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 12 30 12 30;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+     -fx-font-family: "Helvetica";
 }
