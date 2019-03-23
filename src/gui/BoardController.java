@@ -97,7 +97,6 @@ public class BoardController {
   public void pressLeave() {
     this.grayPane.toFront();
     this.quitPane.toFront();
-    handleProgressBar();
   }
   
   public void handleNoLeave() {
