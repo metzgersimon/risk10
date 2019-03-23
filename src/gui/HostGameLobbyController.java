@@ -1,8 +1,12 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.List;
+import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -34,9 +38,12 @@ public class HostGameLobbyController {
 
   @FXML
   Slider botLevel;
+  
+/**check boxes shows the status of the joined player*/
+ @FXML CheckBox box1, box2, box3, box4, box5;
 
-
-
+ private ArrayList<Player> players; //list of players/clients who will join the game
+ 
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -60,9 +67,17 @@ public class HostGameLobbyController {
     // TODO
   }
 
-  @FXML
-  void handle(ActionEvent event) {
-    // TODO
+  
+  void enableTheBoxes() {
+    //todo
+   List<CheckBox> boxes= new ArrayList<CheckBox>();
+   boxes.add(box1);
+   boxes.add(box2);
+   boxes.add(box3);
+   boxes.add(box4);
+   boxes.add(box5);
+  
+  
   }
 
 

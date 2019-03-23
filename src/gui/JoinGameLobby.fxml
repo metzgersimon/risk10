@@ -46,14 +46,6 @@
                 </AnchorPane>
                 <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="557.0" styleClass="backgraound-color">
                   <children>
-                    <Button layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
-                      <effect>
-                        <DropShadow />
-                      </effect>
-                      <stylesheets>
-                        <URL value="@HostGameLobby.css" />
-                      </stylesheets>
-                    </Button>
                     <CheckBox alignment="CENTER" contentDisplay="TOP" graphicTextGap="6.0" layoutX="40.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                   Host">
                       <effect>
                         <SepiaTone level="0.3" />
