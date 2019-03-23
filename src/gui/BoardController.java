@@ -141,8 +141,9 @@ public class BoardController {
    * This method is a dummy Method, to get to know, how the ProgressBAr can be handled
    */
   public void handleProgressBar() {
-    this.progress.setStyle("-fx-accent: red;");
-    this.progress.setProgress(0.4);
+    String color = p.getColor().toString().toLowerCase();
+    this.progress.setStyle("-fx-accent: "+color+";");
+//    this.progress.setProgress(0.4);
   }
   
   //#############################################
@@ -185,6 +186,7 @@ public class BoardController {
    */
   @FXML
   public void handleSkipGameState() {
+    handleProgressBar();
     this.skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
     double i = 0.2;
       @Override
