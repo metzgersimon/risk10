@@ -91,8 +91,10 @@ public class BoardController {
 
   /**
    * Element which handles the function to skip a game state
+   * 
    */
   @FXML private ImageView skip;
+  @FXML private Label gameState;
   
   public BoardGUI_Main boardGui;
 
@@ -174,6 +176,29 @@ public class BoardController {
       i++;
        
       System.out.println("Buttong geklickt");
+    }
+  }
+  
+  /**
+   * 
+   */
+  @FXML
+  public void handleSkipGameState(ActionEvent e) {
+    if(e.getSource().equals(skip)) {
+      switch(game.getGameState()) {
+        case PLACE_ARMIES:
+          progress.setProgress(0.3);
+          gameState.setText("ATTACKING");
+          break;
+        case ATTACKING:
+          progress.setProgress(0.6);
+          gameState.setText("FORTIFY");
+          break;
+        case FORTIFY:
+          progress.setProgress(1);
+          gameState.setText("");
+          break;
+      }
     }
   }
   
