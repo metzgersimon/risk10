@@ -9,6 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -183,24 +184,36 @@ public class BoardController {
    * 
    */
   @FXML
-  public void handleSkipGameState(ActionEvent e) {
-    if(e.getSource().equals(skip)) {
-      switch(game.getGameState()) {
-        case PLACE_ARMIES:
-          progress.setProgress(0.3);
-          gameState.setText("ATTACKING");
-          break;
-        case ATTACKING:
-          progress.setProgress(0.6);
-          gameState.setText("FORTIFY");
-          break;
-        case FORTIFY:
-          progress.setProgress(1);
-          gameState.setText("");
-          break;
+  public void handleSkipGameState() {
+    this.skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    double i = 0.2;
+      @Override
+      public void handle(MouseEvent e) {
+//        progress.setProgress(0);
+        // switch(game.getGameState()) {
+        // case PLACE_ARMIES:
+        if(progress.getProgress() < 0.8) {
+          progress.setProgress(progress.getProgress()+i);
+        }
+//        progress.setProgress(0.3);
+//        gameState = new Label("ATTACKING");
+        // break;
+        // case ATTACKING:
+//        progress.setProgress(0.6);
+//        gameState = new Label("FORTIFY");
+        // break;
+        // case FORTIFY:
+//        progress.setProgress(1);
+//        gameState = new Label("END");
+        // break;
+        // }
+        System.out.println("IMAGE GEKLICKT");
       }
-    }
+
+    });
+
   }
+
   
   
   @FXML
