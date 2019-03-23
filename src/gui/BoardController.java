@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.Glow;
@@ -82,7 +83,17 @@ public class BoardController {
   @FXML private SplitPane cardPane;
   @FXML private Button upAndDown;
   
+  /**
+   * Elements to handle trade-in button
+   */
+  @FXML private Button tradeIn;
+  @FXML private Label tradedCards;
 
+  /**
+   * Element which handles the function to skip a game state
+   */
+  @FXML private ImageView skip;
+  
   public BoardGUI_Main boardGui;
 
   public void setMain(BoardGUI_Main boardGui) {
@@ -152,6 +163,19 @@ public class BoardController {
     
   }
   
+  /**
+   * 
+   */
+  @FXML
+  public void handleTradeCards(ActionEvent e) {
+    int i = 0;
+    if(e.getSource().equals(tradeIn)) {
+      tradedCards = new Label("traded card sets:" + i);
+      i++;
+       
+      System.out.println("Buttong geklickt");
+    }
+  }
   
   
   @FXML
