@@ -21,7 +21,7 @@ public class HostGameLobbyGUI extends Application {
       // TODO Auto-generated method stub
       Parent root = FXMLLoader.load(getClass().getResource("HostGameLobby.fxml"));
       Scene scene = new Scene(root);
-      primaryStage.setTitle("My ChatLogin");
+      primaryStage.setTitle("Host Game Lobby");
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (Exception e) {

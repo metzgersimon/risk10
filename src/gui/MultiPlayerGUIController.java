@@ -65,7 +65,6 @@ public class MultiPlayerGUIController {
       System.out.println("Can't load EnterIPGUI.fxml");
       e.printStackTrace();
     }
-  }
-
 }
 
+}

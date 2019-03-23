@@ -8,18 +8,20 @@
 	-fx-background-color: transparent;
    -fx-font-size: 20px;
    -fx-font-family: "Helvetica";
-   -fx-fill: #818181;
+   -fx-fill: golden;
+   -fx-font-weight:bold;
     -fx-alignment: center;
 }
  
  .check-box-text {
- 	  -fx-font-size: 15px;
+   -fx-font-size: 15px;
    -fx-font-family: "Helvetica";
  }
 
 .subHeadlines {
 	 -fx-font-weight:bold;
-	-fx-size:20px;
+	-fx-size:13px;
+	 -fx-font-family: "Helvetica";
 }
 
 .roundButton {
@@ -38,12 +40,12 @@
 }
 
 .slider .thumb {
- -fx-background-color: green;
+ -fx-background-color: white;
 
 }
 
 .slider .track{
-	 -fx-background-color: lightGreen;
+	 -fx-background-color: indianred;
 }
 
 .circleButton
@@ -52,14 +54,9 @@
 }
 
 .circleButton {
-    -fx-background-color: 
-        linear-gradient(#ffd65b, #e68400),
-        linear-gradient(#ffef84, #f2ba44),
-        linear-gradient(#ffea6a, #efaa22),
-        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-color: indianRed;
     -fx-background-radius: 30;
-    -fx-text-fill: #654b00;
+    -fx-text-fill: white;
     -fx-font-family: "Helvetica";
     -fx-font-weight: bold;
     -fx-font-size: 18px;
@@ -67,15 +64,14 @@
 }
 
 .bot-button {
-    -fx-background-color: 
-        linear-gradient(#ffd65b, #e68400),
-        linear-gradient(#ffef84, #f2ba44),
-        linear-gradient(#ffea6a, #efaa22),
-        linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-color: indianRed;
     -fx-background-radius: 3,2,2,2;
     -fx-padding: 12 30 12 30;
     -fx-text-fill: white;
     -fx-font-size: 18px;
      -fx-font-family: "Helvetica";
+}
+
+.backgraound-color {
+	 -fx-background-color: cornSilk;
 }
