@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+import game.Game;
+import game.World;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +15,8 @@ import javafx.stage.Stage;
 
 public class BoardGUI_Main extends Application {
   private Stage primaryStage;
+  private static Game g = new Game();
+  //private BoardGUI_Elements elements = new BoardGUI_Elements(g);
 
   public static void main(String[] args) {
     launch();
@@ -30,7 +34,8 @@ public class BoardGUI_Main extends Application {
       AnchorPane pane  = loader.load();
             
       BoardController boardController = loader.getController();
-      boardController.setMain(this);
+      //boardController.setMain(this, g, elements);
+      boardController.setMain(this, g);
       
       Scene scene = new Scene(pane);
       primaryStage.setScene(scene);

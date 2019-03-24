@@ -10,7 +10,7 @@ public class Game {
   public final static int FORTIFY = 3;
   public final static int GAME_OVER = 4;
   
-  private static World w = new World();
+  private World w;
 
   private ArrayList<Player> players;
   private ArrayList<Card> cards;
@@ -30,6 +30,7 @@ public class Game {
     cards = new ArrayList<>();
     currentPlayer = null;
     gameState = NEW_GAME;
+    this.w = new World();
 
   }
 
@@ -74,11 +75,18 @@ public class Game {
     return currentPlayer;
 
   }
+  
+  public Player getCurrentPlayer() {
+    return this.currentPlayer;
+  }
 
-  public static World getWorld() {
+  public World getWorld() {
     return w;
   }
 
+  public int getGameState() {
+    return this.gameState;
+  }
 
 }
 

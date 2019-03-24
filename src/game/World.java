@@ -2,17 +2,17 @@ package game;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import gui.BoardGUI_Elements;
 import gui.BoardRegion;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * @author pcoberge The class World defines all countries that exist in the risk-game.
+ * @author pcoberge 
+ * The class World defines all countries that exist in the risk-game.
  */
 public class World {
   static HashMap<Integer, Territory> territories = new HashMap<>();
-  static HashMap<BoardRegion, Territory> territoriesBoardRegion = new HashMap();
+  static HashMap<BoardRegion, Territory> territoriesBoardRegion = new HashMap<>();
   static HashMap<Region, Territory> territoriesRegion = new HashMap<>();
   static HashMap<Label, Territory> territoriesName = new HashMap<>();
   static HashMap<Label, Territory> territoriesNoA = new HashMap<>();
@@ -23,8 +23,6 @@ public class World {
    */
   public World() {
     this.initialiseTerritories();
-    BoardGUI_Elements.connectTerritoryBoardRegion();
-    this.createTerritoriesBoardRegion();
     this.initialiseNeighbors();
     this.initialiseContinents();
   }
@@ -465,10 +463,12 @@ public class World {
 
   public void createTerritoriesBoardRegion() {
     for (Territory t : territories.values()) {
+      if (t.getBoardRegion()!=null) {
       territoriesBoardRegion.put(t.getBoardRegion(), t);
       territoriesRegion.put(t.getBoardRegion().getRegion(), t);
       territoriesName.put(t.getBoardRegion().getHeadline(), t);
       territoriesNoA.put(t.getBoardRegion().getNumberOfArmy(), t);
+      }
     }
   }
 
