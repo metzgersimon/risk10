@@ -307,8 +307,8 @@
                         <Region fx:id="westernAustralia" layoutX="843.0" layoutY="530.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@boardGUI.css" />
                         <Region fx:id="EasternAustralia" layoutX="914.0" layoutY="539.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="131.0" prefWidth="88.0" styleClass="Eastern-Australia" stylesheets="@boardGUI.css" />
                         <Region fx:id="newGuinea" layoutX="916.0" layoutY="489.0" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@boardGUI.css" />
-                        <Label fx:id="easternAustraliaHeadline" layoutX="922.0" layoutY="590.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
-                        <Label fx:id="westernAustraliaHeadline" depthTest="DISABLE" layoutX="864.0" layoutY="582.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
+                        <Label fx:id="easternAustraliaHeadline" layoutX="922.0" layoutY="586.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="34.0" prefWidth="58.0" text="Eastern Australia" wrapText="true" />
+                        <Label fx:id="westernAustraliaHeadline" layoutX="863.0" layoutY="574.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" pickOnBounds="false" prefHeight="43.0" prefWidth="46.0" text="Western Australia" wrapText="true" />
                         <Label layoutX="926.0" layoutY="493.0" text="New-Guinea" />
                         <Region fx:id="indonesia" layoutX="809.0" layoutY="438.0" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@boardGUI.css" />
                         <Label layoutX="817.0" layoutY="493.0" text="Indonesia" />
@@ -388,6 +388,8 @@
                         <Label layoutX="817.0" layoutY="255.0" text="Mongolia" />
                         <Region fx:id="japan" layoutX="907.0" layoutY="229.0" prefHeight="109.0" prefWidth="90.0" styleClass="Japan" stylesheets="@BoardGUI.css" />
                         <Label layoutX="943.0" layoutY="285.0" text="Japan" />
+                        <Label fx:id="westernAustraliaNoA" alignment="CENTER" layoutX="867.0" layoutY="618.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" prefHeight="17.0" prefWidth="21.0" text="-" />
+                        <Label fx:id="easternAustraliaNoA" alignment="CENTER" layoutX="941.0" layoutY="627.0" onMouseEntered="#motionIn" onMouseExited="#motionOut" prefHeight="17.0" prefWidth="21.0" text="-" />
                      </children>
                   </Pane>
                </children>
