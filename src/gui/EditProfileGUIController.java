@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 
 public class EditProfileGUIController {
 
-  int nr;
+  int nr = ProfileSelectionGUIController.editNr;
 
   @FXML
   private Button save;
@@ -78,14 +78,14 @@ public class EditProfileGUIController {
     okButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        // while(ProfileSelectionGUIController.count > ProfileSelectionGUIController.editNr) {
-        //
-        // }
-        //
-        ProfileSelectionGUIController.names[nr] = null;
-        ProfileSelectionGUIController.images[nr] = null;
-        ProfileSelectionGUIController.count--;
 
+
+        while (nr < ProfileSelectionGUIController.count - 1) {
+          ProfileSelectionGUIController.names[nr] = ProfileSelectionGUIController.names[nr + 1];
+          ProfileSelectionGUIController.images[nr] = ProfileSelectionGUIController.images[nr + 1];
+          nr++;
+        }
+        ProfileSelectionGUIController.count--;
 
         dialogStage.close();
         try {
@@ -114,21 +114,81 @@ public class EditProfileGUIController {
 
   @FXML
   void save(ActionEvent event) {
-    ProfileSelectionGUIController.names[nr] = name.getText();
-    Image image = profileImage.getImage();
-    ProfileSelectionGUIController.images[nr] = image;
+    String profileName = name.getText();
 
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
-      BorderPane root = (BorderPane) fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.setTitle("Profile Selection");
-      stage.setScene(new Scene(root));
-      stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      e.printStackTrace();
+    boolean nameAvailable = true;
+    boolean nameNotEmpty = true;
+
+    for (int i = 0; i < ProfileSelectionGUIController.count; i++) {
+      if (profileName.equals(ProfileSelectionGUIController.names[i]) && i != nr) {
+        nameAvailable = false;
+        showNameUnavilable();
+        break;
+      }
+      if (profileName.equals("")) {
+        nameNotEmpty = false;
+        showNameEmpty();
+        break;
+      }
     }
+
+    if (nameAvailable && nameNotEmpty) {
+      ProfileSelectionGUIController.names[nr] = profileName;
+      Image image = profileImage.getImage();
+      ProfileSelectionGUIController.images[nr] = image;
+      try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+        BorderPane root = (BorderPane) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Profile Selection");
+        stage.setScene(new Scene(root));
+        stage.show();
+        ((Node) event.getSource()).getScene().getWindow().hide();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+  }
+
+  private void showNameEmpty() {
+    Stage dialogStage = new Stage();
+    dialogStage.initModality(Modality.APPLICATION_MODAL);
+    VBox vbox = new VBox(new Text("The name should not be empty"));
+    Button okButton = new Button("OK");
+    okButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        dialogStage.close();
+
+      }
+    });
+
+    vbox.getChildren().add(okButton);
+    vbox.setAlignment(Pos.CENTER);
+    vbox.setPadding(new Insets(15));
+    dialogStage.setScene(new Scene(vbox));
+    dialogStage.show();
+  }
+
+  private void showNameUnavilable() {
+    Stage dialogStage = new Stage();
+    dialogStage.initModality(Modality.APPLICATION_MODAL);
+    VBox vbox = new VBox(new Text("The name is already exist, please give another name"));
+    Button okButton = new Button("OK");
+    okButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        dialogStage.close();
+
+      }
+    });
+
+    vbox.getChildren().add(okButton);
+    vbox.setAlignment(Pos.CENTER);
+    vbox.setPadding(new Insets(15));
+    dialogStage.setScene(new Scene(vbox));
+    dialogStage.show();
 
   }
 

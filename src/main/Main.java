@@ -19,7 +19,7 @@ public class Main extends Application {
     try {
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
       Scene scene = new Scene(root, 1280, 720);
-
+      
       primaryStage.setScene(scene);
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
