@@ -53,13 +53,6 @@ public class BoardController {
   private Button chatRoomButton;
   @FXML
   private SplitPane splitter;
-  @FXML
-  private Button kamschatka;
-
-  @FXML
-  private Region eastAust;
-  @FXML
-  private Region westAust;
 
   
   /**
@@ -141,8 +134,8 @@ public class BoardController {
    * This method is a dummy Method, to get to know, how the ProgressBAr can be handled
    */
   public void handleProgressBar() {
-    String color = p.getColor().toString().toLowerCase();
-    this.progress.setStyle("-fx-accent: "+color+";");
+    //String color = p.getColor().toString().toLowerCase();
+   // this.progress.setStyle("-fx-accent: "+color+";");
 //    this.progress.setProgress(0.4);
   }
   
@@ -285,10 +278,18 @@ public class BoardController {
 //  }
 
   @FXML
-  public void motion(MouseEvent e) {
+  public void motionIn(MouseEvent e) {
     Region r = (Region) e.getSource();
     if (r.getEffect() == null) {
       r.setEffect(new Glow(0.2));
+    }
+  }
+  
+  @FXML
+  public void motionOut(MouseEvent e) {
+    Region r = (Region) e.getSource();
+    if (r.getEffect() != null) {
+      r.setEffect(null);
     }
   }
 }

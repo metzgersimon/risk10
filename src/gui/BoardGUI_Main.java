@@ -26,7 +26,7 @@ public class BoardGUI_Main extends Application {
   
   public void mainWindow() {
     try {
-      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("Karte_test2.fxml"));
+      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("BoardGUI.fxml"));
       AnchorPane pane  = loader.load();
             
       BoardController boardController = loader.getController();
