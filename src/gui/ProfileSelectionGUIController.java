@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -21,6 +23,7 @@ public class ProfileSelectionGUIController {
   static int count = 0;
   static String[] names = new String[5];
   static Image[] images = new Image[5];
+  static int editNr;
 
   @FXML
   private Label name1;
@@ -58,6 +61,21 @@ public class ProfileSelectionGUIController {
   @FXML
   private ImageView image5;
 
+  @FXML
+  private Button edit1;
+
+  @FXML
+  private Button edit2;
+
+  @FXML
+  private Button edit3;
+
+  @FXML
+  private Button edit4;
+
+  @FXML
+  private Button edit5;
+
   /**
    * Event handle class invoked when back Button clicked
    * 
@@ -67,7 +85,7 @@ public class ProfileSelectionGUIController {
   void handleBackButton(ActionEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
+      Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Log in");
       stage.setScene(new Scene(root));
@@ -82,7 +100,7 @@ public class ProfileSelectionGUIController {
   void handleCreateNewProfileButton(ActionEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
+      Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Create Profile");
       stage.setScene(new Scene(root));
@@ -97,7 +115,7 @@ public class ProfileSelectionGUIController {
   void choose(MouseEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
+      Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
@@ -116,6 +134,8 @@ public class ProfileSelectionGUIController {
       image1.setImage(images[0]);
       image1.setLayoutX(540);
 
+      edit1.setOpacity(1);
+      edit1.setLayoutX(560);
     }
 
     if (count == 2) {
@@ -129,8 +149,11 @@ public class ProfileSelectionGUIController {
       image1.setLayoutX(327);
       image2.setLayoutX(754);
 
+      edit1.setOpacity(1);
+      edit1.setLayoutX(347);
+      edit2.setOpacity(1);
+      edit2.setLayoutX(774);
     }
-
     if (count == 3) {
       name1.setText(names[0]);
       name2.setText(names[1]);
@@ -146,8 +169,13 @@ public class ProfileSelectionGUIController {
       image2.setLayoutX(540);
       image3.setLayoutX(860);
 
+      edit1.setOpacity(1);
+      edit1.setLayoutX(240);
+      edit2.setOpacity(1);
+      edit2.setLayoutX(560);
+      edit3.setOpacity(1);
+      edit3.setLayoutX(880);
     }
-
     if (count == 4) {
       name1.setText(names[0]);
       name2.setText(names[1]);
@@ -166,6 +194,15 @@ public class ProfileSelectionGUIController {
       image2.setLayoutX(412);
       image3.setLayoutX(668);
       image4.setLayoutX(924);
+
+      edit1.setOpacity(1);
+      edit1.setLayoutX(176);
+      edit2.setOpacity(1);
+      edit2.setLayoutX(432);
+      edit3.setOpacity(1);
+      edit3.setLayoutX(688);
+      edit4.setOpacity(1);
+      edit4.setLayoutX(940);
     }
 
     if (count == 5) {
@@ -191,11 +228,52 @@ public class ProfileSelectionGUIController {
       image4.setLayoutX(752);
       image5.setLayoutX(965);
 
-      createNewProfile.setDisable(true);
+      edit1.setOpacity(1);
+      edit1.setLayoutX(133);
+      edit2.setOpacity(1);
+      edit2.setLayoutX(346);
+      edit3.setOpacity(1);
+      edit3.setLayoutX(559);
+      edit4.setOpacity(1);
+      edit4.setLayoutX(772);
+      edit5.setOpacity(1);
+      edit5.setLayoutX(985);
 
+      createNewProfile.setDisable(true);
+    }
+  }
+
+  @FXML
+  void edit(ActionEvent event) {
+    switch (((Button) event.getSource()).getId()) {
+      case ("edit1"):
+        editNr = 0;
+        break;
+      case ("edit2"):
+        editNr = 1;
+        break;
+      case ("edit3"):
+        editNr = 2;
+        break;
+      case ("edit4"):
+        editNr = 3;
+        break;
+      case ("edit5"):
+        editNr = 4;
+        break;
     }
 
-
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
+      Parent root = fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Edit Profile");
+      stage.setScene(new Scene(root));
+      stage.show();
+      ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }

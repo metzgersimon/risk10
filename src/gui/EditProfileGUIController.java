@@ -24,19 +24,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class CreateProfileGUIController {
+public class EditProfileGUIController {
 
-  private String username;
-  private Image image;
+  int nr;
 
   @FXML
-  private Button conform;
+  private Button save;
 
   @FXML
   private TextField name;
 
   @FXML
   private ImageView profileImage;
+
+  @FXML
+  private Button delete;
 
   @FXML
   void chooseImage(MouseEvent event) {
@@ -57,67 +59,65 @@ public class CreateProfileGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @FXML
+  void delete(ActionEvent event) {
+    Stage dialogStage = new Stage();
+    dialogStage.initModality(Modality.APPLICATION_MODAL);
+    VBox vbox = new VBox(new Text("Are you sure to delete this profile?"));
+    Button okButton = new Button("Yes");
+    Button noButton = new Button("No");
+    vbox.getChildren().add(okButton);
+    vbox.getChildren().add(noButton);
+    vbox.setAlignment(Pos.CENTER);
+    vbox.setPadding(new Insets(15));
+    dialogStage.setScene(new Scene(vbox));
+    dialogStage.show();
+
+    okButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        // while(ProfileSelectionGUIController.count > ProfileSelectionGUIController.editNr) {
+        //
+        // }
+        //
+        ProfileSelectionGUIController.names[nr] = null;
+        ProfileSelectionGUIController.images[nr] = null;
+        ProfileSelectionGUIController.count--;
+
+
+        dialogStage.close();
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+          BorderPane root = (BorderPane) fxmlLoader.load();
+          Stage stage = new Stage();
+          stage.setTitle("Profile Selection");
+          stage.setScene(new Scene(root));
+          stage.show();
+          ((Node) event.getSource()).getScene().getWindow().hide();
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+    });
+
+    noButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        dialogStage.close();
+      }
+    });
 
   }
 
   @FXML
-  void conform(ActionEvent event) {
-    username = name.getText();
+  void save(ActionEvent event) {
+    ProfileSelectionGUIController.names[nr] = name.getText();
+    Image image = profileImage.getImage();
+    ProfileSelectionGUIController.images[nr] = image;
 
-    boolean nameAvailable = true;
-    boolean nameNotEmpty = true;
-    
-    for (int i = 0; i <= ProfileSelectionGUIController.count; i++) {
-      if (username.equals(ProfileSelectionGUIController.names[i])) {
-        nameAvailable = false;
-        showNameUnavilable();
-        break;
-      }
-      if (username.equals("")) {
-        nameNotEmpty = false;
-        showNameEmpty();
-      }     
-    }
-
-    if (nameAvailable && nameNotEmpty) {
-      image = profileImage.getImage();
-      ProfileSelectionGUIController.images[ProfileSelectionGUIController.count] = image;
-      ProfileSelectionGUIController.names[ProfileSelectionGUIController.count] = username;
-      ProfileSelectionGUIController.count++;
-
-      backToProfileSelection(event);
-    } else {
-      
-    }
-
-  }
-
-  private void showNameEmpty() {
-    Stage dialogStage = new Stage();
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-
-    VBox vbox = new VBox(new Text("The name should not be empty"));
-
-    Button okButton = new Button("OK");
-    okButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        dialogStage.close();
-
-      }
-    });
-
-    vbox.getChildren().add(okButton);
-
-    vbox.setAlignment(Pos.CENTER);
-    vbox.setPadding(new Insets(15));
-
-    dialogStage.setScene(new Scene(vbox));
-    dialogStage.show();
-    
-  }
-
-  private void backToProfileSelection(ActionEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       BorderPane root = (BorderPane) fxmlLoader.load();
@@ -127,34 +127,15 @@ public class CreateProfileGUIController {
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load ProfileSelectionGUI.fxml");
+      e.printStackTrace();
     }
 
   }
 
-  private void showNameUnavilable() {
-    Stage dialogStage = new Stage();
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-
-    VBox vbox = new VBox(new Text("The name is already exist, please give another name"));
-
-    Button okButton = new Button("OK");
-    okButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        dialogStage.close();
-
-      }
-    });
-
-    vbox.getChildren().add(okButton);
-
-    vbox.setAlignment(Pos.CENTER);
-    vbox.setPadding(new Insets(15));
-
-    dialogStage.setScene(new Scene(vbox));
-    dialogStage.show();
-
+  public void initialize() {
+    nr = ProfileSelectionGUIController.editNr;
+    profileImage.setImage(ProfileSelectionGUIController.images[nr]);
+    name.setText(ProfileSelectionGUIController.names[nr]);
   }
 
 }
