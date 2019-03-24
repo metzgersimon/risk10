@@ -1,5 +1,6 @@
 package game;
 import java.util.HashSet;
+import gui.BoardRegion;
 import javafx.scene.layout.Region;
 
 /**
@@ -16,7 +17,7 @@ public class Territory {
   private Player owner;
   private Continente c;
   private HashSet<Territory> neighbor;
-  private Region r;
+  private BoardRegion r;
   
   /**
    * Contructor
@@ -105,7 +106,11 @@ public class Territory {
     return c;
   }
   
-  public Region getRegion() {
+  public void setBoardRegion(BoardRegion b) {
+    this.r = b;
+  }
+  
+  public BoardRegion getBoardRegion() {
     return this.r;
   }
   

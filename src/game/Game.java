@@ -9,6 +9,8 @@ public class Game {
   public final static int ATTACKING = 2;
   public final static int FORTIFY = 3;
   public final static int GAME_OVER = 4;
+  
+  private static World w = new World();
 
   private ArrayList<Player> players;
   private ArrayList<Card> cards;
@@ -16,6 +18,7 @@ public class Game {
   private ArrayList<Territory> territories;
   private Player currentPlayer;
   private int gameState;
+
 
   /**
    * Constructor
@@ -72,6 +75,9 @@ public class Game {
 
   }
 
+  public static World getWorld() {
+    return w;
+  }
 
 
 }

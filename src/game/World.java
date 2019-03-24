@@ -2,6 +2,9 @@ package game;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import gui.BoardGUI_Elements;
+import gui.BoardRegion;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
@@ -9,7 +12,10 @@ import javafx.scene.layout.Region;
  */
 public class World {
   static HashMap<Integer, Territory> territories = new HashMap<>();
-  static HashMap<Region, Territory> territoriesRegion = new HashMap();
+  static HashMap<BoardRegion, Territory> territoriesBoardRegion = new HashMap();
+  static HashMap<Region, Territory> territoriesRegion = new HashMap<>();
+  static HashMap<Label, Territory> territoriesName = new HashMap<>();
+  static HashMap<Label, Territory> territoriesNoA = new HashMap<>();
   static HashMap<Continente, Continent> continent = new HashMap<>();
 
   /**
@@ -17,6 +23,8 @@ public class World {
    */
   public World() {
     this.initialiseTerritories();
+    BoardGUI_Elements.connectTerritoryBoardRegion();
+    this.createTerritoriesBoardRegion();
     this.initialiseNeighbors();
     this.initialiseContinents();
   }
@@ -455,9 +463,12 @@ public class World {
     continent.put(Continente.AUSTRALIA, new Continent(Continente.AUSTRALIA, 2, c6));
   }
 
-  public void createTerritoriesRegion() {
-    for (Territory t : this.territories.values()) {
-      this.territoriesRegion.put(t.getRegion(), t);
+  public void createTerritoriesBoardRegion() {
+    for (Territory t : territories.values()) {
+      territoriesBoardRegion.put(t.getBoardRegion(), t);
+      territoriesRegion.put(t.getBoardRegion().getRegion(), t);
+      territoriesName.put(t.getBoardRegion().getHeadline(), t);
+      territoriesNoA.put(t.getBoardRegion().getNumberOfArmy(), t);
     }
   }
 
@@ -465,10 +476,22 @@ public class World {
     return territories;
   }
 
+  public HashMap<BoardRegion, Territory> getTerritoriesBoardRegion() {
+    return territoriesBoardRegion;
+  }
+
   public HashMap<Region, Territory> getTerritoriesRegion() {
     return territoriesRegion;
   }
-
+  
+  public HashMap<Label, Territory> getTerritoriesName() {
+    return territoriesName;
+  }
+  
+  public HashMap<Label, Territory> getTerritoriesNoA() {
+    return territoriesNoA;
+  }
+  
   public HashMap<Continente, Continent> getContinent() {
     return continent;
   }
