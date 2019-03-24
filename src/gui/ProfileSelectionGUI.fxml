@@ -28,16 +28,6 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" layoutX="286.0" layoutY="230.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../resources/avatars/1.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="image2" fitHeight="150.0" fitWidth="200.0" layoutX="756.0" layoutY="235.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../resources/avatars/6.jpg" />
-               </image>
-            </ImageView>
             <Label ellipsisString="" layoutX="312.0" layoutY="53.0" prefHeight="118.0" prefWidth="702.0" text="Select your Profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Bernard MT Condensed" size="96.0" />
@@ -46,6 +36,36 @@
                   <Insets />
                </opaqueInsets>
             </Label>
+            <Label fx:id="name1" layoutX="303.0" layoutY="180.0" prefHeight="47.0" prefWidth="179.0" textFill="#faf6f6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="name2" layoutX="313.0" layoutY="180.0" prefHeight="47.0" prefWidth="179.0" text=" " textFill="#faf6f6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="name3" layoutX="313.0" layoutY="180.0" prefHeight="47.0" prefWidth="179.0" text=" " textFill="#faf6f6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="name4" layoutX="313.0" layoutY="180.0" prefHeight="47.0" prefWidth="179.0" text=" " textFill="#faf6f6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="name5" layoutX="313.0" layoutY="180.0" prefHeight="47.0" prefWidth="179.0" text=" " textFill="#faf6f6">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="image1" fitHeight="150.0" fitWidth="200.0" layoutX="392.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image2" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image3" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image4" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image5" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </bottom>
