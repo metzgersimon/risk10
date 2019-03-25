@@ -17,10 +17,12 @@ public class Player {
   private String name;
   private int armies;
   private int type;// human player or ai
+  private PlayerColor color;
   private ArrayList<Territory> territories;
   private ArrayList<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
+  private int tradeNumber;//
 
   /**
    * create a new player
@@ -29,13 +31,15 @@ public class Player {
    * @param armies
    * @param type
    */
-  public Player(String name, int armies, int type) {
+  public Player(String name, int armies, int type,PlayerColor color) {
     this.name = name;
     this.armies = armies;
     this.type = type;
+    this.color=color;
     territories = new ArrayList<>();
     continents = new ArrayList<>();
     cards = new ArrayList<>();
+    this.tradeNumber=0;
   }
 
   public Player(String name) {
@@ -75,6 +79,15 @@ public class Player {
 
   public void setTerritories(ArrayList<Territory> territories) {
     this.territories = territories;
+  }
+  
+
+  public int getTradeNumber() {
+    return tradeNumber;
+  }
+
+  public void setTradeNumber(int tradeNumber) {
+    this.tradeNumber = tradeNumber;
   }
 
   /**
@@ -159,4 +172,5 @@ public class Player {
   }
 
 }
+
 

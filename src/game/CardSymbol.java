@@ -5,5 +5,5 @@ package game;
  * It is used for risk-cards and as symbols of each country.
  */
 public enum CardSymbol {
-  INFANTRY, CANNON, CAVALRY;
+  INFANTRY, CANNON, CAVALRY,WILDCARD;
 }
