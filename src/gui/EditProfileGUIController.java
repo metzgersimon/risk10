@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -39,23 +41,37 @@ public class EditProfileGUIController {
 
   @FXML
   private Button delete;
+  
+  
 
   @FXML
   void chooseImage(MouseEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    File file = fileChooser.showOpenDialog(null);
-
-    FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    fileChooser.getExtensionFilters().add(jpg);
-    fileChooser.setTitle("Select a profile image");
-    fileChooser.setInitialDirectory(
-        new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
-
+    // FileChooser fileChooser = new FileChooser();
+    // File file = fileChooser.showOpenDialog(null);
+    //
+    // FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)",
+    // "*.JPG");
+    // fileChooser.getExtensionFilters().add(jpg);
+    // fileChooser.setTitle("Select a profile image");
+    // fileChooser.setInitialDirectory(
+    // new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
+    //
+    // try {
+    // BufferedImage bufferedImage = ImageIO.read(file);
+    // Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+    // profileImage.setImage(image);
+    //
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     try {
-      BufferedImage bufferedImage = ImageIO.read(file);
-      Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-      profileImage.setImage(image);
-
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
+      AnchorPane root = (AnchorPane) fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Profile Image Selection");
+      stage.setScene(new Scene(root));
+      stage.show();
+      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -78,7 +94,7 @@ public class EditProfileGUIController {
     okButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-
+        ProfileManager.deleteProfile(name.getText());
 
         while (nr < ProfileSelectionGUIController.count - 1) {
           ProfileSelectionGUIController.names[nr] = ProfileSelectionGUIController.names[nr + 1];
@@ -87,6 +103,7 @@ public class EditProfileGUIController {
         }
         ProfileSelectionGUIController.count--;
 
+       
         dialogStage.close();
         try {
           FXMLLoader fxmlLoader =
@@ -136,6 +153,9 @@ public class EditProfileGUIController {
       ProfileSelectionGUIController.names[nr] = profileName;
       Image image = profileImage.getImage();
       ProfileSelectionGUIController.images[nr] = image;
+      
+//      ProfileManager.editProfile(profileName, );
+      
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();

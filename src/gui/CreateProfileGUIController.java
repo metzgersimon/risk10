@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -26,8 +28,10 @@ import javafx.stage.Stage;
 
 public class CreateProfileGUIController {
 
-  private String username;
-  private Image image;
+  private String username = null;
+  public static Image image = null;
+  public static int id = 0;
+
 
   @FXML
   private Button conform;
@@ -40,20 +44,34 @@ public class CreateProfileGUIController {
 
   @FXML
   void chooseImage(MouseEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    File file = fileChooser.showOpenDialog(null);
-
-    FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-    fileChooser.getExtensionFilters().add(jpg);
-    fileChooser.setTitle("Select a profile image");
-    fileChooser.setInitialDirectory(
-        new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
+    // FileChooser fileChooser = new FileChooser();
+    // File file = fileChooser.showOpenDialog(null);
+    //
+    // FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)",
+    // "*.JPG");
+    // fileChooser.getExtensionFilters().add(jpg);
+    // fileChooser.setTitle("Select a profile image");
+    // fileChooser.setInitialDirectory(
+    // new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
+    //
+    // try {
+    // BufferedImage bufferedImage = ImageIO.read(file);
+    // Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+    // profileImage.setImage(image);
+    //
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    username = name.getText();
 
     try {
-      BufferedImage bufferedImage = ImageIO.read(file);
-      Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-      profileImage.setImage(image);
-
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
+      AnchorPane root = (AnchorPane) fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Profile Image Selection");
+      stage.setScene(new Scene(root));
+      stage.show();
+      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -84,6 +102,10 @@ public class CreateProfileGUIController {
       ProfileSelectionGUIController.images[ProfileSelectionGUIController.count] = image;
       ProfileSelectionGUIController.names[ProfileSelectionGUIController.count] = username;
       ProfileSelectionGUIController.count++;
+
+       ProfileManager.addNewProfile(username, id);
+       ProfileManager.readXml();
+       ProfileManager.printAllProfiles();
 
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
@@ -141,4 +163,14 @@ public class CreateProfileGUIController {
 
   }
 
+  public void initialize() {
+    if (image != null) {
+      profileImage.setImage(image);
+    }
+    if (username != null) {
+      name.setText(username);
+
+    }
+
+  }
 }
