@@ -88,6 +88,8 @@ public class PlayerProfile {
   public String getTerritoriesConquered() {
     return "" + this.territoriesConquered;
   }
+  
+  //TODO create method with int parameter and Image object return
 
   // Test print of profile data
   public void printProfile() {

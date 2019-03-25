@@ -22,8 +22,14 @@ public class ProfileManager {
   // Add new profile to profileList
   public static void addNewProfile(String name, int imageId) {
     readXml();
-    PlayerProfile profile = new PlayerProfile(name, imageId);
-    profileList.put(name, profile);
+    if(profileList.containsKey(name)) {
+      //TODO
+      //link to error message method
+    } else {
+      PlayerProfile profile = new PlayerProfile(name, imageId);
+      profileList.put(name, profile);
+      saveXml();
+    }
   }
 
   public static void deleteProfile(String name) {
