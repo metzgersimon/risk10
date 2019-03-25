@@ -22,10 +22,26 @@ public class ProfileManager {
   // Add new profile to profileList
   public static void addNewProfile(String name, int imageId) {
     readXml();
-    PlayerProfile temp = new PlayerProfile(name, imageId);
-    profileList.put(name, temp);
+    PlayerProfile profile = new PlayerProfile(name, imageId);
+    profileList.put(name, profile);
   }
 
+  public static void deleteProfile(String name) {
+    readXml();
+    profileList.remove(name);
+    saveXml();
+  }
+  
+  public static void editProfile(String name, int imageId) {
+    readXml();
+    PlayerProfile profile = profileList.get(name);
+    profile.profileName = name;
+    profile.imageId = imageId;
+    profileList.remove(name);
+    profileList.put(name, profile);
+    saveXml();
+  }
+  
   public void setSelectedProfile() {
 
   }
