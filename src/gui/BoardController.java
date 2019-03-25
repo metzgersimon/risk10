@@ -55,6 +55,7 @@ public class BoardController {
   private Territory selectedTerritory = null;
   private boolean choice = true;
   private boolean inAttack = false;
+  private static int tradedCards = 0;
   // Views
   @FXML
   private Button chatRoomButton;
@@ -126,6 +127,10 @@ public class BoardController {
   private SplitPane cardPane;
   @FXML
   private Button upAndDown;
+  @FXML
+  private AnchorPane upperPane;
+  @FXML
+  private AnchorPane bottomPane;
 
   /**
    * Elements to handle trade-in button
@@ -133,7 +138,7 @@ public class BoardController {
   @FXML
   private Button tradeIn;
   @FXML
-  private Label tradedCards;
+  private Label tradedCardSets;
 
   /**
    * Element which handles the function to skip a game state
@@ -143,6 +148,16 @@ public class BoardController {
   private ImageView skip;
   @FXML
   private Label gameState;
+  
+  /**
+   * Elements to handle the card selection the player wants to trade in
+   */
+  @FXML
+  private ImageView left;
+  @FXML
+  private ImageView center;
+  @FXML
+  private ImageView right;
 
   public BoardGUI_Main boardGui;
 
@@ -279,18 +294,32 @@ public class BoardController {
    * 
    */
   @FXML
-  public void Card(MouseEvent e) {
-    BooleanProperty collapsed = new SimpleBooleanProperty();
-    collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.11));
-    Button button = new Button();
-    button.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
-    button.setOnAction(f -> {
-      double target = collapsed.get() ? 0.4 : 0.1;
-      KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
-      Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
-      timeline.play();
-    });
-
+  public void handleCardPane(MouseEvent e) {
+    if(e.getSource().equals(upAndDown)) {
+      cardPane.setPrefHeight(0);
+      upperPane.setPrefHeight(0);
+      bottomPane.setPrefHeight(0);
+//      BooleanProperty collapsed = new SimpleBooleanProperty();
+//      collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
+//      upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
+//      upAndDown.setOnAction(f -> {
+//        double target = collapsed.get() ? 0.4 : 0.1;
+//        KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
+//        timeline.play();
+//      });
+    }
+  }
+  
+  @FXML
+  public void handleCardDragAndDrop(MouseEvent e) {
+    ImageView img = (ImageView)e.getSource();
+    System.out.println("Test1");
+    if(left == null && center == null && right == null) {
+      left = img;
+      System.out.println("Test2");
+    }
+    
   }
 
   /**
@@ -298,12 +327,11 @@ public class BoardController {
    */
   @FXML
   public void handleTradeCards(ActionEvent e) {
-    int i = 0;
     if (e.getSource().equals(tradeIn)) {
-      tradedCards = new Label("traded card sets:" + i);
-      i++;
+      String cards = Integer.toString(++tradedCards);
+      tradedCardSets.setText(cards);
 
-      System.out.println("Buttong geklickt");
+      System.out.println("Button geklickt");
     }
   }
 
