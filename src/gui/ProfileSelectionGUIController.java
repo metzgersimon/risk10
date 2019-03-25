@@ -84,10 +84,10 @@ public class ProfileSelectionGUIController {
   @FXML
   void handleBackButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Log in");
+      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
@@ -113,8 +113,14 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void choose(MouseEvent event) {
+    String toOpen = "";
+    if (MainMenuGUIController.mode.equals("singlePlayer")) {
+      toOpen = "SinglePlayerGUI.fxml";
+    } else {
+      toOpen = "MultiPlayerGUI.fxml";
+    }
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));
       Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Main Menu");

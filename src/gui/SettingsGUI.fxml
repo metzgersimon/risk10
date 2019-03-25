@@ -24,7 +24,7 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button fx:id="conform" layoutX="950.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="71.0" prefWidth="197.0" text="Conform" textAlignment="CENTER">
+            <Button fx:id="conform" layoutX="950.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="71.0" prefWidth="197.0" text="Confirm" textAlignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
