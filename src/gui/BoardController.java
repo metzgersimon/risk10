@@ -145,7 +145,7 @@ public class BoardController {
    * 
    */
   @FXML
-  private ImageView skip;
+  private Pane skip;
   @FXML
   private Label gameState;
   
@@ -153,11 +153,13 @@ public class BoardController {
    * Elements to handle the card selection the player wants to trade in
    */
   @FXML
-  private ImageView left;
+  private GridPane paneXY;
   @FXML
-  private ImageView center;
+  private Pane left;
   @FXML
-  private ImageView right;
+  private Pane center;
+  @FXML
+  private Pane right;
 
   public BoardGUI_Main boardGui;
 
@@ -315,10 +317,25 @@ public class BoardController {
   public void handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView)e.getSource();
     System.out.println("Test1");
-    if(left == null && center == null && right == null) {
-      left = img;
-      System.out.println("Test2");
-    }
+    System.out.println(left.getChildren());
+      if(left.getChildren().isEmpty()) {
+        left.setStyle("-fx-background-color: #E94196");
+        left.getChildren().add(img);
+        System.out.println("TestLeft");
+      }
+      else if(center.getChildren().isEmpty()){
+        center.getChildren().add(img);
+        System.out.println("TestCenter");
+//        paneXY.getChildren().get(0)
+      }
+      else if(right.getChildren().isEmpty()) {
+//        right.getChildren().add(img);
+        right.getChildren().add(0, img);
+        System.out.println("TestRight");
+      }
+     
+  //  if(left == null && center == null && right == null) {
+      
     
   }
 
