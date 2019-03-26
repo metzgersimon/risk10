@@ -48,8 +48,8 @@ public class ProfileManager {
     saveXml();
   }
   
-  public void setSelectedProfile() {
-
+  public void setSelectedProfile(String key) {
+    selectedProfile = profileList.get(key);
   }
 
   public PlayerProfile getSelectedProfile() {

@@ -132,6 +132,20 @@ public class ProfileSelectionGUIController {
       e.printStackTrace();
     }
   }
+  
+  /**
+   * @author prto loads all saved player profiles
+   */
+  public void loadProfiles() {
+    ProfileManager.readXml();
+    int tempCounter = 0;
+    for(PlayerProfile x : ProfileManager.profileList.values()) {
+      names[tempCounter] = x.getName();
+      images[tempCounter] = x.getImage(Integer.parseInt(x.getId()));
+      tempCounter++;
+      count++;
+    }
+  }
 
   public void initialize() {
     if (count == 1) {

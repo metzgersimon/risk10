@@ -1,9 +1,11 @@
 package gui;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javafx.embed.swing.SwingFXUtils;
 
 /**
  * @author prto Represents player profile Contains Methods to increment profile statistics Profiles
@@ -114,7 +116,7 @@ public class PlayerProfile {
 
 
   // Returns to imageId corresponding Image
-  public Image getImage(int imageId) {
+  public javafx.scene.image.Image getImage(int imageId) {
     Image image = null;
     try {
       switch (imageId) {
@@ -144,7 +146,7 @@ public class PlayerProfile {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-    return image;
+    return SwingFXUtils.toFXImage((BufferedImage) image, null);
   }
 
 
