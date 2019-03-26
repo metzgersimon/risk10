@@ -121,27 +121,27 @@ public class PlayerProfile {
     try {
       switch (imageId) {
         case 0:
-          image = ImageIO.read((new File("src\\resources\\avatars\\0.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/0.jpg")));
         case 1:
-          image = ImageIO.read((new File("src\\resources\\avatars\\1.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/1.jpg")));
         case 2:
-          image = ImageIO.read((new File("src\\resources\\avatars\\2.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/2.jpg")));
         case 3:
-          image = ImageIO.read((new File("src\\resources\\avatars\\3.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/3.jpg")));
         case 4:
-          image = ImageIO.read((new File("src\\resources\\avatars\\4.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/4.jpg")));
         case 5:
-          image = ImageIO.read((new File("src\\resources\\avatars\\5.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/5.jpg")));
         case 6:
-          image = ImageIO.read((new File("src\\resources\\avatars\\6.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/6.jpg")));
         case 7:
-          image = ImageIO.read((new File("src\\resources\\avatars\\7.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/7.jpg")));
         case 8:
-          image = ImageIO.read((new File("src\\resources\\avatars\\8.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/8.jpg")));
         case 9:
-          image = ImageIO.read((new File("src\\resources\\avatars\\9.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/9.jpg")));
         case 10:
-          image = ImageIO.read((new File("src\\resources\\avatars\\10.jpg")));
+          image = ImageIO.read((new File("src/ressources/avatar/10.jpg")));
       }
     } catch (IOException e) {
       System.out.println(e.getMessage());
