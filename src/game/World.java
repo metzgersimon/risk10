@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * @author pcoberge 
- * The class World defines all countries that exist in the risk-game.
+ * @author pcoberge The class World defines all countries that exist in the risk-game.
  */
 public class World {
   static HashMap<Integer, Territory> territories = new HashMap<>();
@@ -461,37 +460,65 @@ public class World {
     continent.put(Continente.AUSTRALIA, new Continent(Continente.AUSTRALIA, 2, c6));
   }
 
+  /**
+   * Method that creates a link between objects of territory and the gui territory that is
+   * referenced by a javaFx region. It should simplify interaction between the gui board and the
+   * logical board setting.
+   */
   public void createTerritoriesBoardRegion() {
     for (Territory t : territories.values()) {
-      if (t.getBoardRegion()!=null) {
-      territoriesBoardRegion.put(t.getBoardRegion(), t);
-      territoriesRegion.put(t.getBoardRegion().getRegion(), t);
-      territoriesName.put(t.getBoardRegion().getHeadline(), t);
-      territoriesNoA.put(t.getBoardRegion().getNumberOfArmy(), t);
+      if (t.getBoardRegion() != null) {
+        territoriesBoardRegion.put(t.getBoardRegion(), t);
+        territoriesRegion.put(t.getBoardRegion().getRegion(), t);
+        territoriesName.put(t.getBoardRegion().getHeadline(), t);
+        territoriesNoA.put(t.getBoardRegion().getNumberOfArmy(), t);
       }
     }
   }
 
+  /**
+   * @return HashMap of territories that are referenced by the territoriesId Getter-method
+   */
   public HashMap<Integer, Territory> getTerritories() {
     return territories;
   }
 
+  /**
+   * @return HashMap of territories that are reference by the territories board region Getter-method
+   */
   public HashMap<BoardRegion, Territory> getTerritoriesBoardRegion() {
     return territoriesBoardRegion;
   }
 
+  /**
+   * @return HashMap of territories that are reference by the territories gui region Getter-method
+   */
   public HashMap<Region, Territory> getTerritoriesRegion() {
     return territoriesRegion;
   }
-  
+
+  /**
+   * @return HashMap of territories that are referenced by the territories gui label, that represent
+   *         the territories name
+   * Getter-method
+   */
   public HashMap<Label, Territory> getTerritoriesName() {
     return territoriesName;
   }
-  
+
+  /**
+   * @return HashMap of territories that are referenced by the territories gui label, that represent
+   *         the territories number of armies
+   * Getter-method
+   */
   public HashMap<Label, Territory> getTerritoriesNoA() {
     return territoriesNoA;
   }
-  
+
+  /**
+   * @return HashMap of Continents
+   * Getter-method
+   */
   public HashMap<Continente, Continent> getContinent() {
     return continent;
   }
