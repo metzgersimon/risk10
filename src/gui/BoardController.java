@@ -197,15 +197,15 @@ public class BoardController {
   public void handleLeave(ActionEvent event) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
-      AnchorPane root = fxmlLoader.load();
+      Parent root = (Parent) fxmlLoader.load();
       Stage stage = new Stage();
-      stage.setTitle("Statistics");
+      // stage.setTitle("Board");
       stage.setScene(new Scene(root));
       stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      System.out.println("Can't load StatisticGUI.fxml");
-    }
+      ((Node) event.getSource()).getScene().getWindow().hide();
+      } catch (Exception e) {
+      e.printStackTrace();
+      }
   }
 
   /**
