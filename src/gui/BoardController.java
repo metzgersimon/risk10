@@ -161,9 +161,11 @@ public class BoardController {
   @FXML
   private Pane right;
 
-  public BoardGUI_Main boardGui;
-
-  public void setMain(BoardGUI_Main boardGui, Game g) {
+  //public BoardGUI_Main boardGui;
+  public SinglePlayerGUIController boardGui;
+  
+  //public void setMain(BoardGUI_Main boardGUI, Game g) {
+  public void setMain(SinglePlayerGUIController boardGui, Game g) {
     this.boardGui = boardGui;
     this.g = g;
     connectRegionTerritory();

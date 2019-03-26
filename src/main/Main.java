@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 import gui.ProfileManager;
+import game.Game;
 import gui.PlayerProfile;
 
 
@@ -13,6 +14,7 @@ import gui.PlayerProfile;
  * @author liwang Main method to invoke LoginGUI
  */
 public class Main extends Application {
+public static Game g = new Game();
 
   @Override
   public void start(Stage primaryStage) {

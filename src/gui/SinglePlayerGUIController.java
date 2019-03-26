@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+import main.Main;
 
 public class SinglePlayerGUIController {
 
@@ -43,6 +44,8 @@ public class SinglePlayerGUIController {
      Parent root = (Parent) fxmlLoader.load();
      Stage stage = new Stage();
      // stage.setTitle("Board");
+     BoardController boardController = fxmlLoader.getController();
+     boardController.setMain(this, Main.g);
      stage.setScene(new Scene(root));
      stage.show();
      ((Node) event.getSource()).getScene().getWindow().hide();
