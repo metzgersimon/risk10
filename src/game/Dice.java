@@ -17,6 +17,8 @@ public class Dice {
 
   private String diceType;
   private int numberOfDices;
+  private ImageView[] redDice = new ImageView[6];
+  private ImageView[] blueDice = new ImageView[6];
   private Image[] sidesOfDice = new Image[6];
 
 
@@ -29,6 +31,7 @@ public class Dice {
 
 
   // getters
+
   public String getDiceType() {
     return diceType;
   }
@@ -40,6 +43,15 @@ public class Dice {
   public Image[] getSidesOfDice() {
     return sidesOfDice;
   }
+
+  public ImageView[] getRedDice() {
+    return redDice;
+  }
+
+  public ImageView[] getBlueDice() {
+    return blueDice;
+  }
+
 
   // setters
   public void setDiceType(String diceType) {
@@ -53,6 +65,18 @@ public class Dice {
   public void setSidesOfDice(Image[] sidesOfDice) {
     this.sidesOfDice = sidesOfDice;
   }
+
+
+  public void setRedDice(ImageView[] redDice) {
+    
+    this.redDice = redDice;
+  }
+
+
+  public void setBlueDice(ImageView[] blueDice) {
+    this.blueDice = blueDice;
+  }
+
 
   /**
    * Method changes the color of a given dice image to a chosen color
@@ -154,8 +178,9 @@ public class Dice {
   }
 
   /**
-   * Method calculates a random number with the method rollSingleDice
-   * and returns the dice image which is defined by this random number
+   * Method calculates a random number with the method rollSingleDice and returns the dice image
+   * which is defined by this random number
+   * 
    * @return an ImageView which contains a random dice image
    */
   public ImageView displayThrowDice() {
