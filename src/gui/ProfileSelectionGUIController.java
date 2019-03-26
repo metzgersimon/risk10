@@ -139,6 +139,7 @@ public class ProfileSelectionGUIController {
   public void loadProfiles() {
     ProfileManager.readXml();
     int tempCounter = 0;
+    count = 0;
     for(PlayerProfile x : ProfileManager.profileList.values()) {
       names[tempCounter] = x.getName();
       images[tempCounter] = x.getImage(Integer.parseInt(x.getId()));
@@ -148,6 +149,7 @@ public class ProfileSelectionGUIController {
   }
 
   public void initialize() {
+    loadProfiles();
     if (count == 1) {
       name1.setText(names[0]);
       name1.setLayoutX(560);
