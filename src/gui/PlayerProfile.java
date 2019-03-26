@@ -1,5 +1,10 @@
 package gui;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 /**
  * @author prto Represents player profile Contains Methods to increment profile statistics Profiles
  *         and their changes will be saved in local XML file
@@ -88,8 +93,42 @@ public class PlayerProfile {
   public String getTerritoriesConquered() {
     return "" + this.territoriesConquered;
   }
-  
-  //TODO create method with int parameter and Image object return
+
+
+  // Returns to imageId corresponding Image
+  public Image getImage(int imageId) {
+    Image image = null;
+    try {
+      switch (imageId) {
+        case 0:
+          image = ImageIO.read((new File("resources\\avatars\\0.jpg")));
+        case 1:
+          image = ImageIO.read((new File("resources\\avatars\\1.jpg")));
+        case 2:
+          image = ImageIO.read((new File("resources\\avatars\\2.jpg")));
+        case 3:
+          image = ImageIO.read((new File("resources\\avatars\\3.jpg")));
+        case 4:
+          image = ImageIO.read((new File("resources\\avatars\\4.jpg")));
+        case 5:
+          image = ImageIO.read((new File("resources\\avatars\\5.jpg")));
+        case 6:
+          image = ImageIO.read((new File("resources\\avatars\\6.jpg")));
+        case 7:
+          image = ImageIO.read((new File("resources\\avatars\\7.jpg")));
+        case 8:
+          image = ImageIO.read((new File("resources\\avatars\\8.jpg")));
+        case 9:
+          image = ImageIO.read((new File("resources\\avatars\\9.jpg")));
+        case 10:
+          image = ImageIO.read((new File("resources\\avatars\\10.jpg")));
+      }
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+    return image;
+  }
+
 
   // Test print of profile data
   public void printProfile() {

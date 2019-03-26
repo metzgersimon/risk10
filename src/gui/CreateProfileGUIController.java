@@ -145,7 +145,7 @@ public class CreateProfileGUIController {
   private void showNameUnavilable() {
     Stage dialogStage = new Stage();
     dialogStage.initModality(Modality.APPLICATION_MODAL);
-    VBox vbox = new VBox(new Text("The name is already exist, please give another name"));
+    VBox vbox = new VBox(new Text("The name already exists, please enter another name"));
     Button okButton = new Button("OK");
     okButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
