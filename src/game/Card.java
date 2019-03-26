@@ -51,15 +51,20 @@ public class Card {
     return isWildcard;
   }
 
-  //setters
+  // setters
   public void setTerritory(Territory territory) {
     this.territory = territory;
   }
+
   public void setIsWildcard(boolean isWildcard) {
     this.isWildcard = isWildcard;
   }
 
 
+  /**
+   * 
+   * @param id
+   */
   public void drawCard(int id) {
     VBox b = new VBox();
     VBox box = new VBox();
@@ -68,12 +73,12 @@ public class Card {
 
     Text label = new Text(this.territory.getName());
     StackPane stPane = new StackPane();
-    ImageView territoryImg = new ImageView(new Image(this.territory.getName()+".png"));
+    ImageView territoryImg = new ImageView(new Image(this.territory.getName() + ".png"));
     stPane.getChildren().add(territoryImg);
     stPane.getChildren().add(label);
 
 
-    ImageView armyImg = new ImageView(new Image(this.territory.getSym()+".gif"));
+    ImageView armyImg = new ImageView(new Image(this.territory.getSym() + ".gif"));
     box.getChildren().add(armyImg);
     box.getChildren().add(stPane);
     box.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
@@ -87,10 +92,5 @@ public class Card {
       ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
     } catch (IOException e) {
     }
-
-//    ImageView imgCard = new ImageView(new Image(file.toURI().toString()));
   }
-
-
-  // }
 }
