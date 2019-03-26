@@ -122,26 +122,37 @@ public class PlayerProfile {
       switch (imageId) {
         case 0:
           image = ImageIO.read((new File("src/ressources/avatar/0.jpg")));
+          break;
         case 1:
           image = ImageIO.read((new File("src/ressources/avatar/1.jpg")));
+          break;
         case 2:
           image = ImageIO.read((new File("src/ressources/avatar/2.jpg")));
+          break;
         case 3:
           image = ImageIO.read((new File("src/ressources/avatar/3.jpg")));
+          break;
         case 4:
           image = ImageIO.read((new File("src/ressources/avatar/4.jpg")));
+          break;
         case 5:
           image = ImageIO.read((new File("src/ressources/avatar/5.jpg")));
+          break;
         case 6:
           image = ImageIO.read((new File("src/ressources/avatar/6.jpg")));
+          break;
         case 7:
           image = ImageIO.read((new File("src/ressources/avatar/7.jpg")));
+          break;
         case 8:
           image = ImageIO.read((new File("src/ressources/avatar/8.jpg")));
+          break;
         case 9:
           image = ImageIO.read((new File("src/ressources/avatar/9.jpg")));
+          break;
         case 10:
           image = ImageIO.read((new File("src/ressources/avatar/10.jpg")));
+          break;
       }
     } catch (IOException e) {
       System.out.println(e.getMessage());
