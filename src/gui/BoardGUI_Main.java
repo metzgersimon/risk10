@@ -35,7 +35,7 @@ public class BoardGUI_Main extends Application {
             
       BoardController boardController = loader.getController();
       //boardController.setMain(this, g, elements);
-      boardController.setMain(this, g);
+      //boardController.setMain(this, g);
       
       Scene scene = new Scene(pane);
       primaryStage.setScene(scene);
