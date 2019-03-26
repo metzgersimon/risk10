@@ -13,12 +13,16 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+/**
+ * 
+ * @author smetzger
+ * Class defines a Dice which is used for attacking and defending during the game
+ *
+ */
 public class Dice {
 
   private String diceType;
   private int numberOfDices;
-  private ImageView[] redDice = new ImageView[6];
-  private ImageView[] blueDice = new ImageView[6];
   private Image[] sidesOfDice = new Image[6];
 
 
@@ -30,7 +34,10 @@ public class Dice {
   }
 
 
-  // getters
+  /**
+   * Getter methods for the attributes of the Dice class
+   *
+   */
 
   public String getDiceType() {
     return diceType;
@@ -44,16 +51,10 @@ public class Dice {
     return sidesOfDice;
   }
 
-  public ImageView[] getRedDice() {
-    return redDice;
-  }
-
-  public ImageView[] getBlueDice() {
-    return blueDice;
-  }
-
-
-  // setters
+  /**
+   * 
+   * Setter methods for the attributes of the Dice class
+   */
   public void setDiceType(String diceType) {
     this.diceType = diceType;
   }
@@ -65,18 +66,6 @@ public class Dice {
   public void setSidesOfDice(Image[] sidesOfDice) {
     this.sidesOfDice = sidesOfDice;
   }
-
-
-  public void setRedDice(ImageView[] redDice) {
-    
-    this.redDice = redDice;
-  }
-
-
-  public void setBlueDice(ImageView[] blueDice) {
-    this.blueDice = blueDice;
-  }
-
 
   /**
    * Method changes the color of a given dice image to a chosen color
@@ -164,6 +153,8 @@ public class Dice {
   }
 
   /**
+   * Method generates an array of int numbers which are computed through the rollSingleDice method.
+   * Each number in the array represents a number thrown by the player
    * 
    * @param numberOfDices represents the number of dices the player chooses to roll
    * @return the rolled values from
@@ -178,14 +169,27 @@ public class Dice {
   }
 
   /**
-   * Method calculates a random number with the method rollSingleDice and returns the dice image
+   * Method calculates a random number with the method rollSingleDice and returns the corresponding dice image (in red)
    * which is defined by this random number
    * 
-   * @return an ImageView which contains a random dice image
+   * @return an ImageView which contains a random (with a value from 1-6) attack dice image
    */
-  public ImageView displayThrowDice() {
+  public ImageView displayAttackDice() {
     int number = rollSingleDice();
-    Image imgNumber = new Image("dice_" + number + ".png");
+    Image imgNumber = new Image("dice_" + number + "RED.png");
+    ImageView img = new ImageView(imgNumber);
+    return img;
+  }
+
+  /**
+   * Method calculates a random number with the method rollSingleDice and returns the corresponding dice image (in blue)
+   * which is defined by this random number
+   * 
+   * @return an ImageView which contains a random (with a value from 1-6) defense dice image
+   */
+  public ImageView displayDefenseDice() {
+    int number = rollSingleDice();
+    Image imgNumber = new Image("dice_" + number + "BLUE.png");
     ImageView img = new ImageView(imgNumber);
     return img;
   }
