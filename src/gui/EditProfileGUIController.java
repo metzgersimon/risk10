@@ -1,6 +1,7 @@
 package gui;
 
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -28,7 +29,11 @@ import javafx.stage.Stage;
 
 public class EditProfileGUIController {
 
+
   int nr = ProfileSelectionGUIController.editNr;
+
+  public static int id = 0;
+  public static boolean edit = false;
 
   @FXML
   private Button save;
@@ -41,8 +46,8 @@ public class EditProfileGUIController {
 
   @FXML
   private Button delete;
-  
-  
+
+
 
   @FXML
   void chooseImage(MouseEvent event) {
@@ -64,6 +69,7 @@ public class EditProfileGUIController {
     // } catch (Exception e) {
     // e.printStackTrace();
     // }
+    edit = true;
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
@@ -103,7 +109,7 @@ public class EditProfileGUIController {
         }
         ProfileSelectionGUIController.count--;
 
-       
+
         dialogStage.close();
         try {
           FXMLLoader fxmlLoader =
@@ -153,9 +159,9 @@ public class EditProfileGUIController {
       ProfileSelectionGUIController.names[nr] = profileName;
       Image image = profileImage.getImage();
       ProfileSelectionGUIController.images[nr] = image;
-      
-//      ProfileManager.editProfile(profileName, );
-      
+
+      ProfileManager.editProfile(profileName, id);
+
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
@@ -213,6 +219,7 @@ public class EditProfileGUIController {
   }
 
   public void initialize() {
+    edit = false;
     nr = ProfileSelectionGUIController.editNr;
     profileImage.setImage(ProfileSelectionGUIController.images[nr]);
     name.setText(ProfileSelectionGUIController.names[nr]);
