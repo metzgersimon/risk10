@@ -94,6 +94,24 @@ public class PlayerProfile {
     return "" + this.territoriesConquered;
   }
 
+  // set-methods for private variables
+
+  public void setMatchesPlayed(int mp) {
+    this.matchesPlayed = mp;
+  }
+
+  public void setMatchesLost(int ml) {
+    this.matchesLost = ml;
+  }
+
+  public void setMatchesWon(int mw) {
+    this.matchesWon = mw;
+  }
+
+  public void setTerritoriesConquered(int tc) {
+    this.territoriesConquered = tc;
+  }
+
 
   // Returns to imageId corresponding Image
   public Image getImage(int imageId) {
