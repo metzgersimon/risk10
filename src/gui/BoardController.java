@@ -224,7 +224,6 @@ public class BoardController {
    * 
    */
   public void clicked(MouseEvent e) {
-   
     Region r;
     if (e.getSource() instanceof Label) {
       Label l = (Label) e.getSource();
@@ -237,7 +236,6 @@ public class BoardController {
       r = (Region) e.getSource();
     }
     Territory t = g.getWorld().getTerritoriesRegion().get(r);
-    
     if(!inAttack && !t.equals(selectedTerritory)) {
      // switch (g.getGameState()) {
       switch(2) {
@@ -275,6 +273,7 @@ public class BoardController {
       }
       choice = true;
       selectedTerritory = null;
+      numberOfTerritories = 0;
       
     }
   }
@@ -285,6 +284,7 @@ public class BoardController {
         t.getBoardRegion().getRegion().setEffect(null);
       }
     }
+    choice = false;
     dicePane.toBack();
     quitPane.toBack();
     grayPane.toBack();

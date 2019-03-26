@@ -274,8 +274,8 @@ public class World {
     a24.add(territories.get(22));
     a24.add(territories.get(23));
     a24.add(territories.get(25));
-    a23.add(territories.get(26));
-    a23.add(territories.get(31));
+    a24.add(territories.get(26));
+    a24.add(territories.get(31));
     territories.get(24).setNeighbor(a24);
 
     // South-Africa
