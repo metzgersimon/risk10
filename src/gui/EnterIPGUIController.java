@@ -26,11 +26,11 @@ public class EnterIPGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Multi Player");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -41,11 +41,11 @@ public class EnterIPGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Join Game Lobby");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }

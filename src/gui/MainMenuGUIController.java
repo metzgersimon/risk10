@@ -32,11 +32,11 @@ public class MainMenuGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -52,11 +52,11 @@ public class MainMenuGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SettingsGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Settings");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load SettingsGUI.fxml");
       e.printStackTrace();

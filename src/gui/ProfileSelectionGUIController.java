@@ -87,11 +87,11 @@ public class ProfileSelectionGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
       Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -102,11 +102,11 @@ public class ProfileSelectionGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Create Profile");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load CreateProfileGUI.fxml");
     }
@@ -123,11 +123,11 @@ public class ProfileSelectionGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));
       Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
