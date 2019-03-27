@@ -60,13 +60,14 @@ public class ProfileManager {
   public static void checkXml() {
     File tester = new File("./PlayerProfiles.xml");
     if (!tester.exists()) {
+      System.out.println("no PlayerProfile.xml found: creating file...");
       Element root = new Element("risk10");
       Document doc = new Document(root);
       XMLOutputter xmlo = new XMLOutputter();
       xmlo.setFormat(Format.getPrettyFormat());
       try {
         xmlo.output(doc, new FileWriter("./PlayerProfiles.xml"));
-        System.out.println("*****New .xml file created*****");
+        System.out.println("New PlayerProfiles.xml file has been created");
       } catch (IOException ioe) {
         System.out.println(ioe.getMessage());
       }
@@ -78,7 +79,6 @@ public class ProfileManager {
   public static void readXml() {
     checkXml();
     SAXBuilder builder = new SAXBuilder();
-    // File xml = new File("src\\gui\\PlayerProfiles.xml");
     File xml = new File("./PlayerProfiles.xml");
     try {
       Document doc = (Document) builder.build(xml);
@@ -109,22 +109,19 @@ public class ProfileManager {
     }
   }
 
-  // Saves profileList to xml
+  // Saves profileList map to xml file
   public static void saveXml() {
 
     checkXml();
-
     try {
 
       SAXBuilder builder = new SAXBuilder();
-      // File xml = new File("src\\gui\\PlayerProfiles.xml");
       File xml = new File("./PlayerProfiles.xml");
 
       Document doc = (Document) builder.build(xml);
       Element root = doc.getRootElement();
       root.removeContent();
       Element player;
-
 
       // Write elements
       for (PlayerProfile x : profileList.values()) {
@@ -142,7 +139,6 @@ public class ProfileManager {
       // Save to xml
       XMLOutputter xmlO = new XMLOutputter();
       xmlO.setFormat(Format.getPrettyFormat());
-      // xmlO.output(doc, new FileWriter("src\\gui\\PlayerProfiles.xml"));
       xmlO.output(doc, new FileWriter("./PlayerProfiles.xml"));
 
     } catch (IOException ioe) {
@@ -152,6 +148,7 @@ public class ProfileManager {
     }
   }
 
+  
   public static void printAllProfiles() {
     for (PlayerProfile x : profileList.values()) {
       x.printProfile();

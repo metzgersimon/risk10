@@ -51,6 +51,34 @@ public class PlayerProfile {
     this.imageId = id;
   }
 
+  // get-methods
+  public String getName() {
+    return this.profileName;
+  }
+
+  public String getId() {
+    return "" + this.imageId;
+  }
+  
+  public int getIdInt() {
+    return this.imageId;
+  }
+
+  public String getMatchesPlayed() {
+    return "" + this.matchesPlayed;
+  }
+
+  public String getMatchesWon() {
+    return "" + this.matchesWon;
+  }
+
+  public String getMatchesLost() {
+    return "" + this.matchesLost;
+  }
+
+  public String getTerritoriesConquered() {
+    return "" + this.territoriesConquered;
+  }
 
   // The following methods are used to update profile game statistics such as total number of
   // matches played etc.
@@ -70,32 +98,7 @@ public class PlayerProfile {
     this.territoriesConquered += n;
   }
 
-
-  // get-methods
-  public String getName() {
-    return this.profileName;
-  }
-
-  public String getId() {
-    return "" + this.imageId;
-  }
-
-  public String getMatchesPlayed() {
-    return "" + this.matchesPlayed;
-  }
-
-  public String getMatchesWon() {
-    return "" + this.matchesWon;
-  }
-
-  public String getMatchesLost() {
-    return "" + this.matchesLost;
-  }
-
-  public String getTerritoriesConquered() {
-    return "" + this.territoriesConquered;
-  }
-
+  
   // set-methods for private variables
 
   public void setMatchesPlayed(int mp) {
