@@ -201,11 +201,11 @@ public class BoardController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       // stage.setTitle("Board");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }

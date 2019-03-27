@@ -158,8 +158,10 @@ public class PlayerProfile {
           break;
       }
     } catch (IOException e) {
+      e.printStackTrace();
       System.out.println(e.getMessage());
     }
+    System.out.println("loading image for " + this.profileName);
     return SwingFXUtils.toFXImage(image, null);
   }
 
