@@ -119,10 +119,10 @@ public class PlayerProfile {
 
 
   // Returns to imageId corresponding Image
-  public javafx.scene.image.Image getImage(int imageId) {
+  public javafx.scene.image.Image getImage() {
     BufferedImage image = null;
     try {
-      switch (imageId) {
+      switch (this.imageId) {
         case 0:
           image = ImageIO.read((new File("src/ressources/avatar/0.jpg")));
           break;
