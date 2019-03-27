@@ -5,6 +5,7 @@ import game.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -113,7 +114,7 @@ public class BoardController {
    */
   @FXML
   private Pane dicePane;
-  
+
   /**
    * Elements that show the current game state and illustrate who is the current player
    */
@@ -148,7 +149,7 @@ public class BoardController {
   private Pane skip;
   @FXML
   private Label gameState;
-  
+
   /**
    * Elements to handle the card selection the player wants to trade in
    */
@@ -161,10 +162,10 @@ public class BoardController {
   @FXML
   private Pane right;
 
-  //public BoardGUI_Main boardGui;
+  // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
-  
-  //public void setMain(BoardGUI_Main boardGUI, Game g) {
+
+  // public void setMain(BoardGUI_Main boardGUI, Game g) {
   public void setMain(SinglePlayerGUIController boardGui, Game g) {
     this.boardGui = boardGui;
     this.g = g;
@@ -179,16 +180,16 @@ public class BoardController {
    *         pop-up window appears and stops the game.
    */
   public void pressLeave() {
-    this.grayPane.toFront();
-    this.quitPane.toFront();
+    grayPane.toFront();
+    quitPane.toFront();
   }
 
   /**
    * @author pcoberge This method cancels the exit-handling.
    */
   public void handleNoLeave() {
-    this.grayPane.toBack();
-    this.quitPane.toBack();
+    grayPane.toBack();
+    quitPane.toBack();
   }
 
   /**
@@ -205,9 +206,10 @@ public class BoardController {
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
-      } catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-      }
+    }
+
   }
 
   /**
@@ -226,70 +228,80 @@ public class BoardController {
    * 
    */
   public void clicked(MouseEvent e) {
-    Region r;
-    if (e.getSource() instanceof Label) {
-      Label l = (Label) e.getSource();
-      if (l.getText().matches("(-|[0-9]+)")) {
-        r = g.getWorld().getTerritoriesNoA().get(l).getBoardRegion().getRegion();
-      } else {
-        r = g.getWorld().getTerritoriesName().get(l).getBoardRegion().getRegion();
-      }
-    } else {
-      r = (Region) e.getSource();
-    }
-    Territory t = g.getWorld().getTerritoriesRegion().get(r);
-    if(!inAttack && !t.equals(selectedTerritory)) {
-     // switch (g.getGameState()) {
-      switch(2) {
-        // new game
-        case (0):
-          // place armies
-          
-        case (1):
-          // attack
-        case (2):
-          if (numberOfTerritories==0) {
-            numberOfTerritories++;
-            choice = false;
-            selectedTerritory = t;
-            r.setEffect(new Lighting());
-            for (Territory territory : t.getNeighbor()) {
-              territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
-            }
-          } else if (numberOfTerritories==1 && selectedTerritory.getNeighbor().contains(t)){
-            numberOfTerritories=2;
-            grayPane.toFront();
-            dicePane.toFront();
-            // open pop-up
-            //ATTACK METHODE
-            inAttack=true;
-            
-            
-
+    Thread th = new Thread() {
+      public void run() {
+        Region r;
+        if (e.getSource() instanceof Label) {
+          Label l = (Label) e.getSource();
+          if (l.getText().matches("(-|[0-9]+)")) {
+            r = g.getWorld().getTerritoriesNoA().get(l).getBoardRegion().getRegion();
+          } else {
+            r = g.getWorld().getTerritoriesName().get(l).getBoardRegion().getRegion();
           }
+        } else {
+          r = (Region) e.getSource();
+        }
+        Territory t = g.getWorld().getTerritoriesRegion().get(r);
+        if (!inAttack && !t.equals(selectedTerritory)) {
+          // switch (g.getGameState()) {
+          switch (2) {
+            // new game
+            case (0):
+              // place armies
+
+            case (1):
+              // attack
+            case (2):
+              if (numberOfTerritories == 0) {
+                numberOfTerritories++;
+                choice = false;
+                selectedTerritory = t;
+                r.setEffect(new Lighting());
+                for (Territory territory : t.getNeighbor()) {
+                  territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                }
+              } else if (numberOfTerritories == 1 && selectedTerritory.getNeighbor().contains(t)) {
+                numberOfTerritories = 2;
+                grayPane.toFront();
+                dicePane.toFront();
+                // open pop-up
+                // ATTACK METHODE
+                inAttack = true;
+
+
+
+              }
+          }
+        } else if (t.equals(selectedTerritory)) {
+          r.setEffect(null);
+          for (Territory territory : t.getNeighbor()) {
+            territory.getBoardRegion().getRegion().setEffect(null);
+          }
+          choice = true;
+          selectedTerritory = null;
+          numberOfTerritories = 0;
+
+        }
       }
-    } else if(t.equals(selectedTerritory)) {
-      r.setEffect(null);
-      for (Territory territory : t.getNeighbor()) {
-        territory.getBoardRegion().getRegion().setEffect(null);
-      }
-      choice = true;
-      selectedTerritory = null;
-      numberOfTerritories = 0;
-      
-    }
+    };
+    th.start();
   }
 
   public void clickBack() {
-    if (numberOfTerritories==2) {
-      for (Territory t : g.getWorld().getTerritories().values()) {
-        t.getBoardRegion().getRegion().setEffect(null);
+    Thread th = new Thread() {
+      public void run() {
+        if (numberOfTerritories == 2) {
+          for (Territory t : g.getWorld().getTerritories().values()) {
+            t.getBoardRegion().getRegion().setEffect(null);
+          }
+        }
+        choice = false;
+        dicePane.toBack();
+        quitPane.toBack();
+        grayPane.toBack();
       }
-    }
-    choice = false;
-    dicePane.toBack();
-    quitPane.toBack();
-    grayPane.toBack();
+    };
+    th.start();
   }
   // #############################################
 
@@ -299,46 +311,51 @@ public class BoardController {
    */
   @FXML
   public void handleCardPane(MouseEvent e) {
-    if(e.getSource().equals(upAndDown)) {
-      cardPane.setPrefHeight(0);
-      upperPane.setPrefHeight(0);
-      bottomPane.setPrefHeight(0);
-//      BooleanProperty collapsed = new SimpleBooleanProperty();
-//      collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
-//      upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
-//      upAndDown.setOnAction(f -> {
-//        double target = collapsed.get() ? 0.4 : 0.1;
-//        KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
-//        timeline.play();
-//      });
-    }
+    Thread th = new Thread() {
+      public void run() {
+        if (e.getSource().equals(upAndDown)) {
+          cardPane.setPrefHeight(0);
+          upperPane.setPrefHeight(0);
+          bottomPane.setPrefHeight(0);
+          // BooleanProperty collapsed = new SimpleBooleanProperty();
+          // collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
+          // upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
+          // upAndDown.setOnAction(f -> {
+          // double target = collapsed.get() ? 0.4 : 0.1;
+          // KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
+          // Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
+          // timeline.play();
+          // });
+        }
+      }
+    };
+    th.start();
   }
-  
+
   @FXML
   public void handleCardDragAndDrop(MouseEvent e) {
-    ImageView img = (ImageView)e.getSource();
-    System.out.println("Test1");
-    System.out.println(left.getChildren());
-      if(left.getChildren().isEmpty()) {
-        left.setStyle("-fx-background-color: #E94196");
-        left.getChildren().add(img);
-        System.out.println("TestLeft");
+    Thread th = new Thread() {
+      public void run() {
+        ImageView img = (ImageView) e.getSource();
+        System.out.println("Test1");
+        System.out.println(left.getChildren());
+        if (left.getChildren().isEmpty()) {
+          left.setStyle("-fx-background-color: #E94196");
+          left.getChildren().add(img);
+          System.out.println("TestLeft");
+        } else if (center.getChildren().isEmpty()) {
+          center.getChildren().add(img);
+          System.out.println("TestCenter");
+          // paneXY.getChildren().get(0)
+        } else if (right.getChildren().isEmpty()) {
+          // right.getChildren().add(img);
+          right.getChildren().add(0, img);
+          System.out.println("TestRight");
+        }
       }
-      else if(center.getChildren().isEmpty()){
-        center.getChildren().add(img);
-        System.out.println("TestCenter");
-//        paneXY.getChildren().get(0)
-      }
-      else if(right.getChildren().isEmpty()) {
-//        right.getChildren().add(img);
-        right.getChildren().add(0, img);
-        System.out.println("TestRight");
-      }
-     
-  //  if(left == null && center == null && right == null) {
-      
-    
+    };
+    th.start();
+    // if(left == null && center == null && right == null) {
   }
 
   /**
@@ -346,12 +363,17 @@ public class BoardController {
    */
   @FXML
   public void handleTradeCards(ActionEvent e) {
-    if (e.getSource().equals(tradeIn)) {
-      String cards = Integer.toString(++tradedCards);
-      tradedCardSets.setText(cards);
+    Thread th = new Thread() {
+      public void run() {
+        if (e.getSource().equals(tradeIn)) {
+          String cards = Integer.toString(++tradedCards);
+          tradedCardSets.setText(cards);
 
-      System.out.println("Button geklickt");
-    }
+          System.out.println("Button geklickt");
+        }
+      }
+    };
+    th.start();
   }
 
   /**
@@ -359,38 +381,40 @@ public class BoardController {
    */
   @FXML
   public void handleSkipGameState() {
-    handleProgressBar();
-    this.skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      double i = 0.2;
+    Thread th = new Thread() {
+      public void run() {
+        handleProgressBar();
+        skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          double i = 0.2;
 
-      @Override
-      public void handle(MouseEvent e) {
-        // progress.setProgress(0);
-        // switch(game.getGameState()) {
-        // case PLACE_ARMIES:
-        if (progress.getProgress() < 0.8) {
-          progress.setProgress(progress.getProgress() + i);
-        }
-        // progress.setProgress(0.3);
-        // gameState = new Label("ATTACKING");
-        // break;
-        // case ATTACKING:
-        // progress.setProgress(0.6);
-        // gameState = new Label("FORTIFY");
-        // break;
-        // case FORTIFY:
-        // progress.setProgress(1);
-        // gameState = new Label("END");
-        // break;
-        // }
-        System.out.println("IMAGE GEKLICKT");
+          @Override
+          public void handle(MouseEvent e) {
+            // progress.setProgress(0);
+            // switch(game.getGameState()) {
+            // case PLACE_ARMIES:
+            if (progress.getProgress() < 0.8) {
+              progress.setProgress(progress.getProgress() + i);
+            }
+            // progress.setProgress(0.3);
+            // gameState = new Label("ATTACKING");
+            // break;
+            // case ATTACKING:
+            // progress.setProgress(0.6);
+            // gameState = new Label("FORTIFY");
+            // break;
+            // case FORTIFY:
+            // progress.setProgress(1);
+            // gameState = new Label("END");
+            // break;
+            // }
+            System.out.println("IMAGE GEKLICKT");
+          }
+
+        });
       }
-
-    });
-
+    };
+    th.start();
   }
-
-
 
   @FXML
   public void handleClickCRB() {
@@ -518,90 +542,95 @@ public class BoardController {
    *         and the equivalent territory.
    */
   public void connectRegionTerritory() {
-    g.getWorld().getTerritories().get(1)
-        .setBoardRegion(new BoardRegion(alaska, alaskaHeadline, alaskaNoA));
-    g.getWorld().getTerritories().get(2).setBoardRegion(
-        new BoardRegion(northwestTerritory, northwestTerritoryHeadline, northwestTerritoryNoA));
-    g.getWorld().getTerritories().get(3)
-        .setBoardRegion(new BoardRegion(alberta, albertaHeadline, albertaNoA));
-    g.getWorld().getTerritories().get(4).setBoardRegion(
-        new BoardRegion(westernUnitedStates, westernUnitedStatesHeadline, westernUnitedStatesNoA));
-    g.getWorld().getTerritories().get(5)
-        .setBoardRegion(new BoardRegion(centralAmerica, centralAmericaHeadline, centralAmericaNoA));
-    g.getWorld().getTerritories().get(6)
-        .setBoardRegion(new BoardRegion(greenland, greenlandHeadline, greenlandNoA));
-    g.getWorld().getTerritories().get(7)
-        .setBoardRegion(new BoardRegion(ontario, ontarioHeadline, ontarioNoA));
-    g.getWorld().getTerritories().get(8)
-        .setBoardRegion(new BoardRegion(quebec, quebecHeadline, quebecNoA));
-    g.getWorld().getTerritories().get(9).setBoardRegion(
-        new BoardRegion(easternUnitedStates, easternUnitedStatesHeadline, easternUnitedStatesNoA));
-    g.getWorld().getTerritories().get(10)
-        .setBoardRegion(new BoardRegion(venezuela, venezuelaHeadline, venezuelaNoA));
-    g.getWorld().getTerritories().get(11)
-        .setBoardRegion(new BoardRegion(peru, peruHeadline, peruNoA));
-    g.getWorld().getTerritories().get(12)
-        .setBoardRegion(new BoardRegion(brazil, brazilHeadline, brazilNoA));
-    g.getWorld().getTerritories().get(13)
-        .setBoardRegion(new BoardRegion(argentina, argentinaHeadline, argentinaNoA));
-    g.getWorld().getTerritories().get(14)
-        .setBoardRegion(new BoardRegion(iceland, icelandHeadline, icelandNoA));
-    g.getWorld().getTerritories().get(15)
-        .setBoardRegion(new BoardRegion(scandinavia, scandinaviaHeadline, scandinaviaNoA));
-    g.getWorld().getTerritories().get(16)
-        .setBoardRegion(new BoardRegion(ukraine, ukraineHeadline, ukraineNoA));
-    g.getWorld().getTerritories().get(17)
-        .setBoardRegion(new BoardRegion(greatBritain, greatBritainHeadline, greatBritainNoA));
-    g.getWorld().getTerritories().get(18)
-        .setBoardRegion(new BoardRegion(northernEurope, northernEuropeHeadline, northernEuropeNoA));
-    g.getWorld().getTerritories().get(19)
-        .setBoardRegion(new BoardRegion(westernEurope, westernEuropeHeadline, westernEuropeNoA));
-    g.getWorld().getTerritories().get(20)
-        .setBoardRegion(new BoardRegion(southernEurope, southernEuropeHeadline, southernEuropeNoA));
-    g.getWorld().getTerritories().get(21)
-        .setBoardRegion(new BoardRegion(northAfrica, northAfricaHeadline, northAfricaNoA));
-    g.getWorld().getTerritories().get(22)
-        .setBoardRegion(new BoardRegion(egypt, egyptHeadline, egyptNoA));
-    g.getWorld().getTerritories().get(23)
-        .setBoardRegion(new BoardRegion(congo, congoHeadline, congoNoA));
-    g.getWorld().getTerritories().get(24)
-        .setBoardRegion(new BoardRegion(eastAfrica, eastAfricaHeadline, eastAfricaNoA));
-    g.getWorld().getTerritories().get(25)
-        .setBoardRegion(new BoardRegion(southAfrica, southAfricaHeadline, southAfricaNoA));
-    g.getWorld().getTerritories().get(26)
-        .setBoardRegion(new BoardRegion(madagascar, madagascarHeadline, madagascarNoA));
-    g.getWorld().getTerritories().get(27)
-        .setBoardRegion(new BoardRegion(siberia, siberiaHeadline, siberiaNoA));
-    g.getWorld().getTerritories().get(28)
-        .setBoardRegion(new BoardRegion(ural, uralHeadline, uralNoA));
-    g.getWorld().getTerritories().get(29)
-        .setBoardRegion(new BoardRegion(china, chinaHeadline, chinaNoA));
-    g.getWorld().getTerritories().get(30)
-        .setBoardRegion(new BoardRegion(afghanistan, afghanistanHeadline, afghanistanNoA));
-    g.getWorld().getTerritories().get(31)
-        .setBoardRegion(new BoardRegion(middleEast, middleEastHeadline, middleEastNoA));
-    g.getWorld().getTerritories().get(32)
-        .setBoardRegion(new BoardRegion(india, indiaHeadline, indiaNoA));
-    g.getWorld().getTerritories().get(33)
-        .setBoardRegion(new BoardRegion(siam, siamHeadline, siamNoA));
-    g.getWorld().getTerritories().get(34)
-        .setBoardRegion(new BoardRegion(yakutsk, yakutskHeadline, yakutskNoA));
-    g.getWorld().getTerritories().get(35)
-        .setBoardRegion(new BoardRegion(irkutsk, irkutskHeadline, irkutskNoA));
-    g.getWorld().getTerritories().get(36)
-        .setBoardRegion(new BoardRegion(mongolia, mongoliaHeadline, mongoliaNoA));
-    g.getWorld().getTerritories().get(37)
-        .setBoardRegion(new BoardRegion(japan, japanHeadline, japanNoA));
-    g.getWorld().getTerritories().get(38)
-        .setBoardRegion(new BoardRegion(kamchatka, kamchatkaHeadline, kamchatkaNoA));
-    g.getWorld().getTerritories().get(39)
-        .setBoardRegion(new BoardRegion(indonesia, indonesiaHeadline, indonesiaNoA));
-    g.getWorld().getTerritories().get(40)
-        .setBoardRegion(new BoardRegion(newGuinea, newGuineaHeadline, newGuineaNoA));
-    g.getWorld().getTerritories().get(41).setBoardRegion(
-        new BoardRegion(westernAustralia, westernAustraliaHeadline, westernAustraliaNoA));
-    g.getWorld().getTerritories().get(42).setBoardRegion(
-        new BoardRegion(easternAustralia, easternAustraliaHeadline, easternAustraliaNoA));
-    g.getWorld().createTerritoriesBoardRegion();
+    Thread th = new Thread() {
+      public void run() {
+        g.getWorld().getTerritories().get(1)
+            .setBoardRegion(new BoardRegion(alaska, alaskaHeadline, alaskaNoA));
+        g.getWorld().getTerritories().get(2).setBoardRegion(
+            new BoardRegion(northwestTerritory, northwestTerritoryHeadline, northwestTerritoryNoA));
+        g.getWorld().getTerritories().get(3)
+            .setBoardRegion(new BoardRegion(alberta, albertaHeadline, albertaNoA));
+        g.getWorld().getTerritories().get(4).setBoardRegion(new BoardRegion(westernUnitedStates,
+            westernUnitedStatesHeadline, westernUnitedStatesNoA));
+        g.getWorld().getTerritories().get(5).setBoardRegion(
+            new BoardRegion(centralAmerica, centralAmericaHeadline, centralAmericaNoA));
+        g.getWorld().getTerritories().get(6)
+            .setBoardRegion(new BoardRegion(greenland, greenlandHeadline, greenlandNoA));
+        g.getWorld().getTerritories().get(7)
+            .setBoardRegion(new BoardRegion(ontario, ontarioHeadline, ontarioNoA));
+        g.getWorld().getTerritories().get(8)
+            .setBoardRegion(new BoardRegion(quebec, quebecHeadline, quebecNoA));
+        g.getWorld().getTerritories().get(9).setBoardRegion(new BoardRegion(easternUnitedStates,
+            easternUnitedStatesHeadline, easternUnitedStatesNoA));
+        g.getWorld().getTerritories().get(10)
+            .setBoardRegion(new BoardRegion(venezuela, venezuelaHeadline, venezuelaNoA));
+        g.getWorld().getTerritories().get(11)
+            .setBoardRegion(new BoardRegion(peru, peruHeadline, peruNoA));
+        g.getWorld().getTerritories().get(12)
+            .setBoardRegion(new BoardRegion(brazil, brazilHeadline, brazilNoA));
+        g.getWorld().getTerritories().get(13)
+            .setBoardRegion(new BoardRegion(argentina, argentinaHeadline, argentinaNoA));
+        g.getWorld().getTerritories().get(14)
+            .setBoardRegion(new BoardRegion(iceland, icelandHeadline, icelandNoA));
+        g.getWorld().getTerritories().get(15)
+            .setBoardRegion(new BoardRegion(scandinavia, scandinaviaHeadline, scandinaviaNoA));
+        g.getWorld().getTerritories().get(16)
+            .setBoardRegion(new BoardRegion(ukraine, ukraineHeadline, ukraineNoA));
+        g.getWorld().getTerritories().get(17)
+            .setBoardRegion(new BoardRegion(greatBritain, greatBritainHeadline, greatBritainNoA));
+        g.getWorld().getTerritories().get(18).setBoardRegion(
+            new BoardRegion(northernEurope, northernEuropeHeadline, northernEuropeNoA));
+        g.getWorld().getTerritories().get(19).setBoardRegion(
+            new BoardRegion(westernEurope, westernEuropeHeadline, westernEuropeNoA));
+        g.getWorld().getTerritories().get(20).setBoardRegion(
+            new BoardRegion(southernEurope, southernEuropeHeadline, southernEuropeNoA));
+        g.getWorld().getTerritories().get(21)
+            .setBoardRegion(new BoardRegion(northAfrica, northAfricaHeadline, northAfricaNoA));
+        g.getWorld().getTerritories().get(22)
+            .setBoardRegion(new BoardRegion(egypt, egyptHeadline, egyptNoA));
+        g.getWorld().getTerritories().get(23)
+            .setBoardRegion(new BoardRegion(congo, congoHeadline, congoNoA));
+        g.getWorld().getTerritories().get(24)
+            .setBoardRegion(new BoardRegion(eastAfrica, eastAfricaHeadline, eastAfricaNoA));
+        g.getWorld().getTerritories().get(25)
+            .setBoardRegion(new BoardRegion(southAfrica, southAfricaHeadline, southAfricaNoA));
+        g.getWorld().getTerritories().get(26)
+            .setBoardRegion(new BoardRegion(madagascar, madagascarHeadline, madagascarNoA));
+        g.getWorld().getTerritories().get(27)
+            .setBoardRegion(new BoardRegion(siberia, siberiaHeadline, siberiaNoA));
+        g.getWorld().getTerritories().get(28)
+            .setBoardRegion(new BoardRegion(ural, uralHeadline, uralNoA));
+        g.getWorld().getTerritories().get(29)
+            .setBoardRegion(new BoardRegion(china, chinaHeadline, chinaNoA));
+        g.getWorld().getTerritories().get(30)
+            .setBoardRegion(new BoardRegion(afghanistan, afghanistanHeadline, afghanistanNoA));
+        g.getWorld().getTerritories().get(31)
+            .setBoardRegion(new BoardRegion(middleEast, middleEastHeadline, middleEastNoA));
+        g.getWorld().getTerritories().get(32)
+            .setBoardRegion(new BoardRegion(india, indiaHeadline, indiaNoA));
+        g.getWorld().getTerritories().get(33)
+            .setBoardRegion(new BoardRegion(siam, siamHeadline, siamNoA));
+        g.getWorld().getTerritories().get(34)
+            .setBoardRegion(new BoardRegion(yakutsk, yakutskHeadline, yakutskNoA));
+        g.getWorld().getTerritories().get(35)
+            .setBoardRegion(new BoardRegion(irkutsk, irkutskHeadline, irkutskNoA));
+        g.getWorld().getTerritories().get(36)
+            .setBoardRegion(new BoardRegion(mongolia, mongoliaHeadline, mongoliaNoA));
+        g.getWorld().getTerritories().get(37)
+            .setBoardRegion(new BoardRegion(japan, japanHeadline, japanNoA));
+        g.getWorld().getTerritories().get(38)
+            .setBoardRegion(new BoardRegion(kamchatka, kamchatkaHeadline, kamchatkaNoA));
+        g.getWorld().getTerritories().get(39)
+            .setBoardRegion(new BoardRegion(indonesia, indonesiaHeadline, indonesiaNoA));
+        g.getWorld().getTerritories().get(40)
+            .setBoardRegion(new BoardRegion(newGuinea, newGuineaHeadline, newGuineaNoA));
+        g.getWorld().getTerritories().get(41).setBoardRegion(
+            new BoardRegion(westernAustralia, westernAustraliaHeadline, westernAustraliaNoA));
+        g.getWorld().getTerritories().get(42).setBoardRegion(
+            new BoardRegion(easternAustralia, easternAustraliaHeadline, easternAustraliaNoA));
+        g.getWorld().createTerritoriesBoardRegion();
+      }
+    };
+    th.start();
   }
 }
