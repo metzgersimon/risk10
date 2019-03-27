@@ -131,5 +131,9 @@ public class ProfileImagePickerGUIController {
     }
     return nr;
   }
+  
+  public void initialize() {
+    EditProfileGUIController.image = null;
+  }
 
 }

@@ -25,6 +25,7 @@ public class ProfileSelectionGUIController {
   static String[] names = new String[5];
   static Image[] images = new Image[5];
   static int editNr;
+  static String n;
 
   @FXML
   private Label name1;
@@ -142,17 +143,17 @@ public class ProfileSelectionGUIController {
     count = 0;
     for (PlayerProfile x : ProfileManager.profileList.values()) {
       names[tempCounter] = x.getName();
-      images[tempCounter] = x.getImage(Integer.parseInt(x.getId()));
+      images[tempCounter] = x.getImage();
       tempCounter++;
       count++;
     }
+    System.out.println(count);
   }
 
   public void initialize() {
-    if (LoginGUIController.init) {
-      loadProfiles();
-    }
-    LoginGUIController.init = false;
+
+    loadProfiles();
+
     if (count == 1) {
       name1.setText(names[0]);
       name1.setLayoutX(560);
@@ -271,9 +272,10 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void edit(ActionEvent event) {
+    
     switch (((Button) event.getSource()).getId()) {
       case ("edit1"):
-        editNr = 0;
+        editNr = 0;        
         break;
       case ("edit2"):
         editNr = 1;
@@ -289,6 +291,8 @@ public class ProfileSelectionGUIController {
         break;
     }
 
+    n = names[editNr];
+    
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
