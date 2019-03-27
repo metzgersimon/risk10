@@ -22,9 +22,9 @@ public class ProfileManager {
   // Add new profile to profileList
   public static void addNewProfile(String name, int imageId) {
     readXml();
-    if(profileList.containsKey(name)) {
-      //TODO
-      //link to error message method
+    if (profileList.containsKey(name)) {
+      // TODO
+      // link to error message method
     } else {
       PlayerProfile profile = new PlayerProfile(name, imageId);
       profileList.put(name, profile);
@@ -37,7 +37,7 @@ public class ProfileManager {
     profileList.remove(name);
     saveXml();
   }
-  
+
   public static void editProfile(String name, int imageId) {
     readXml();
     PlayerProfile profile = profileList.get(name);
@@ -47,7 +47,7 @@ public class ProfileManager {
     profileList.put(name, profile);
     saveXml();
   }
-  
+
   public void setSelectedProfile(String key) {
     selectedProfile = profileList.get(key);
   }
@@ -56,12 +56,30 @@ public class ProfileManager {
     return this.selectedProfile;
   }
 
+  // Create PlayerProfiles.xml in same directory as .jar if it doesn't already exist
+  public static void checkXml() {
+    File tester = new File("./PlayerProfiles.xml");
+    if (!tester.exists()) {
+      Element root = new Element("risk10");
+      Document doc = new Document(root);
+      XMLOutputter xmlo = new XMLOutputter();
+      xmlo.setFormat(Format.getPrettyFormat());
+      try {
+        xmlo.output(doc, new FileWriter("./PlayerProfiles.xml"));
+        System.out.println("*****New .xml file created*****");
+      } catch (IOException ioe) {
+        System.out.println(ioe.getMessage());
+      }
+    }
+  }
+
 
   // Loads all player profiles from PlayerProfiles.xml file
   public static void readXml() {
+    checkXml();
     SAXBuilder builder = new SAXBuilder();
-    File xml = new File("src\\gui\\PlayerProfiles.xml");
-
+    // File xml = new File("src\\gui\\PlayerProfiles.xml");
+    File xml = new File("./PlayerProfiles.xml");
     try {
       Document doc = (Document) builder.build(xml);
       Element root = doc.getRootElement();
@@ -94,10 +112,13 @@ public class ProfileManager {
   // Saves profileList to xml
   public static void saveXml() {
 
+    checkXml();
+
     try {
 
       SAXBuilder builder = new SAXBuilder();
-      File xml = new File("src\\gui\\PlayerProfiles.xml");
+      // File xml = new File("src\\gui\\PlayerProfiles.xml");
+      File xml = new File("./PlayerProfiles.xml");
 
       Document doc = (Document) builder.build(xml);
       Element root = doc.getRootElement();
@@ -121,7 +142,8 @@ public class ProfileManager {
       // Save to xml
       XMLOutputter xmlO = new XMLOutputter();
       xmlO.setFormat(Format.getPrettyFormat());
-      xmlO.output(doc, new FileWriter("src\\gui\\PlayerProfiles.xml"));
+      // xmlO.output(doc, new FileWriter("src\\gui\\PlayerProfiles.xml"));
+      xmlO.output(doc, new FileWriter("./PlayerProfiles.xml"));
 
     } catch (IOException ioe) {
       System.out.println(ioe.getMessage());

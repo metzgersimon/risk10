@@ -116,6 +116,7 @@ public class CreateProfileGUIController {
         stage.show();
         ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
+        e.printStackTrace();
         System.out.println("Can't load ProfileSelectionGUI.fxml");
       }
     }

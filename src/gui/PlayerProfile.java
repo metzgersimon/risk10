@@ -117,7 +117,7 @@ public class PlayerProfile {
 
   // Returns to imageId corresponding Image
   public javafx.scene.image.Image getImage(int imageId) {
-    Image image = null;
+    BufferedImage image = null;
     try {
       switch (imageId) {
         case 0:
@@ -157,7 +157,7 @@ public class PlayerProfile {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-    return SwingFXUtils.toFXImage((BufferedImage) image, null);
+    return SwingFXUtils.toFXImage(image, null);
   }
 
 
