@@ -161,11 +161,12 @@ public class EditProfileGUIController {
     }
 
     if (nameAvailable && nameNotEmpty) {
-
+      
       ProfileManager.editProfile(ProfileSelectionGUIController.names[nr], profileName, id);
       ProfileSelectionGUIController.names[nr] = profileName;
-      Image image = profileImage.getImage();
-      ProfileSelectionGUIController.images[nr] = image;
+      Image i = profileImage.getImage();
+      ProfileSelectionGUIController.images[nr] = i;
+      image = null;
 
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
@@ -228,9 +229,9 @@ public class EditProfileGUIController {
     nr = ProfileSelectionGUIController.editNr;
     profileImage.setImage(ProfileSelectionGUIController.images[nr]);
     // profileImage.setImage((ProfileManager.profileList.get(ProfileSelectionGUIController.n)).getImage());
-    if (image != null) {
-      profileImage.setImage(image);
-    }
+     if (image != null) {
+     profileImage.setImage(image);
+     }
     name.setText(ProfileSelectionGUIController.names[nr]);
 
   }
