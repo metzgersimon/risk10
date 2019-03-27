@@ -91,7 +91,7 @@ public class ProfileSelectionGUIController {
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -106,7 +106,7 @@ public class ProfileSelectionGUIController {
       stage.setTitle("Create Profile");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load CreateProfileGUI.fxml");
     }
@@ -127,12 +127,12 @@ public class ProfileSelectionGUIController {
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
-  
+
   /**
    * @author prto loads all saved player profiles
    */
@@ -140,7 +140,7 @@ public class ProfileSelectionGUIController {
     ProfileManager.readXml();
     int tempCounter = 0;
     count = 0;
-    for(PlayerProfile x : ProfileManager.profileList.values()) {
+    for (PlayerProfile x : ProfileManager.profileList.values()) {
       names[tempCounter] = x.getName();
       images[tempCounter] = x.getImage(Integer.parseInt(x.getId()));
       tempCounter++;
@@ -289,11 +289,11 @@ public class ProfileSelectionGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Edit Profile");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }

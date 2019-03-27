@@ -52,21 +52,18 @@ public class ProfileImagePickerGUIController {
     String id = ((ImageView) event.getSource()).getId();
     CreateProfileGUIController.id = getId(id);
 
-
     System.out.println(id);
-
-    // System.out.println("is " + image);
 
     try
 
     {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Create Profile");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }

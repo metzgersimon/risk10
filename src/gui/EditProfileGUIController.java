@@ -165,11 +165,11 @@ public class EditProfileGUIController {
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
-        Stage stage = new Stage();
+        Stage stage = main.Main.stage;
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
-        ((Node) event.getSource()).getScene().getWindow().hide();
+        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
       }

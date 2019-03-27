@@ -67,11 +67,11 @@ public class CreateProfileGUIController {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
-      Stage stage = new Stage();
+      Stage stage = main.Main.stage;
       stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
       stage.show();
-      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -103,18 +103,18 @@ public class CreateProfileGUIController {
       ProfileSelectionGUIController.names[ProfileSelectionGUIController.count] = username;
       ProfileSelectionGUIController.count++;
 
-       ProfileManager.addNewProfile(username, id);
-       ProfileManager.readXml();
-       ProfileManager.printAllProfiles();
+      ProfileManager.addNewProfile(username, id);
+      ProfileManager.readXml();
+      ProfileManager.printAllProfiles();
 
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
-        Stage stage = new Stage();
+        Stage stage = main.Main.stage;
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
-        ((Node) event.getSource()).getScene().getWindow().hide();
+        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
         System.out.println("Can't load ProfileSelectionGUI.fxml");
