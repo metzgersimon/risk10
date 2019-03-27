@@ -48,7 +48,7 @@
                         <DropShadow />
                       </effect>
                     </Button>
-                    <Button layoutX="130.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                    <Button fx:id="leaveGame" layoutX="130.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveLobby" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
                         <DropShadow />
                       </effect>
