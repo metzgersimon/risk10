@@ -14,21 +14,23 @@ import gui.PlayerProfile;
  * @author liwang Main method to invoke LoginGUI
  */
 public class Main extends Application {
-public static Game g = new Game();
+  public static Game g = new Game();
+
+  public static Stage stage ;
 
   @Override
   public void start(Stage primaryStage) {
     try {
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
       Scene scene = new Scene(root, 1280, 720);
-      
+      stage = primaryStage;
       primaryStage.setScene(scene);
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
       primaryStage.setTitle("Login");
       primaryStage.show();
-      
-      
+
+
     } catch (Exception e) {
       e.printStackTrace();
     }
