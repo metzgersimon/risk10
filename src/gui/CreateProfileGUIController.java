@@ -28,10 +28,11 @@ import javafx.stage.Stage;
 
 public class CreateProfileGUIController {
 
-  private String username = null;
+  public static String username = null;
   public static Image image = null;
   public static int id = 0;
 
+  public static boolean empty = true;
 
   @FXML
   private Button conform;
@@ -44,6 +45,7 @@ public class CreateProfileGUIController {
 
   @FXML
   void chooseImage(MouseEvent event) {
+    empty = false;
     // FileChooser fileChooser = new FileChooser();
     // File file = fileChooser.showOpenDialog(null);
     //
@@ -165,13 +167,15 @@ public class CreateProfileGUIController {
   }
 
   public void initialize() {
-    if (image != null) {
-      profileImage.setImage(image);
+    if (!empty) {
+      if (image != null) {
+        profileImage.setImage(image);
+      }
+      if (username != null) {
+        name.setText(username);
+      }
     }
-    if (username != null) {
-      name.setText(username);
-
-    }
+    empty = true;
 
   }
 }

@@ -149,7 +149,10 @@ public class ProfileSelectionGUIController {
   }
 
   public void initialize() {
-    loadProfiles();
+    if (LoginGUIController.init) {
+      loadProfiles();
+    }
+    LoginGUIController.init = false;
     if (count == 1) {
       name1.setText(names[0]);
       name1.setLayoutX(560);

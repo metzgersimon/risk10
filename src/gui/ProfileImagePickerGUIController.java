@@ -48,24 +48,39 @@ public class ProfileImagePickerGUIController {
 
   @FXML
   void chooseImage(MouseEvent event) {
-    CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
     String id = ((ImageView) event.getSource()).getId();
-    CreateProfileGUIController.id = getId(id);
 
-    System.out.println(id);
+    // System.out.println(id);
+    if (EditProfileGUIController.edit) {
+      EditProfileGUIController.image = ((ImageView) event.getSource()).getImage();
+      EditProfileGUIController.id = getId(id);
+      try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
+        AnchorPane root = (AnchorPane) fxmlLoader.load();
+        Stage stage = main.Main.stage;
+        stage.setTitle("Edit Profile");
+        stage.setScene(new Scene(root));
+        stage.show();
+        // ((Node) event.getSource()).getScene().getWindow().hide();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else {
+      try {
+        CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
 
-    try
+        CreateProfileGUIController.id = getId(id);
 
-    {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
-      AnchorPane root = (AnchorPane) fxmlLoader.load();
-      Stage stage = main.Main.stage;
-      stage.setTitle("Create Profile");
-      stage.setScene(new Scene(root));
-      stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      e.printStackTrace();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
+        AnchorPane root = (AnchorPane) fxmlLoader.load();
+        Stage stage = main.Main.stage;
+        stage.setTitle("Create Profile");
+        stage.setScene(new Scene(root));
+        stage.show();
+        // ((Node) event.getSource()).getScene().getWindow().hide();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 

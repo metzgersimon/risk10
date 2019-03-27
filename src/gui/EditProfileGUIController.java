@@ -34,6 +34,9 @@ public class EditProfileGUIController {
 
   public static int id = 0;
   public static boolean edit = false;
+  public static Image image = null;
+  
+  public static String profileName = null;
 
   @FXML
   private Button save;
@@ -70,6 +73,8 @@ public class EditProfileGUIController {
     // e.printStackTrace();
     // }
     edit = true;
+    profileName = name.getText();
+    
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
@@ -156,12 +161,12 @@ public class EditProfileGUIController {
     }
 
     if (nameAvailable && nameNotEmpty) {
+     
+      ProfileManager.editProfile(ProfileSelectionGUIController.names[nr], profileName, id);
       ProfileSelectionGUIController.names[nr] = profileName;
       Image image = profileImage.getImage();
       ProfileSelectionGUIController.images[nr] = image;
-
-      ProfileManager.editProfile(profileName, id);
-
+      
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
@@ -221,8 +226,9 @@ public class EditProfileGUIController {
   public void initialize() {
     edit = false;
     nr = ProfileSelectionGUIController.editNr;
-    profileImage.setImage(ProfileSelectionGUIController.images[nr]);
+    profileImage.setImage(image);
     name.setText(ProfileSelectionGUIController.names[nr]);
+    
   }
 
 }

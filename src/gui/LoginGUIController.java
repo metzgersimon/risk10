@@ -13,6 +13,8 @@ import javafx.stage.Stage;
  * @author liwang Controller class for LoginGUI
  */
 public class LoginGUIController {
+  
+  public static boolean init = true;
 
   @FXML
   private Button klickToStart;
