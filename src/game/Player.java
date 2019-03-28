@@ -188,7 +188,7 @@ public class Player {
   }
   
   public void attack(Territory own, Territory opponent) {
-    if(!this.getTerritories().contains(own)) {
+   /** if(!this.getTerritories().contains(own)) {
       
     }
     if(this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
@@ -198,7 +198,13 @@ public class Player {
       
     }
   }
-
+  **/
+    if(this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
+      
+    } else {
+      //Error message
+    }
+  }
 }
 
 

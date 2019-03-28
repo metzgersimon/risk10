@@ -1,19 +1,12 @@
 package gui;
 
-import java.awt.Color;
-import game.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import game.Game;
+import game.Player;
+import game.Territory;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,18 +15,17 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import main.Main;
 
 /**
  * 
@@ -127,11 +119,13 @@ public class BoardController {
   @FXML
   private SplitPane cardPane;
   @FXML
-  private Button upAndDown;
+  private Circle upAndDown;
   @FXML
   private AnchorPane upperPane;
   @FXML
   private AnchorPane bottomPane;
+  @FXML
+  private FlowPane ownCards;
 
   /**
    * Elements to handle trade-in button
@@ -156,11 +150,11 @@ public class BoardController {
   @FXML
   private GridPane paneXY;
   @FXML
-  private Pane left;
+  private HBox left;
   @FXML
-  private Pane center;
+  private HBox center;
   @FXML
-  private Pane right;
+  private HBox right;
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -314,6 +308,8 @@ public class BoardController {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(upAndDown)) {
+          System.out.println("Card button geklickt");
+          cardPane.setVisible(false);
           cardPane.setPrefHeight(0);
           upperPane.setPrefHeight(0);
           bottomPane.setPrefHeight(0);
@@ -333,14 +329,10 @@ public class BoardController {
   }
 
   @FXML
-  public void handleCardDragAndDrop(MouseEvent e) {
-    Thread th = new Thread() {
-      public void run() {
+  public ImageView handleCardDragAndDrop(MouseEvent e) {
         ImageView img = (ImageView) e.getSource();
         System.out.println("Test1");
-        System.out.println(left.getChildren());
         if (left.getChildren().isEmpty()) {
-          left.setStyle("-fx-background-color: #E94196");
           left.getChildren().add(img);
           System.out.println("TestLeft");
         } else if (center.getChildren().isEmpty()) {
@@ -352,10 +344,31 @@ public class BoardController {
           right.getChildren().add(0, img);
           System.out.println("TestRight");
         }
-      }
-    };
-    th.start();
+        return img;
     // if(left == null && center == null && right == null) {
+  }
+  
+  @FXML
+  public void handleRemoveCard(MouseEvent e) {
+    Pane p = (Pane) e.getSource();
+      System.out.println("BLABLABLA");
+      if(p.equals(left)) {
+        ImageView img = (ImageView)p.getChildren();
+        ownCards.getChildren().add(img);    
+        left.getChildren().remove(0);
+      }
+      else if(p.equals(center)) {
+        ImageView img = (ImageView)p.getChildren();
+        ownCards.getChildren().add(img);
+        center.getChildren().remove(0);
+      }
+      else if(p.equals(right)) {
+        ImageView img = (ImageView)p.getChildren();
+        ownCards.getChildren().add(img);
+        right.getChildren().remove(0);
+      }
+//      ImageView img = (ImageView)p.getChildren();
+//      ownCards.getChildren().add(img);
   }
 
   /**
