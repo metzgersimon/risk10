@@ -81,6 +81,40 @@ public class Game {
 
   }
 
+  public void playRisk() {
+    // Compute number of armies
+    // define player order
+    
+    // while unconquered territories
+    //  initTerritoryDistribution
+    //  change Player
+     
+    // while next Player has army left
+    //  change BoardGUI --> current Player should only could choose his own territories
+    //                      highlight his own territories and disable all others
+    //  initArmyDistribution()
+    //  update Board
+    //  change Player
+    
+    // while Game is running
+    //
+    //  while armies left
+    //      change BoardGUI --> current Player should only could choose his own territories
+    //                      highlight his own territories and disable all others
+    //      distributeArmies
+    //
+    //  while GameState == Attack
+    //      change BoardGUI --> current Player should only could choose his own territories
+    //                      highlight his own territories and all attackable neighbors
+    //      attack
+    //      update Board
+    //
+    //  change BoardGUI --> update only current players territories, disable all others
+    //  fortify
+    //  update BoardGUI
+    //  change Player
+  }
+  
   public Player getCurrentPlayer() {
     return this.currentPlayer;
   }
