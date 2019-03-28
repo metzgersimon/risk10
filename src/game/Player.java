@@ -136,8 +136,24 @@ public class Player {
     return cards;
   }
 
+  public PlayerColor getColor() {
+    return color;
+  }
+
+  public ArrayList<Player> getEliminatedPlayers() {
+    return eliminatedPlayers;
+  }
+
   public void setCards(ArrayList<Card> cards) {
     this.cards = cards;
+  }
+
+  public void setColor(PlayerColor color) {
+    this.color = color;
+  }
+
+  public void setEliminatedPlayers(ArrayList<Player> eliminatedPlayers) {
+    this.eliminatedPlayers = eliminatedPlayers;
   }
 
   /**
@@ -169,6 +185,18 @@ public class Player {
     cards.remove(c2);
     cards.remove(c3);
     cards.trimToSize();
+  }
+  
+  public void attack(Territory own, Territory opponent) {
+    if(!this.getTerritories().contains(own)) {
+      
+    }
+    if(this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
+      
+    }
+    if(!this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
+      
+    }
   }
 
 }
