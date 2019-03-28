@@ -180,18 +180,30 @@ public class BoardController {
   //moves card from bottomList to topList
   public void selectCard(Card card) {
     if(bottomList.containsKey(card.getId())) {
-      Card temp = bottomList.get(card.getId());
-      bottomList.remove(card.getId());
-      topList.put(temp.getId(), temp);
+      if(topList.size() <= 3) {
+        Card temp = bottomList.get(card.getId());
+        bottomList.remove(card.getId());
+        topList.put(temp.getId(), temp);
+      } else {
+        System.out.println("Error: TopList is > 3");
+      }
+    } else {
+      System.out.println("Error: Card is not in bottomList");
     }
   }
   
   //moves card from topList to bottomList
   public void deselectCard(Card card) {
     if(topList.containsKey(card.getId())) {
-      Card temp = topList.get(card.getId());
-      topList.remove(card.getId());
-      bottomList.put(temp.getId(), temp);
+      if(bottomList.size() <= 5) {
+        Card temp = topList.get(card.getId());
+        topList.remove(card.getId());
+        bottomList.put(temp.getId(), temp);
+      } else {
+        System.out.println("Error: bottomList is > 5");
+      }
+    } else {
+      System.out.println("Error: Card is not in topList");
     }
   }
   
@@ -363,6 +375,7 @@ public class BoardController {
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
         ImageView img = (ImageView) e.getSource();
+        //Integer selectedId = (int) e.getSource();
         System.out.println("Test1");
         if (left.getChildren().isEmpty()) {
           left.getChildren().add(img);

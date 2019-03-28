@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -29,6 +30,7 @@ public class Card {
   private Territory territory;
   private boolean isWildcard;
   private int id;
+  private BufferedImage image;
 
 
   // nur territory und wildcard
@@ -55,6 +57,10 @@ public class Card {
   
   public int getId() {
     return this.id;
+  }
+  
+  public javafx.scene.image.Image getFxImage(){
+    return SwingFXUtils.toFXImage(this.image, null);
   }
 
   // setters
