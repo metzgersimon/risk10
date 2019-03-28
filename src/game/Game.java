@@ -1,6 +1,8 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Game {
   public final static int MAX_PLAYERS = 6;
@@ -18,10 +20,11 @@ public class Game {
   private ArrayList<Territory> territories;
   private Player currentPlayer;
   private int gameState;
+  private static int attackWon;
+  private static int defendWon;
 
-
-  /**@author qiychen
-   * Constructor
+  /**
+   * @author qiychen Constructor
    */
   public Game() {
     players = new ArrayList<>();
@@ -36,6 +39,7 @@ public class Game {
 
   /**
    * Add a new player in the list
+   * 
    * @author qiychen
    * @param name
    * @return
@@ -161,6 +165,128 @@ public class Game {
     boolean result = same || same2 || same3 || different || different2;
     return result;
   }
+
+  /**
+   *
+   * @param attack territory
+   * @param defend territory
+   * @param attack with a number of armies
+   */
+  public void attack(Territory attack, Territory defend, int armies) {
+    if (gameState == ATTACKING) {
+      HashSet<Territory> neigbors = attack.getNeighbor();
+      if (attack.getOwner() == currentPlayer && defend.getOwner() != currentPlayer
+          && neigbors.contains(defend) && attack.getNumberOfArmies() > 1) {
+
+        int attackTotalarmies = attack.getNumberOfArmies();
+        int defendTotalarmies = defend.getNumberOfArmies();
+        // row the dice
+        int attackDiceTimes = this.rollDiceTimes(armies, "attack");
+        int defendDiceTimes = this.rollDiceTimes(defendTotalarmies, "defend");
+        // if the both sides own less than 3 armies
+        if (attackDiceTimes == defendDiceTimes && attackDiceTimes == 1) {
+          this.rollDices(armies, defendTotalarmies);
+        } else {
+          // Todo: Dices are rolled more than one times
+
+
+
+        }
+        // change armies
+        if (attackWon > 0) {
+          if (attackWon == defendTotalarmies) {
+            defend.setOwner(currentPlayer);
+            defend.setNumberOfArmies(attackWon);
+            // armies moved form attack territory to defend territory
+            attack.setNumberOfArmies(attackTotalarmies - attackWon);
+          } else {
+            defend.setNumberOfArmies(defendTotalarmies - attackWon);
+
+          }
+        } else if (defendWon > 0) {
+          attack.setNumberOfArmies(attackTotalarmies - defendWon);
+        }
+
+      } else {
+        System.out.println("Attacking is not possible");
+      }
+
+
+
+    } else {
+      System.out.println("Not in attacking phase");
+    }
+
+  }
+
+  /**
+   * @author qiychen
+   * @param arr
+   * @return a desceding array (Dice) for example Dice: [5, 4, 2]
+   */
+  public int[] sortDesceding(int[] arr) {
+    Arrays.sort(arr);
+    int[] reverseArray = new int[arr.length];
+    for (int i = 0; i < reverseArray.length; i++) {
+      reverseArray[i] = arr[reverseArray.length - i - 1];
+    }
+    return reverseArray;
+  }
+
+  /**
+   * @author qiychen
+   * @param armies
+   * @param side from attack or defend
+   * @return the number of times that the dice has been rolled, attack max.3 dices at one time,
+   *         defend max.2 times at one time
+   */
+  public int rollDiceTimes(int armies, String side) {
+    if (side.equals("attack")) {
+      double tmp = ((double) armies) / 3;
+      int times = (int) Math.ceil(tmp);
+      return times;
+    } else if (side.equals("defend")) {
+      double tmp = ((double) armies) / 2;
+      int times = (int) Math.ceil(tmp);
+      return times;
+    } else {
+      System.out.println("please choose a side");
+      return 0;
+    }
+  }
+
+  /**
+   * @author qiychen
+   * @param attack armies
+   * @param defend armies get the number of wins from attack/defend side the number of wins will be
+   *        saved in static variable attackWon and defendWon
+   */
+  public void rollDices(int attack, int defend) {
+    attackWon = 0;
+    defendWon = 0;
+    Dice dice = new Dice("Dice");
+    int[] attackDice = dice.rollDices(attack);
+    int[] defendDice = dice.rollDices(defend);
+    // sort Dice descending
+    attackDice = this.sortDesceding(attackDice);
+    defendDice = this.sortDesceding(defendDice);
+    // compare dice number
+    int length;// select min length
+    if (attackDice.length <= defendDice.length) {
+      length = attackDice.length;
+    } else {
+      length = defendDice.length;
+    }
+    for (int i = 0; i < length; i++) {
+      if (attackDice[i] > defendDice[i]) {
+        attackWon++;
+      } else {
+        defendWon++;
+      }
+    }
+
+  }
+
 
 }
 
