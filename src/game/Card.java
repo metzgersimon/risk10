@@ -28,12 +28,14 @@ import javafx.scene.text.Text;
 public class Card {
   private Territory territory;
   private boolean isWildcard;
+  private int id;
 
 
   // nur territory und wildcard
   public Card(Territory territory, boolean isWildcard) {
     this.territory = territory;
     this.isWildcard = isWildcard;
+    this.id = territory.getId();
   }
 
   public Card(boolean isWildcard) {
@@ -49,6 +51,10 @@ public class Card {
 
   public boolean getIsWildcard() {
     return isWildcard;
+  }
+  
+  public int getId() {
+    return this.id;
   }
 
   // setters

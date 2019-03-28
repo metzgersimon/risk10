@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.HashMap;
+import game.Card;
 import game.Game;
 import game.Player;
 import game.Territory;
@@ -36,6 +38,13 @@ public class BoardController {
   Game g;
   Player p;
   // BoardGUI_Elements elements;
+  
+  /**
+   * @author prto testing
+   */
+  public HashMap<Integer, Card> topList;
+  public HashMap<Integer, Card> bottomList;
+  
 
   // TEST PARTS
   @FXML
@@ -119,7 +128,7 @@ public class BoardController {
   @FXML
   private SplitPane cardPane;
   @FXML
-  private Circle upAndDown;
+  private AnchorPane upAndDown;
   @FXML
   private AnchorPane upperPane;
   @FXML
@@ -158,7 +167,35 @@ public class BoardController {
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
-
+  
+  /**
+   * @author prto 
+   * initialize card lists
+   */
+  public void initializeCardLists() {
+    topList = new HashMap<Integer, Card>();
+    bottomList = new HashMap<Integer, Card>();
+  }
+  
+  //moves card from bottomList to topList
+  public void selectCard(Card card) {
+    if(bottomList.containsKey(card.getId())) {
+      Card temp = bottomList.get(card.getId());
+      bottomList.remove(card.getId());
+      topList.put(temp.getId(), temp);
+    }
+  }
+  
+  //moves card from topList to bottomList
+  public void deselectCard(Card card) {
+    if(topList.containsKey(card.getId())) {
+      Card temp = topList.get(card.getId());
+      topList.remove(card.getId());
+      bottomList.put(temp.getId(), temp);
+    }
+  }
+  
+  
   // public void setMain(BoardGUI_Main boardGUI, Game g) {
   public void setMain(SinglePlayerGUIController boardGui, Game g) {
     this.boardGui = boardGui;
@@ -305,8 +342,6 @@ public class BoardController {
    */
   @FXML
   public void handleCardPane(MouseEvent e) {
-    Thread th = new Thread() {
-      public void run() {
         if (e.getSource().equals(upAndDown)) {
           System.out.println("Card button geklickt");
           cardPane.setVisible(false);
@@ -323,9 +358,6 @@ public class BoardController {
           // timeline.play();
           // });
         }
-      }
-    };
-    th.start();
   }
 
   @FXML
@@ -350,30 +382,33 @@ public class BoardController {
   
   @FXML
   public void handleRemoveCard(MouseEvent e) {
-    Pane p = (Pane) e.getSource();
+    HBox b = (HBox) e.getSource();
       System.out.println("BLABLABLA");
-      if(p.equals(left)) {
-        ImageView img = (ImageView)p.getChildren();
+      if(b.equals(left)) {
+        ImageView img = (ImageView)b.getChildren().get(0);
         ownCards.getChildren().add(img);    
-        left.getChildren().remove(0);
+        left.getChildren().clear();
       }
-      else if(p.equals(center)) {
-        ImageView img = (ImageView)p.getChildren();
+      else if(b.equals(center)) {
+        ImageView img = (ImageView)b.getChildren().get(0);
         ownCards.getChildren().add(img);
-        center.getChildren().remove(0);
+        center.getChildren().clear();
+       //remove(0);
       }
-      else if(p.equals(right)) {
-        ImageView img = (ImageView)p.getChildren();
+      else if(b.equals(right)) {
+        ImageView img = (ImageView)b.getChildren().get(0);
         ownCards.getChildren().add(img);
-        right.getChildren().remove(0);
+        right.getChildren().clear();//getChildren().remove(0);
       }
-//      ImageView img = (ImageView)p.getChildren();
-//      ownCards.getChildren().add(img);
   }
 
   /**
+   * Arraylist<Karte> oben, unten;
    * 
    */
+  
+  
+  
   @FXML
   public void handleTradeCards(ActionEvent e) {
     Thread th = new Thread() {
