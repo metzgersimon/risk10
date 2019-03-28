@@ -216,9 +216,9 @@ public class BoardController {
    * This method is a dummy Method, to get to know, how the ProgressBAr can be handled
    */
   public void handleProgressBar() {
-    // String color = p.getColor().toString().toLowerCase();
-    // this.progress.setStyle("-fx-accent: "+color+";");
-    // this.progress.setProgress(0.4);
+     String color = p.getColor().toString().toLowerCase();
+     this.progress.setStyle("-fx-accent: "+color+";");
+     this.progress.setProgress(0.4);
   }
 
   /**
