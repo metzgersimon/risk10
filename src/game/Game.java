@@ -325,9 +325,11 @@ public class Game {
    * @author skaur
    * @param moveFrom : territory selected from where the army is going to be moved
    * @param moveTo : territory where the army is going to moved
-   * @param armyToMove : no. of armies selected to be move
+   * @param armyToMove: no. of armies selected to be move
+   * @return: false if invalid parameter are selected; should be called in a while loop until the
+   *          player selects valid paramater or skip the fortify gamestate
    */
-  public void fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
+  public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
     if (gameState == FORTIFY) {
       // check if both territories belong to the current player
       if (this.currentPlayer.equals(moveFrom.getOwner())
@@ -342,27 +344,31 @@ public class Game {
           if (currentNoArmies > armyToMove) {
             moveFrom.setReducedNumberOfArmies(armyToMove);
             moveTo.setNumberOfArmies(armyToMove);
+            return true;
           } else {
             // error messages which may be implemented in the boardgui later
             System.out.println(
                 "The number of army to move is greater than the available army in the territory "
                     + moveFrom.getName());
+            return false;
           }
         } else {
 
           System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
               + moveFrom.getName() + " are not neighbors");
+          return false;
         }
       } else {
 
         System.out.println(moveFrom.getName() + " or " + moveTo.getName()
             + " doesnt belong to the current player ");
+        return false;
       }
 
     }
+    System.out.println("Not in a fortify mode ");
+    return false;
   }
-
-
 
 }
 
