@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
@@ -115,7 +116,21 @@ public class BoardController {
    */
   @FXML
   private Pane dicePane;
-
+  @FXML
+  private Button throwDices;
+  @FXML
+  private Pane attackDice1;
+  @FXML
+  private Pane attackDice2;
+  @FXML
+  private Pane attackDice3;
+  @FXML
+  private Pane defendDice1;
+  @FXML
+  private Pane defendDice2;
+  @FXML
+  private Slider diceSlider;
+  
   /**
    * Elements that show the current game state and illustrate who is the current player
    */
@@ -371,6 +386,18 @@ public class BoardController {
           // });
         }
   }
+  
+//  @FXML
+//  public void handleDiceSlider() {
+//    diceSlider.valueProperty().addListener(arg0);
+//    });
+//  }
+//  @FXML
+//  public void handleThrowDices() {
+//    throwDices.setOnAction((event) -> {
+//      
+//    };
+//  }
 
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
