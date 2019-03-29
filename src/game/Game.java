@@ -321,6 +321,48 @@ public class Game {
 
   }
 
+  /**
+   * @author skaur
+   * @param moveFrom : territory selected from where the army is going to be moved
+   * @param moveTo : territory where the army is going to moved
+   * @param armyToMove : no. of armies selected to be move
+   */
+  public void fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
+    if (gameState == FORTIFY) {
+      // check if both territories belong to the current player
+      if (this.currentPlayer.equals(moveFrom.getOwner())
+          && (this.currentPlayer.equals(moveTo.getOwner()))) {
+        HashSet<Territory> neighbors = moveFrom.getNeighbor();
+        // check if both territories are neighbors
+        if (neighbors.contains(moveTo)) {
+          int currentNoArmies = moveFrom.getNumberOfArmies();
+          // check is current available no of army is greater than the army to move, so that there
+          // is at least one
+          // army left behind in the territory
+          if (currentNoArmies > armyToMove) {
+            moveFrom.setReducedNumberOfArmies(armyToMove);
+            moveTo.setNumberOfArmies(armyToMove);
+          } else {
+            // error messages which may be implemented in the boardgui later
+            System.out.println(
+                "The number of army to move is greater than the available army in the territory "
+                    + moveFrom.getName());
+          }
+        } else {
+
+          System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
+              + moveFrom.getName() + " are not neighbors");
+        }
+      } else {
+
+        System.out.println(moveFrom.getName() + " or " + moveTo.getName()
+            + " doesnt belong to the current player ");
+      }
+
+    }
+  }
+
+
 
 }
 

@@ -79,7 +79,13 @@ public class Territory {
   public void setNumberOfArmies(int amount) {
     this.numberOfArmies += amount;
   }
-
+   /**
+    * 
+    * @param amount = number of armies to reduce from numberOfArmies
+    */
+  public void setReducedNumberOfArmies(int amount) {
+    this.numberOfArmies -= amount;
+  }
   /**
    * @return number of armies at this territory Getter-method
    */
@@ -90,6 +96,7 @@ public class Territory {
   /**
    * @return id of a territory Getter-method
    */
+  
   public int getId() {
     return id;
   }
