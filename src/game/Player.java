@@ -229,6 +229,8 @@ public class Player {
     
   }
   
+  
+  
   public void attack(Territory own, Territory opponent) {
    /** if(!this.getTerritories().contains(own)) {
       

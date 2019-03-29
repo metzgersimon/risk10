@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 import game.Card;
 import game.Game;
 import game.Player;
@@ -25,7 +26,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
@@ -261,7 +261,7 @@ public class BoardController {
   public void handleProgressBar() {
      String color = p.getColor().toString().toLowerCase();
      this.progress.setStyle("-fx-accent: "+color+";");
-     this.progress.setProgress(0.4);
+     this.progress.setProgress(0);
   }
 
   /**
@@ -427,6 +427,7 @@ public class BoardController {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
+//          if(g.canbeTraded(topList.get(), c2, c3))
           String cards = Integer.toString(++tradedCards);
           tradedCardSets.setText(cards);
 
@@ -442,39 +443,56 @@ public class BoardController {
    */
   @FXML
   public void handleSkipGameState() {
-    Thread th = new Thread() {
-      public void run() {
-        handleProgressBar();
+//        handleProgressBar();
+    progress.setStyle("-fx-accent: magenta;");
         skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
-          double i = 0.2;
 
           @Override
           public void handle(MouseEvent e) {
-            // progress.setProgress(0);
-            // switch(game.getGameState()) {
-            // case PLACE_ARMIES:
-            if (progress.getProgress() < 0.8) {
-              progress.setProgress(progress.getProgress() + i);
+//             switch(game.getGameState()) {
+//                case 1:
+//                  gameState.setText("Place your armies!");
+//                  progress.setProgress(0.33);
+//                  break;
+//                case 2:
+//                  gameState.setText("Attack other territories!");
+//                  progress.setProgress(0.66);
+//                  break;
+//                case 3:
+//                  gameState.setText("Fortify your armies!");
+//                  progress.setProgress(1);
+//                  break;
+//             }
+            progress.setProgress(0.33);
+            gameState.setText("Place your armies");
+            
+            try {
+              TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
             }
-            // progress.setProgress(0.3);
-            // gameState = new Label("ATTACKING");
-            // break;
-            // case ATTACKING:
-            // progress.setProgress(0.6);
-            // gameState = new Label("FORTIFY");
-            // break;
-            // case FORTIFY:
-            // progress.setProgress(1);
-            // gameState = new Label("END");
-            // break;
-            // }
-            System.out.println("IMAGE GEKLICKT");
+            progress.setProgress(0.66);
+            gameState.setText("Attack!");
+            try {
+              TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
+            progress.setProgress(0.90);
+            gameState.setText("Fortify");
+            try {
+              TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
+            progress.setProgress(1);
+            gameState.setText("End");
+//            System.out.println("IMAGE GEKLICKT");
           }
-
         });
-      }
-    };
-    th.start();
   }
 
   @FXML
