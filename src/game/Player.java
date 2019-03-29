@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * 
@@ -18,11 +19,12 @@ public class Player {
   private int armies;
   private int type;// human player or ai
   private PlayerColor color;
-  private ArrayList<Territory> territories;
-  private ArrayList<Continent> continents;
+  private HashSet<Territory> territories;
+  private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
   private int tradeNumber;//
+  private int valueActuallyTradedIn;
 
   /**
    * create a new player
@@ -36,16 +38,16 @@ public class Player {
     this.armies = armies;
     this.type = type;
     this.color=color;
-    territories = new ArrayList<>();
-    continents = new ArrayList<>();
+    territories = new HashSet<>();
+    continents = new HashSet<>();
     cards = new ArrayList<>();
     this.tradeNumber=0;
   }
 
   public Player(String name) {
     this.name = name;
-    territories = new ArrayList<>();
-    continents = new ArrayList<>();
+    territories = new HashSet<>();
+    continents = new HashSet<>();
     cards = new ArrayList<>();
   }
 
@@ -73,11 +75,11 @@ public class Player {
     this.type = type;
   }
 
-  public ArrayList<Territory> getTerritories() {
+  public HashSet<Territory> getTerritories() {
     return territories;
   }
 
-  public void setTerritories(ArrayList<Territory> territories) {
+  public void setTerritories(HashSet<Territory> territories) {
     this.territories = territories;
   }
   
@@ -116,11 +118,11 @@ public class Player {
     territories.remove(t);
   }
 
-  public ArrayList<Continent> getContinents() {
+  public HashSet<Continent> getContinents() {
     return continents;
   }
 
-  public void setContinents(ArrayList<Continent> continents) {
+  public void setContinents(HashSet<Continent> continents) {
     this.continents = continents;
   }
 
@@ -185,6 +187,46 @@ public class Player {
     cards.remove(c2);
     cards.remove(c3);
     cards.trimToSize();
+  }
+  
+
+  /**
+   * 
+   * Precondition: only own territories can be chosen
+   */
+  public boolean initArmyDistribute(Territory t) {
+    if (t.getOwner().equals(this)) {
+      t.setNumberOfArmies(1);
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+   * 
+   * Precondition:
+   * 
+   */
+  public int computeAdditionalNumberOfArmies() {
+    int result = 0;
+    // player receives for three territories one army
+    result += this.getTerritories().size()%3;
+    // player receives for each continent the number of additional armies
+    for (Continent c : this.getContinents()) {
+      result += c.getValue();
+    }
+    // player receives armies for each card set depending on the number of previous traded sets
+    result += valueActuallyTradedIn;
+    
+    if (result<3) {
+      return 3;
+    } else {
+      return result;
+    }
+    
+    
+    
   }
   
   public void attack(Territory own, Territory opponent) {
