@@ -23,6 +23,7 @@ public class Player {
   private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
+  public int numberArmiesToDistribute;
   private int tradeNumber;//
   private int valueActuallyTradedIn;
 
@@ -158,6 +159,10 @@ public class Player {
     this.eliminatedPlayers = eliminatedPlayers;
   }
 
+  public int getNumberArmiesToDistibute() {
+    return this.numberArmiesToDistribute;
+  }
+
   /**
    * if player defeated another player, this player will be add to eliminatedPlayers
    * 
@@ -189,25 +194,26 @@ public class Player {
     cards.trimToSize();
   }
 
-
   /**
+   * @author pcoberge
    * 
-   * Precondition: only own territories can be chosen
+   * @param amount of armies that shall be set at territory t
+   * @param t is the territory that should receive the amount of armies
+   * @return boolean in order to show whether the distribution has been successful or not
+   * 
+   *         Precondition: only own territories can be chosen, player has enough armies left
    */
-  public boolean initArmyDistribution(Territory t) {
-    if (t.getOwner().equals(this)) {
-      t.setNumberOfArmies(1);
+  public boolean armyDistribution(int amount, Territory t) {
+    if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
+      t.setNumberOfArmies(amount);
+      this.numberArmiesToDistribute -= amount;
       return true;
     } else {
       return false;
     }
   }
 
-  /**
-   * 
-   * Precondition:
-   * 
-   */
+
   public int computeAdditionalNumberOfArmies() {
     int result = 0;
     // player receives for three territories one army
@@ -220,8 +226,10 @@ public class Player {
     result += valueActuallyTradedIn;
 
     if (result < 3) {
+      this.numberArmiesToDistribute = 3;
       return 3;
     } else {
+      this.numberArmiesToDistribute = result;
       return result;
     }
   }

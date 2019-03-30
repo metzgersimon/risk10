@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * 
@@ -58,7 +59,6 @@ public class BoardController {
   private Game game;
   private int numberOfTerritories;
   private Territory selectedTerritory = null;
-  private boolean choice = true;
   private static int tradedCards = 0;
   // Views
   @FXML
@@ -104,33 +104,31 @@ public class BoardController {
   @FXML
   private ImageView imageLeave;
   @FXML
-  private Pane quitPane;
+  private Pane quitPane, grayPane;
   @FXML
-  private Pane grayPane;
-  @FXML
-  private Button yesLeave;
-  @FXML
-  private Button noLeave;
+  private Button yesLeave, noLeave;
 
   /**
    * Elements that handle dicePane
    */
   @FXML
-  private Pane dicePane;
+  private Pane dicePane, attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
   @FXML
   private Button throwDices;
   @FXML
-  private Pane attackDice1;
-  @FXML
-  private Pane attackDice2;
-  @FXML
-  private Pane attackDice3;
-  @FXML
-  private Pane defendDice1;
-  @FXML
-  private Pane defendDice2;
-  @FXML
   private Slider diceSlider;
+
+
+  /**
+   * Elements that handle setArmyPane
+   */
+  @FXML
+  private Pane setArmyPane;
+  @FXML
+  private Slider setArmySlider;
+  @FXML
+  private Button setArmyButton;
+
 
   /**
    * Elements that show the current game state and illustrate who is the current player
@@ -144,11 +142,7 @@ public class BoardController {
   @FXML
   private SplitPane cardPane;
   @FXML
-  private AnchorPane upAndDown;
-  @FXML
-  private AnchorPane upperPane;
-  @FXML
-  private AnchorPane bottomPane;
+  private AnchorPane upAndDown, upperPane, bottomPane;
   @FXML
   private FlowPane ownCards;
 
@@ -175,11 +169,7 @@ public class BoardController {
   @FXML
   private GridPane paneXY;
   @FXML
-  private HBox left;
-  @FXML
-  private HBox center;
-  @FXML
-  private HBox right;
+  private HBox left, center, right;
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -316,24 +306,37 @@ public class BoardController {
 
         if (!t.equals(selectedTerritory)) {
           // switch (g.getGameState()) {
+
+          // NUR FUER ANZEIGE
           Player p = new Player("TOM");
           g.setCurrentPlayer(p);
           p.addTerritories(t);
+          t.setNumberOfArmies(10);
+          p.numberArmiesToDistribute = 12;
           t.setOwner(p);
-          switch (GameState.ATTACK) {
+          // ENDE
+
+          switch (GameState.ARMY_DISTRIBUTION) {
             // new game
             case INITIALIZING_TERRITORY:
               break;
             // place armies
             case INITIALIZING_ARMY:
-              if (g.getCurrentPlayer().initArmyDistribution(t)) {
+              if (g.getCurrentPlayer().armyDistribution(1, t)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
               }
+              break;
+
+            case ARMY_DISTRIBUTION:
+              setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
+              selectedTerritory = t;
+              grayPane.toFront();
+              setArmyPane.toFront();
+
               break;
             case ATTACK:
               if (numberOfTerritories == 0) {
                 numberOfTerritories++;
-                choice = false;
                 selectedTerritory = t;
                 r.setEffect(new Lighting());
                 for (Territory territory : t.getNeighbor()) {
@@ -352,12 +355,9 @@ public class BoardController {
           }
         } else if (t.equals(selectedTerritory)) {
           r.setEffect(null);
-          for (
-
-          Territory territory : t.getNeighbor()) {
+          for (Territory territory : t.getNeighbor()) {
             territory.getBoardRegion().getRegion().setEffect(null);
           }
-          choice = true;
           selectedTerritory = null;
           numberOfTerritories = 0;
         }
@@ -368,15 +368,30 @@ public class BoardController {
   public void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (numberOfTerritories == 2) {
-          for (Territory t : g.getWorld().getTerritories().values()) {
-            t.getBoardRegion().getRegion().setEffect(null);
-          }
+        for (Territory t : g.getWorld().getTerritories().values()) {
+          t.getBoardRegion().getRegion().setEffect(null);
         }
-        choice = false;
+        numberOfTerritories = 0;
+        selectedTerritory = null;
         dicePane.toBack();
+        setArmyPane.toBack();
         quitPane.toBack();
         grayPane.toBack();
+      }
+    });
+  }
+
+  public void confirmArmyDistribution() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        int amount = (int) setArmySlider.getValue();
+        if (g.getCurrentPlayer().armyDistribution(amount, selectedTerritory)) {
+          selectedTerritory.getBoardRegion().getNumberOfArmy()
+              .setText(selectedTerritory.getNumberOfArmies() + "");
+        }
+        setArmyPane.toBack();
+        grayPane.toBack();
+        selectedTerritory.getBoardRegion().getRegion().setEffect(null);
       }
     });
   }
@@ -542,61 +557,6 @@ public class BoardController {
   @FXML
   public void handleButton() {
     System.out.println("TEST");
-  }
-
-  /**
-   * @author pcoberge
-   * @param e This action method highlights the current region, when the mouse enters.
-   */
-  @FXML
-  public void motionIn(MouseEvent e) {
-    if (choice) {
-      if (e.getSource() instanceof Label) {
-        Label l = (Label) e.getSource();
-        Region r;
-        if (l.getText().matches("(-|[0-9]+)")) {
-          r = g.getWorld().getTerritoriesNoA().get(l).getBoardRegion().getRegion();
-        } else {
-          r = g.getWorld().getTerritoriesName().get(l).getBoardRegion().getRegion();
-        }
-        if (r.getEffect() == null) {
-          r.setEffect(new Glow(0.2));
-        }
-      } else {
-        Region r = (Region) e.getSource();
-        if (r.getEffect() == null) {
-          r.setEffect(new Glow(0.2));
-        }
-      }
-    }
-  }
-
-  /**
-   * @author pcoberge
-   * @param e This action method deletes the highlight the current region is affected with, when the
-   *        mouse exits.
-   */
-  @FXML
-  public void motionOut(MouseEvent e) {
-    if (choice) {
-      if (e.getSource() instanceof Label) {
-        Label l = (Label) e.getSource();
-        Region r;
-        if (l.getText().matches("(-|[0-9]+)")) {
-          r = g.getWorld().getTerritoriesNoA().get(l).getBoardRegion().getRegion();
-        } else {
-          r = g.getWorld().getTerritoriesName().get(l).getBoardRegion().getRegion();
-        }
-        if (r.getEffect() != null) {
-          r.setEffect(null);
-        }
-      } else {
-        Region r = (Region) e.getSource();
-        if (r.getEffect() != null) {
-          r.setEffect(null);
-        }
-      }
-    }
   }
 
   /**
