@@ -329,6 +329,7 @@ public class BoardController {
 
             case ARMY_DISTRIBUTION:
               setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
+              setArmySlider.setValue(1);
               selectedTerritory = t;
               grayPane.toFront();
               setArmyPane.toFront();

@@ -214,6 +214,11 @@ public class Player {
   }
 
 
+  /**
+   * @author pcoberge
+   * 
+   * @return number of armies the player receives at the beginning of the current turn
+   */
   public int computeAdditionalNumberOfArmies() {
     int result = 0;
     // player receives for three territories one army
