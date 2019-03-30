@@ -129,6 +129,15 @@ public class BoardController {
   @FXML
   private Button setArmyButton;
 
+  /**
+   * Elements that handle fortifyPane
+   */
+  @FXML
+  private Pane fortifyPane;
+  @FXML
+  private Slider fortifySlider;
+  @FXML
+  private Button fortifyButton;
 
   /**
    * Elements that show the current game state and illustrate who is the current player
@@ -221,19 +230,53 @@ public class BoardController {
   }
 
   /**
-   * @author pcoberge Methods to prepare the BoardGUI
+   * @author pcoberge
+   * 
+   *         Method to prepare the BoardGUI for phase ARMY_DISTRIBUTION
    */
   public void prepareArmyDistribution() {
     for (Territory t : g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(g.getCurrentPlayer())) {
         t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
+        t.getBoardRegion().getRegion().setDisable(false);
       } else {
         t.getBoardRegion().getRegion().setDisable(true);
       }
     }
   }
 
-  // ############################################
+  /**
+   * @author pcoberge
+   * 
+   *         Method to prepare the BoardGUI for phase ATTACK
+   */
+  public void prepareAttack() {
+    for (Territory t : g.getWorld().getTerritories().values()) {
+      if (t.getOwner().equals(g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
+        t.getBoardRegion().getRegion().setDisable(false);
+      } else {
+        t.getBoardRegion().getRegion().setDisable(true);
+      }
+    }
+  }
+
+  /**
+   * @author pcoberge
+   * 
+   *         Method to prepare the BoradGUI for phase FORTIFY
+   */
+  public void prepareFortify() {
+    for (Territory t : g.getWorld().getTerritories().values()) {
+      if (t.getOwner().equals(g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
+        t.getBoardRegion().getRegion().setDisable(false);
+      } else {
+        t.getBoardRegion().getRegion().setDisable(true);
+      }
+    }
+  }
+
   /**
    * @author pcoberge This method handles the exit Button. When the user presses the exit-Button, a
    *         pop-up window appears and stops the game.
@@ -296,6 +339,28 @@ public class BoardController {
    * @param MouseEvent The parameter contains the information which gui element triggers the
    *        actionlistener.
    * 
+   *        The method is divided into two parts
+   * 
+   *        1. Part: the previous selected Territory is not the same like the current selection.
+   * 
+   *        INITIALIZING_TERRITORY -
+   * 
+   *        INITIALIZING_ARMY - if an army could be placed on the chosen territory the label of this
+   *        territory is updated
+   * 
+   *        ARMY_DISTRIBUTION - if a territory is selected, the player has to choose how many armies
+   *        he want to place at this territory. Therefore the slider in the background is set on the
+   *        amount of armies the player is allowed to set. A pane with a slider to choose appears.
+   *        The label of this territory will be updated. ATTACK - if the selected territory is the
+   *        first one, this territory is highlighted and all neighbors that do not belong to the
+   *        same player will be highlighted as well. All other territories are disabled. if the
+   *        selected territory is the second one, a pane appears in order to throw the dices.
+   * 
+   *        FORTIFY - if the selected territory is the first one, this territory is highlighted and
+   *        all neighbors that belong to the same player will be highlighted as well. All other
+   *        territories are disabled. if the selected territory is the second one, a pane appears in
+   *        order to choose how many armies should be transferred.
+   * 
    */
   public void clicked(MouseEvent e) {
     Platform.runLater(new Runnable() {
@@ -316,7 +381,7 @@ public class BoardController {
           t.setOwner(p);
           // ENDE
 
-          switch (GameState.ARMY_DISTRIBUTION) {
+          switch (GameState.FORTIFY) {
             // new game
             case INITIALIZING_TERRITORY:
               break;
@@ -333,15 +398,22 @@ public class BoardController {
               selectedTerritory = t;
               grayPane.toFront();
               setArmyPane.toFront();
-
               break;
+
             case ATTACK:
               if (numberOfTerritories == 0) {
                 numberOfTerritories++;
                 selectedTerritory = t;
                 r.setEffect(new Lighting());
                 for (Territory territory : t.getNeighbor()) {
-                  territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                  if (!territory.getOwner().equals(t.getOwner())) {
+                    territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                  }
+                }
+                for (Territory territory : g.getWorld().getTerritories().values()) {
+                  if (territory.getBoardRegion().getRegion().getEffect() == null) {
+                    territory.getBoardRegion().getRegion().setDisable(true);
+                  }
                 }
               } else if (numberOfTerritories == 1 && selectedTerritory.getNeighbor().contains(t)) {
                 numberOfTerritories = 2;
@@ -351,7 +423,28 @@ public class BoardController {
                 dicePane.toFront();
               }
               break;
+
             case FORTIFY:
+              if (numberOfTerritories == 0) {
+                numberOfTerritories++;
+                selectedTerritory = t;
+                r.setEffect(new Lighting());
+                for (Territory territory : t.getNeighbor()) {
+                  if (t.getOwner().equals(territory.getOwner())) {
+                    territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                  }
+                }
+                for (Territory territory : g.getWorld().getTerritories().values()) {
+                  if (territory.getBoardRegion().getRegion().getEffect() == null) {
+                    territory.getBoardRegion().getRegion().setDisable(true);
+                  }
+                }
+              } else if (numberOfTerritories == 1) {
+                numberOfTerritories = 2;
+                fortifySlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
+                grayPane.toFront();
+                fortifyPane.toFront();
+              }
               break;
           }
         } else if (t.equals(selectedTerritory)) {
@@ -371,11 +464,13 @@ public class BoardController {
       public void run() {
         for (Territory t : g.getWorld().getTerritories().values()) {
           t.getBoardRegion().getRegion().setEffect(null);
+          t.getBoardRegion().getRegion().setDisable(false);
         }
         numberOfTerritories = 0;
         selectedTerritory = null;
         dicePane.toBack();
         setArmyPane.toBack();
+        fortifyPane.toBack();
         quitPane.toBack();
         grayPane.toBack();
       }
@@ -396,7 +491,6 @@ public class BoardController {
       }
     });
   }
-  // #############################################
 
 
   /**

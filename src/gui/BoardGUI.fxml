@@ -43,6 +43,35 @@
         <items>
             <AnchorPane minWidth="1024.0" SplitPane.resizableWithParent="false">
                <children>
+                  <Pane fx:id="fortifyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
+                           <children>
+                              <Label text="Move Army" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="fortifySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="300.0" min="1.0" minHeight="40.0" minWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Button fx:id="fortifyButton" mnemonicParsing="false" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
                   <Pane fx:id="setArmyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
