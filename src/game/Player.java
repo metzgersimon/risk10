@@ -33,15 +33,15 @@ public class Player {
    * @param armies
    * @param type
    */
-  public Player(String name, int armies, int type,PlayerColor color) {
+  public Player(String name, int armies, int type, PlayerColor color) {
     this.name = name;
     this.armies = armies;
     this.type = type;
-    this.color=color;
+    this.color = color;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
-    this.tradeNumber=0;
+    this.tradeNumber = 0;
   }
 
   public Player(String name) {
@@ -82,7 +82,7 @@ public class Player {
   public void setTerritories(HashSet<Territory> territories) {
     this.territories = territories;
   }
-  
+
 
   public int getTradeNumber() {
     return tradeNumber;
@@ -188,7 +188,7 @@ public class Player {
     cards.remove(c3);
     cards.trimToSize();
   }
-  
+
 
   /**
    * 
@@ -202,7 +202,7 @@ public class Player {
       return false;
     }
   }
-  
+
   /**
    * 
    * Precondition:
@@ -211,42 +211,37 @@ public class Player {
   public int computeAdditionalNumberOfArmies() {
     int result = 0;
     // player receives for three territories one army
-    result += this.getTerritories().size()%3;
+    result += this.getTerritories().size() % 3;
     // player receives for each continent the number of additional armies
     for (Continent c : this.getContinents()) {
       result += c.getValue();
     }
     // player receives armies for each card set depending on the number of previous traded sets
     result += valueActuallyTradedIn;
-    
-    if (result<3) {
+
+    if (result < 3) {
       return 3;
     } else {
       return result;
     }
-    
-    
-    
   }
-  
-  
-  
+
+
+
   public void attack(Territory own, Territory opponent) {
-   /** if(!this.getTerritories().contains(own)) {
-      
-    }
-    if(this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
-      
-    }
-    if(!this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
-      
-    }
-  }
-  **/
-    if(this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
-      
+    /**
+     * if(!this.getTerritories().contains(own)) {
+     * 
+     * } if(this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
+     * 
+     * } if(!this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
+     * 
+     * } }
+     **/
+    if (this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
+
     } else {
-      //Error message
+      // Error message
     }
   }
 }

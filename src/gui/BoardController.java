@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import game.Card;
 import game.Game;
+import game.GameState;
 import game.Player;
 import game.Territory;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,13 +41,13 @@ public class BoardController {
   Game g;
   Player p;
   // BoardGUI_Elements elements;
-  
+
   /**
    * @author prto testing
    */
   public HashMap<Integer, Card> topList;
   public HashMap<Integer, Card> bottomList;
-  
+
 
   // TEST PARTS
   @FXML
@@ -57,7 +59,6 @@ public class BoardController {
   private int numberOfTerritories;
   private Territory selectedTerritory = null;
   private boolean choice = true;
-  private boolean inAttack = false;
   private static int tradedCards = 0;
   // Views
   @FXML
@@ -130,7 +131,7 @@ public class BoardController {
   private Pane defendDice2;
   @FXML
   private Slider diceSlider;
-  
+
   /**
    * Elements that show the current game state and illustrate who is the current player
    */
@@ -182,20 +183,19 @@ public class BoardController {
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
-  
+
   /**
-   * @author prto 
-   * initialize card lists
+   * @author prto initialize card lists
    */
   public void initializeCardLists() {
     topList = new HashMap<Integer, Card>();
     bottomList = new HashMap<Integer, Card>();
   }
-  
-  //moves card from bottomList to topList
+
+  // moves card from bottomList to topList
   public void selectCard(Card card) {
-    if(bottomList.containsKey(card.getId())) {
-      if(topList.size() <= 3) {
+    if (bottomList.containsKey(card.getId())) {
+      if (topList.size() <= 3) {
         Card temp = bottomList.get(card.getId());
         bottomList.remove(card.getId());
         topList.put(temp.getId(), temp);
@@ -206,11 +206,11 @@ public class BoardController {
       System.out.println("Error: Card is not in bottomList");
     }
   }
-  
-  //moves card from topList to bottomList
+
+  // moves card from topList to bottomList
   public void deselectCard(Card card) {
-    if(topList.containsKey(card.getId())) {
-      if(bottomList.size() <= 5) {
+    if (topList.containsKey(card.getId())) {
+      if (bottomList.size() <= 5) {
         Card temp = topList.get(card.getId());
         topList.remove(card.getId());
         bottomList.put(temp.getId(), temp);
@@ -221,16 +221,27 @@ public class BoardController {
       System.out.println("Error: Card is not in topList");
     }
   }
-  
-  
+
+
   // public void setMain(BoardGUI_Main boardGUI, Game g) {
   public void setMain(SinglePlayerGUIController boardGui, Game g) {
     this.boardGui = boardGui;
     this.g = g;
     connectRegionTerritory();
-    // this.elements = elements;
   }
 
+  /**
+   * @author pcoberge Methods to prepare the BoardGUI
+   */
+  public void prepareArmyDistribution() {
+    for (Territory t : g.getWorld().getTerritories().values()) {
+      if (t.getOwner().equals(g.getCurrentPlayer())) {
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
+      } else {
+        t.getBoardRegion().getRegion().setDisable(true);
+      }
+    }
+  }
 
   // ############################################
   /**
@@ -238,16 +249,24 @@ public class BoardController {
    *         pop-up window appears and stops the game.
    */
   public void pressLeave() {
-    grayPane.toFront();
-    quitPane.toFront();
+    Platform.runLater(new Runnable() {
+      public void run() {
+        grayPane.toFront();
+        quitPane.toFront();
+      }
+    });
   }
 
   /**
    * @author pcoberge This method cancels the exit-handling.
    */
   public void handleNoLeave() {
-    grayPane.toBack();
-    quitPane.toBack();
+    Platform.runLater(new Runnable() {
+      public void run() {
+        grayPane.toBack();
+        quitPane.toBack();
+      }
+    });
   }
 
   /**
@@ -256,27 +275,30 @@ public class BoardController {
    *        action method changes the current stage to the statistic stage.
    */
   public void handleLeave(ActionEvent event) {
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Stage stage = main.Main.stage;
-      // stage.setTitle("Board");
-      stage.setScene(new Scene(root));
-      stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          // stage.setTitle("Board");
+          stage.setScene(new Scene(root));
+          stage.show();
+          // ((Node) event.getSource()).getScene().getWindow().hide();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
   }
 
   /**
    * This method is a dummy Method, to get to know, how the ProgressBAr can be handled
    */
   public void handleProgressBar() {
-     String color = p.getColor().toString().toLowerCase();
-     this.progress.setStyle("-fx-accent: "+color+";");
-     this.progress.setProgress(0);
+    String color = p.getColor().toString().toLowerCase();
+    this.progress.setStyle("-fx-accent: " + color + ";");
+    this.progress.setProgress(0);
   }
 
   /**
@@ -286,30 +308,29 @@ public class BoardController {
    * 
    */
   public void clicked(MouseEvent e) {
-    Thread th = new Thread() {
+    Platform.runLater(new Runnable() {
       public void run() {
-        Region r;
-        if (e.getSource() instanceof Label) {
-          Label l = (Label) e.getSource();
-          if (l.getText().matches("(-|[0-9]+)")) {
-            r = g.getWorld().getTerritoriesNoA().get(l).getBoardRegion().getRegion();
-          } else {
-            r = g.getWorld().getTerritoriesName().get(l).getBoardRegion().getRegion();
-          }
-        } else {
-          r = (Region) e.getSource();
-        }
+        Region r = (Region) e.getSource();
         Territory t = g.getWorld().getTerritoriesRegion().get(r);
-        if (!inAttack && !t.equals(selectedTerritory)) {
-          // switch (g.getGameState()) {
-          switch (2) {
-            // new game
-            case (0):
-              // place armies
+        r.setEffect(new Glow(0.5));
 
-            case (1):
-              // attack
-            case (2):
+        if (!t.equals(selectedTerritory)) {
+          // switch (g.getGameState()) {
+          Player p = new Player("TOM");
+          g.setCurrentPlayer(p);
+          p.addTerritories(t);
+          t.setOwner(p);
+          switch (GameState.ATTACK) {
+            // new game
+            case INITIALIZING_TERRITORY:
+              break;
+            // place armies
+            case INITIALIZING_ARMY:
+              if (g.getCurrentPlayer().initArmyDistribute(t)) {
+                t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+              }
+              break;
+            case ATTACK:
               if (numberOfTerritories == 0) {
                 numberOfTerritories++;
                 choice = false;
@@ -320,33 +341,32 @@ public class BoardController {
                 }
               } else if (numberOfTerritories == 1 && selectedTerritory.getNeighbor().contains(t)) {
                 numberOfTerritories = 2;
+                // ATTACK METHODE
+                // open pop-up with Dices
                 grayPane.toFront();
                 dicePane.toFront();
-                // open pop-up
-                // ATTACK METHODE
-                inAttack = true;
-
-
-
               }
+              break;
+            case FORTIFY:
+              break;
           }
         } else if (t.equals(selectedTerritory)) {
           r.setEffect(null);
-          for (Territory territory : t.getNeighbor()) {
+          for (
+
+          Territory territory : t.getNeighbor()) {
             territory.getBoardRegion().getRegion().setEffect(null);
           }
           choice = true;
           selectedTerritory = null;
           numberOfTerritories = 0;
-
         }
       }
-    };
-    th.start();
+    });
   }
 
   public void clickBack() {
-    Thread th = new Thread() {
+    Platform.runLater(new Runnable() {
       public void run() {
         if (numberOfTerritories == 2) {
           for (Territory t : g.getWorld().getTerritories().values()) {
@@ -358,8 +378,7 @@ public class BoardController {
         quitPane.toBack();
         grayPane.toBack();
       }
-    };
-    th.start();
+    });
   }
   // #############################################
 
@@ -369,92 +388,90 @@ public class BoardController {
    */
   @FXML
   public void handleCardPane(MouseEvent e) {
-        if (e.getSource().equals(upAndDown)) {
-          System.out.println("Card button geklickt");
-          cardPane.setVisible(false);
-          cardPane.setPrefHeight(0);
-          upperPane.setPrefHeight(0);
-          bottomPane.setPrefHeight(0);
-          // BooleanProperty collapsed = new SimpleBooleanProperty();
-          // collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
-          // upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
-          // upAndDown.setOnAction(f -> {
-          // double target = collapsed.get() ? 0.4 : 0.1;
-          // KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
-          // Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
-          // timeline.play();
-          // });
-        }
+    if (e.getSource().equals(upAndDown)) {
+      System.out.println("Card button geklickt");
+      cardPane.setVisible(false);
+      cardPane.setPrefHeight(0);
+      upperPane.setPrefHeight(0);
+      bottomPane.setPrefHeight(0);
+      // BooleanProperty collapsed = new SimpleBooleanProperty();
+      // collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
+      // upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
+      // upAndDown.setOnAction(f -> {
+      // double target = collapsed.get() ? 0.4 : 0.1;
+      // KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
+      // Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
+      // timeline.play();
+      // });
+    }
   }
-  
-//  @FXML
-//  public void handleDiceSlider() {
-//    diceSlider.valueProperty().addListener(arg0);
-//    });
-//  }
-//  @FXML
-//  public void handleThrowDices() {
-//    throwDices.setOnAction((event) -> {
-//      
-//    };
-//  }
+
+  // @FXML
+  // public void handleDiceSlider() {
+  // diceSlider.valueProperty().addListener(arg0);
+  // });
+  // }
+  // @FXML
+  // public void handleThrowDices() {
+  // throwDices.setOnAction((event) -> {
+  //
+  // };
+  // }
 
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
-        ImageView img = (ImageView) e.getSource();
-        //Integer selectedId = (int) e.getSource();
-        System.out.println("Test1");
-        if (left.getChildren().isEmpty()) {
-          left.getChildren().add(img);
-          System.out.println("TestLeft");
-        } else if (center.getChildren().isEmpty()) {
-          center.getChildren().add(img);
-          System.out.println("TestCenter");
-          // paneXY.getChildren().get(0)
-        } else if (right.getChildren().isEmpty()) {
-          // right.getChildren().add(img);
-          right.getChildren().add(0, img);
-          System.out.println("TestRight");
-        }
-        return img;
+    ImageView img = (ImageView) e.getSource();
+    // Integer selectedId = (int) e.getSource();
+    System.out.println("Test1");
+    if (left.getChildren().isEmpty()) {
+      left.getChildren().add(img);
+      System.out.println("TestLeft");
+    } else if (center.getChildren().isEmpty()) {
+      center.getChildren().add(img);
+      System.out.println("TestCenter");
+      // paneXY.getChildren().get(0)
+    } else if (right.getChildren().isEmpty()) {
+      // right.getChildren().add(img);
+      right.getChildren().add(0, img);
+      System.out.println("TestRight");
+    }
+    return img;
     // if(left == null && center == null && right == null) {
   }
-  
+
   @FXML
   public void handleRemoveCard(MouseEvent e) {
     HBox b = (HBox) e.getSource();
-      System.out.println("BLABLABLA");
-      if(b.equals(left)) {
-        ImageView img = (ImageView)b.getChildren().get(0);
-        ownCards.getChildren().add(img);    
-        left.getChildren().clear();
-      }
-      else if(b.equals(center)) {
-        ImageView img = (ImageView)b.getChildren().get(0);
-        ownCards.getChildren().add(img);
-        center.getChildren().clear();
-       //remove(0);
-      }
-      else if(b.equals(right)) {
-        ImageView img = (ImageView)b.getChildren().get(0);
-        ownCards.getChildren().add(img);
-        right.getChildren().clear();//getChildren().remove(0);
-      }
+    System.out.println("BLABLABLA");
+    if (b.equals(left)) {
+      ImageView img = (ImageView) b.getChildren().get(0);
+      ownCards.getChildren().add(img);
+      left.getChildren().clear();
+    } else if (b.equals(center)) {
+      ImageView img = (ImageView) b.getChildren().get(0);
+      ownCards.getChildren().add(img);
+      center.getChildren().clear();
+      // remove(0);
+    } else if (b.equals(right)) {
+      ImageView img = (ImageView) b.getChildren().get(0);
+      ownCards.getChildren().add(img);
+      right.getChildren().clear();// getChildren().remove(0);
+    }
   }
 
   /**
    * Arraylist<Karte> oben, unten;
    * 
    */
-  
-  
-  
+
+
+
   @FXML
   public void handleTradeCards(ActionEvent e) {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
-//          if(g.canbeTraded(topList.get(), c2, c3))
+          // if(g.canbeTraded(topList.get(), c2, c3))
           String cards = Integer.toString(++tradedCards);
           tradedCardSets.setText(cards);
 
@@ -470,123 +487,62 @@ public class BoardController {
    */
   @FXML
   public void handleSkipGameState() {
-//        handleProgressBar();
+    // handleProgressBar();
     progress.setStyle("-fx-accent: magenta;");
-        skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-          @Override
-          public void handle(MouseEvent e) {
-//             switch(game.getGameState()) {
-//                case 1:
-//                  gameState.setText("Place your armies!");
-//                  progress.setProgress(0.33);
-//                  break;
-//                case 2:
-//                  gameState.setText("Attack other territories!");
-//                  progress.setProgress(0.66);
-//                  break;
-//                case 3:
-//                  gameState.setText("Fortify your armies!");
-//                  progress.setProgress(1);
-//                  break;
-//             }
-            progress.setProgress(0.33);
-            gameState.setText("Place your armies");
-            
-            try {
-              TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            progress.setProgress(0.66);
-            gameState.setText("Attack!");
-            try {
-              TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            progress.setProgress(0.90);
-            gameState.setText("Fortify");
-            try {
-              TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            progress.setProgress(1);
-            gameState.setText("End");
-//            System.out.println("IMAGE GEKLICKT");
-          }
-        });
-  }
+      @Override
+      public void handle(MouseEvent e) {
+        // switch(game.getGameState()) {
+        // case 1:
+        // gameState.setText("Place your armies!");
+        // progress.setProgress(0.33);
+        // break;
+        // case 2:
+        // gameState.setText("Attack other territories!");
+        // progress.setProgress(0.66);
+        // break;
+        // case 3:
+        // gameState.setText("Fortify your armies!");
+        // progress.setProgress(1);
+        // break;
+        // }
+        progress.setProgress(0.33);
+        gameState.setText("Place your armies");
 
-  @FXML
-  public void handleClickCRB() {
-    if (chatRoomButton.getText().equals("<")) {
-      splitter.setDividerPosition(1, 0.8);
-      chatRoomButton.setText("Chat Room >");
-    } else {
-      splitter.setDividerPosition(1, 1);
-      chatRoomButton.setText("<");
-    }
+        try {
+          TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        progress.setProgress(0.66);
+        gameState.setText("Attack!");
+        try {
+          TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        progress.setProgress(0.90);
+        gameState.setText("Fortify");
+        try {
+          TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        progress.setProgress(1);
+        gameState.setText("End");
+        // System.out.println("IMAGE GEKLICKT");
+      }
+    });
   }
 
   @FXML
   public void handleButton() {
     System.out.println("TEST");
   }
-
-  // @FXML
-  // public void clicked(MouseEvent e) {
-  // Player p = null;
-  // Region r = (Region) e.getSource();
-  // Territory territory = game.getWorld().getTerritoriesRegion().get(r);
-  // switch (game.getState()) {
-  // case INITIALISING:
-  // /**
-  // * if a player selects a territory, he becomes the owner of this territory and places his
-  // * army at this territory
-  // */
-  // for (Territory t : game.getWorld().getTerritories().values()) {
-  // t.getRegion().setEffect(new Glow(0.0));
-  // }
-  // r.setEffect(new Glow(0.0));
-  // territory.setOwner(p);
-  // territory.setNumberOfArmies(1);
-  // break;
-  // case ARMY_REINFORCEMENT:
-  // // Methode mit Eingabe der Anzahl der Armeen
-  // break;
-  // case ATTACKING:
-  // /**
-  // * if a player selects a territory he owns, all territories that aren't neighbors and belong
-  // * to him will be disabled. if a player selects a territory his selected territory is
-  // * neighbor of,
-  // */
-  // if (selectedTerritory == null) {
-  // r.setEffect(new Glow(0.3));
-  // selectedTerritory = territory;
-  // for (Territory t : game.getWorld().getTerritories().values()) {
-  // if (!t.equals(territory) && !(territory.getNeighbor().contains(t))) {
-  // t.getRegion().setDisable(true);
-  // }
-  // }
-  // } else {
-  // /*
-  // * Boolean winner = attack(selectedTerritory, territory, numberOfArmies); Pop-Up Eingabe
-  // * mit Anzahl der Armeen if (winner) { r.getShape().setFill(p.color);
-  // * territory.setOwner(p); //Pop-UP Eingabe mit Anzahl der Armeen
-  // * territory.setNumberOfArmies(amount); selectedTerritory.setNumberOfArmies(-amount);
-  // */
-  // }
-  // selectedTerritory = null;
-  // r.setEffect(new Glow(0.0));
-  // selectedTerritory.getRegion().setEffect(new Glow(0.0));
-  // break;
-  // }
-  // }
 
   /**
    * @author pcoberge

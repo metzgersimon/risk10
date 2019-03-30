@@ -6,11 +6,11 @@ import java.util.HashSet;
 
 public class Game {
   public final static int MAX_PLAYERS = 6;
-  public final static int NEW_GAME = 0;
-  public final static int PLACE_ARMIES = 1;
-  public final static int ATTACKING = 2;
-  public final static int FORTIFY = 3;
-  public final static int GAME_OVER = 4;
+  // public final static int NEW_GAME = 0;
+  // public final static int PLACE_ARMIES = 1;
+  // public final static int ATTACKING = 2;
+  // public final static int FORTIFY = 3;
+  // public final static int GAME_OVER = 4;
 
   private World w;
 
@@ -19,7 +19,7 @@ public class Game {
   private ArrayList<Continent> continents;
   private ArrayList<Territory> territories;
   private Player currentPlayer;
-  private int gameState;
+  private GameState gameState;
   private static int attackWon;
   private static int defendWon;
 
@@ -32,7 +32,7 @@ public class Game {
     continents = new ArrayList<>();
     cards = new ArrayList<>();
     currentPlayer = null;
-    gameState = NEW_GAME;
+    gameState = GameState.NEW_GAME;
     this.w = new World();
 
   }
@@ -45,7 +45,7 @@ public class Game {
    * @return
    */
   public boolean addPlayer(String name) {
-    if (gameState == NEW_GAME) {
+    if (gameState == GameState.NEW_GAME) {
       for (int i = 0; i < players.size(); i++) {
         if (name.equals(players.get(i).getName())) {
           return false;
@@ -84,47 +84,56 @@ public class Game {
   public void playRisk() {
     // Compute number of armies
     // define player order
-    
+
+    // prepare BoardGUI
     // while unconquered territories
-    //  initTerritoryDistribution
-    //  change Player
-     
+    // initTerritoryDistribution
+    // change Player
+
     // while next Player has army left
-    //  change BoardGUI --> current Player should only could choose his own territories
-    //                      highlight his own territories and disable all others
-    //  initArmyDistribution()
-    //  update Board
-    //  change Player
-    
+    // change BoardGUI --> current Player should only could choose his own territories
+    // highlight his own territories and disable all others
+    // initArmyDistribution()
+    // update Board
+    // change Player
+
     // while Game is running
     //
-    //  while armies left
-    //      change BoardGUI --> current Player should only could choose his own territories
-    //                      highlight his own territories and disable all others
-    //      distributeArmies
+    // while armies left
+    // change BoardGUI --> current Player should only could choose his own territories
+    // highlight his own territories and disable all others
+    // distributeArmies
     //
-    //  while GameState == Attack
-    //      change BoardGUI --> current Player should only could choose his own territories
-    //                      highlight his own territories and all attackable neighbors
-    //      attack
-    //      update Board
+    // while GameState == Attack
+    // change BoardGUI --> current Player should only could choose his own territories
+    // highlight his own territories and all attackable neighbors
+    // attack
+    // update Board
     //
-    //  change BoardGUI --> update only current players territories, disable all others
-    //  fortify
-    //  update BoardGUI
-    //  change Player
+    // change BoardGUI --> update only current players territories, disable all others
+    // fortify
+    // update BoardGUI
+    // change Player
   }
-  
+
   public Player getCurrentPlayer() {
     return this.currentPlayer;
+  }
+
+  public void setCurrentPlayer(Player currentPlayer) {
+    this.currentPlayer = currentPlayer;
   }
 
   public World getWorld() {
     return w;
   }
 
-  public int getGameState() {
+  public GameState getGameState() {
     return this.gameState;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
   }
 
   /**
@@ -207,7 +216,7 @@ public class Game {
    * @param attack with a number of armies
    */
   public void attack(Territory attack, Territory defend, int armies) {
-    if (gameState == ATTACKING) {
+    if (gameState == GameState.ATTACK) {
       HashSet<Territory> neigbors = attack.getNeighbor();
       if (attack.getOwner() == currentPlayer && defend.getOwner() != currentPlayer
           && neigbors.contains(defend) && attack.getNumberOfArmies() > 1) {
@@ -330,7 +339,7 @@ public class Game {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
-    if (gameState == FORTIFY) {
+    if (gameState == GameState.FORTIFY) {
       // check if both territories belong to the current player
       if (this.currentPlayer.equals(moveFrom.getOwner())
           && (this.currentPlayer.equals(moveTo.getOwner()))) {
