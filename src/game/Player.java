@@ -194,7 +194,7 @@ public class Player {
    * 
    * Precondition: only own territories can be chosen
    */
-  public boolean initArmyDistribute(Territory t) {
+  public boolean initArmyDistribution(Territory t) {
     if (t.getOwner().equals(this)) {
       t.setNumberOfArmies(1);
       return true;

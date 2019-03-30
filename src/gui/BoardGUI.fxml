@@ -152,102 +152,6 @@
                   </Pane>
                   <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Pane prefHeight="718.0" prefWidth="1024.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <GridPane prefHeight="200.0" prefWidth="856.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="400.0" prefWidth="650.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <SplitPane fx:id="cardPane" dividerPositions="0.7" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
-                          <items>
-                            <AnchorPane fx:id="upperPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="504.0" prefWidth="500.0" visible="false" SplitPane.resizableWithParent="false" />
-                            <AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
-                                 <children>
-                                    <VBox prefHeight="212.0" prefWidth="648.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <GridPane prefHeight="175.0" style="-fx-border-color: gray;">
-                                             <children>
-                                                <GridPane fx:id="paneXY">
-                                                   <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                   </columnConstraints>
-                                                   <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                   </rowConstraints>
-                                                   <children>
-                                                      <HBox fx:id="left" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" />
-                                                      <HBox fx:id="center" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" />
-                                                      <HBox fx:id="right" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2" />
-                                                   </children>
-                                                </GridPane>
-                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="1">
-                                                   <children>
-                                                      <HBox alignment="TOP_CENTER">
-                                                         <children>
-                                                            <Label text="traded card sets: " />
-                                                            <Label fx:id="tradedCardSets" text="0" textAlignment="RIGHT" />
-                                                         </children>
-                                                      </HBox>
-                                                      <Button fx:id="tradeIn" mnemonicParsing="false" onAction="#handleTradeCards" text="Trade-in" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="243.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="240.0" />
-                                             </columnConstraints>
-                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                             </rowConstraints>
-                                          </GridPane>
-                                          <FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
-                                             <children>
-                                                <ImageView fitHeight="98.0" fitWidth="95.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/1.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="112.0" fitWidth="66.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/12.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="97.0" fitWidth="66.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/13.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="99.0" fitWidth="69.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/18.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="97.0" fitWidth="71.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/19.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="100.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../resources/cards/20.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </FlowPane>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </GridPane>
                   <Pane prefHeight="718.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <GridPane alignment="CENTER">
@@ -604,6 +508,138 @@
                         </AnchorPane>
                      </children>
                   </Pane>
+                  <GridPane prefHeight="200.0" prefWidth="856.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="400.0" prefWidth="650.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <SplitPane fx:id="cardPane" dividerPositions="0.7" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                          <items>
+                            <AnchorPane fx:id="upperPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="504.0" prefWidth="500.0" visible="false" SplitPane.resizableWithParent="false" />
+                            <AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
+                                 <children>
+                                    <VBox prefHeight="212.0" prefWidth="648.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <GridPane prefHeight="175.0" style="-fx-border-color: gray;">
+                                             <children>
+                                                <GridPane fx:id="paneXY">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <HBox fx:id="left" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" />
+                                                      <HBox fx:id="center" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" />
+                                                      <HBox fx:id="right" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2" />
+                                                   </children>
+                                                </GridPane>
+                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="1">
+                                                   <children>
+                                                      <HBox alignment="TOP_CENTER">
+                                                         <children>
+                                                            <Label text="traded card sets: " />
+                                                            <Label fx:id="tradedCardSets" text="0" textAlignment="RIGHT" />
+                                                         </children>
+                                                      </HBox>
+                                                      <Button fx:id="tradeIn" mnemonicParsing="false" onAction="#handleTradeCards" text="Trade-in" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="243.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="240.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
+                                             <children>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="98.0" fitWidth="95.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/1.png" />
+                                                         </image>
+                                                         <FlowPane.margin>
+                                                            <Insets />
+                                                         </FlowPane.margin>
+                                                         <viewport>
+                                                            <Rectangle2D />
+                                                         </viewport>
+                                                      </ImageView>
+                                                   </children>
+                                                   <FlowPane.margin>
+                                                      <Insets />
+                                                   </FlowPane.margin>
+                                                </StackPane>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="112.0" fitWidth="66.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/12.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="97.0" fitWidth="66.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/13.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="99.0" fitWidth="69.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/18.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="97.0" fitWidth="71.0" onMouseClicked="#handleCardDragAndDrop" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/19.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                                <StackPane styleClass="Images" stylesheets="@BoardGUI_additional.css">
+                                                   <children>
+                                                      <ImageView fitHeight="100.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../resources/cards/20.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </StackPane>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </FlowPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
             <BorderPane minWidth="256.0">

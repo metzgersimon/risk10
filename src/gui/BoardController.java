@@ -326,7 +326,7 @@ public class BoardController {
               break;
             // place armies
             case INITIALIZING_ARMY:
-              if (g.getCurrentPlayer().initArmyDistribute(t)) {
+              if (g.getCurrentPlayer().initArmyDistribution(t)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
               }
               break;
