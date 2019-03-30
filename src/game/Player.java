@@ -28,6 +28,8 @@ public class Player {
   private int numberArmiesToDistribute;
   private int tradedCardSets;//
   private int valueActuallyTradedIn;
+  private int numberOfTerritories;
+  private int numberOfCards;
 
   /**
    * create a new player
@@ -46,6 +48,8 @@ public class Player {
     cards = new ArrayList<>();
     this.tradedCardSets = 0;
     this.g = g;
+    this.numberOfTerritories = 0;
+    this.numberOfCards = 0;
   }
 
   public Player(String name, Game g) {
@@ -54,6 +58,8 @@ public class Player {
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.g = g;
+    this.numberOfTerritories = 0;
+    this.numberOfCards = 0;
   }
 
   public String getName() {
@@ -95,6 +101,24 @@ public class Player {
 
   public void setTradeNumber(int tradedCardSets) {
     this.tradedCardSets = tradedCardSets;
+  }
+  
+  
+
+  public int getNumberOfTerritories() {
+    return numberOfTerritories;
+  }
+
+  public void setNumberOfTerritories(int numberOfTerritories) {
+    this.numberOfTerritories = numberOfTerritories;
+  }
+
+  public int getNumberOfCards() {
+    return numberOfCards;
+  }
+
+  public void setNumberOfCards(int numberOfCards) {
+    this.numberOfCards = numberOfCards;
   }
 
   /**
@@ -286,17 +310,8 @@ public class Player {
 
 
   public void attack(Territory own, Territory opponent) {
-    /**
-     * if(!this.getTerritories().contains(own)) {
-     * 
-     * } if(this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
-     * 
-     * } if(!this.getTerritories().contains(own) && this.getTerritories().contains(opponent)) {
-     * 
-     * } }
-     **/
     if (this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
-
+      
     } else {
       // Error message
     }

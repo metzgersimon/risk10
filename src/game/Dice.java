@@ -21,13 +21,11 @@ import javafx.scene.paint.Color;
  */
 public class Dice {
 
-  private String diceType;
   private int numberOfDices;
   private Image[] sidesOfDice = new Image[6];
 
 
-  public Dice(String diceType) {
-    this.diceType = diceType;
+  public Dice() {
     for (int i = 0; i < sidesOfDice.length; i++) {
       sidesOfDice[i] = new Image("dice_" + (i + 1) + ".png");
     }
@@ -39,9 +37,6 @@ public class Dice {
    *
    */
 
-  public String getDiceType() {
-    return diceType;
-  }
 
   public int getNumberOfDices() {
     return numberOfDices;
@@ -55,10 +50,7 @@ public class Dice {
    * 
    * Setter methods for the attributes of the Dice class
    */
-  public void setDiceType(String diceType) {
-    this.diceType = diceType;
-  }
-
+  
   public void setNumberOfDices(int numberOfDices) {
     this.numberOfDices = numberOfDices;
   }

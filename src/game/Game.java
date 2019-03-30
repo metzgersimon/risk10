@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Game {
@@ -22,6 +23,8 @@ public class Game {
   private GameState gameState;
   private static int attackWon;
   private static int defendWon;
+  public HashMap<String, Integer> territoryStats;
+  public HashMap<String, Integer> cardStats;
 
   /**
    * @author qiychen Constructor
@@ -135,6 +138,22 @@ public class Game {
   public void setGameState(GameState gameState) {
     this.gameState = gameState;
   }
+  
+  public ArrayList<Player> getPlayers() {
+    return players;
+  }
+
+  public void setPlayers(ArrayList<Player> players) {
+    this.players = players;
+  }
+
+  public ArrayList<Territory> getTerritories() {
+    return territories;
+  }
+
+  public void setTerritories(ArrayList<Territory> territories) {
+    this.territories = territories;
+  }
 
   /**
    * @author qiychen
@@ -220,6 +239,7 @@ public class Game {
       HashSet<Territory> neigbors = attack.getNeighbor();
       if (attack.getOwner() == currentPlayer && defend.getOwner() != currentPlayer
           && neigbors.contains(defend) && attack.getNumberOfArmies() > 1) {
+        
 
         int attackTotalarmies = attack.getNumberOfArmies();
         int defendTotalarmies = defend.getNumberOfArmies();
@@ -307,7 +327,7 @@ public class Game {
   public void rollDices(int attack, int defend) {
     attackWon = 0;
     defendWon = 0;
-    Dice dice = new Dice("Dice");
+    Dice dice = new Dice();
     int[] attackDice = dice.rollDices(attack);
     int[] defendDice = dice.rollDices(defend);
     // sort Dice descending
@@ -328,6 +348,36 @@ public class Game {
       }
     }
 
+  }
+  
+  /**
+   * @author prto, @author smetzger
+   * @param players
+   * @return returns ArrayList of players who have 0 territories left and thus lost
+   */
+  //checks if all players still have armies left, otherwise return losing players
+  public ArrayList<Player> checkAllPlayers() {
+    ArrayList<Player> lostPlayers = new ArrayList<Player>();
+    for(Player p: this.players) {
+      if(p.getTerritories().size() == 0) {
+        lostPlayers.add(p);
+        this.players.remove(p);
+      }
+    }
+    return lostPlayers;
+  }
+  
+  //get amount of territories and cards owned for each player
+  public void updateLiveStatistics() {
+    territoryStats = new HashMap<String, Integer>();
+    for(Player x : this.players) {
+      territoryStats.put(x.getName(), x.getNumberOfTerritories());
+    }
+    
+    cardStats = new HashMap<String, Integer>();
+    for(Player x : this.players) {
+      cardStats.put(x.getName(), x.getNumberOfCards());
+    }
   }
 
   /**

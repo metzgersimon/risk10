@@ -8,6 +8,8 @@ import game.GameState;
 import game.Player;
 import game.Territory;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,9 +18,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.ImageView;
@@ -179,6 +183,15 @@ public class BoardController {
   private GridPane paneXY;
   @FXML
   private HBox left, center, right;
+  
+  /**
+   * Elements for statistic pane
+   */
+  @FXML
+  private TitledPane statisticPane;
+  @FXML
+  private ListView statistic;
+  
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -750,4 +763,47 @@ public class BoardController {
     };
     th.start();
   }
+  
+  
+  /**
+   * @author prto, @author smetzger
+   * @param 
+   * @return 
+   */
+  @FXML
+  public ListView<String> getLiveStatString() {
+    g.updateLiveStatistics();
+    ObservableList<String>items;
+    StringBuffer sb = new StringBuffer();
+    sb.append("Player Name\t\t#Territories\t\t#Cards\n");
+    for(Player x : g.getPlayers()) {
+      sb.append(x.getName()+"\t\t"+x.getNumberOfTerritories()+"\t\t" +x.getNumberOfCards()+"\n");
+    }
+  
+    items = FXCollections.observableArrayList(sb.toString());
+    statistic = new ListView(items);
+    return statistic;
+  }
+  
+  /**
+   * @author prto, @author smetzger
+   * @param 
+   * @return 
+   */
+  
+  
+  @FXML
+  public void changeTerritoryColor(ActionEvent e) {
+    
+    //r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
+    Region r;
+    String s = g.getTerritories().get(0).getName();
+    
+    //r = g.getTerritories().getName();
+    //r.setStyle("-fx-background-color: yellow;");
+    
+  }
+  
+ 
+ 
 }
