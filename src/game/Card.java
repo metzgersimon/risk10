@@ -54,12 +54,12 @@ public class Card {
   public boolean getIsWildcard() {
     return isWildcard;
   }
-  
+
   public int getId() {
     return this.id;
   }
-  
-  public javafx.scene.image.Image getFxImage(){
+
+  public javafx.scene.image.Image getFxImage() {
     return SwingFXUtils.toFXImage(this.image, null);
   }
 
@@ -104,5 +104,46 @@ public class Card {
       ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
     } catch (IOException e) {
     }
+  }
+
+  /**
+   * @author pcoberge
+   * 
+   * @param c1 card that invoces method
+   * @param c2 card
+   * @param c3 card
+   * @return whether three cards are a valid set
+   */
+  public boolean validCardSet(Card c2, Card c3) {
+    CardSymbol sym1 = (!this.getIsWildcard()) ? this.getTerritory().getSym() : CardSymbol.WILDCARD;
+    CardSymbol sym2 = (!c2.getIsWildcard()) ? c2.getTerritory().getSym() : CardSymbol.WILDCARD;
+    CardSymbol sym3 = (!c3.getIsWildcard()) ? c3.getTerritory().getSym() : CardSymbol.WILDCARD;
+    int numberOfWildCards = 0;
+    // the game has only 2 wildcards, therefore the case numberOfWildCards = 3 can't be reached
+    if (this.getIsWildcard()) {
+      numberOfWildCards++;
+    }
+    if (c2.getIsWildcard()) {
+      numberOfWildCards++;
+    }
+    if (c3.getIsWildcard()) {
+      numberOfWildCards++;
+    }
+    switch (numberOfWildCards) {
+      case (0):
+        if (sym1 == sym2 && sym2 == sym3) {
+          return true;
+        }
+        return false;
+      case (1):
+        if ((this.getIsWildcard() && sym2 == sym3) || (c2.getIsWildcard() && sym1 == sym3)
+            || (c3.getIsWildcard() && sym1 == sym2)) {
+          return true;
+        }
+        return false;
+      case (2):
+        return true;
+    }
+    return false;
   }
 }

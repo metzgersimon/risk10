@@ -312,7 +312,7 @@ public class BoardController {
           g.setCurrentPlayer(p);
           p.addTerritories(t);
           t.setNumberOfArmies(10);
-          p.numberArmiesToDistribute = 12;
+          p.setNumberArmiesToDistribute(12);
           t.setOwner(p);
           // ENDE
 

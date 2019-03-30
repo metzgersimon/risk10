@@ -25,7 +25,7 @@ public class Player {
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
   private int numberOfcardsWithTerritories;
-  public int numberArmiesToDistribute;
+  private int numberArmiesToDistribute;
   private int tradedCardSets;//
   private int valueActuallyTradedIn;
 
@@ -180,6 +180,10 @@ public class Player {
     return this.numberArmiesToDistribute;
   }
 
+  public void setNumberArmiesToDistribute(int amount) {
+    this.numberArmiesToDistribute = amount;
+  }
+
   public int getValueActuallyTradedIn() {
     return this.valueActuallyTradedIn;
   }
@@ -197,36 +201,40 @@ public class Player {
    * if player owns the territory, which is showed in trated cards, 2 armies will be added in this
    * territory
    * 
-   * @param c1
-   * @param c2
-   * @param c3
+   * @param c1 in GUI selected Card
+   * @param c2 in GUI selected Card
+   * @param c3 in GUI selected Card
+   * 
+   *        Precondition: Cards are a valid set --> concern in GUI
    */
   public void tradeCards(Card c1, Card c2, Card c3) {
-    if (territories.contains(c1.getTerritory())) {
-      c1.getTerritory().setNumberOfArmies(2);
-      this.numberOfcardsWithTerritories++;
-    } else if (territories.contains(c2.getTerritory())) {
-      c2.getTerritory().setNumberOfArmies(2);
-      this.numberOfcardsWithTerritories++;
-    } else if (territories.contains(c3.getTerritory())) {
-      c3.getTerritory().setNumberOfArmies(2);
-      this.numberOfcardsWithTerritories++;
-    }
-
-    this.tradedCardSets++;
-    for (int i = 0; i <= this.tradedCardSets; i++) {
-      if (i <= 5) {
-        this.valueActuallyTradedIn += 2;
-      } else if (i == 6) {
-        this.valueActuallyTradedIn += 3;
-      } else if (i > 6) {
-        this.valueActuallyTradedIn += 5;
+    if (c1.validCardSet(c2, c3)) {
+      if (territories.contains(c1.getTerritory())) {
+        c1.getTerritory().setNumberOfArmies(2);
+        this.numberOfcardsWithTerritories++;
+      } else if (territories.contains(c2.getTerritory())) {
+        c2.getTerritory().setNumberOfArmies(2);
+        this.numberOfcardsWithTerritories++;
+      } else if (territories.contains(c3.getTerritory())) {
+        c3.getTerritory().setNumberOfArmies(2);
+        this.numberOfcardsWithTerritories++;
       }
+
+      this.tradedCardSets++;
+      for (int i = 0; i <= this.tradedCardSets; i++) {
+        if (i <= 5) {
+          this.valueActuallyTradedIn += 2;
+        } else if (i == 6) {
+          this.valueActuallyTradedIn += 3;
+        } else if (i > 6) {
+          this.valueActuallyTradedIn += 5;
+        }
+      }
+      cards.remove(c1);
+      cards.remove(c2);
+      cards.remove(c3);
+      cards.trimToSize();
     }
-    cards.remove(c1);
-    cards.remove(c2);
-    cards.remove(c3);
-    cards.trimToSize();
   }
 
   /**

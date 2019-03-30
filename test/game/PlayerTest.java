@@ -2,6 +2,7 @@ package game;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.Test;
 
 public class PlayerTest {
@@ -10,6 +11,7 @@ public class PlayerTest {
   /**
    * @author pcoberge
    * 
+   *         Test, if the additional number of armies at the begin of each turn is right
    */
   @Test
   public void computeAdditionalNumberOfArmiesTest() {
@@ -71,4 +73,18 @@ public class PlayerTest {
   }
 
 
+  /**
+   * @author pcoberge
+   * 
+   *         Test, if all conditions are checked well
+   */
+  public void armyDistributionTest() {
+    Player p = new Player("Test1", g);
+    p.addTerritories(g.getWorld().getTerritories().get(5));
+    p.setNumberArmiesToDistribute(10);
+    assertTrue(p.armyDistribution(5, g.getWorld().getTerritories().get(5)));
+    assertFalse(p.armyDistribution(12, g.getWorld().getTerritories().get(5)));
+    assertFalse(p.armyDistribution(5, g.getWorld().getTerritories().get(12)));
+    assertFalse(p.armyDistribution(12, g.getWorld().getTerritories().get(12)));
+  }
 }
