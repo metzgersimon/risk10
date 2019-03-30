@@ -15,6 +15,7 @@ public class Player {
   public static int PLAYER_AI_EASY = 1;
   public static int PLAYER_AI_MITT = 2;
   public static int PLAYER_AI_HARD = 3;
+  private Game g;
   private String name;
   private int armies;
   private int type;// human player or ai
@@ -23,8 +24,9 @@ public class Player {
   private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
+  private int numberOfcardsWithTerritories;
   public int numberArmiesToDistribute;
-  private int tradeNumber;//
+  private int tradedCardSets;//
   private int valueActuallyTradedIn;
 
   /**
@@ -34,7 +36,7 @@ public class Player {
    * @param armies
    * @param type
    */
-  public Player(String name, int armies, int type, PlayerColor color) {
+  public Player(String name, int armies, int type, PlayerColor color, Game g) {
     this.name = name;
     this.armies = armies;
     this.type = type;
@@ -42,14 +44,16 @@ public class Player {
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
-    this.tradeNumber = 0;
+    this.tradedCardSets = 0;
+    this.g = g;
   }
 
-  public Player(String name) {
+  public Player(String name, Game g) {
     this.name = name;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
+    this.g = g;
   }
 
   public String getName() {
@@ -86,11 +90,11 @@ public class Player {
 
 
   public int getTradeNumber() {
-    return tradeNumber;
+    return tradedCardSets;
   }
 
-  public void setTradeNumber(int tradeNumber) {
-    this.tradeNumber = tradeNumber;
+  public void setTradeNumber(int tradedCardSets) {
+    this.tradedCardSets = tradedCardSets;
   }
 
   /**
@@ -108,6 +112,16 @@ public class Player {
    */
   public void addTerritories(Territory t) {
     territories.add(t);
+    boolean newContinent = true;
+    for (Territory territory : g.getWorld().getContinent().get(t.getContinent()).getTerritories()) {
+      if (!this.getTerritories().contains(territory)) {
+        newContinent = false;
+      }
+    }
+
+    if (newContinent) {
+      this.addContinents(g.getWorld().getContinent().get(t.getContinent()));
+    }
   }
 
   /**
@@ -117,6 +131,9 @@ public class Player {
    */
   public void lostTerritories(Territory t) {
     territories.remove(t);
+    if (this.getContinents().contains(t.getContinent())) {
+      this.lostContinents(g.getWorld().getContinent().get(t.getContinent()));
+    }
   }
 
   public HashSet<Continent> getContinents() {
@@ -163,6 +180,10 @@ public class Player {
     return this.numberArmiesToDistribute;
   }
 
+  public int getValueActuallyTradedIn() {
+    return this.valueActuallyTradedIn;
+  }
+
   /**
    * if player defeated another player, this player will be add to eliminatedPlayers
    * 
@@ -183,10 +204,24 @@ public class Player {
   public void tradeCards(Card c1, Card c2, Card c3) {
     if (territories.contains(c1.getTerritory())) {
       c1.getTerritory().setNumberOfArmies(2);
+      this.numberOfcardsWithTerritories++;
     } else if (territories.contains(c2.getTerritory())) {
       c2.getTerritory().setNumberOfArmies(2);
+      this.numberOfcardsWithTerritories++;
     } else if (territories.contains(c3.getTerritory())) {
       c3.getTerritory().setNumberOfArmies(2);
+      this.numberOfcardsWithTerritories++;
+    }
+
+    this.tradedCardSets++;
+    for (int i = 0; i <= this.tradedCardSets; i++) {
+      if (i <= 5) {
+        this.valueActuallyTradedIn += 2;
+      } else if (i == 6) {
+        this.valueActuallyTradedIn += 3;
+      } else if (i > 6) {
+        this.valueActuallyTradedIn += 5;
+      }
     }
     cards.remove(c1);
     cards.remove(c2);
@@ -222,15 +257,16 @@ public class Player {
   public int computeAdditionalNumberOfArmies() {
     int result = 0;
     // player receives for three territories one army
-    result += this.getTerritories().size() % 3;
+    result += this.getTerritories().size() / 3;
+
     // player receives for each continent the number of additional armies
     for (Continent c : this.getContinents()) {
       result += c.getValue();
     }
     // player receives armies for each card set depending on the number of previous traded sets
     result += valueActuallyTradedIn;
-
-    if (result < 3) {
+    this.valueActuallyTradedIn = 0;
+    if (result < 3 && this.numberOfcardsWithTerritories == 0) {
       this.numberArmiesToDistribute = 3;
       return 3;
     } else {

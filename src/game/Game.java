@@ -51,7 +51,7 @@ public class Game {
           return false;
         }
       }
-      Player newPlayer = new Player(name);
+      Player newPlayer = new Player(name, this);
       players.add(newPlayer);
       return true;
 

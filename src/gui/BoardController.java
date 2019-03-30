@@ -308,7 +308,7 @@ public class BoardController {
           // switch (g.getGameState()) {
 
           // NUR FUER ANZEIGE
-          Player p = new Player("TOM");
+          Player p = new Player("TOM", g);
           g.setCurrentPlayer(p);
           p.addTerritories(t);
           t.setNumberOfArmies(10);

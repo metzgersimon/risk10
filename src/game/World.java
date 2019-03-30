@@ -499,8 +499,7 @@ public class World {
 
   /**
    * @return HashMap of territories that are referenced by the territories gui label, that represent
-   *         the territories name
-   * Getter-method
+   *         the territories name Getter-method
    */
   public HashMap<Label, Territory> getTerritoriesName() {
     return territoriesName;
@@ -508,16 +507,14 @@ public class World {
 
   /**
    * @return HashMap of territories that are referenced by the territories gui label, that represent
-   *         the territories number of armies
-   * Getter-method
+   *         the territories number of armies Getter-method
    */
   public HashMap<Label, Territory> getTerritoriesNoA() {
     return territoriesNoA;
   }
 
   /**
-   * @return HashMap of Continents
-   * Getter-method
+   * @return HashMap of Continents Getter-method
    */
   public HashMap<Continente, Continent> getContinent() {
     return continent;

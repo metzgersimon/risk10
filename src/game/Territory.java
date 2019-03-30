@@ -18,6 +18,7 @@ public class Territory {
   private CardSymbol sym;
   private Player owner;
   private Continente c;
+  private Continent continent;
   private HashSet<Territory> neighbor;
   private BoardRegion r;
 
