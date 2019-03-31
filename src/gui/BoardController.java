@@ -33,6 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -153,11 +154,15 @@ public class BoardController {
    * Elements to handle the card split-pane
    */
   @FXML
+  private GridPane gridCardPane;
+  @FXML
   private SplitPane cardPane;
   @FXML
   private AnchorPane upAndDown, upperPane, bottomPane;
   @FXML
   private FlowPane ownCards;
+  @FXML
+  private Circle cardButton;
 
   /**
    * Elements to handle trade-in button
@@ -183,7 +188,7 @@ public class BoardController {
   private GridPane paneXY;
   @FXML
   private HBox left, center, right;
-  
+
   /**
    * Elements for statistic pane
    */
@@ -191,7 +196,7 @@ public class BoardController {
   private TitledPane statisticPane;
   @FXML
   private ListView statistic;
-  
+
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -509,23 +514,40 @@ public class BoardController {
   /**
    * 
    */
+  // @FXML
+  // public void handleCardPane(MouseEvent e) {
+  // if (e.getSource().equals(upAndDown)) {
+  // System.out.println("Card button geklickt");
+  // cardPane.setVisible(false);
+  // cardPane.setPrefHeight(0);
+  // upperPane.setPrefHeight(0);
+  // bottomPane.setPrefHeight(0);
+  // // BooleanProperty collapsed = new SimpleBooleanProperty();
+  // // collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
+  // // upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
+  // // upAndDown.setOnAction(f -> {
+  // // double target = collapsed.get() ? 0.4 : 0.1;
+  // // KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
+  // // Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
+  // // timeline.play();
+  // // });
+  // }
+  // }
+
   @FXML
-  public void handleCardPane(MouseEvent e) {
-    if (e.getSource().equals(upAndDown)) {
-      System.out.println("Card button geklickt");
-      cardPane.setVisible(false);
-      cardPane.setPrefHeight(0);
-      upperPane.setPrefHeight(0);
-      bottomPane.setPrefHeight(0);
-      // BooleanProperty collapsed = new SimpleBooleanProperty();
-      // collapsed.bind(cardPane.getDividers().get(0).positionProperty().isEqualTo(0.1, 0.5));
-      // upAndDown.textProperty().bind(Bindings.when(collapsed).then("V").otherwise("^"));
-      // upAndDown.setOnAction(f -> {
-      // double target = collapsed.get() ? 0.4 : 0.1;
-      // KeyValue kv = new KeyValue(cardPane.getDividers().get(0).positionProperty(), target);
-      // Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), kv));
-      // timeline.play();
-      // });
+  public void handleCardPane() {
+    double j = cardPane.getDividerPositions()[0];
+    if (cardPane.getDividerPositions()[0] >= 0.9) {
+      for (double i = cardPane.getDividerPositions()[0]; i >= 0; i -= j / 100.0) {
+        cardPane.getDividers().get(0).setPosition(i);
+      }
+      // cardPane.setDividerPosition(0, 0);
+    } else {
+      for (double i = cardPane.getDividerPositions()[0]; i <= 1; i += j / 100.0) {
+        cardPane.getDividers().get(0).setPosition(i);
+      }
+      // cardPane.getDividers().get(0).setPosition(1);
+      // cardPane.setDividerPosition(0, 1.0);
     }
   }
 
@@ -763,47 +785,48 @@ public class BoardController {
     };
     th.start();
   }
-  
-  
+
+
   /**
    * @author prto, @author smetzger
-   * @param 
-   * @return 
+   * @param
+   * @return
    */
   @FXML
   public ListView<String> getLiveStatString() {
     g.updateLiveStatistics();
-    ObservableList<String>items;
+    ObservableList<String> items;
     StringBuffer sb = new StringBuffer();
     sb.append("Player Name\t\t#Territories\t\t#Cards\n");
-    for(Player x : g.getPlayers()) {
-      sb.append(x.getName()+"\t\t"+x.getNumberOfTerritories()+"\t\t" +x.getNumberOfCards()+"\n");
+    for (Player x : g.getPlayers()) {
+      sb.append(
+          x.getName() + "\t\t" + x.getNumberOfTerritories() + "\t\t" + x.getNumberOfCards() + "\n");
     }
-  
+
     items = FXCollections.observableArrayList(sb.toString());
     statistic = new ListView(items);
     return statistic;
   }
-  
+
   /**
    * @author prto, @author smetzger
-   * @param 
-   * @return 
+   * @param
+   * @return
    */
-  
-  
+
+
   @FXML
   public void changeTerritoryColor(ActionEvent e) {
-    
-    //r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
+
+    // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
     Region r;
     String s = g.getTerritories().get(0).getName();
-    
-    //r = g.getTerritories().getName();
-    //r.setStyle("-fx-background-color: yellow;");
-    
+
+    // r = g.getTerritories().getName();
+    // r.setStyle("-fx-background-color: yellow;");
+
   }
-  
- 
- 
+
+
+
 }
