@@ -383,14 +383,17 @@ public class Game {
       // check if both territories belong to the current player
       if (this.currentPlayer.equals(moveFrom.getOwner())
           && (this.currentPlayer.equals(moveTo.getOwner()))) {
-        HashSet<Territory> neighbors = moveFrom.getNeighbor();
+        // HashSet<Territory> neighbors = moveFrom.getNeighbor();
+        // if (neighbors.contains(moveTo)) {
+        // beide Zeilen in eine verpackt
         // check if both territories are neighbors
-        if (neighbors.contains(moveTo)) {
-          int currentNoArmies = moveFrom.getNumberOfArmies();
-          // check is current available no of army is greater than the army to move, so that there
+        if (moveFrom.getNeighbor().contains(moveTo)) {
+          // int currentNoArmies = moveFrom.getNumberOfArmies();
+          // check is current available number of army is greater than the army to move, so that
+          // there
           // is at least one
           // army left behind in the territory
-          if (currentNoArmies > armyToMove) {
+          if (moveFrom.getNumberOfArmies() > armyToMove) {
             moveFrom.setReducedNumberOfArmies(armyToMove);
             moveTo.setNumberOfArmies(armyToMove);
             return true;
