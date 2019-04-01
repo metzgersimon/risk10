@@ -70,24 +70,15 @@ public class Game {
    * @param 
    * @return
    */
-  public void setPlayerOrder() {
+  public Player setPlayerOrder() {
     
     //generate a number between 0 and number of players -1
     int first = (int)(Math.random()*players.size());
     currentPlayer = players.get(first);
+    return currentPlayer;
   }
   
-  /**
-   * initial Territory Distribution
-   * 
-   * @author liwang
-   * @param currentPlayer, t
-   * @return
-   */
-  public void initialTerritoryDistribution(Player currentPlayer, Territory t) {
-    t.setOwner(currentPlayer);
-  }
-
+  
   public void startGame() {
 
   }

@@ -402,6 +402,9 @@ public class BoardController {
           switch (GameState.FORTIFY) {
             // new game
             case INITIALIZING_TERRITORY:
+              if (g.getCurrentPlayer().initialTerritoryribution(selectedTerritory)) {
+                t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+              }
               break;
             // place armies
             case INITIALIZING_ARMY:

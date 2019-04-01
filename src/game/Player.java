@@ -279,6 +279,25 @@ public class Player {
       return false;
     }
   }
+  
+  /**
+   * @author liwang
+   * 
+   * @param t is the territory which is selected
+   * @return boolean in order to show whether the distribution has been successful or not
+   * 
+   *         Precondition: only free territories can be chosen
+   */
+  public boolean initialTerritoryribution(Territory t) {
+    if (t.getOwner().equals(null)) {
+      t.setOwner(this);
+      this.numberArmiesToDistribute -= 1;
+      t.setNumberOfArmies(1);
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
   /**
