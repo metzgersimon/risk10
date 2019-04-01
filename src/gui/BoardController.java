@@ -162,6 +162,12 @@ public class BoardController {
   private Button tradeIn;
   @FXML
   private Label tradedCardSets;
+  @FXML
+  private Pane cantBeTraded;
+  @FXML
+  private Button exitPopup;
+  @FXML
+  private Label label;
 
   /**
    * Element which handles the function to skip a game state
@@ -559,6 +565,11 @@ public class BoardController {
   // };
   // }
 
+  /**
+   * @author smetzger
+   * @param e
+   * @return
+   */
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView) e.getSource();
@@ -586,6 +597,10 @@ public class BoardController {
     // if(left == null && center == null && right == null) {
   }
 
+  /**
+   * @author smetzger
+   * @param e
+   */
   @FXML
   public void handleRemoveCard(MouseEvent e) {
     String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
@@ -623,15 +638,26 @@ public class BoardController {
    */
 
 
-
+  /**
+   * @author smetzger
+   * @param e
+   */
   @FXML
   public void handleTradeCards(ActionEvent e) {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
-          // if(g.canbeTraded(topList.get(), c2, c3))
-          String cards = Integer.toString(++tradedCards);
-          tradedCardSets.setText(cards);
+          if(g.canbeTraded(topList.get(0),topList.get(1), topList.get(2))) {
+            String cards = Integer.toString(++tradedCards);
+            tradedCardSets.setText(cards);
+            topList.remove(0);
+            topList.remove(1);
+            topList.remove(2);
+          }
+          else {
+            cantBeTraded.toFront(); 
+          }
+          
 
           System.out.println("Button geklickt");
         }
@@ -639,9 +665,21 @@ public class BoardController {
     };
     th.start();
   }
+  
+  /**
+   * @author smetzger
+   * @param e
+   */
+  @FXML
+  public void exitPopup(ActionEvent e) {
+    Button b = (Button)e.getSource();
+    if(b.equals(exitPopup)) {
+      cantBeTraded.toBack();
+    }
+  }
 
   /**
-   * 
+   * @author smetzger
    */
   @FXML
   public void handleSkipGameState() {
