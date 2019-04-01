@@ -13,13 +13,20 @@ import org.jdom2.output.XMLOutputter;
 
 /**
  * @author prto Class to manage and save player profiles
+ * 
  */
 
 public class ProfileManager {
   public static HashMap<String, PlayerProfile> profileList;
   PlayerProfile selectedProfile;
 
-  // Add new profile to profileList
+  /**
+   * Adds a new profile to the list
+   * 
+   * @author prto
+   * @param name profile name
+   * @param imageID id of profile image
+   */
   public static void addNewProfile(String name, int imageId) {
     readXml();
     if (profileList.containsKey(name)) {
@@ -31,12 +38,26 @@ public class ProfileManager {
     }
   }
 
+  /**
+   * Deletes a profile from list
+   * 
+   * @author prto
+   * @param name of profile to be deleted
+   */
   public static void deleteProfile(String name) {
     readXml();
     profileList.remove(name);
     saveXml();
   }
 
+  /**
+   * Updates existing profile with new name and/or image id
+   * 
+   * @author prto
+   * @param oldName old profile name
+   * @param newName new profile name
+   * @param imageID new image id
+   */
   public static void editProfile(String oldName, String newName, int imageId) {
     readXml();
     PlayerProfile profile = profileList.get(oldName);
@@ -47,15 +68,30 @@ public class ProfileManager {
     saveXml();
   }
 
+  /**
+   * Sets the current profile
+   * 
+   * @author prto
+   * @param key name of profile to be selected
+   */
   public void setSelectedProfile(String key) {
     selectedProfile = profileList.get(key);
   }
 
+  /**
+   * Returns the selected profile
+   * 
+   * @return currently selected player profile
+   */
   public PlayerProfile getSelectedProfile() {
     return this.selectedProfile;
   }
 
-  // Create PlayerProfiles.xml in same directory as .jar if it doesn't already exist
+  /**
+   * Creates PlayerProfiles.xml in same directory as .jar in case it doesn't already exist
+   * 
+   * @author prto
+   */
   public static void checkXml() {
     File tester = new File("./PlayerProfiles.xml");
     if (!tester.exists()) {
@@ -74,7 +110,11 @@ public class ProfileManager {
   }
 
 
-  // Loads all player profiles from PlayerProfiles.xml file
+  /**
+   * Loads all player profiles from PlayerProfiles.xml file and saves them in profileList
+   * 
+   * @author prto
+   */
   public static void readXml() {
     checkXml();
     SAXBuilder builder = new SAXBuilder();
@@ -108,7 +148,11 @@ public class ProfileManager {
     }
   }
 
-  // Saves profileList to xml
+  /**
+   * Saves all profiles from profileList into PlayerProfiles.xml
+   * 
+   * @author prto
+   */
   public static void saveXml() {
 
     checkXml();
@@ -148,6 +192,11 @@ public class ProfileManager {
     }
   }
 
+  /**
+   * Prints all profiles from profileList into the console
+   * 
+   * @author prto
+   */
   public static void printAllProfiles() {
     for (PlayerProfile x : profileList.values()) {
       x.printProfile();
