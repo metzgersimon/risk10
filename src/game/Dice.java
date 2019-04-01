@@ -24,11 +24,10 @@ public class Dice {
   private int numberOfDices;
   private Image[] sidesOfDice = new Image[6];
 
-
   public Dice() {
-    for (int i = 0; i < sidesOfDice.length; i++) {
+    /*for (int i = 0; i < sidesOfDice.length; i++) {
       sidesOfDice[i] = new Image("dice_" + (i + 1) + ".png");
-    }
+    }*/
   }
 
 
