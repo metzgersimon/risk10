@@ -15,10 +15,12 @@ public class Player {
   public static int PLAYER_AI_EASY = 1;
   public static int PLAYER_AI_MITT = 2;
   public static int PLAYER_AI_HARD = 3;
+
   private Game g;
   private String name;
   private int armies;
   private int type;// human player or ai
+  private boolean alive;
   private PlayerColor color;
   private HashSet<Territory> territories;
   private HashSet<Continent> continents;
@@ -50,6 +52,7 @@ public class Player {
     cards = new ArrayList<>();
     this.tradedCardSets = 0;
     this.g = g;
+    this.alive = true;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     territoriesConquered = 0;
@@ -106,8 +109,8 @@ public class Player {
   public void setTradeNumber(int tradedCardSets) {
     this.tradedCardSets = tradedCardSets;
   }
-  
-  
+
+
 
   public int getNumberOfTerritories() {
     return numberOfTerritories;
@@ -216,6 +219,14 @@ public class Player {
     return this.valueActuallyTradedIn;
   }
 
+  public boolean getAlive() {
+    return this.alive;
+  }
+
+  public void outOfGame() {
+    this.alive = false;
+  }
+
   /**
    * if player defeated another player, this player will be add to eliminatedPlayers
    * 
@@ -283,7 +294,7 @@ public class Player {
       return false;
     }
   }
-  
+
   /**
    * @author liwang
    * 
@@ -335,7 +346,7 @@ public class Player {
 
   public void attack(Territory own, Territory opponent) {
     if (this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
-      
+
     } else {
       // Error message
     }

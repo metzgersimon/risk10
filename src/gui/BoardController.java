@@ -36,6 +36,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import main.Main;
 
 /**
  * 
@@ -43,9 +44,8 @@ import javafx.stage.Stage;
  *
  */
 public class BoardController {
-  Game g;
   Player p;
-  // BoardGUI_Elements elements;
+  private Game g = Main.g;
 
   /**
    * @author prto testing
@@ -53,14 +53,6 @@ public class BoardController {
   public HashMap<Integer, Card> topList;
   public HashMap<Integer, Card> bottomList;
 
-
-  // TEST PARTS
-  @FXML
-  private Button button;
-  @FXML
-  private GridPane popup;
-  // TEST PARTS ENDE
-  private Game game;
   private Territory selectedTerritory = null;
   private static int tradedCards = 0;
   // Views
