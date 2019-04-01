@@ -439,6 +439,11 @@ public class BoardController {
               } else if (numberOfTerritories == 1 && selectedTerritory.getNeighbor().contains(t)) {
                 numberOfTerritories = 2;
                 // ATTACK METHODE
+             /*   int armies=(int) setArmySlider.getValue();
+                g.attack(selectedTerritory, t, armies);
+               selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.getNumberOfArmies()+"");
+               t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");*/
+                
                 // open pop-up with Dices
                 grayPane.toFront();
                 dicePane.toFront();

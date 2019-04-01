@@ -21,8 +21,8 @@ public class Game {
   private ArrayList<Territory> territories;
   private Player currentPlayer;
   private GameState gameState;
-  private static int attackWon;
-  private static int defendWon;
+  public static int attackWon;
+  public static int defendWon;
   public HashMap<String, Integer> territoryStats;
   public HashMap<String, Integer> cardStats;
 
@@ -258,8 +258,12 @@ public class Game {
    * @param attack territory
    * @param defend territory
    * @param attack with a number of armies
+   * @return Owner from defend territory
    */
-  public void attack(Territory attack, Territory defend, int armies) {
+  public Territory attack(Territory attack, Territory defend, int armies) {
+    this.attackWon=0;
+    this.defendWon=0;
+    Territory winner=defend;
     if (gameState == GameState.ATTACK) {
       HashSet<Territory> neigbors = attack.getNeighbor();
       if (attack.getOwner() == currentPlayer && defend.getOwner() != currentPlayer
@@ -324,6 +328,7 @@ public class Game {
         // change armies
         if (attackWon > 0) {
           if (attackWon == defendTotalarmies) {
+            winner=attack;
             defend.setOwner(currentPlayer);
             defend.setNumberOfArmies2(attackWon); // setNumberOfArmies methode need to be changed
             // armies moved form attack territory to defend territory
@@ -345,6 +350,7 @@ public class Game {
     } else {
       System.out.println("Not in attacking phase");
     }
+    return winner;
 
   }
 
