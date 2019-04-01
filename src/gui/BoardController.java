@@ -33,6 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -562,18 +563,24 @@ public class BoardController {
   public ImageView handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView) e.getSource();
     // Integer selectedId = (int) e.getSource();
-    System.out.println("Test1");
+    
+    
     if (left.getChildren().isEmpty()) {
-      left.getChildren().add(img);
-      System.out.println("TestLeft");
+      img.setMouseTransparent(true);
+//      System.out.println(img.getImage().getUrl().toString());
+      StackPane pane = (StackPane)img.getParent();
+      left.getChildren().add(pane);
+      pane.getStylesheets().clear();
     } else if (center.getChildren().isEmpty()) {
-      center.getChildren().add(img);
-      System.out.println("TestCenter");
-      // paneXY.getChildren().get(0)
+      img.setMouseTransparent(true);
+      StackPane pane = (StackPane)img.getParent();
+      center.getChildren().add(pane);
+      pane.setStyle(null);
     } else if (right.getChildren().isEmpty()) {
-      // right.getChildren().add(img);
-      right.getChildren().add(0, img);
-      System.out.println("TestRight");
+      img.setMouseTransparent(true);
+      StackPane pane = (StackPane)img.getParent();
+      right.getChildren().add(pane);
+      pane.setStyle(null);
     }
     return img;
     // if(left == null && center == null && right == null) {
@@ -581,21 +588,32 @@ public class BoardController {
 
   @FXML
   public void handleRemoveCard(MouseEvent e) {
+    String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
     HBox b = (HBox) e.getSource();
     System.out.println("BLABLABLA");
     if (b.equals(left)) {
-      ImageView img = (ImageView) b.getChildren().get(0);
-      ownCards.getChildren().add(img);
+      StackPane pane = (StackPane) b.getChildren().get(0);
+      ImageView img = (ImageView)pane.getChildren().get(0);
+//      ImageView img = (ImageView) b.getChildren().get(0);
+      ownCards.getChildren().add(pane);
+      img.setMouseTransparent(false);
       left.getChildren().clear();
+      pane.getStylesheets().add(css);
+     
     } else if (b.equals(center)) {
-      ImageView img = (ImageView) b.getChildren().get(0);
-      ownCards.getChildren().add(img);
+      StackPane pane = (StackPane) b.getChildren().get(0);
+      ImageView img = (ImageView) pane.getChildren().get(0);
+      ownCards.getChildren().add(pane);
+      img.setMouseTransparent(false);
       center.getChildren().clear();
-      // remove(0);
+      pane.getStylesheets().add(css);
     } else if (b.equals(right)) {
-      ImageView img = (ImageView) b.getChildren().get(0);
-      ownCards.getChildren().add(img);
+      StackPane pane = (StackPane) b.getChildren().get(0);
+      ImageView img = (ImageView) pane.getChildren().get(0);
+      ownCards.getChildren().add(pane);
+      img.setMouseTransparent(false);
       right.getChildren().clear();// getChildren().remove(0);
+      pane.getStylesheets().add(css);
     }
   }
 
