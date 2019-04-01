@@ -36,7 +36,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 /**
  * 
@@ -62,7 +61,6 @@ public class BoardController {
   private GridPane popup;
   // TEST PARTS ENDE
   private Game game;
-  private int numberOfTerritories;
   private Territory selectedTerritory = null;
   private static int tradedCards = 0;
   // Views
@@ -422,8 +420,7 @@ public class BoardController {
               break;
 
             case ATTACK:
-              if (numberOfTerritories == 0) {
-                numberOfTerritories++;
+              if (selectedTerritory == null) {
                 selectedTerritory = t;
                 r.setEffect(new Lighting());
                 for (Territory territory : t.getNeighbor()) {
@@ -436,14 +433,16 @@ public class BoardController {
                     territory.getBoardRegion().getRegion().setDisable(true);
                   }
                 }
-              } else if (numberOfTerritories == 1 && selectedTerritory.getNeighbor().contains(t)) {
-                numberOfTerritories = 2;
+              } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
                 // ATTACK METHODE
-             /*   int armies=(int) setArmySlider.getValue();
-                g.attack(selectedTerritory, t, armies);
-               selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.getNumberOfArmies()+"");
-               t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");*/
-                
+                /*
+                 * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
+                 * armies);
+                 * selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.
+                 * getNumberOfArmies()+"");
+                 * t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");
+                 */
+
                 // open pop-up with Dices
                 grayPane.toFront();
                 dicePane.toFront();
@@ -451,8 +450,7 @@ public class BoardController {
               break;
 
             case FORTIFY:
-              if (numberOfTerritories == 0) {
-                numberOfTerritories++;
+              if (selectedTerritory == null) {
                 selectedTerritory = t;
                 r.setEffect(new Lighting());
                 for (Territory territory : t.getNeighbor()) {
@@ -465,8 +463,7 @@ public class BoardController {
                     territory.getBoardRegion().getRegion().setDisable(true);
                   }
                 }
-              } else if (numberOfTerritories == 1) {
-                numberOfTerritories = 2;
+              } else if (selectedTerritory != null) {
                 fortifySlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
                 grayPane.toFront();
                 fortifyPane.toFront();
@@ -479,7 +476,6 @@ public class BoardController {
             territory.getBoardRegion().getRegion().setEffect(null);
           }
           selectedTerritory = null;
-          numberOfTerritories = 0;
         }
       }
     });
@@ -492,7 +488,6 @@ public class BoardController {
           t.getBoardRegion().getRegion().setEffect(null);
           t.getBoardRegion().getRegion().setDisable(false);
         }
-        numberOfTerritories = 0;
         selectedTerritory = null;
         dicePane.toBack();
         setArmyPane.toBack();
