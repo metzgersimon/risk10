@@ -325,15 +325,15 @@ public class Game {
         if (attackWon > 0) {
           if (attackWon == defendTotalarmies) {
             defend.setOwner(currentPlayer);
-            defend.setNumberOfArmies(attackWon); // setNumberOfArmies methode need to be changed
+            defend.setNumberOfArmies2(attackWon); // setNumberOfArmies methode need to be changed
             // armies moved form attack territory to defend territory
-            attack.setNumberOfArmies(attackTotalarmies - attackWon);
+            attack.setNumberOfArmies2(attackTotalarmies - attackWon);
           } else {
-            defend.setNumberOfArmies(defendTotalarmies - attackWon);
+            defend.setNumberOfArmies2(defendTotalarmies - attackWon);
 
           }
         } else if (defendWon > 0) {
-          attack.setNumberOfArmies(attackTotalarmies - defendWon);
+          attack.setNumberOfArmies2(attackTotalarmies - defendWon);
         }
 
       } else {

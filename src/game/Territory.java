@@ -80,6 +80,13 @@ public class Territory {
   public void setNumberOfArmies(int amount) {
     this.numberOfArmies += amount;
   }
+  /**
+   * 
+   * @param amount = number of armies in total
+   */
+  public void setNumberOfArmies2(int amount) {
+    this.numberOfArmies=amount;
+  }
    /**
     * 
     * @param amount = number of armies to reduce from numberOfArmies
