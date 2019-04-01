@@ -291,6 +291,7 @@ public class Player {
   public boolean initialTerritoryribution(Territory t) {
     if (t.getOwner().equals(null)) {
       t.setOwner(this);
+      this.addTerritories(t);
       this.numberArmiesToDistribute -= 1;
       t.setNumberOfArmies(1);
       return true;
