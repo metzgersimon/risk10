@@ -62,6 +62,31 @@ public class Game {
       return false;
     }
   }
+  
+  /**
+   * Set the initial order of Players
+   * 
+   * @author liwang
+   * @param 
+   * @return
+   */
+  public void setPlayerOrder() {
+    
+    //generate a number between 0 and number of players -1
+    int first = (int)(Math.random()*players.size());
+    currentPlayer = players.get(first);
+  }
+  
+  /**
+   * initial Territory Distribution
+   * 
+   * @author liwang
+   * @param currentPlayer, t
+   * @return
+   */
+  public void initialTerritoryDistribution(Player currentPlayer, Territory t) {
+    t.setOwner(currentPlayer);
+  }
 
   public void startGame() {
 
