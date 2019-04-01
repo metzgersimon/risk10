@@ -30,6 +30,8 @@ public class Player {
   private int valueActuallyTradedIn;
   private int numberOfTerritories;
   private int numberOfCards;
+  public static int territoriesConquered;
+  public static int numberOfAttacks;
 
   /**
    * create a new player
@@ -50,6 +52,8 @@ public class Player {
     this.g = g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
+    territoriesConquered = 0;
+    numberOfAttacks = 0;
   }
 
   public Player(String name, Game g) {
