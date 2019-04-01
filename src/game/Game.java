@@ -329,6 +329,7 @@ public class Game {
         if (attackWon > 0) {
           if (attackWon == defendTotalarmies) {
             winner=attack;
+            Player.territoriesConquered++;
             defend.setOwner(currentPlayer);
             defend.setNumberOfArmies2(attackWon); // setNumberOfArmies methode need to be changed
             // armies moved form attack territory to defend territory
@@ -350,6 +351,7 @@ public class Game {
     } else {
       System.out.println("Not in attacking phase");
     }
+    Player.numberOfAttacks++;
     return winner;
 
   }
