@@ -504,6 +504,22 @@ public class Game {
     return false;
   }
 
+  /**
+   * Shows statistics when the game is over
+   * @author prto
+   */
+  public void endGame() {
+    String name;
+    int numAttacks;
+    int tConquered;
+    //Get statistics from each player
+    for(Player x : players) {
+      name = x.getName();
+      numAttacks = x.numberOfAttacks;
+      tConquered = x.territoriesConquered;
+      //TODO add into GUI
+    }
+  }
 }
 
 
