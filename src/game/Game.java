@@ -71,11 +71,20 @@ public class Game {
    * @return
    */
   public Player setPlayerOrder() {
-    
+ 
+    return players.get(randomNumber());
+  }
+  
+  /**
+   * generate a number between 0 and number of players -1
+   * 
+   * @author liwang
+   * @param 
+   * @return int the number of Player which starts first
+   */
+  public int randomNumber() {
     //generate a number between 0 and number of players -1
-    int first = (int)(Math.random()*players.size());
-    currentPlayer = players.get(first);
-    return currentPlayer;
+    return (int)(Math.random()*players.size());
   }
   
   

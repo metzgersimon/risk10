@@ -74,7 +74,7 @@ public class PlayerTest {
   /**
    * @author pcoberge
    * 
-   *         Test, if all conditions are checked well
+   *         Test, if the number is between 0 and number of Players
    */
   public void armyDistributionTest() {
     Player p = new Player("Test1", g);
@@ -85,4 +85,14 @@ public class PlayerTest {
     assertFalse(p.armyDistribution(5, g.getWorld().getTerritories().get(12)));
     assertFalse(p.armyDistribution(12, g.getWorld().getTerritories().get(12)));
   }
+  
+  /**
+   * @author liwang
+   * 
+   *         Test, if all conditions are checked well
+   */
+  public void randomNumber() {
+   assertTrue(g.randomNumber()>= 0 && g.randomNumber()<g.getPlayers().size());
+  }
+
 }
