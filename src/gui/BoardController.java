@@ -1,9 +1,11 @@
 package gui;
 
 import java.util.HashMap;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 import game.Card;
 import game.CardDeck;
+import game.Dice;
 import game.Game;
 import game.GameState;
 import game.Player;
@@ -26,6 +28,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -56,6 +59,7 @@ public class BoardController {
   public HashMap<Integer, Card> bottomList;
 
   private Territory selectedTerritory = null;
+  private Territory selectedTerritory_attacked = null;
   private static int tradedCards = 0;
   private CardDeck deck = new CardDeck(g.getWorld());
   // Views
@@ -110,7 +114,7 @@ public class BoardController {
    * Elements that handle dicePane
    */
   @FXML
-  private Pane dicePane, attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
+  private ImageView dicePane, attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
   @FXML
   private Button throwDices;
   @FXML
@@ -390,13 +394,13 @@ public class BoardController {
           // switch (g.getGameState()) {
 
           // NUR FUER ANZEIGE
-          Player p = new Player("TOM", g);
+          Player p = new Player("TOM");
           g.setCurrentPlayer(p);
           p.addTerritories(t);
           t.setNumberOfArmies(10);
           p.setNumberArmiesToDistribute(12);
           t.setOwner(p);
-        
+
           // ENDE
 
           switch (GameState.FORTIFY) {
@@ -436,6 +440,8 @@ public class BoardController {
                   }
                 }
               } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
+                selectedTerritory_attacked = t;
+                diceSlider.setMax(t.getNumberOfArmies() - 1);
                 // ATTACK METHODE
                 /*
                  * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
@@ -490,8 +496,14 @@ public class BoardController {
           t.getBoardRegion().getRegion().setEffect(null);
           t.getBoardRegion().getRegion().setDisable(false);
         }
+        selectedTerritory_attacked = null;
         selectedTerritory = null;
         dicePane.toBack();
+        attackDice1.setVisible(true);
+        attackDice2.setVisible(true);
+        attackDice3.setVisible(true);
+        defendDice1.setVisible(true);
+        defendDice2.setVisible(true);
         setArmyPane.toBack();
         fortifyPane.toBack();
         quitPane.toBack();
@@ -515,6 +527,65 @@ public class BoardController {
     });
   }
 
+  public void throwDices() {
+    int numberOfDices = 0;
+    switch ((int) diceSlider.getValue()) {
+      case (1):
+        numberOfDices = 1;
+        break;
+      case (2):
+        numberOfDices = 2;
+        break;
+      default:
+        numberOfDices = 3;
+    }
+    int numberDicesOpponent = selectedTerritory_attacked.getNumberOfArmies() > 1 ? 2 : 1;
+    Vector<Integer> attacker = Dice.rollDices(numberOfDices);
+    Vector<Integer> defender = Dice.rollDices(numberDicesOpponent);
+    attackDice1.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
+    if (attacker.size() > 2) {
+      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
+      attackDice3.setImage(new Image("dice_" + attacker.get(attacker.size() - 2) + "_RED.png"));
+    } else if (attacker.size() == 2) {
+      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 3) + "_RED.png"));
+      attackDice3.setVisible(false);
+    } else {
+      attackDice2.setVisible(false);
+      attackDice3.setVisible(false);
+    }
+    defendDice1.setImage(new Image("dice_" + defender.get(defender.size() - 1) + "_BLUE.png"));
+    if (defender.size() == 2) {
+      defendDice2.setImage(new Image("dice_" + defender.get(defender.size() - 2) + "_BLUE.png"));
+    } else {
+      defendDice2.setVisible(false);
+    }
+
+    if (g.attack(attacker, defender, selectedTerritory, selectedTerritory_attacked,
+        (int) diceSlider.getValue())) {
+      // selectedTerritory_attacked.setStyle("-fx-background-color: "+
+      // selectedTerritory_attacked.getOwner().getColor().getColorO();
+      selectedTerritory.getBoardRegion().getNumberOfArmy()
+          .setText(selectedTerritory.getNumberOfArmies() + "");
+      selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
+          .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
+      // back to map
+      selectedTerritory_attacked = null;
+      selectedTerritory = null;
+      dicePane.toBack();
+      attackDice1.setVisible(true);
+      attackDice2.setVisible(true);
+      attackDice3.setVisible(true);
+      defendDice1.setVisible(true);
+      defendDice2.setVisible(true);
+      grayPane.toBack();
+    }
+    // Label updaten
+    selectedTerritory.getBoardRegion().getNumberOfArmy()
+        .setText(selectedTerritory.getNumberOfArmies() + "");
+    selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
+        .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
+    diceSlider.setValue(selectedTerritory.getNumberOfArmies()-1);
+  }
 
   /**
    * 
@@ -577,43 +648,43 @@ public class BoardController {
   public ImageView handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView) e.getSource();
     String url = img.getImage().getUrl();
-    String file = url.substring(url.lastIndexOf('/')+1, url.length());
+    String file = url.substring(url.lastIndexOf('/') + 1, url.length());
     String[] split = file.split("\\.");
     int cardId = Integer.parseInt(split[0]);
-    Card card = (Card)deck.getCards().get(cardId);
+    Card card = (Card) deck.getCards().get(cardId);
     this.initializeCardLists();
-    
+
     if (left.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
       selectCard(card);
-      for(Card x: topList.values()) {
+      for (Card x : topList.values()) {
         System.out.println(x);
       }
-//      topList.put(cardId, (Card)deck.getCards().get(cardId));
-      for(Card x: topList.values()) {
+      // topList.put(cardId, (Card)deck.getCards().get(cardId));
+      for (Card x : topList.values()) {
         System.out.println(x);
       }
-      StackPane pane = (StackPane)img.getParent();
+      StackPane pane = (StackPane) img.getParent();
       left.getChildren().add(pane);
       pane.getStylesheets().clear();
     } else if (center.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
-//      topList.put(cardId, (Card)deck.getCards().get(cardId));
+      // topList.put(cardId, (Card)deck.getCards().get(cardId));
       selectCard(card);
-      for(Card x: topList.values()) {
+      for (Card x : topList.values()) {
         System.out.println(x);
       }
-      StackPane pane = (StackPane)img.getParent();
+      StackPane pane = (StackPane) img.getParent();
       center.getChildren().add(pane);
       pane.setStyle(null);
     } else if (right.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
-//      topList.put(cardId, (Card)deck.getCards().get(cardId));
+      // topList.put(cardId, (Card)deck.getCards().get(cardId));
       selectCard(card);
-      for(Card x: topList.values()) {
+      for (Card x : topList.values()) {
         System.out.println(x);
       }
-      StackPane pane = (StackPane)img.getParent();
+      StackPane pane = (StackPane) img.getParent();
       right.getChildren().add(pane);
       pane.setStyle(null);
     }
@@ -628,34 +699,34 @@ public class BoardController {
   public void handleRemoveCard(MouseEvent e) {
     String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
     HBox b = (HBox) e.getSource();
-    
+
     if (b.equals(left)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
-      ImageView img = (ImageView)pane.getChildren().get(0);
+      ImageView img = (ImageView) pane.getChildren().get(0);
       String url = img.getImage().getUrl();
-      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
-      Card card = (Card)deck.getCards().get(cardId);
+      Card card = (Card) deck.getCards().get(cardId);
       this.deselectCard(card);
-//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
-//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
+      // topList.remove(cardId, (Card)deck.getCards().get(cardId));
+      // bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       left.getChildren().clear();
       pane.getStylesheets().add(css);
-     
+
     } else if (b.equals(center)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
       String url = img.getImage().getUrl();
-      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
-      Card card = (Card)deck.getCards().get(cardId);
+      Card card = (Card) deck.getCards().get(cardId);
       this.deselectCard(card);
-//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
-//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
+      // topList.remove(cardId, (Card)deck.getCards().get(cardId));
+      // bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       center.getChildren().clear();
@@ -664,13 +735,13 @@ public class BoardController {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
       String url = img.getImage().getUrl();
-      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
-      Card card = (Card)deck.getCards().get(cardId);
+      Card card = (Card) deck.getCards().get(cardId);
       this.deselectCard(card);
-//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
-//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
+      // topList.remove(cardId, (Card)deck.getCards().get(cardId));
+      // bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       right.getChildren().clear();// getChildren().remove(0);
@@ -693,21 +764,20 @@ public class BoardController {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
-          for(Card x: topList.values()) {
-            System.out.println("Bla"+x.getTerritory().getName());
+          for (Card x : topList.values()) {
+            System.out.println("Bla" + x.getTerritory().getName());
           }
-          if(g.canbeTraded(topList.get(0),topList.get(1), topList.get(2))) {
+          if (g.canbeTraded(topList.get(0), topList.get(1), topList.get(2))) {
             String cards = Integer.toString(++tradedCards);
             tradedCardSets.setText(cards);
             topList.remove(0);
             topList.remove(1);
             topList.remove(2);
-          }
-          else {
+          } else {
             System.out.println("No trade");
-            cantBeTraded.toFront(); 
+            cantBeTraded.toFront();
           }
-          
+
 
           System.out.println("Button geklickt");
         }
@@ -715,15 +785,15 @@ public class BoardController {
     };
     th.start();
   }
-  
+
   /**
    * @author smetzger
    * @param e
    */
   @FXML
   public void exitPopup(ActionEvent e) {
-    Button b = (Button)e.getSource();
-    if(b.equals(exitPopup)) {
+    Button b = (Button) e.getSource();
+    if (b.equals(exitPopup)) {
       cantBeTraded.toBack();
     }
   }
