@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -12,7 +13,7 @@ import network.Parameter;
 public class GameFinder extends Thread {
 
   private DatagramSocket datagramSocket;
-  private Socket socket;
+  
   private ServerSocket serverSocket;
   
 /**
@@ -52,29 +53,27 @@ public class GameFinder extends Thread {
 //      datagramSocket.receive(responseP);
 //      String hostIP = responseP.getAddress().toString();
 //      System.out.println("A package is recieved from " + responseP.getAddress());
-      datagramSocket.close();
+//      datagramSocket.close();
     } catch (IOException e) {
       e.printStackTrace();
     }   
   }
 
   public void run() {
-    //while(true){
-    listen();
-//}
+    try {
+      ServerSocket server = new ServerSocket(Parameter.PORT);
+       this.serverSocket = server;
+       Socket socket = server.accept();
+       System.out.println("Connected with:  " + InetAddress.getLocalHost());
+       // start a new client thread here with the parameter as socket
+        new Client(socket).start();
+       serverSocket.close();
+//       socket.close();
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
   }
 
-  public void listen() {
-    try {
-      serverSocket = new ServerSocket(8888);
-      while(true) {
-      socket = serverSocket.accept();
-      System.out.println("Connected with:  " + InetAddress.getLocalHost() );
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
   public static void main(String[] args) {
     new GameFinder().findGames();
   }
