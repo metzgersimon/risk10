@@ -3,7 +3,9 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import main.Main;
 
 
@@ -33,22 +35,16 @@ public class CardDeck {
     this.cards.put(44, new Card(true));
   }
 
-  public List shuffle() {
-    List keys = new ArrayList(cards.keySet());
-    Collections.shuffle(keys);
-    return keys;
+  public LinkedList shuffle() {
+//    ArrayList keys = new ArrayList(cards.keySet());
+    LinkedList q = new LinkedList(cards.keySet());
+    Collections.shuffle(q);
+//    Collections.shuffle(keys);
+    return q;
   }
 
   public Card getRandomCard() {
     int random = (int) (Math.random() * 44 + 1);
     return this.cards.get(random);
   }
-  
-  public ArrayList changeToList() {
-    ArrayList<Card> cardList = new ArrayList(this.cards.keySet());
-    return cardList;
-  }
-
-
-
 }
