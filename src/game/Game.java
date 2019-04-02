@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Vector;
 import main.Main;
 
@@ -18,7 +19,7 @@ public class Game {
   private World w;
 
   private ArrayList<Player> players;
-  private ArrayList<Card> cards;
+  private LinkedList<Card> cards;
   private ArrayList<Continent> continents;
   private ArrayList<Territory> territories;
   private Player currentPlayer;
@@ -33,12 +34,11 @@ public class Game {
    */
   public Game() {
     players = new ArrayList<>();
-    territories = new ArrayList<>(); // To do
-    continents = new ArrayList<>();
-    cards = new ArrayList<>();
+    cards = new CardDeck().shuffle();
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
     this.w = new World();
+
 
   }
 
@@ -108,6 +108,7 @@ public class Game {
 
   public void playRisk() {
     // Compute number of armies
+    initNumberOfArmies();
     // define player order
 
     // prepare BoardGUI
@@ -135,7 +136,8 @@ public class Game {
     // highlight his own territories and all attackable neighbors
     // attack
     // update Board
-    // Anzahl Territorien aktueller Spieler --> vergleichen
+    // Anzahl Territorien aktueller Spieler --> vergleichen --> ggfs. Karte aus LinkedList Cards
+    // nehmen
     //
     // change BoardGUI --> update only current players territories, disable all others
     // fortify
@@ -178,6 +180,23 @@ public class Game {
   public void setTerritories(ArrayList<Territory> territories) {
     this.territories = territories;
   }
+
+  public void setCard(Card c) {
+    this.cards.add(c);
+  }
+
+  /**
+   * 
+   * compute the initial number of armies 2 players - 40 3 players - 35 4 players - 30 5 players -
+   * 25 6 players - 20
+   */
+  public void initNumberOfArmies() {
+    int number = 50 - (this.players.size() * 5);
+    for (int i = 0; i < this.players.size(); i++) {
+      this.players.get(i).setNumberArmiesToDistribute(number);
+    }
+  }
+
 
   /**
    * @author qiychen

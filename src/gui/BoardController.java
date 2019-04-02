@@ -61,7 +61,7 @@ public class BoardController {
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
   private static int tradedCards = 0;
-  private CardDeck deck = new CardDeck(g.getWorld());
+  private CardDeck deck = new CardDeck();
   // Views
   @FXML
   private Button chatRoomButton;
@@ -584,7 +584,7 @@ public class BoardController {
         .setText(selectedTerritory.getNumberOfArmies() + "");
     selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
         .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
-    diceSlider.setValue(selectedTerritory.getNumberOfArmies()-1);
+    diceSlider.setValue(selectedTerritory.getNumberOfArmies() - 1);
   }
 
   /**
@@ -768,6 +768,11 @@ public class BoardController {
             System.out.println("Bla" + x.getTerritory().getName());
           }
           if (g.canbeTraded(topList.get(0), topList.get(1), topList.get(2))) {
+            // add Cards to game carddeck
+            Main.g.setCard(topList.get(0));
+            Main.g.setCard(topList.get(1));
+            Main.g.setCard(topList.get(2));
+
             String cards = Integer.toString(++tradedCards);
             tradedCardSets.setText(cards);
             topList.remove(0);
