@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import main.Main;
 
 
 /**
@@ -24,25 +25,28 @@ public class CardDeck {
    * 
    * @param w is an instance of a World
    */
-  public CardDeck(World w) {
-    for (Territory t : w.territories.values()) {
+  public CardDeck() {
+    for (Territory t : Main.g.getWorld().territories.values()) {
       this.cards.put(t.getId(), new Card(t, false));
     }
     this.cards.put(43, new Card(true));
     this.cards.put(44, new Card(true));
   }
 
-  public void shuffle() {
+  public List shuffle() {
     List keys = new ArrayList(cards.keySet());
     Collections.shuffle(keys);
-    for (Object o : keys) {
-      cards.get(o);
-    }
+    return keys;
   }
 
   public Card getRandomCard() {
     int random = (int) (Math.random() * 44 + 1);
     return this.cards.get(random);
+  }
+  
+  public ArrayList changeToList() {
+    ArrayList<Card> cardList = new ArrayList(this.cards.keySet());
+    return cardList;
   }
 
 
