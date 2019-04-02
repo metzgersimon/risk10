@@ -2,6 +2,9 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import game.EasyAiPlayer;
+import game.HardAiPlayer;
+import game.MediumAiPlayer;
 import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
 
 public class HostGameLobbyController {
 
@@ -43,12 +47,19 @@ public class HostGameLobbyController {
 
   @FXML
   Slider botLevel;
-  
-/**check boxes shows the status of the joined player*/
- @FXML CheckBox box1, box2, box3, box4, box5;
 
- private ArrayList<Player> players; //list of players/clients who will join the game
- 
+  /** check boxes shows the status of the joined player */
+  @FXML
+  CheckBox box1, box2, box3, box4, box5, hostBox;
+
+  private ArrayList<Player> players; // list of players/clients who will join the game
+  private ArrayList<CheckBox> playerNames;
+
+  public HostGameLobbyController() {
+    // TODO Auto-generated constructor stub
+    enableTheBoxes();
+  }
+  
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -62,7 +73,7 @@ public class HostGameLobbyController {
     }
   }
 
-  
+
   /**
    * @author skaur
    * @param event : ActionEvent This parameter represents the element that invokes this method. This
@@ -76,32 +87,48 @@ public class HostGameLobbyController {
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
-      } catch (Exception e) {
+      // ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
       e.printStackTrace();
-      }
+    }
   }
+
   @FXML
   void handleAddBot(ActionEvent event) {
     // TODO
+    Player p;
+    if (Main.g.getPlayers().size() < 6) {
+      if (botLevel.getValue() == 0.0) {
+        p = new EasyAiPlayer();
+      } else if (botLevel.getValue() == 1.0) {
+        p = new MediumAiPlayer();
+      } else {
+        p = new HardAiPlayer();
+      }
+      Main.g.addPlayer(p);
+      addPlayerInList(p.getName());
+    }
   }
 
-  @FXML
-  void handleBotLevel(ActionEvent event) {
-    // TODO
+  public void addPlayerInList(String name) {
+    for (int i=0; i<playerNames.size(); i++) {
+      if (playerNames.get(i).isDisabled()) {
+        playerNames.get(i).setDisable(false);
+        playerNames.get(i).setText(name);
+      }
+    }
   }
 
-  
   void enableTheBoxes() {
-    //todo
-   List<CheckBox> boxes= new ArrayList<CheckBox>();
-   boxes.add(box1);
-   boxes.add(box2);
-   boxes.add(box3);
-   boxes.add(box4);
-   boxes.add(box5);
-  
-  
+    // todo
+    playerNames = new ArrayList<CheckBox>();
+    playerNames.add(box1);
+    playerNames.add(box2);
+    playerNames.add(box3);
+    playerNames.add(box4);
+    playerNames.add(box5);
+
+
   }
 
 
