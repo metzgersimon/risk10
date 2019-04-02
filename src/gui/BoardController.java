@@ -396,6 +396,7 @@ public class BoardController {
           t.setNumberOfArmies(10);
           p.setNumberArmiesToDistribute(12);
           t.setOwner(p);
+        
           // ENDE
 
           switch (GameState.FORTIFY) {
@@ -692,6 +693,9 @@ public class BoardController {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
+          for(Card x: topList.values()) {
+            System.out.println("Bla"+x.getTerritory().getName());
+          }
           if(g.canbeTraded(topList.get(0),topList.get(1), topList.get(2))) {
             String cards = Integer.toString(++tradedCards);
             tradedCardSets.setText(cards);
@@ -700,6 +704,7 @@ public class BoardController {
             topList.remove(2);
           }
           else {
+            System.out.println("No trade");
             cantBeTraded.toFront(); 
           }
           
