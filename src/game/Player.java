@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import main.Main;
 
 /**
  * 
@@ -20,7 +21,6 @@ public class Player {
   private String name;
   private int armies;
   private int type;// human player or ai
-  private boolean alive;
   private PlayerColor color;
   private HashSet<Territory> territories;
   private HashSet<Continent> continents;
@@ -42,7 +42,7 @@ public class Player {
    * @param armies
    * @param type
    */
-  public Player(String name, int armies, int type, PlayerColor color, Game g) {
+  public Player(String name, int armies, int type, PlayerColor color) {
     this.name = name;
     this.armies = armies;
     this.type = type;
@@ -51,20 +51,19 @@ public class Player {
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.tradedCardSets = 0;
-    this.g = g;
-    this.alive = true;
+    this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     territoriesConquered = 0;
     numberOfAttacks = 0;
   }
 
-  public Player(String name, Game g) {
+  public Player(String name) {
     this.name = name;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
-    this.g = g;
+    this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
   }
@@ -217,14 +216,6 @@ public class Player {
 
   public int getValueActuallyTradedIn() {
     return this.valueActuallyTradedIn;
-  }
-
-  public boolean getAlive() {
-    return this.alive;
-  }
-
-  public void outOfGame() {
-    this.alive = false;
   }
 
   /**

@@ -36,8 +36,8 @@ public class AttackTest {
   }
   @Test
   public void testAttack() {
-   Player p1 = new Player("Test", g);
-    Player p2 =new Player("Test2", g);
+   Player p1 = new Player("Test");
+    Player p2 =new Player("Test2");
     g.setCurrentPlayer(p1);
     HashMap<Integer, Territory> list = g.getWorld().getTerritories();
     g.setGameState(GameState.ATTACK);

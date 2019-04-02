@@ -4,14 +4,15 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.junit.Test;
+import main.Main;
 
 public class GameTest {
-  Game g = new Game();
+  Game g = Main.g;
 
 
   @Test
   public void fortifyTest() {
-    Player p1 = new Player("Test", g);
+    Player p1 = new Player("Test");
     g.setCurrentPlayer(p1);
     HashMap<Integer, Territory> list = g.getWorld().getTerritories();
     g.setGameState(GameState.FORTIFY);
@@ -32,5 +33,17 @@ public class GameTest {
     // when the game is not in fortify state
     g.setGameState(GameState.ATTACK);
     assertFalse(g.fortify(test1, test3, 9));
+  }
+
+
+  @Test
+  public void addPlayerTest() {
+    Player p1 = new Player("Test");
+    g.addPlayer(p1);
+    assertTrue(g.getPlayers().contains(p1));
+    Player p2 = new Player("Test");
+    g.addPlayer(p2);
+    assertTrue(g.getPlayers().contains(p2));
+    assertFalse(p1.getName().equals(p2.getName()));
   }
 }

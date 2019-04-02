@@ -16,7 +16,7 @@ public class PlayerTest {
 
     // Player has only Territories
     // Test, if player would receive less than 3 armies, so the system would round to 3
-    Player p = new Player("Test1", g);
+    Player p = new Player("Test1");
     p.addTerritories(g.getWorld().getTerritories().get(10));
     p.addTerritories(g.getWorld().getTerritories().get(30));
     p.addTerritories(g.getWorld().getTerritories().get(40));
@@ -40,7 +40,7 @@ public class PlayerTest {
 
     // Player has Territories and Continents
     // Test, if player would receive less 3 armies
-    p = new Player("Test2", g);
+    p = new Player("Test2");
     p.addTerritories(g.getWorld().getTerritories().get(39));
     p.addTerritories(g.getWorld().getTerritories().get(40));
     p.addTerritories(g.getWorld().getTerritories().get(41));
@@ -62,7 +62,7 @@ public class PlayerTest {
 
     // Player has Territories and traded-in Cards
     // Test, if player would receive more than 3 armies
-    p = new Player("Test3", g);
+    p = new Player("Test3");
     p.addTerritories(g.getWorld().getTerritories().get(41));
     p.addTerritories(g.getWorld().getTerritories().get(2));
     p.tradeCards(new Card(g.getWorld().getTerritories().get(41), false),
@@ -77,7 +77,7 @@ public class PlayerTest {
    *         Test, if the number is between 0 and number of Players
    */
   public void armyDistributionTest() {
-    Player p = new Player("Test1", g);
+    Player p = new Player("Test1");
     p.addTerritories(g.getWorld().getTerritories().get(5));
     p.setNumberArmiesToDistribute(10);
     assertTrue(p.armyDistribution(5, g.getWorld().getTerritories().get(5)));
