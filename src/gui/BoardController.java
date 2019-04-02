@@ -3,6 +3,7 @@ package gui;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import game.Card;
+import game.CardDeck;
 import game.Game;
 import game.GameState;
 import game.Player;
@@ -56,6 +57,7 @@ public class BoardController {
 
   private Territory selectedTerritory = null;
   private static int tradedCards = 0;
+  private CardDeck deck = new CardDeck(g.getWorld());
   // Views
   @FXML
   private Button chatRoomButton;
@@ -573,28 +575,48 @@ public class BoardController {
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView) e.getSource();
-    // Integer selectedId = (int) e.getSource();
-    
+    String url = img.getImage().getUrl();
+    String file = url.substring(url.lastIndexOf('/')+1, url.length());
+    String[] split = file.split("\\.");
+    int cardId = Integer.parseInt(split[0]);
+    Card card = (Card)deck.getCards().get(cardId);
+    this.initializeCardLists();
     
     if (left.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
-//      System.out.println(img.getImage().getUrl().toString());
+      selectCard(card);
+      for(Card x: topList.values()) {
+        System.out.println(x);
+      }
+//      topList.put(cardId, (Card)deck.getCards().get(cardId));
+      for(Card x: topList.values()) {
+        System.out.println(x);
+      }
       StackPane pane = (StackPane)img.getParent();
       left.getChildren().add(pane);
       pane.getStylesheets().clear();
     } else if (center.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
+//      topList.put(cardId, (Card)deck.getCards().get(cardId));
+      selectCard(card);
+      for(Card x: topList.values()) {
+        System.out.println(x);
+      }
       StackPane pane = (StackPane)img.getParent();
       center.getChildren().add(pane);
       pane.setStyle(null);
     } else if (right.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
+//      topList.put(cardId, (Card)deck.getCards().get(cardId));
+      selectCard(card);
+      for(Card x: topList.values()) {
+        System.out.println(x);
+      }
       StackPane pane = (StackPane)img.getParent();
       right.getChildren().add(pane);
       pane.setStyle(null);
     }
     return img;
-    // if(left == null && center == null && right == null) {
   }
 
   /**
@@ -605,11 +627,18 @@ public class BoardController {
   public void handleRemoveCard(MouseEvent e) {
     String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
     HBox b = (HBox) e.getSource();
-    System.out.println("BLABLABLA");
+    
     if (b.equals(left)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView)pane.getChildren().get(0);
-//      ImageView img = (ImageView) b.getChildren().get(0);
+      String url = img.getImage().getUrl();
+      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String[] split = file.split("\\.");
+      int cardId = Integer.parseInt(split[0]);
+      Card card = (Card)deck.getCards().get(cardId);
+      this.deselectCard(card);
+//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
+//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       left.getChildren().clear();
@@ -618,6 +647,14 @@ public class BoardController {
     } else if (b.equals(center)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
+      String url = img.getImage().getUrl();
+      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String[] split = file.split("\\.");
+      int cardId = Integer.parseInt(split[0]);
+      Card card = (Card)deck.getCards().get(cardId);
+      this.deselectCard(card);
+//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
+//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       center.getChildren().clear();
@@ -625,6 +662,14 @@ public class BoardController {
     } else if (b.equals(right)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
+      String url = img.getImage().getUrl();
+      String file = url.substring(url.lastIndexOf('/')+1, url.length());
+      String[] split = file.split("\\.");
+      int cardId = Integer.parseInt(split[0]);
+      Card card = (Card)deck.getCards().get(cardId);
+      this.deselectCard(card);
+//      topList.remove(cardId, (Card)deck.getCards().get(cardId));
+//      bottomList.put(cardId, (Card)deck.getCards().get(cardId));
       ownCards.getChildren().add(pane);
       img.setMouseTransparent(false);
       right.getChildren().clear();// getChildren().remove(0);

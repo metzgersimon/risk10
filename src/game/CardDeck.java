@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public class CardDeck {
-  private HashMap<Integer, Card> cards;
+  private HashMap<Integer, Card> cards = new HashMap<Integer, Card>();
 
   public HashMap getCards() {
     return cards;
