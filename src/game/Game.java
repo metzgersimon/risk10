@@ -34,10 +34,12 @@ public class Game {
    */
   public Game() {
     players = new ArrayList<>();
-    cards = new CardDeck().shuffle();
-    currentPlayer = this.players.get(0);
-    gameState = GameState.NEW_GAME;
     this.w = new World();
+   
+    currentPlayer = null;
+    gameState = GameState.NEW_GAME;
+//    cards = new CardDeck().shuffle();
+    
 
 
   }
@@ -106,7 +108,7 @@ public class Game {
 
   }
 
-  public void playRisk() {
+  public void initGame() {
     // Compute number of armies
     initNumberOfArmies();
 
@@ -114,10 +116,8 @@ public class Game {
     // while unconquered territories
     // initTerritoryDistribution
     // change Player
-
-    while (unconqueredTerritories()) {
-
-    }
+    currentPlayer = players.get(0);
+    
 
 
     // while next Player has army left

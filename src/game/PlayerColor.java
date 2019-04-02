@@ -11,22 +11,23 @@ public enum PlayerColor {
 
 
 
-  public Color getColorO() {
+  public String getRgbColor() {
     switch (this) {
       case YELLOW:
-        return Color.YELLOW;
+        return "rgb(255, 255, 0)";
       case BLUE:
-        return Color.BLUE;
+        return "rgb(0, 0, 255)";
       case RED:
-        return Color.RED;
+        return "rgb(255, 0, 0)";
       case GREEN:
-        return Color.GREEN;
+        return "rgb(0, 255, 0)";
       case MAGENTA:
-        return Color.MAGENTA;
+        return "rgb(255, 0, 255)";
       case ORANGE:
-        return Color.ORANGE;
+        return "rgb(255, 165, 0)";
       default:
         return null;
     }
   }
+  
 }

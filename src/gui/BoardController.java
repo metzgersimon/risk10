@@ -13,6 +13,7 @@ import game.Territory;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.StyleClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -114,7 +115,9 @@ public class BoardController {
    * Elements that handle dicePane
    */
   @FXML
-  private ImageView dicePane, attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
+  private Pane dicePane;
+  @FXML
+  private ImageView attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
   @FXML
   private Button throwDices;
   @FXML
@@ -248,6 +251,17 @@ public class BoardController {
     this.boardGui = boardGui;
     this.g = g;
     connectRegionTerritory();
+  }
+  
+  
+  public void prepareInitTerritoryDistribution() {
+    
+    for(Territory t: g.getWorld().getTerritories().values()) {
+      if(t.getOwner() == null) {
+        t.getBoardRegion().getRegion().setDisable(false);
+        t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "+g.getCurrentPlayer().getColor().getRgbColor()+";");
+      }
+    }   
   }
 
   /**
@@ -432,6 +446,7 @@ public class BoardController {
                 for (Territory territory : t.getNeighbor()) {
                   if (!territory.getOwner().equals(t.getOwner())) {
                     territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                    territory.getBoardRegion().getRegion().getStyleClass().add(":hover -fx-background-color: yellow;");
                   }
                 }
                 for (Territory territory : g.getWorld().getTerritories().values()) {
@@ -993,10 +1008,13 @@ public class BoardController {
 
   @FXML
   public void changeTerritoryColor(ActionEvent e) {
-
+    Region r = (Region)e.getSource();
+    r.setDisable(false);
+    r.setStyle(":hover -fx-background-color: yellow;");//+g.getCurrentPlayer().getColor().getRgbColor()+";");
+   
     // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
-    Region r;
-    String s = g.getTerritories().get(0).getName();
+
+//    String s = g.getTerritories().get(0).getName();
 
     // r = g.getTerritories().getName();
     // r.setStyle("-fx-background-color: yellow;");
