@@ -35,7 +35,7 @@ public class Game {
   public Game() {
     players = new ArrayList<>();
     cards = new CardDeck().shuffle();
-    currentPlayer = null;
+    currentPlayer = this.players.get(0);
     gameState = GameState.NEW_GAME;
     this.w = new World();
 
@@ -109,12 +109,16 @@ public class Game {
   public void playRisk() {
     // Compute number of armies
     initNumberOfArmies();
-    // define player order
 
     // prepare BoardGUI
     // while unconquered territories
     // initTerritoryDistribution
     // change Player
+
+    while (unconqueredTerritories()) {
+
+    }
+
 
     // while next Player has army left
     // change BoardGUI --> current Player should only could choose his own territories
@@ -581,6 +585,24 @@ public class Game {
       tConquered = x.territoriesConquered;
       // TODO add into GUI
     }
+  }
+
+  public boolean unconqueredTerritories() {
+    for (Territory t : this.w.getTerritories().values()) {
+      if (t.getOwner() == null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Player nextPlayer() {
+    for (int i = 0; i < players.size() - 1; i++) {
+      if (players.get(i).equals(currentPlayer)) {
+        return (this.currentPlayer = players.get(i + 1));
+      }
+    }
+    return (this.currentPlayer = players.get(0));
   }
 }
 
