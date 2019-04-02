@@ -20,6 +20,7 @@ public class Server extends Thread {
   private int port;
   private Socket socket;
   private List<InetAddress> clients = new ArrayList<InetAddress>();
+  private int clientNo = 0;
   /**
    * @author skaur
    * @param port
@@ -54,6 +55,8 @@ public class Server extends Thread {
 
               // creating a socket each client, gets an response back
              new ClientConnection(getPacket.getAddress(),Parameter.PORT).connect();
+             clientNo++;
+             System.out.println("Client Connection for client no. " + clientNo + " created") ;
               System.out.println("A response has been sent back to: " + getPacket.getAddress());
             }
           }
