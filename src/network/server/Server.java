@@ -106,6 +106,13 @@ public class Server extends Thread {
       e.printStackTrace();
     }
   }
+  /**
+   * 
+   * @return list of client connections
+   */
+  public List<ClientConnection> getConnections(){
+    return this.clients;
+  }
 
 
 }
