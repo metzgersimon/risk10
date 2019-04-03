@@ -97,10 +97,11 @@ public class Server extends Thread {
     try {
       serverSocket = new ServerSocket(Parameter.PORT);
       socket = serverSocket.accept();
-      ClientConnection c = new ClientConnection(socket);
-      System.out.println("dsds");
-      clients.add(c);
-      c.start();
+    //  ClientConnection c = new ClientConnection(socket);
+    //  System.out.println("dsds");
+    //  clients.add(c);
+    //  c.start();
+      new ServerProtocol(socket).start();
       serverSocket.close();
     } catch (IOException e) {
       e.printStackTrace();
