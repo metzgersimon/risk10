@@ -18,16 +18,18 @@ import network.client.Client;
 public class Server extends Thread {
 
   private int port;
-  private Socket socket;
+  private ServerSocket serverSocket;
   private List<InetAddress> clients = new ArrayList<InetAddress>();
   private int clientNo = 0;
+  private Socket socket;
+  private boolean isRunning;
   /**
    * @author skaur
    * @param port
    */
   public Server(int port) {
     this.port = port;
-  
+
     Thread t = new Thread(new Runnable() {
       public void run() {
         DatagramSocket datagramSocket = null;
@@ -45,18 +47,19 @@ public class Server extends Thread {
 
             String message = new String(getPacket.getData()).trim();
             if (message.equals("GAME_REQUEST")) {
-              //sending a response back
-               byte[] sendResponse = "Game_RESPONSE".getBytes();
-              
-               DatagramPacket responsePacket = new DatagramPacket(sendResponse,
-               sendResponse.length,
-               getPacket.getAddress(), getPacket.getPort());
-               datagramSocket.send(responsePacket);
+              // sending a response back
+              byte[] sendResponse = "Game_RESPONSE".getBytes();
 
+              DatagramPacket responsePacket = new DatagramPacket(sendResponse, sendResponse.length,
+                  getPacket.getAddress(), getPacket.getPort());
+              datagramSocket.send(responsePacket);
+//              serverSocket = new ServerSocket(Parameter.PORT);
+//              Socket s = serverSocket.accept();
+//              ClientConnection cc = new ClientConnection(s);
               // creating a socket each client, gets an response back
-             new ClientConnection(getPacket.getAddress(),Parameter.PORT).connect();
-             clientNo++;
-             System.out.println("Client Connection for client no. " + clientNo + " created") ;
+              // new ClientConnection(getPacket.getAddress(),Parameter.PORT).connect();
+              // clientNo++;
+              // System.out.println("Client Connection for client no. " + clientNo + " created") ;
               System.out.println("A response has been sent back to: " + getPacket.getAddress());
             }
           }
@@ -64,16 +67,36 @@ public class Server extends Thread {
           e.printStackTrace();
         } catch (IOException e) {
           e.printStackTrace();
-        } 
+        }
       }
 
     });
     t.start();
-    this.start();
-  
-  }
 
+
+  }
   
+  @Override
+  public void run() {
+    this.isRunning = true;
+    System.out.println("Server started....");
+    while(isRunning) {
+      listen();
+    }   
+  }
+  
+public void listen() {
+  try {
+    serverSocket = new ServerSocket(Parameter.PORT);
+    socket = serverSocket.accept();
+    ClientConnection c = new ClientConnection(socket);
+    c.start();
+    serverSocket.close();
+  } catch(IOException e) {
+    e.printStackTrace();
+  }
+}
+
 
 }
 

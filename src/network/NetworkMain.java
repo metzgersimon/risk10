@@ -10,5 +10,6 @@ public class NetworkMain {
   
   public static void main (String [] args) {
     Server server = new Server(Parameter.PORT);
+    server.start();
   }
 }
