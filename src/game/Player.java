@@ -34,6 +34,8 @@ public class Player {
   private int numberOfCards;
   public static int territoriesConquered;
   public static int numberOfAttacks;
+  public static int rank;
+  public static int sessionWins;
 
   /**
    * create a new player
@@ -56,6 +58,8 @@ public class Player {
     this.numberOfCards = 0;
     territoriesConquered = 0;
     numberOfAttacks = 0;
+    rank = 0;
+    sessionWins = 0;
   }
 
   public Player(String name) {
