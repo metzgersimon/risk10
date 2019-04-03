@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Vector;
 import main.Main;
+import network.Parameter;
+import network.client.GameFinder;
+import network.server.Server;
 
 public class Game {
   public final static int MAX_PLAYERS = 6;
@@ -29,7 +32,13 @@ public class Game {
   public HashMap<String, Integer> territoryStats;
   public HashMap<String, Integer> cardStats;
 
+ 
+  /** variables for join and host game*/
+   Server server;
+   GameFinder gameFinder;
+  
   /**
+   * 
    * @author qiychen Constructor
    */
   public Game() {
@@ -603,6 +612,29 @@ public class Game {
       }
     }
     return (this.currentPlayer = players.get(0));
+  }
+  
+  /**
+   * @author skaur
+   * @param noOfPlayers no of selected players by the host
+   * this method creates an instance of server and starts the server thread on a specified port,
+   * after calling this methods host should join the game lobby (game lobby UI opens)
+   */
+  public void hostGame(int noOfPlayers) {
+    this.server = new Server(Parameter.PORT, noOfPlayers);
+    this.server.start();
+    //joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;   
+  }
+  
+  /**
+   * @author skaur
+   * this methods creates an instance of gamefinder class and starts looking for broadcasting server
+   * gameFinder class then creates a client for the current player
+   */
+  public void joinGame(){
+    this.gameFinder = new GameFinder();
+    this.gameFinder.start();
+    //joinLobby(currentPlayer): call this method to join the JoinGameLobbyGUI;   
   }
 }
 
