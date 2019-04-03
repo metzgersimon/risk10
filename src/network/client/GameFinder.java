@@ -49,7 +49,7 @@ public class GameFinder extends Thread {
       InetAddress address = responseP.getAddress();
       Client c = new Client(address);
       c.start();
-      System.out.println("Socket opened on: ");
+      System.out.println("Client Created");
 
     } catch (IOException e) {
       e.printStackTrace();

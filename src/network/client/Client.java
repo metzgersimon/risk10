@@ -14,6 +14,8 @@ public class Client extends Thread {
   private Socket s;
 
   public Client(InetAddress address) {
+  this.address = address;
+  connect();
   }
 
   public void connect() {

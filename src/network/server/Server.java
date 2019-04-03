@@ -98,9 +98,10 @@ public class Server extends Thread {
       serverSocket = new ServerSocket(Parameter.PORT);
       socket = serverSocket.accept();
       ClientConnection c = new ClientConnection(socket);
+      System.out.println("dsds");
       clients.add(c);
       c.start();
-      // serverSocket.close();
+      serverSocket.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
