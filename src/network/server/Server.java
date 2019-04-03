@@ -19,17 +19,21 @@ public class Server extends Thread {
 
   private int port;
   private ServerSocket serverSocket;
-  private List<InetAddress> clients = new ArrayList<InetAddress>();
-  private int clientNo = 0;
+  private List<ClientConnection> clients = new ArrayList<ClientConnection>();
   private Socket socket;
   private boolean isRunning;
+  private int counter = 1;
+  /**
+   * this parameter represents the number of players selected by the host to play the game 
+   */
+  private int noOfPlayer;
   /**
    * @author skaur
    * @param port
    */
-  public Server(int port) {
+  public Server(int port, int noOfPlayers) {
     this.port = port;
-
+    this.noOfPlayer = noOfPlayers;
     Thread t = new Thread(new Runnable() {
       public void run() {
         DatagramSocket datagramSocket = null;
@@ -47,20 +51,24 @@ public class Server extends Thread {
 
             String message = new String(getPacket.getData()).trim();
             if (message.equals("GAME_REQUEST")) {
+              if(counter < noOfPlayers) {
               // sending a response back
               byte[] sendResponse = "Game_RESPONSE".getBytes();
-
               DatagramPacket responsePacket = new DatagramPacket(sendResponse, sendResponse.length,
                   getPacket.getAddress(), getPacket.getPort());
               datagramSocket.send(responsePacket);
-//              serverSocket = new ServerSocket(Parameter.PORT);
-//              Socket s = serverSocket.accept();
-//              ClientConnection cc = new ClientConnection(s);
+              // serverSocket = new ServerSocket(Parameter.PORT);
+              // Socket s = serverSocket.accept();
+              // ClientConnection cc = new ClientConnection(s);
               // creating a socket each client, gets an response back
               // new ClientConnection(getPacket.getAddress(),Parameter.PORT).connect();
               // clientNo++;
-              // System.out.println("Client Connection for client no. " + clientNo + " created") ;
-              System.out.println("A response has been sent back to: " + getPacket.getAddress());
+              //
+              System.out.println("Client Connection for client no. " + counter + " created") ;
+              counter++;
+              } else {
+                System.out.println("Maximum number of clients have joined");
+              }
             }
           }
         } catch (SocketException | UnknownHostException e) {
@@ -75,27 +83,28 @@ public class Server extends Thread {
 
 
   }
-  
+
   @Override
   public void run() {
     this.isRunning = true;
     System.out.println("Server started....");
-    while(isRunning) {
+    while (isRunning) {
       listen();
-    }   
+    }
   }
-  
-public void listen() {
-  try {
-    serverSocket = new ServerSocket(Parameter.PORT);
-    socket = serverSocket.accept();
-    ClientConnection c = new ClientConnection(socket);
-    c.start();
-    serverSocket.close();
-  } catch(IOException e) {
-    e.printStackTrace();
+
+  public void listen() {
+    try {
+      serverSocket = new ServerSocket(Parameter.PORT);
+      socket = serverSocket.accept();
+      ClientConnection c = new ClientConnection(socket);
+      clients.add(c);
+      c.start();
+      // serverSocket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
-}
 
 
 }

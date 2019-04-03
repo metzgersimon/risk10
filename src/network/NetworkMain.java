@@ -9,7 +9,7 @@ public class NetworkMain {
    */
   
   public static void main (String [] args) {
-    Server server = new Server(Parameter.PORT);
+    Server server = new Server(Parameter.PORT,5);
     server.start();
   }
 }
