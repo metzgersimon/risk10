@@ -2,9 +2,9 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import game.EasyAiPlayer;
-import game.HardAiPlayer;
-import game.MediumAiPlayer;
+import game.AiPlayerEasy;
+import game.AiPlayerHard;
+import game.AiPlayerMedium;
 import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,7 +59,7 @@ public class HostGameLobbyController {
     // TODO Auto-generated constructor stub
     enableTheBoxes();
   }
-  
+
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -99,11 +99,11 @@ public class HostGameLobbyController {
     Player p;
     if (Main.g.getPlayers().size() < 6) {
       if (botLevel.getValue() == 0.0) {
-        p = new EasyAiPlayer();
+        p = new AiPlayerEasy();
       } else if (botLevel.getValue() == 1.0) {
-        p = new MediumAiPlayer();
+        p = new AiPlayerMedium();
       } else {
-        p = new HardAiPlayer();
+        p = new AiPlayerHard();
       }
       Main.g.addPlayer(p);
       addPlayerInList(p.getName());
@@ -111,7 +111,7 @@ public class HostGameLobbyController {
   }
 
   public void addPlayerInList(String name) {
-    for (int i=0; i<playerNames.size(); i++) {
+    for (int i = 0; i < playerNames.size(); i++) {
       if (playerNames.get(i).isDisabled()) {
         playerNames.get(i).setDisable(false);
         playerNames.get(i).setText(name);

@@ -20,7 +20,7 @@ public class Player {
   private Game g;
   private String name;
   private int armies;
-  private int type;// human player or ai
+  private boolean isAi = false;// human player or ai
   private PlayerColor color;
   private HashSet<Territory> territories;
   private HashSet<Continent> continents;
@@ -44,10 +44,9 @@ public class Player {
    * @param armies
    * @param type
    */
-  public Player(String name, int armies, int type, PlayerColor color) {
+  public Player(String name, int armies, PlayerColor color) {
     this.name = name;
     this.armies = armies;
-    this.type = type;
     this.color = color;
     territories = new HashSet<>();
     continents = new HashSet<>();
@@ -62,8 +61,9 @@ public class Player {
     sessionWins = 0;
   }
 
-  public Player(String name) {
+  public Player(String name, PlayerColor color) {
     this.name = name;
+    this.color = color;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
@@ -88,12 +88,12 @@ public class Player {
     this.armies = armies;
   }
 
-  public int getType() {
-    return type;
+  public boolean getIsAi() {
+    return isAi;
   }
 
-  public void setType(int type) {
-    this.type = type;
+  public void setIsAi(boolean isAi) {
+    this.isAi = isAi;
   }
 
   public HashSet<Territory> getTerritories() {
@@ -298,8 +298,8 @@ public class Player {
    * 
    *         Precondition: only free territories can be chosen
    */
-  public boolean initialTerritoryribution(Territory t) {
-    if (t.getOwner().equals(null)) {
+  public boolean initialTerritoryDistribution(Territory t) {
+    if (t.getOwner() == null) {
       t.setOwner(this);
       this.addTerritories(t);
       this.numberArmiesToDistribute -= 1;

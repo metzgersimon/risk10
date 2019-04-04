@@ -2,12 +2,14 @@ package gui;
 
 import java.util.HashMap;
 import java.util.Vector;
+import game.AiPlayer;
 import game.Card;
 import game.CardDeck;
 import game.Dice;
 import game.Game;
 import game.GameState;
 import game.Player;
+import game.PlayerColor;
 import game.Territory;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -250,19 +252,24 @@ public class BoardController {
     this.g = g;
     connectRegionTerritory();
   }
-  
-  
+
+  /**
+   * @author smetzger
+   * @author pcoberge
+   */
   public static void prepareInitTerritoryDistribution() {
-    
-    for(Territory t: Main.g.getWorld().getTerritories().values()) {
-      if(t.getOwner() == null) {
+
+    for (Territory t : Main.g.getWorld().getTerritories().values()) {
+      if (t.getOwner() == null) {
         t.getBoardRegion().getRegion().setDisable(false);
-        t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "+Main.g.getCurrentPlayer().getColor().getRgbColor()+";");
+        t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "
+            + Main.g.getCurrentPlayer().getColor().getRgbColor() + ";");
       }
-    }   
+    }
   }
 
   /**
+   * @author smetzger
    * @author pcoberge
    * 
    *         Method to prepare the BoardGUI for phase ARMY_DISTRIBUTION
@@ -279,6 +286,7 @@ public class BoardController {
   }
 
   /**
+   * @author smetzger
    * @author pcoberge
    * 
    *         Method to prepare the BoardGUI for phase ATTACK
@@ -295,6 +303,7 @@ public class BoardController {
   }
 
   /**
+   * @author smetzger
    * @author pcoberge
    * 
    *         Method to prepare the BoradGUI for phase FORTIFY
@@ -368,6 +377,7 @@ public class BoardController {
   }
 
   /**
+   * @author smetzger
    * @author pcoberge
    * @param MouseEvent The parameter contains the information which gui element triggers the
    *        actionlistener.
@@ -405,28 +415,21 @@ public class BoardController {
         if (!t.equals(selectedTerritory)) {
           // switch (g.getGameState()) {
 
-          // NUR FUER ANZEIGE
-          Player p = new Player("TOM");
-          g.setCurrentPlayer(p);
-          p.addTerritories(t);
-          t.setNumberOfArmies(10);
-          p.setNumberArmiesToDistribute(12);
-          t.setOwner(p);
-
-          // ENDE
-
           switch (GameState.FORTIFY) {
             // new game
             case INITIALIZING_TERRITORY:
-              if (g.getCurrentPlayer().initialTerritoryribution(selectedTerritory)) {
+              if (g.getCurrentPlayer().initialTerritoryDistribution(selectedTerritory)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
                 Main.g.nextPlayer();
-                if(Main.g.unconqueredTerritories()) {
+                if (Main.g.unconqueredTerritories()) {
                   prepareInitTerritoryDistribution();
-                }
-                else {
+                } else {
                   Main.g.setGameState(GameState.INITIALIZING_ARMY);
-                  prepareArmyDistribution();               
+                  prepareArmyDistribution();
+                  if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+                    AiPlayer p = (AiPlayer) Main.g.getCurrentPlayer();
+                    p.initialTerritoryDistribution();
+                  }
                 }
               }
               break;
@@ -435,13 +438,16 @@ public class BoardController {
               if (g.getCurrentPlayer().armyDistribution(1, t)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
                 Main.g.nextPlayer();
-                
-                if(Main.g.getLastPlayer().getNumberArmiesToDistibute() != 0) {
+
+                if (Main.g.getLastPlayer().getNumberArmiesToDistibute() != 0) {
                   prepareArmyDistribution();
-                }
-                else {
+                  if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+                    AiPlayer p = (AiPlayer) Main.g.getCurrentPlayer();
+                    p.initialArmyDistribution();
+                  }
+                } else {
                   Main.g.setGameState(GameState.ARMY_DISTRIBUTION);
-                  prepareArmyDistribution(); 
+                  prepareArmyDistribution();
                   gameState.setText("Place your armies!");
                   progress.setProgress(0.33);
                 }
@@ -463,7 +469,8 @@ public class BoardController {
                 for (Territory territory : t.getNeighbor()) {
                   if (!territory.getOwner().equals(t.getOwner())) {
                     territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
-                    territory.getBoardRegion().getRegion().getStyleClass().add(":hover -fx-background-color: yellow;");
+                    territory.getBoardRegion().getRegion().getStyleClass()
+                        .add(":hover -fx-background-color: yellow;");
                   }
                 }
                 for (Territory territory : g.getWorld().getTerritories().values()) {
@@ -837,6 +844,7 @@ public class BoardController {
 
   /**
    * @author smetzger
+   * @author pcoberge
    */
   @FXML
   public void handleSkipGameState() {
@@ -846,42 +854,35 @@ public class BoardController {
 
       @Override
       public void handle(MouseEvent e) {
-         switch(Main.g.getGameState()) {
-           case ARMY_DISTRIBUTION:
-             gameState.setText("Attack!");
-             progress.setProgress(0.66);
-             prepareAttack();
-             Main.g.setGameState(GameState.ATTACK);
-             break;
-         case ATTACK:
+        switch (Main.g.getGameState()) {
+          case ARMY_DISTRIBUTION:
+            gameState.setText("Attack!");
+            progress.setProgress(0.66);
+            prepareAttack();
+            Main.g.setGameState(GameState.ATTACK);
+            break;
+          case ATTACK:
             gameState.setText("Move armies!");
             progress.setProgress(0.9);
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
             break;
-         case FORTIFY:
-         gameState.setText("End your turn!");
-           progress.setProgress(1);
+          case FORTIFY:
+            gameState.setText("End your turn!");
+            progress.setProgress(1);
             try {
               Thread.sleep(3500);
             } catch (InterruptedException e1) {
               // TODO Auto-generated catch block
               e1.printStackTrace();
             }
-           Main.g.nextPlayer();
-           prepareArmyDistribution();
-           progress.setProgress(0);
-           break;
-           default:
-             Main.g.setGameState(GameState.INITIALIZING_ARMY);
-         }
+            Main.g.nextPlayer();
+            prepareArmyDistribution();
+            progress.setProgress(0);
+            break;
+        }
       }
     });
-  }
-
-  @FXML
-  public void handleButton() {
-    System.out.println("TEST");
   }
 
   /**
@@ -1012,13 +1013,13 @@ public class BoardController {
 
   @FXML
   public void changeTerritoryColor(ActionEvent e) {
-    Region r = (Region)e.getSource();
+    Region r = (Region) e.getSource();
     r.setDisable(false);
-    r.setStyle(":hover -fx-background-color: yellow;");//+g.getCurrentPlayer().getColor().getRgbColor()+";");
-   
+    r.setStyle(":hover -fx-background-color: yellow;");// +g.getCurrentPlayer().getColor().getRgbColor()+";");
+
     // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
 
-//    String s = g.getTerritories().get(0).getName();
+    // String s = g.getTerritories().get(0).getName();
 
     // r = g.getTerritories().getName();
     // r.setStyle("-fx-background-color: yellow;");
