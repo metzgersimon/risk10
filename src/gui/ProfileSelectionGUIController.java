@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import game.Player;
+import game.PlayerColor;
 
 /**
  * @author liwang Controller class for ProfileSelectionGUI
@@ -27,7 +28,6 @@ public class ProfileSelectionGUIController {
   static Image[] images = new Image[5];
   static int editNr;
   static String n;
-
   public static Player player;
 
   @FXML
@@ -123,6 +123,8 @@ public class ProfileSelectionGUIController {
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";
     } else {
+      //only to test connection
+      player = new Player("Test", PlayerColor.GREEN);
       toOpen = "MultiPlayerGUI.fxml";
     }
     try {

@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.Main;
 
 public class MultiPlayerGUIController {
 
@@ -38,6 +39,8 @@ public class MultiPlayerGUIController {
   @FXML
   void hostGame(ActionEvent event) {
     try {
+      //only to test connection
+      Main.g.hostGame(4);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -53,7 +56,9 @@ public class MultiPlayerGUIController {
   @FXML
   void joinGame(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EnterIPGUI.fxml"));
+    //only to test connection
+      Main.g.joinGame(ProfileSelectionGUIController.player);
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Enter IP");
@@ -61,7 +66,7 @@ public class MultiPlayerGUIController {
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load EnterIPGUI.fxml");
+      System.out.println("Can't load JoinGameLobbyGUI.fxml");
       e.printStackTrace();
     }
   }

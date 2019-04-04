@@ -636,9 +636,9 @@ public class Game {
    * this methods creates an instance of gamefinder class and starts looking for broadcasting server
    * gameFinder class then creates a client for the current player
    */
-  public void joinGame(){
+  public void joinGame(Player p){
     this.gameFinder = new GameFinder();
-    this.gameFinder.start();
+    
     //joinLobby(currentPlayer): call this method to join the JoinGameLobbyGUI;   
   }
 }
