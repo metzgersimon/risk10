@@ -15,17 +15,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import game.Player;
 
 /**
  * @author liwang Controller class for ProfileSelectionGUI
  */
 public class ProfileSelectionGUIController {
 
-  static int count = 0;
+  public static int count = 0;
   static String[] names = new String[5];
   static Image[] images = new Image[5];
   static int editNr;
   static String n;
+
+  public static Player player;
 
   @FXML
   private Label name1;
@@ -115,6 +118,7 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void choose(MouseEvent event) {
+    // player = new Player("");
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";
@@ -272,10 +276,10 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void edit(ActionEvent event) {
-    
+
     switch (((Button) event.getSource()).getId()) {
       case ("edit1"):
-        editNr = 0;        
+        editNr = 0;
         break;
       case ("edit2"):
         editNr = 1;
@@ -292,7 +296,7 @@ public class ProfileSelectionGUIController {
     }
 
     n = names[editNr];
-    
+
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
       Parent root = fxmlLoader.load();

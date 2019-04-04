@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.jdom2.*;
 import org.jdom2.input.*;
@@ -17,7 +18,7 @@ import org.jdom2.output.XMLOutputter;
  */
 
 public class ProfileManager {
-  public static HashMap<String, PlayerProfile> profileList;
+  public static LinkedHashMap<String, PlayerProfile> profileList;
   PlayerProfile selectedProfile;
 
   /**
@@ -123,7 +124,7 @@ public class ProfileManager {
       Document doc = (Document) builder.build(xml);
       Element root = doc.getRootElement();
       List<Element> profiles = root.getChildren();
-      profileList = new HashMap<String, PlayerProfile>();
+      profileList = new LinkedHashMap<String, PlayerProfile>();
 
       for (int i = 0; i < profiles.size(); i++) {
 

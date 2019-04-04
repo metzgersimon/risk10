@@ -38,7 +38,7 @@ public class MultiPlayerGUIController {
   @FXML
   void hostGame(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Host Game");
@@ -46,7 +46,6 @@ public class MultiPlayerGUIController {
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
-      System.out.println("Can't load HostGameLobby.fxml");
       e.printStackTrace();
     }
   }
