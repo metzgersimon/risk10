@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Vector;
+import gui.BoardController;
 import main.Main;
 import network.Parameter;
 import network.client.GameFinder;
@@ -121,13 +122,11 @@ public class Game {
     // Compute number of armies
     initNumberOfArmies();
 
-    // prepare BoardGUI
-    // while unconquered territories
-    // initTerritoryDistribution
-    // change Player
     currentPlayer = players.get(0);
+    setGameState(GameState.INITIALIZING_TERRITORY);
+    BoardController.prepareInitTerritoryDistribution();
     
-
+    
 
     // while next Player has army left
     // change BoardGUI --> current Player should only could choose his own territories
@@ -184,6 +183,10 @@ public class Game {
 
   public void setPlayers(ArrayList<Player> players) {
     this.players = players;
+  }
+  
+  public Player getLastPlayer() {
+    return players.get(players.size()-1);
   }
 
   public ArrayList<Territory> getTerritories() {
@@ -284,6 +287,8 @@ public class Game {
     return result;
   }
 
+  
+  
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
     // attacker wins game

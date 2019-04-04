@@ -2,7 +2,6 @@ package gui;
 
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 import game.Card;
 import game.CardDeck;
 import game.Dice;
@@ -13,7 +12,6 @@ import game.Territory;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.StyleClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -254,12 +252,12 @@ public class BoardController {
   }
   
   
-  public void prepareInitTerritoryDistribution() {
+  public static void prepareInitTerritoryDistribution() {
     
-    for(Territory t: g.getWorld().getTerritories().values()) {
+    for(Territory t: Main.g.getWorld().getTerritories().values()) {
       if(t.getOwner() == null) {
         t.getBoardRegion().getRegion().setDisable(false);
-        t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "+g.getCurrentPlayer().getColor().getRgbColor()+";");
+        t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "+Main.g.getCurrentPlayer().getColor().getRgbColor()+";");
       }
     }   
   }
@@ -422,12 +420,31 @@ public class BoardController {
             case INITIALIZING_TERRITORY:
               if (g.getCurrentPlayer().initialTerritoryribution(selectedTerritory)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+                Main.g.nextPlayer();
+                if(Main.g.unconqueredTerritories()) {
+                  prepareInitTerritoryDistribution();
+                }
+                else {
+                  Main.g.setGameState(GameState.INITIALIZING_ARMY);
+                  prepareArmyDistribution();               
+                }
               }
               break;
             // place armies
             case INITIALIZING_ARMY:
               if (g.getCurrentPlayer().armyDistribution(1, t)) {
                 t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+                Main.g.nextPlayer();
+                
+                if(Main.g.getLastPlayer().getNumberArmiesToDistibute() != 0) {
+                  prepareArmyDistribution();
+                }
+                else {
+                  Main.g.setGameState(GameState.ARMY_DISTRIBUTION);
+                  prepareArmyDistribution(); 
+                  gameState.setText("Place your armies!");
+                  progress.setProgress(0.33);
+                }
               }
               break;
 
@@ -829,48 +846,35 @@ public class BoardController {
 
       @Override
       public void handle(MouseEvent e) {
-        // switch(game.getGameState()) {
-        // case 1:
-        // gameState.setText("Place your armies!");
-        // progress.setProgress(0.33);
-        // break;
-        // case 2:
-        // gameState.setText("Attack other territories!");
-        // progress.setProgress(0.66);
-        // break;
-        // case 3:
-        // gameState.setText("Fortify your armies!");
-        // progress.setProgress(1);
-        // break;
-        // }
-        progress.setProgress(0.33);
-        gameState.setText("Place your armies");
-
-        try {
-          TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
-        progress.setProgress(0.66);
-        gameState.setText("Attack!");
-        try {
-          TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
-        progress.setProgress(0.90);
-        gameState.setText("Fortify");
-        try {
-          TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
-        progress.setProgress(1);
-        gameState.setText("End");
-        // System.out.println("IMAGE GEKLICKT");
+         switch(Main.g.getGameState()) {
+           case ARMY_DISTRIBUTION:
+             gameState.setText("Attack!");
+             progress.setProgress(0.66);
+             prepareAttack();
+             Main.g.setGameState(GameState.ATTACK);
+             break;
+         case ATTACK:
+            gameState.setText("Move armies!");
+            progress.setProgress(0.9);
+            prepareFortify();
+            Main.g.setGameState(GameState.FORTIFY);
+            break;
+         case FORTIFY:
+         gameState.setText("End your turn!");
+           progress.setProgress(1);
+            try {
+              Thread.sleep(3500);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
+           Main.g.nextPlayer();
+           prepareArmyDistribution();
+           progress.setProgress(0);
+           break;
+           default:
+             Main.g.setGameState(GameState.INITIALIZING_ARMY);
+         }
       }
     });
   }
