@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.Main;
 
 
 /**
@@ -19,8 +20,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class StatisticController {
 
   @FXML
-  private TableView<?> table;
-
+  private TableView table;
+  
+  
+  /**
+   * creates a table with the end game statistics
+   * 
+   */
   public void openStats() {
 
     table = new TableView();
@@ -36,9 +42,16 @@ public class StatisticController {
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfAttacks"));
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
-  //  for (Player x : Game.getPlayers()) {
-      
-  //  }
+    
+    table.getColumns().add(c1);
+    table.getColumns().add(c2);
+    table.getColumns().add(c3);
+    table.getColumns().add(c4);
+    table.getColumns().add(c5);
+    
+    for (Player x : Main.g.getPlayers()) {
+      table.getItems().add(x);
+    }
   }
 
 }
