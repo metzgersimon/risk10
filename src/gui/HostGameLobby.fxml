@@ -78,7 +78,7 @@
                 </AnchorPane>
                 <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="426.0" styleClass="backgraound-color">
                   <children>
-                    <Button layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
+                    <Button fx:id="startGame" layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -142,24 +142,16 @@
           <children>
             <GridPane prefHeight="800.0" prefWidth="267.0001220703125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
               <children>
-                <SplitPane dividerPositions="0.6751740139211136" focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <SplitPane focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <items>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="308.0">
                       <children>
-                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" prefHeight="45.0" prefWidth="348.0" promptText="" styleClass="label" text="Enter message...">
+                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" onAction="#handleSendMessage" prefHeight="45.0" prefWidth="348.0" promptText="" styleClass="label" text="Enter message...">
                           <stylesheets>
                             <URL value="@HostGameLobby.css" />
                           </stylesheets>
                         </TextField>
-                      </children>
-                    </AnchorPane>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="143.0">
-                      <children>
-                        <Button fx:id="sendButton" layoutX="-4.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="45.0" prefWidth="147.0" styleClass="roundButton, circleButton, null" text="Send">
-                          <stylesheets>
-                            <URL value="@HostGameLobby.css" />
-                          </stylesheets>
-                        </Button>
+                                    <Button fx:id="sendButton" layoutX="344.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
                       </children>
                     </AnchorPane>
                   </items>
