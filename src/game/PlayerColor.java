@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
  * @author smetzger Enum defines color for a player during the game
  */
 public enum PlayerColor {
-  YELLOW, BLUE, RED, GREEN, MAGENTA, ORANGE;
+  YELLOW, BLUE, RED, GREEN, MAGENTA, WHITE;
 
 
   public String getRgbColor() {
@@ -21,24 +21,32 @@ public enum PlayerColor {
       return "#FF0000";
     // return "rgb(255, 0, 0)";
     case GREEN:
-      return "rgb(0, 255, 0)";
+      return "rgb(0, 0, 255)";
     case MAGENTA:
       return "rgb(255, 0, 255)";
-    case ORANGE:
+    case WHITE:
       return "rgb(255, 165, 0)";
     default:
       return null;
   }
 }
 
-public Color getColor() {
-  switch (this) {
-    case YELLOW:
-      return Color.YELLOW;
-    case RED:
-      return Color.RED;
-    default:
-      return Color.BLACK;
-  }
+  public Color getColor() {
+    switch (this) {
+      case YELLOW:
+        return Color.YELLOW;
+      case RED:
+        return Color.RED;
+      case GREEN:
+        return Color.GREEN;
+      case MAGENTA:
+        return Color.MAGENTA;
+      case BLUE:
+        return Color.BLUE;
+      case WHITE:
+        return Color.WHITE;
+      default:
+        return Color.BLACK;
+    }
 }
 }

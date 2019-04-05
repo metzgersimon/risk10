@@ -190,7 +190,7 @@ public class BoardController {
   @FXML
   private Pane skip;
   @FXML
-  private static Label gameState;
+  private Label gameState;
 
   /**
    * Elements to handle the card selection the player wants to trade in
@@ -276,8 +276,6 @@ public class BoardController {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             if (t.getOwner() == null) {
               t.getBoardRegion().getRegion().setDisable(false);
-              // t.getBoardRegion().getRegion().setStyle(":hover -fx-background-color: "
-              // + Main.g.getCurrentPlayer().getColor().getRgbColor() + ";");
             }
           }
         }
@@ -294,12 +292,12 @@ public class BoardController {
    * 
    *         Method to prepare the BoardGUI for phase ARMY_DISTRIBUTION
    */
-  public static void prepareArmyDistribution() {
+  public void prepareArmyDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
         for (Territory t : Main.g.getWorld().getTerritories().values()) {
           if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
-            t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
+            t.getBoardRegion().getRegion().setEffect(new Lighting());
             t.getBoardRegion().getRegion().setDisable(false);
           } else {
             t.getBoardRegion().getRegion().setDisable(true);
@@ -309,10 +307,40 @@ public class BoardController {
     });
   }
 
-  public static void displayArmyDistribution() {
-    gameState.setText("Place your armies!");
-    progress.setProgress(0.33);
+  /**
+   * @author pcoberge
+   * @author smetzger
+   */
+  public void displayGameState() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        switch(Main.g.getGameState()) {
+          case INITIALIZING_TERRITORY:
+            gameState.setText("Choose your Territory!");
+            progress = new ProgressBar(0.05);
+            break;
+          case INITIALIZING_ARMY:
+            gameState.setText("Place your Armies!1");
+            progress.setProgress(0.1);
+            break;
+          case ARMY_DISTRIBUTION:
+            gameState.setText("Place your Armies!2");
+            progress.setProgress(0.3);
+            break;
+          case ATTACK:
+            gameState.setText("Attack!");
+            progress.setProgress(0.6);
+            break;
+          case FORTIFY:
+            gameState.setText("Move your Armies!");
+            progress.setProgress(0.95);
+            break;
+        }
+      }
+    });
+   
   }
+  
 
   public void updateLabelTerritory(Territory t) {
     Platform.runLater(new Runnable() {
@@ -326,8 +354,7 @@ public class BoardController {
   public void updateColorTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
-        System.out.println(
-            Main.g.getCurrentPlayer().getName() + " - " + Main.g.getCurrentPlayer().getColor());
+     
         t.getBoardRegion().getRegion().setBackground(new Background(new BackgroundFill(
             Main.g.getCurrentPlayer().getColor().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
       }
@@ -340,7 +367,7 @@ public class BoardController {
    * 
    *         Method to prepare the BoardGUI for phase ATTACK
    */
-  public static void prepareAttack() {
+  public void prepareAttack() {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
         t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
@@ -357,7 +384,7 @@ public class BoardController {
    * 
    *         Method to prepare the BoradGUI for phase FORTIFY
    */
-  public static void prepareFortify() {
+  public void prepareFortify() {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
         t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
@@ -490,7 +517,7 @@ public class BoardController {
                   }
                 });
                 try {
-                  Thread.sleep(300);
+                  Thread.sleep(1500);
                 } catch (InterruptedException e1) {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();

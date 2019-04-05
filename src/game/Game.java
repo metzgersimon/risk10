@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -32,6 +31,9 @@ public class Game {
   public static int defendWon;
   public HashMap<String, Integer> territoryStats;
   public HashMap<String, Integer> cardStats;
+  private HashSet<String> aiNames = new HashSet<String>();
+ 
+  
 
 
   /** variables for join and host game */
@@ -125,6 +127,7 @@ public class Game {
     currentPlayer = players.get(0);
     setGameState(GameState.INITIALIZING_TERRITORY);
     Main.b.prepareInitTerritoryDistribution();
+    Main.b.displayGameState();
 
 
     // while next Player has army left
@@ -198,6 +201,14 @@ public class Game {
 
   public void setCard(Card c) {
     this.cards.add(c);
+  }
+
+  public HashSet<String> getAiNames() {
+    return aiNames;
+  }
+
+  public void addAiNames(String aiName) {
+    this.aiNames.add(aiName);
   }
 
   /**
@@ -638,7 +649,8 @@ public class Game {
       }
     } else {
       this.setGameState(GameState.INITIALIZING_ARMY);
-      BoardController.prepareArmyDistribution();
+      Main.b.prepareArmyDistribution();
+      Main.b.displayGameState();
     }
   }
 
@@ -649,15 +661,23 @@ public class Game {
   public void furtherInitialArmyDistribution() {
     this.nextPlayer();
     if (this.getLastPlayer().getNumberArmiesToDistibute() != 0) {
-      BoardController.prepareArmyDistribution();
+      Main.b.prepareArmyDistribution();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
+        
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
-      BoardController.prepareArmyDistribution();
-      BoardController.displayArmyDistribution();
+      Main.b.prepareArmyDistribution();
+//      Main.b.displayArmyDistribution();
+      Main.b.displayGameState();
     }
   }
 

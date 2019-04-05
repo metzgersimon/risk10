@@ -11,12 +11,9 @@ import main.Main;
  */
 public class AiPlayerEasy extends Player implements AiPlayer {
 
-  // public AiPlayerEasy(String name, PlayerColor c) {
-  // super(name, c);
-  // }
-
   public AiPlayerEasy() {
-    super(AiPlayerNames.getFormattedName(AiPlayerNames.URSULA_THE_SNAKE), PlayerColor.RED);
+    super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()]);
+    Main.g.addAiNames(this.getName());
   }
 
   /**
@@ -26,12 +23,15 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   public void initialTerritoryDistribution() {
     int random = 0;
     do {
-      random = (random != 0 ? (random + 1) % 42 + 1 : (int) (Math.random() * 42) + 1);
+      random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
+      System.out.print(random + " ");
     } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
+    
     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-    System.out.println(Main.g.getCurrentPlayer().getName() + " method");
-    System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+    System.out.println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()+"--"+Main.g.getWorld().getTerritories().get(random));
+//    System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+//    System.out.println(Main.g.getWorld().getTerritories().get(random));
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {

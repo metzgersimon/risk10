@@ -45,8 +45,8 @@ public class SinglePlayerGUIController {
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       // stage.setTitle("Board");
-      BoardController boardController = fxmlLoader.getController();
-      boardController.setMain(this, Main.g);
+      Main.b = fxmlLoader.getController();
+      Main.b.setMain(this, Main.g);
       stage.setScene(new Scene(root));
       stage.show();
 //      ((Node) event.getSource()).getScene().getWindow().hide();

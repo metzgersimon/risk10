@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
   public static Game g = new Game();
-  BoardController b = new BoardController();
+  public static BoardController b;
 
   public static Stage stage ;
 
