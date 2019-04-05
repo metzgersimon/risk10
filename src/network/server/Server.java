@@ -63,7 +63,6 @@ public class Server extends Thread {
 
             String message = new String(getPacket.getData()).trim();
             if (message.equals("GAME_REQUEST")) {
-              if (counter < noOfPlayers) {
                 // sending a response back
                 byte[] sendResponse = "Game_RESPONSE".getBytes();
                 DatagramPacket responsePacket = new DatagramPacket(sendResponse,
@@ -78,9 +77,7 @@ public class Server extends Thread {
                 //
                 System.out.println("Client Connection for client no. " + counter + " created");
                 counter++;
-              } else {
-                System.out.println("Maximum number of clients have joined");
-              }
+             
             }
           }
         } catch (SocketException | UnknownHostException e) {
