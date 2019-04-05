@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class HostGameGUIController {
 
   Stage stage = main.Main.stage;
-  public static int number; // number of Players selected
+  public static int numberofPlayers; // number of Players selected
 
   @FXML
   private Button back;
@@ -27,8 +27,8 @@ public class HostGameGUIController {
 
   @FXML
   void confirm(ActionEvent event) {
-    number = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
-    System.out.println(number);
+    numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
+    System.out.println(numberofPlayers);
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();

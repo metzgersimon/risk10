@@ -1,9 +1,11 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.List;
+import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +22,9 @@ public class MultiPlayerGUIController {
 
   @FXML
   private Button joinGame;
+
+  /**List of players who have joined the game*/
+  public static List<Player> playersList = new ArrayList<Player>();
 
   @FXML
   void back(ActionEvent event) {
@@ -40,7 +45,8 @@ public class MultiPlayerGUIController {
   void hostGame(ActionEvent event) {
     try {
       //only to test connection
-      Main.g.hostGame(4);
+      Main.g.hostGame(ProfileSelectionGUIController.player,HostGameGUIController.numberofPlayers);
+      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -58,10 +64,11 @@ public class MultiPlayerGUIController {
     try {
     //only to test connection
       Main.g.joinGame(ProfileSelectionGUIController.player);
+      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Enter IP");
+      stage.setTitle("Game Lobby");
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();

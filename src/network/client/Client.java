@@ -39,15 +39,17 @@ public class Client extends Thread {
     connect();
   }
 
-  public void connect() {
+  public boolean connect() {
     try {
       this.s = new Socket(address, Parameter.PORT);
       fromServer = new ObjectInputStream(s.getInputStream());
       toServer = new ObjectOutputStream(s.getOutputStream());
       this.active = true;
       System.out.println("Socket opened successfully");
+      return true;
     } catch (IOException e) {
       e.printStackTrace();
+      return false;
     }
   }
 

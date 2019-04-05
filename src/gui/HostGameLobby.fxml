@@ -99,27 +99,27 @@
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
-                    <CheckBox alignment="CENTER_RIGHT" disable="true" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 1">
+                    <CheckBox fx:id="box1" alignment="CENTER_RIGHT" disable="true" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 1">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 2">
+                    <CheckBox fx:id="box2" alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 2">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 3">
+                    <CheckBox fx:id="box3" alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 3">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 4">
+                    <CheckBox fx:id="box4" alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 4">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="430.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 5">
+                    <CheckBox fx:id="box5" alignment="CENTER_RIGHT" disable="true" layoutX="40.0" layoutY="430.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="250.0" styleClass="check-box-text" text="Client 5">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>

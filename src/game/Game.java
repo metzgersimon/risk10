@@ -625,7 +625,7 @@ public class Game {
    * this method creates an instance of server and starts the server thread on a specified port,
    * after calling this methods host should join the game lobby (game lobby UI opens)
    */
-  public void hostGame(int noOfPlayers) {
+  public void hostGame(Player hostPlayer, int noOfPlayers) {
     this.server = new Server(Parameter.PORT, noOfPlayers);
     this.server.start();
     //joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;   
@@ -636,10 +636,8 @@ public class Game {
    * this methods creates an instance of gamefinder class and starts looking for broadcasting server
    * gameFinder class then creates a client for the current player
    */
-  public void joinGame(Player p){
+  public void joinGame(Player player){
     this.gameFinder = new GameFinder();
-    
-    //joinLobby(currentPlayer): call this method to join the JoinGameLobbyGUI;   
   }
 }
 

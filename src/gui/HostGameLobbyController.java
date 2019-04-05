@@ -35,7 +35,6 @@ public class HostGameLobbyController {
   @FXML
   TextArea chatBox;
 
-
   @FXML
   Button leaveGame;
 
@@ -49,15 +48,21 @@ public class HostGameLobbyController {
   Slider botLevel;
 
   /** check boxes shows the status of the joined player */
-  @FXML
-  CheckBox box1, box2, box3, box4, box5, hostBox;
-
-  private ArrayList<Player> players; // list of players/clients who will join the game
-  private ArrayList<CheckBox> playerNames;
+  @FXML CheckBox hostBox;
+  @FXML CheckBox box1;
+  @FXML CheckBox box2;
+  @FXML CheckBox box3;
+  @FXML CheckBox box4;
+  @FXML CheckBox box5;
+  /**number of players the host want to play game with*/
+  private int player = HostGameGUIController.numberofPlayers;
+  
+ // private ArrayList<Player> players; // list of players/clients who will join the game
+  private static ArrayList<CheckBox> playerNames;
 
   public HostGameLobbyController() {
     // TODO Auto-generated constructor stub
-    enableTheBoxes();
+  //  enableTheBoxes();
   }
 
   /** to handle the event when the button "send" is clicked */
@@ -119,17 +124,18 @@ public class HostGameLobbyController {
     }
   }
 
-  void enableTheBoxes() {
-    // todo
+  public void initialize() {
     playerNames = new ArrayList<CheckBox>();
     playerNames.add(box1);
     playerNames.add(box2);
     playerNames.add(box3);
     playerNames.add(box4);
     playerNames.add(box5);
-
-
+    hostBox.setSelected(true);
+    for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
+        playerNames.get(i).setDisable(false);
+    }
+    
   }
-
-
+  
 }
