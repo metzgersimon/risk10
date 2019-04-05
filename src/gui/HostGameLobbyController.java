@@ -131,7 +131,7 @@ public class HostGameLobbyController {
     playerNames.add(box3);
     playerNames.add(box4);
     playerNames.add(box5);
-    hostBox.setSelected(true);
+//    hostBox.setSelected(true);
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
         playerNames.get(i).setDisable(false);
     }
