@@ -1,13 +1,12 @@
 package main;
 
+import game.Game;
+import gui.BoardController;
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXMLLoader;
-import gui.ProfileManager;
-import game.Game;
-import gui.PlayerProfile;
+import javafx.stage.Stage;
 
 
 /**
@@ -15,6 +14,7 @@ import gui.PlayerProfile;
  */
 public class Main extends Application {
   public static Game g = new Game();
+  BoardController b = new BoardController();
 
   public static Stage stage ;
 

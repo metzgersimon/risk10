@@ -668,7 +668,7 @@ public class Game {
    *        and starts the server thread on a specified port, after calling this methods host should
    *        join the game lobby (game lobby UI opens)
    */
-  public void hostGame(int noOfPlayers) {
+  public void hostGame(Player hostPlayer, int noOfPlayers) {
     this.server = new Server(Parameter.PORT, noOfPlayers);
     this.server.start();
     // joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;
