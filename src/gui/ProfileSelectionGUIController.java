@@ -1,10 +1,11 @@
 package gui;
 
 
+import game.Player;
+import game.PlayerColor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import game.Player;
-import game.PlayerColor;
+import main.Main;
 
 /**
  * @author liwang Controller class for ProfileSelectionGUI
@@ -120,6 +118,7 @@ public class ProfileSelectionGUIController {
   void choose(MouseEvent event) {
     // player = new Player("");
     String toOpen = "";
+    Main.g.addPlayer(new Player("Tom", PlayerColor.YELLOW));
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";
     } else {

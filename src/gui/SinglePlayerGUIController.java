@@ -1,9 +1,10 @@
 package gui;
 
+import game.AiPlayerEasy;
+import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,6 +52,20 @@ public class SinglePlayerGUIController {
 //      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
+    }
+    Main.g.initGame();
+    System.out.println(Main.g.getGameState());
+  }
+
+  /**
+   * @author smetzger
+   * @author pcoberge
+   */
+  public void handleAddBot() {
+    if (Main.g.getPlayers().size() < 6) {
+      Player p = new AiPlayerEasy();
+      Main.g.addPlayer(p);
+      System.out.println(p.getName());
     }
   }
 }

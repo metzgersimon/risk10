@@ -1,5 +1,7 @@
 package game;
 
+import gui.BoardController;
+import javafx.application.Platform;
 import main.Main;
 
 /**
@@ -15,28 +17,49 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   public AiPlayerEasy() {
     super(AiPlayerNames.getFormattedName(AiPlayerNames.URSULA_THE_SNAKE), PlayerColor.RED);
-    this.setIsAi(true);
   }
 
+  /**
+   * @author smetzger
+   * @author pcoberge
+   */
   public void initialTerritoryDistribution() {
-    int i = 0;
-    int random;
+    int random = 0;
     do {
-      random = ((int) (Math.random() * 42) + 1 + i) % 42;
-    } while (initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
+      random = (random != 0 ? (random + 1) % 42 + 1 : (int) (Math.random() * 42) + 1);
+    } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
+    Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
+    Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
+    System.out.println(Main.g.getCurrentPlayer().getName() + " method");
+    System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    Main.g.furtherInitialTerritoryDistribution();
   }
 
   public void initialArmyDistribution() {
-    int random = (int) Math.random() * this.getTerritories().size() + 1;
-    int i = 1;
-    for (Territory t : this.getTerritories()) {
-      if (i == random) {
-        super.initialTerritoryDistribution(t);
-        break;
-      } else {
-        i++;
+    int random = 0;
+    Territory territory = null;
+    do {
+      random = (int) (Math.random() * this.getTerritories().size()) + 1;
+      int i = 1;
+      for (Territory t : this.getTerritories()) {
+        if (i == random) {
+          System.out.println(t.getName());
+          territory = t;
+          break;
+        } else {
+          System.out.println("ELSE" + i);
+          i++;
+        }
       }
-    }
+    } while (!super.armyDistribution(1, territory));
+    Main.b.updateLabelTerritory(territory);
+    Main.g.furtherInitialArmyDistribution();
 
   }
 
