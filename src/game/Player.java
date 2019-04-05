@@ -26,12 +26,11 @@ public class Player {
   private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
-  private int numberOfcardsWithTerritories;
   private int numberArmiesToDistribute;
-  private int tradedCardSets;//
-  private int valueActuallyTradedIn;
+  private int tradedCardSets;
   private int numberOfTerritories;
   private int numberOfCards;
+  private int valueActuallyTradedIn;
   public static int territoriesConquered;
   public static int numberOfAttacks;
   public static int rank;
@@ -105,15 +104,23 @@ public class Player {
   }
 
 
-  public int getTradeNumber() {
+  public int getTradedCardSets() {
     return tradedCardSets;
   }
 
-  public void setTradeNumber(int tradedCardSets) {
+  public void setTradedCardSets(int tradedCardSets) {
     this.tradedCardSets = tradedCardSets;
   }
 
 
+
+  public int getValueActuallyTradedIn() {
+    return valueActuallyTradedIn;
+  }
+
+  public void setValueActuallyTradedIn(int valueActuallyTradedIn) {
+    this.valueActuallyTradedIn = valueActuallyTradedIn;
+  }
 
   public int getNumberOfTerritories() {
     return numberOfTerritories;
@@ -218,10 +225,6 @@ public class Player {
     this.numberArmiesToDistribute = amount;
   }
 
-  public int getValueActuallyTradedIn() {
-    return this.valueActuallyTradedIn;
-  }
-
   /**
    * if player defeated another player, this player will be add to eliminatedPlayers
    * 
@@ -230,46 +233,63 @@ public class Player {
   public void addElimiatedPlayer(Player p) {
     eliminatedPlayers.add(p);
   }
-
+  
   /**
-   * if player owns the territory, which is showed in trated cards, 2 armies will be added in this
-   * territory
-   * 
-   * @param c1 in GUI selected Card
-   * @param c2 in GUI selected Card
-   * @param c3 in GUI selected Card
-   * 
-   *        Precondition: Cards are a valid set --> concern in GUI
+   * @author qiychen
+   * @param c1 card1
+   * @param c2 card2
+   * @param c3 card3
+   * @return the number of armies received after trade cards
    */
-  public void tradeCards(Card c1, Card c2, Card c3) {
-    if (c1.validCardSet(c2, c3)) {
-      if (territories.contains(c1.getTerritory())) {
+  public int tradeCards(Card c1, Card c2, Card c3) {
+    int armies = 0;
+    int number = this.getTradedCardSets();
+    if (c1.canBeTraded(c2, c3)) {
+      switch (number) {
+        case 0:
+          armies = 4;
+          break;
+        case 1:
+          armies = 6;
+          break;
+        case 2:
+          armies = 8;
+          break;
+        case 3:
+          armies = 10;
+          break;
+        case 4:
+          armies = 12;
+          break;
+        case 5:
+          armies = 15;
+          break;
+        default:
+          armies = 15 + (number - 5) * 5;
+      }
+      
+      if(this.getTerritories().contains(c1.getTerritory())) {
         c1.getTerritory().setNumberOfArmies(2);
-        this.numberOfcardsWithTerritories++;
-      } else if (territories.contains(c2.getTerritory())) {
+        Main.b.updateLabelTerritory(c1.getTerritory());
+      }
+      if(this.getTerritories().contains(c2.getTerritory())) {
         c2.getTerritory().setNumberOfArmies(2);
-        this.numberOfcardsWithTerritories++;
-      } else if (territories.contains(c3.getTerritory())) {
+        Main.b.updateLabelTerritory(c2.getTerritory());
+      }
+      if(this.getTerritories().contains(c3.getTerritory())) {
         c3.getTerritory().setNumberOfArmies(2);
-        this.numberOfcardsWithTerritories++;
+        Main.b.updateLabelTerritory(c3.getTerritory());
       }
 
-      this.tradedCardSets++;
-      for (int i = 0; i <= this.tradedCardSets; i++) {
-        if (i <= 5) {
-          this.valueActuallyTradedIn += 2;
-        } else if (i == 6) {
-          this.valueActuallyTradedIn += 3;
-        } else if (i > 6) {
-          this.valueActuallyTradedIn += 5;
-        }
-      }
-      cards.remove(c1);
-      cards.remove(c2);
-      cards.remove(c3);
-      cards.trimToSize();
+      this.setTradedCardSets(number++);
+      this.valueActuallyTradedIn = armies;
+      this.getCards().remove(c1);
+      this.getCards().remove(c2);
+      this.getCards().remove(c3);
     }
+    return armies;
   }
+
 
   /**
    * @author pcoberge
@@ -325,25 +345,16 @@ public class Player {
     for (Continent c : this.getContinents()) {
       result += c.getValue();
     }
+   
     // player receives armies for each card set depending on the number of previous traded sets
     result += valueActuallyTradedIn;
     this.valueActuallyTradedIn = 0;
-    if (result < 3 && this.numberOfcardsWithTerritories == 0) {
+    if (result < 3) {
       this.numberArmiesToDistribute = 3;
       return 3;
     } else {
       this.numberArmiesToDistribute = result;
       return result;
-    }
-  }
-
-
-
-  public void attack(Territory own, Territory opponent) {
-    if (this.getTerritories().contains(own) && !this.getTerritories().contains(opponent)) {
-
-    } else {
-      // Error message
     }
   }
 }

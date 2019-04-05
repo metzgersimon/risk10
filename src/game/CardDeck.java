@@ -28,7 +28,6 @@ public class CardDeck {
    * @param w is an instance of a World
    */
   public CardDeck() {
-    System.out.println(Main.g.getWorld().getTerritories().size());
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       this.cards.put(t.getId(), new Card(t, false));
     }

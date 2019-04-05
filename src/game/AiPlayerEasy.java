@@ -64,6 +64,35 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void armyDistribution() {
+    for(int i = 0; i < this.getCards().size(); i++) {
+      for(int j = i+1; j < this.getCards().size()-1; j++) {
+        for(int k = j+1; k < this.getCards().size()-2; k++) {
+          this.tradeCards(this.getCards().get(i), this.getCards().get(j), this.getCards().get(k));
+        }
+      }
+    }
+    int randomTerritory = 0;
+    int randomNumberOfArmies = 0;
+    Territory territory = null;
+    while(this.getNumberArmiesToDistibute() != 0) {
+      do {
+        randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
+        randomNumberOfArmies = (int) (Math.random()*this.getNumberArmiesToDistibute())+1;
+        int i = 1;
+        for (Territory t : this.getTerritories()) {
+          if (i == randomTerritory) {
+            territory = t;
+            System.out.println(territory.getName() + " -- " + randomNumberOfArmies);
+            break;
+          } else {
+            i++;
+          }
+        }
+      } while (!super.armyDistribution(randomNumberOfArmies, territory));
+      Main.b.updateLabelTerritory(territory);
+    }
+   
+
 
   }
 

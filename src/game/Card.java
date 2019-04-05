@@ -106,44 +106,36 @@ public class Card {
     }
   }
 
+  
   /**
-   * @author pcoberge
-   * 
-   * @param c1 card that invoces method
-   * @param c2 card
-   * @param c3 card
-   * @return whether three cards are a valid set
+   * @author qiychen
+   * @param c1 card1
+   * @param c2 card2
+   * @param c3 card3
+   * @return whether 3 cards can be traded or not
    */
-  public boolean validCardSet(Card c2, Card c3) {
-    CardSymbol sym1 = (!this.getIsWildcard()) ? this.getTerritory().getSym() : CardSymbol.WILDCARD;
-    CardSymbol sym2 = (!c2.getIsWildcard()) ? c2.getTerritory().getSym() : CardSymbol.WILDCARD;
-    CardSymbol sym3 = (!c3.getIsWildcard()) ? c3.getTerritory().getSym() : CardSymbol.WILDCARD;
-    int numberOfWildCards = 0;
-    // the game has only 2 wildcards, therefore the case numberOfWildCards = 3 can't be reached
-    if (this.getIsWildcard()) {
-      numberOfWildCards++;
-    }
-    if (c2.getIsWildcard()) {
-      numberOfWildCards++;
-    }
-    if (c3.getIsWildcard()) {
-      numberOfWildCards++;
-    }
-    switch (numberOfWildCards) {
-      case (0):
-        if (sym1 == sym2 && sym2 == sym3) {
-          return true;
-        }
-        return false;
-      case (1):
-        if ((this.getIsWildcard() && sym2 == sym3) || (c2.getIsWildcard() && sym1 == sym3)
-            || (c3.getIsWildcard() && sym1 == sym2)) {
-          return true;
-        }
-        return false;
-      case (2):
-        return true;
-    }
-    return false;
+  public boolean canBeTraded(Card c2, Card c3) {
+    CardSymbol sym1 = this.getTerritory().getSym();
+    CardSymbol sym2 = c2.getTerritory().getSym();
+    CardSymbol sym3 = c3.getTerritory().getSym();
+    // same artillery pictures without wildcards
+    boolean same1 = (sym1 == sym2) && (sym2 == sym3);
+    // all types of cards without wildcards
+    boolean different = (sym1 != sym2) && (sym2 != sym3) && (sym1 != sym3);
+    // same artillery pictures with one wildcard
+    boolean same2 = ((sym1 == sym2) && (sym3 == CardSymbol.WILDCARD))
+        || ((sym1 == sym3) && (sym2 == CardSymbol.WILDCARD))
+        || ((sym2 == sym3) && (sym1 == CardSymbol.WILDCARD));
+    // same artillery pictures with two wildcards, or all types of cards with two wildcards
+    boolean same3 = ((sym1 == sym2) && (sym1 == CardSymbol.WILDCARD))
+        || ((sym1 == sym3) && (sym1 == CardSymbol.WILDCARD))
+        || ((sym2 == sym3) && (sym2 == CardSymbol.WILDCARD));
+    // all types of cards with one wildcard
+    boolean different2 =
+        (sym1 == CardSymbol.WILDCARD && sym2 != sym3 && sym2 != CardSymbol.WILDCARD)
+            || (sym2 == CardSymbol.WILDCARD && sym1 != sym3 && sym1 != CardSymbol.WILDCARD)
+            || (sym3 == CardSymbol.WILDCARD && sym1 != sym2 && sym1 != CardSymbol.WILDCARD);
+    boolean result = same1 || same2 || same3 || different || different2;
+    return result;
   }
 }

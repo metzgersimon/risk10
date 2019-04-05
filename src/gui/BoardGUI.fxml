@@ -89,7 +89,7 @@
                                                             <Label fx:id="tradedCardSets" text="0" textAlignment="RIGHT" />
                                                          </children>
                                                       </HBox>
-                                                      <Button fx:id="tradeIn" mnemonicParsing="false" onAction="#handleTradeCards" text="Trade-in" />
+                                                      <Button fx:id="tradeIn" disable="true" mnemonicParsing="false" onAction="#handleTradeCards" text="Trade-in" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -374,9 +374,9 @@
                         <Region fx:id="eastAfrica" layoutX="525.0" layoutY="372.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="153.0" prefWidth="132.0" styleClass="East_Africa" stylesheets="@BoardGUI.css" />
                         <Label fx:id="congoHeadline" layoutX="518.0" layoutY="477.0" mouseTransparent="true" onMouseClicked="#clicked" text="Congo" />
                         <Label fx:id="eastAfricaHeadline" layoutX="579.0" layoutY="447.0" mouseTransparent="true" onMouseClicked="#clicked" text="East Africa" />
-                        <Region fx:id="egypt" layoutX="479.0" layoutY="324.0" onMouseClicked="#clicked" onMouseEntered="#changeTerritoryColor" pickOnBounds="false" prefHeight="85.0" prefWidth="107.0" styleClass="Egypt" stylesheets="@BoardGUI.css" />
+                        <Region fx:id="egypt" layoutX="479.0" layoutY="324.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="85.0" prefWidth="107.0" styleClass="Egypt" stylesheets="@BoardGUI.css" />
                         <Label fx:id="egyptHeadline" layoutX="511.0" layoutY="359.0" mouseTransparent="true" onMouseClicked="#clicked" text="Egypt" />
-                        <Region fx:id="northAfrica" layoutX="382.0" layoutY="325.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="158.0" prefWidth="154.0" styleClass="North_Africa" stylesheets="@main.css" />
+                        <Region fx:id="northAfrica" layoutX="382.0" layoutY="325.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="158.0" prefWidth="154.0" styleClass="North_Africa" stylesheets="@BoardGUI.css" />
                         <Label fx:id="northAfricaHeadline" layoutX="418.0" layoutY="395.0" mouseTransparent="true" onMouseClicked="#clicked" text="North Africa" />
                         <Label fx:id="venezuelaHeadline" layoutX="250.0" layoutY="440.0" mouseTransparent="true" onMouseClicked="#clicked" text="Venezuela" />
                         <Region fx:id="centralAmerica" layoutX="130.0" layoutY="330.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clicked" prefHeight="101.0" prefWidth="126.0" styleClass="Central_America" stylesheets="@BoardGUI.css" />
@@ -699,7 +699,7 @@
                                           </ImageView>
                                        </children>
                                     </Pane>
-                                    <Button layoutX="484.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleSkipGameState" text="Button" />
+                                    <Button fx:id="changeGameState" layoutX="484.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSkipGameState" onMouseClicked="#handleSkipGameState" text="Button" />
                                  </children>
                               </AnchorPane>
                            </children>

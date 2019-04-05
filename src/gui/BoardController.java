@@ -1,16 +1,15 @@
 package gui;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 import game.AiPlayer;
-import game.AiPlayerEasy;
 import game.Card;
 import game.CardDeck;
 import game.Dice;
 import game.Game;
 import game.GameState;
 import game.Player;
-import game.PlayerColor;
 import game.Territory;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -44,7 +43,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -189,6 +187,8 @@ public class BoardController {
    */
   @FXML
   private Pane skip;
+  @FXML
+  private Button changeGameState;
   @FXML
   private Label gameState;
 
@@ -527,45 +527,56 @@ public class BoardController {
               break;
 
             case ARMY_DISTRIBUTION:
-              setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
-              setArmySlider.setValue(1);
-              selectedTerritory = t;
-              grayPane.toFront();
-              setArmyPane.toFront();
+              System.out.println(g.getCurrentPlayer().getNumberArmiesToDistibute());
+              Platform.runLater(new Runnable() {
+                public void run() {
+                  setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
+                  setArmySlider.setValue(1);
+                  selectedTerritory = t;
+                  grayPane.toFront();
+                  setArmyPane.toFront();
+                }
+              });
+            
               break;
 
             case ATTACK:
-              if (selectedTerritory == null) {
-                selectedTerritory = t;
-                r.setEffect(new Lighting());
-                for (Territory territory : t.getNeighbor()) {
-                  if (!territory.getOwner().equals(t.getOwner())) {
-                    territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
-                    territory.getBoardRegion().getRegion().getStyleClass()
-                        .add(":hover -fx-background-color: yellow;");
-                  }
-                }
-                for (Territory territory : g.getWorld().getTerritories().values()) {
-                  if (territory.getBoardRegion().getRegion().getEffect() == null) {
-                    territory.getBoardRegion().getRegion().setDisable(true);
-                  }
-                }
-              } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
-                selectedTerritory_attacked = t;
-                diceSlider.setMax(t.getNumberOfArmies() - 1);
-                // ATTACK METHODE
-                /*
-                 * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
-                 * armies);
-                 * selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.
-                 * getNumberOfArmies()+"");
-                 * t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");
-                 */
+              Platform.runLater(new Runnable() {
+                public void run() {
+                  if (selectedTerritory == null) {
+                    selectedTerritory = t;
+                    r.setEffect(new Lighting());
+                    for (Territory territory : t.getNeighbor()) {
+                      if (!territory.getOwner().equals(t.getOwner())) {
+                        territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+                        territory.getBoardRegion().getRegion().getStyleClass()
+                            .add(":hover -fx-background-color: yellow;");
+                      }
+                    }
+                    for (Territory territory : g.getWorld().getTerritories().values()) {
+                      if (territory.getBoardRegion().getRegion().getEffect() == null) {
+                        territory.getBoardRegion().getRegion().setDisable(true);
+                      }
+                    }
+                  } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
+                    selectedTerritory_attacked = t;
+                    diceSlider.setMax(t.getNumberOfArmies() - 1);
+                    // ATTACK METHODE
+                    /*
+                     * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
+                     * armies);
+                     * selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.
+                     * getNumberOfArmies()+"");
+                     * t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");
+                     */
 
-                // open pop-up with Dices
-                grayPane.toFront();
-                dicePane.toFront();
-              }
+                    // open pop-up with Dices
+                    grayPane.toFront();
+                    dicePane.toFront();
+                  }
+                }
+              });
+              
               break;
 
             case FORTIFY:
@@ -635,6 +646,10 @@ public class BoardController {
         setArmyPane.toBack();
         grayPane.toBack();
         selectedTerritory.getBoardRegion().getRegion().setEffect(null);
+        if(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
+          Main.g.setGameState(GameState.ATTACK);
+          displayGameState();
+        }
       }
     });
   }
@@ -800,6 +815,10 @@ public class BoardController {
       right.getChildren().add(pane);
       pane.setStyle(null);
     }
+    if(!left.getChildren().isEmpty() && !center.getChildren().isEmpty() && !right.getChildren().isEmpty() && 
+        topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
+      tradeIn.setDisable(false);
+    }
     return img;
   }
 
@@ -876,27 +895,28 @@ public class BoardController {
     Thread th = new Thread() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
-          for (Card x : topList.values()) {
-            System.out.println("Bla" + x.getTerritory().getName());
-          }
-          if (g.canbeTraded(topList.get(0), topList.get(1), topList.get(2))) {
+          if (topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
             // add Cards to game carddeck
+            Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1), topList.get(2));
             Main.g.setCard(topList.get(0));
             Main.g.setCard(topList.get(1));
             Main.g.setCard(topList.get(2));
+            
 
             String cards = Integer.toString(++tradedCards);
             tradedCardSets.setText(cards);
             topList.remove(0);
             topList.remove(1);
             topList.remove(2);
+            
+            left.getChildren().remove(0);
+            center.getChildren().remove(0);
+            right.getChildren().remove(0);
+            tradeIn.setDisable(true);
           } else {
             System.out.println("No trade");
             cantBeTraded.toFront();
           }
-
-
-          System.out.println("Button geklickt");
         }
       }
     };
@@ -1084,20 +1104,20 @@ public class BoardController {
    */
 
 
-  @FXML
-  public void changeTerritoryColor(ActionEvent e) {
-    Region r = (Region) e.getSource();
-    r.setDisable(false);
-    r.setStyle(":hover -fx-background-color: yellow;");// +g.getCurrentPlayer().getColor().getRgbColor()+";");
-
-    // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
-
-    // String s = g.getTerritories().get(0).getName();
-
-    // r = g.getTerritories().getName();
-    // r.setStyle("-fx-background-color: yellow;");
-
-  }
+//  @FXML
+//  public void changeTerritoryColor(ActionEvent e) {
+//    Region r = (Region) e.getSource();
+//    r.setDisable(false);
+//    r.setStyle(":hover -fx-background-color: yellow;");// +g.getCurrentPlayer().getColor().getRgbColor()+";");
+//
+//    // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
+//
+//    // String s = g.getTerritories().get(0).getName();
+//
+//    // r = g.getTerritories().getName();
+//    // r.setStyle("-fx-background-color: yellow;");
+//
+//  }
 
 
 
