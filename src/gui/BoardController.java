@@ -686,7 +686,7 @@ public class BoardController {
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
     ImageView img = (ImageView) e.getSource();
-    String url = img.getImage().getUrl();
+    String url = img.getImage().impl_getUrl();
     String file = url.substring(url.lastIndexOf('/') + 1, url.length());
     String[] split = file.split("\\.");
     int cardId = Integer.parseInt(split[0]);
@@ -742,7 +742,7 @@ public class BoardController {
     if (b.equals(left)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().getUrl();
+      String url = img.getImage().impl_getUrl();
       String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
@@ -758,7 +758,7 @@ public class BoardController {
     } else if (b.equals(center)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().getUrl();
+      String url = img.getImage().impl_getUrl();
       String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
@@ -773,7 +773,7 @@ public class BoardController {
     } else if (b.equals(right)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().getUrl();
+      String url = img.getImage().impl_getUrl();
       String file = url.substring(url.lastIndexOf('/') + 1, url.length());
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
