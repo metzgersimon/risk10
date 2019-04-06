@@ -159,7 +159,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void fortify() {
-
+    Main.g.furtherFortify();
   }
 
   public boolean isCapableToAttack() {
