@@ -40,7 +40,7 @@ c23 -24 41 -51 41 -61 0 -19 91 -120 108 -120 5 0 31 -22 59 -49 27 -26 59
 -166 114 -10 0 -37 11 -61 25 l-42 24 -18 -27z";
 	-fx-scale-y:	-1;
 	-fx-border-color: black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Alaska{
@@ -91,7 +91,7 @@ c-29 19 -76 41 -105 49 -75 19 -96 33 -224 143 -103 88 -122 100 -162 107 -41
 7 -67 18 -148 61 -31 17 -61 19 -275 20 -132 1 -252 0 -268 -3z";
 	-fx-scale-y:	-1;
 	-fx-border-color: black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Alberta{
@@ -116,7 +116,7 @@ c-29 19 -76 41 -105 49 -75 19 -96 33 -224 143 -103 88 -122 100 -162 107 -41
 12 -52 28 -60 35 -13 10 -156 13 -697 15 -375 1 -696 -2 -715 -7z";
 -fx-scale-y:	-1;
 	-fx-border-color: black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 
 	
@@ -153,7 +153,7 @@ c-29 19 -76 41 -105 49 -75 19 -96 33 -224 143 -103 88 -122 100 -162 107 -41
 -21 18 -32 38 -37 66 -5 29 -13 43 -29 49 -26 10 -224 12 -249 2z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Brazil{
@@ -194,7 +194,7 @@ c-29 19 -76 41 -105 49 -75 19 -96 33 -224 143 -103 88 -122 100 -162 107 -41
 -63 30 -98 36 -141 25z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Central_America{
@@ -243,7 +243,7 @@ c-29 19 -76 41 -105 49 -75 19 -96 33 -224 143 -103 88 -122 100 -162 107 -41
 -379 -3z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 
@@ -290,7 +290,7 @@ c-93 1 -210 3 -259 4 l-89 3 -81 74 c-50 46 -105 85 -146 104 -45 21 -82 48
 205 -187 250 3 51 -39 138 -71 145 -38 8 -459 10 -532 2z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Congo{
@@ -326,7 +326,7 @@ c79 51 113 62 167 53 34 -5 58 -16 80 -38 18 -17 43 -35 57 -40 14 -5 202 -10
 -23 33 -31 35 -74 16z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .East_Africa{
@@ -374,7 +374,7 @@ c79 51 113 62 167 53 34 -5 58 -16 80 -38 18 -17 43 -35 57 -40 14 -5 202 -10
 -25 42 -53 63 -56 43 -96 45 -171 10z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Eastern_United_States{
@@ -419,7 +419,7 @@ c79 51 113 62 167 53 34 -5 58 -16 80 -38 18 -17 43 -35 57 -40 14 -5 202 -10
 -17z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 
 }
 .Egypt{
@@ -467,7 +467,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 11 -89 24 -94 29 -14 14 -25 12 -67 -11z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 	}
 
 
@@ -507,7 +507,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 10 0 -9 -73 50 -122 99 -41 41 -68 45 -115 16z";
 -fx-scale-y:	-1;
 -fx-border-color:	black;
--fx-background-color:	#388E3C;
+-fx-background-color:	#C0C0C0;
 }
 
 .India{
@@ -548,7 +548,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 28 -237 217 -269 266 -18 29 -89 55 -105 39z";
 -fx-scale-y:	-1;
 -fx-border-color:	black;
--fx-background-color:	#388E3C;
+-fx-background-color:	#C0C0C0;
 }
 
 
@@ -589,7 +589,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 -755 0 -812 -4z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 	
 .Japan{
@@ -644,7 +644,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 50 -13 -1 -45 -11 -73 -24z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 
 
@@ -715,7 +715,7 @@ l0 -194 42 -40 c23 -22 44 -49 48 -59 3 -11 23 -32 45 -47 22 -15 40 -32 40
 -77 28 -27 4 -65 16 -84 27 -34 20 -141 34 -171 23z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Eastern-Australia {
@@ -749,7 +749,7 @@ l-6 83 -76 75 c-42 42 -84 88 -95 104 -10 16 -44 40 -80 56 -89 41 -189 128
 -50 -2 -88 -35z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
--fx-background-color: #388E3C;
+-fx-background-color: #C0C0C0;
 }
 
 .Yakutsk{
@@ -791,7 +791,7 @@ c-40 -39 -107 -64 -163 -62 -42 2 -110 33 -158 72 -23 18 -44 23 -111 25 -81
 4 -82 4 -131 -33z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Western_Europe{
@@ -835,7 +835,7 @@ c-40 -39 -107 -64 -163 -62 -42 2 -110 33 -158 72 -23 18 -44 23 -111 25 -81
 -22 49 -10 53 -34 73 -76 65z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Northern_Europe{
@@ -857,7 +857,7 @@ c-40 -39 -107 -64 -163 -62 -42 2 -110 33 -158 72 -23 18 -44 23 -111 25 -81
 -21 0 -53 29 -53 48 0 7 -7 12 -15 12 -10 0 -15 -10 -15 -33z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Great_Britain{
@@ -909,7 +909,7 @@ l-22 69 23 33 c22 33 114 112 169 145 16 10 47 22 71 27 23 6 76 17 117 27 85
 -103 200 -95 86 -127 99 -268 107 -160 10 -575 12 -705 4z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 
 .Greenland{
@@ -984,7 +984,7 @@ l48 50 -33 20 c-18 11 -40 20 -48 20 -23 0 -69 32 -132 91 -31 30 -76 70 -99
 -15 12 -123 49 -143 49 -9 0 -34 -10 -56 -23z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 	
 .Indonesia{
@@ -1057,7 +1057,7 @@ l-73 65 -131 6 c-149 7 -155 9 -246 99 -40 39 -61 70 -73 106 -22 68 -38 81
 -124 99 -68 14 -122 38 -122 54 0 4 -12 16 -27 27 -24 17 -36 19 -88 11z"; 
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 	}
 
 .Scandinavia{
@@ -1110,7 +1110,7 @@ l-73 65 -131 6 c-149 7 -155 9 -246 99 -40 39 -61 70 -73 106 -22 68 -38 81
 -59 41 -53 8 -151 6 -190 -5z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Siam{
@@ -1161,7 +1161,7 @@ l-73 65 -131 6 c-149 7 -155 9 -246 99 -40 39 -61 70 -73 106 -22 68 -38 81
 57 l-47 28 -1135 2 -1135 3 -59 -34z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Siberia{
@@ -1201,7 +1201,7 @@ l-32 33 -2 164 -2 165 -33 48 c-32 46 -33 50 -33 149 0 102 0 103 31 131 18
 50 -8 22 -23 40 -43 51 -18 9 -38 24 -45 34 -13 19 -59 23 -122 12z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .South_Africa{
@@ -1241,7 +1241,7 @@ l-32 33 -2 164 -2 165 -33 48 c-32 46 -33 50 -33 149 0 102 0 103 31 131 18
 54 -26 -1 -56 -4 -67 -7z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Ural{
@@ -1280,7 +1280,7 @@ l2 152 27 21 c15 12 37 29 49 38 l22 15 3 449 3 448 25 26 c30 32 45 98 24
 l-120 0 -13 -27z";
 	-fx-scale-y:	-1;	
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Venezuela{
@@ -1316,7 +1316,7 @@ l-113 2 -58 38 c-79 52 -110 67 -168 80 -105 24 -179 111 -209 243 -17 75 -35
 168 -7 11 -29 26 -51 32 -44 14 -45 14 -88 1z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Western_Australia{
@@ -1350,7 +1350,7 @@ l139 -4 46 33 c26 17 74 58 107 90 64 61 72 64 193 75 53 4 89 14 129 35 54
 -72 35 -80 35 -8 0 -35 19 -61 43 -79 73 -89 77 -172 76 -41 0 -84 -4 -95 -9z";
 	-fx-scale-y: -1;
 	-fx-border-color: black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 
@@ -1378,7 +1378,7 @@ l139 -4 46 33 c26 17 74 58 107 90 64 61 72 64 193 75 53 4 89 14 129 35 54
 0 61 0 234 0 385 1 151 -1 307 -3 345 -6 89 5 218 23 270 17 47 14 53 -30 71
 -46 19 -103 17 -139 -5z";
 	-fx-border-color: black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Ukraine{
@@ -1432,7 +1432,7 @@ l139 -4 46 33 c26 17 74 58 107 90 64 61 72 64 193 75 53 4 89 14 129 35 54
 c-2 464 -2 521 0 573 1 59 -74 108 -110 72z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Peru{
@@ -1470,7 +1470,7 @@ c-56 51 -75 75 -88 115 -23 65 -26 69 -95 103 -41 20 -90 60 -165 135 -103
 -135 129 -20 18 -50 34 -75 39 -54 10 -305 9 -379 -2z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Quebec{
@@ -1532,7 +1532,7 @@ c21 -18 44 -33 49 -33 6 0 29 -9 50 -21 76 -39 172 -69 223 -69 110 0 205 -35
 -fx-scale-y:	-1;
 
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Southern_Europe{
@@ -1586,7 +1586,7 @@ l50 -16 45 35 c36 28 47 44 55 81 9 46 9 48 -25 78 -19 18 -34 40 -34 51 0 20
 94 -127 163 -49 48 -98 87 -108 87 -11 0 -28 2 -39 5 -13 3 -32 -5 -52 -22z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color:	#388E3C;
+	-fx-background-color:	#C0C0C0;
 }
 
 .Mongolia{
@@ -1636,7 +1636,7 @@ l14 35 -34 15 c-19 8 -39 14 -44 14 -26 0 -70 53 -76 91 -4 25 -21 56 -43 82
 134 -51 158 -19 17 -43 19 -218 22 l-196 4 -90 -46z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .New_Guinea{
@@ -1676,7 +1676,7 @@ l14 35 -34 15 c-19 8 -39 14 -44 14 -26 0 -70 53 -76 91 -4 25 -21 56 -43 82
 21 -105 14z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .North_Africa{
@@ -1727,7 +1727,7 @@ l14 35 -34 15 c-19 8 -39 14 -44 14 -26 0 -70 53 -76 91 -4 25 -21 56 -43 82
 111 -14 20 -73 31 -102 18z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Northern_Europe{
@@ -1782,7 +1782,7 @@ c-190 0 -218 -7 -270 -63 -16 -17 -32 -31 -36 -31 -4 0 -23 20 -44 44 -35 42
 -30 33 -72 86 -93 118 -22 31 -45 56 -52 56 -7 -1 -27 -4 -45 -8z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 
@@ -1840,7 +1840,7 @@ c-144 1 -161 3 -187 22 -81 60 -116 178 -74 249 23 40 17 65 -19 85 -29 16
 31 -136 73 -27 32 -36 36 -90 39 -37 2 -71 -2 -91 -11z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Ontario{
@@ -1864,7 +1864,7 @@ c-144 1 -161 3 -187 22 -81 60 -116 178 -74 249 23 40 17 65 -19 85 -29 16
 125 30 30 169 192 224 261 34 42 30 83 -10 115 -33 25 -59 26 -73 0z";
 -fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 .Madagascar{
@@ -1902,7 +1902,7 @@ l124 39 41 68 c25 44 54 78 79 93 20 13 40 24 42 24 3 0 31 15 63 34 38 23 69
 34 13 63 13 62 -31 29 c-32 30 -87 68 -97 67 -3 0 -23 -9 -46 -20z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
 
 
@@ -1956,5 +1956,5 @@ l37 -41 -59 -58 c-43 -42 -62 -69 -67 -94 -5 -29 -31 -60 -136 -161 -127 -123
 -49z";
 	-fx-scale-y:	-1;
 	-fx-border-color:	black;
-	-fx-background-color: #388E3C;
+	-fx-background-color: #C0C0C0;
 }
