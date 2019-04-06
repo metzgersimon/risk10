@@ -32,8 +32,7 @@ public class Game {
   public HashMap<String, Integer> territoryStats;
   public HashMap<String, Integer> cardStats;
   private HashSet<String> aiNames = new HashSet<String>();
- 
-  
+
 
 
   /** variables for join and host game */
@@ -202,8 +201,8 @@ public class Game {
   public void setCard(Card c) {
     this.cards.add(c);
   }
-  
-  public LinkedList<Card> getCards(){
+
+  public LinkedList<Card> getCards() {
     return this.cards;
   }
 
@@ -228,28 +227,27 @@ public class Game {
   }
 
 
- 
-
-
-
 
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
-    // attacker wins game
-    switch (attacker.size()) {
+    System.out.println(attacker);
+    System.out.println(defender);
+    switch (defender.size()) {
       case (2):
-      case (3):
-        if (attacker.get(1) > defender.get(1)) {
+        System.out.println(attacker.get(attacker.size() - 2) + " " + defender.get(1));
+        if (attacker.get(attacker.size() - 2) > defender.get(1)) {
           defend.setNumberOfArmies(-1);
         } else {
           attack.setNumberOfArmies(-1);
         }
       case (1):
-        if (attacker.get(0) > defender.get(0)) {
+        System.out.println(attacker.get(attacker.size() - 1) + " " + defender.get(0));
+        if (attacker.get(attacker.size() - 1) > defender.get(0)) {
           defend.setNumberOfArmies(-1);
         } else {
           attack.setNumberOfArmies(-1);
         }
+        System.out.println();
     }
 
     if (defend.getNumberOfArmies() == 0) {
@@ -266,6 +264,7 @@ public class Game {
         attack.getOwner().setCards(p.getCards());
       }
       if (getPlayers().size() == 1) {
+        // attacker wins game
         this.gameState = GameState.END_GAME;
       }
       return true;
@@ -453,10 +452,10 @@ public class Game {
   // checks if all players still have armies left, otherwise return losing players
   public ArrayList<Player> checkAllPlayers() {
     ArrayList<Player> lostPlayers = new ArrayList<Player>();
-    for (Player p : this.players) {
-      if (p.getTerritories().size() == 0) {
-        lostPlayers.add(p);
-        this.players.remove(p);
+    for (int i = 0; i < this.players.size(); i++) {
+      if (this.players.get(i).getTerritories().size() == 0) {
+        lostPlayers.add(this.players.get(i));
+        this.players.remove(this.players.get(i));
       }
     }
     return lostPlayers;
@@ -474,7 +473,7 @@ public class Game {
       cardStats.put(x.getName(), x.getNumberOfCards());
     }
   }
-  
+
   /**
    * @author skaur
    * @param moveFrom : territory selected from where the army is going to be moved
@@ -605,33 +604,33 @@ public class Game {
         }
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
-        
+
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
       Main.b.prepareArmyDistribution();
-//      Main.b.displayArmyDistribution();
+      // Main.b.displayArmyDistribution();
       Main.b.displayGameState();
     }
   }
-  
+
   public void furtherFortify() {
     this.nextPlayer();
-      Main.b.prepareArmyDistribution();
-      this.getCurrentPlayer().computeAdditionalNumberOfArmies();
-      if (this.getCurrentPlayer() instanceof AiPlayer) {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        AiPlayer p = (AiPlayer) this.getCurrentPlayer();
-        p.armyDistribution();
+    Main.b.prepareArmyDistribution();
+    this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+    if (this.getCurrentPlayer() instanceof AiPlayer) {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
-      this.setGameState(GameState.ARMY_DISTRIBUTION);
-      Main.b.displayGameState();
+      AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+      p.armyDistribution();
     }
+    this.setGameState(GameState.ARMY_DISTRIBUTION);
+    Main.b.displayGameState();
+  }
 
 
   /**
@@ -647,11 +646,10 @@ public class Game {
   }
 
   /**
-   * @author skaur
-   * this methods creates an instance of gamefinder class and starts looking for broadcasting server
-   * gameFinder class then creates a client for the current player
+   * @author skaur this methods creates an instance of gamefinder class and starts looking for
+   *         broadcasting server gameFinder class then creates a client for the current player
    */
-  public void joinGame(Player player){
+  public void joinGame(Player player) {
     this.gameFinder = new GameFinder();
   }
 

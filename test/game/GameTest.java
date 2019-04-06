@@ -12,7 +12,7 @@ public class GameTest {
 
   @Test
   public void fortifyTest() {
-    Player p1 = new Player("Test");
+    Player p1 = new Player("Test", PlayerColor.RED);
     g.setCurrentPlayer(p1);
     HashMap<Integer, Territory> list = g.getWorld().getTerritories();
     g.setGameState(GameState.FORTIFY);
@@ -38,10 +38,10 @@ public class GameTest {
 
   @Test
   public void addPlayerTest() {
-    Player p1 = new Player("Test");
+    Player p1 = new Player("Test", PlayerColor.RED);
     g.addPlayer(p1);
     assertTrue(g.getPlayers().contains(p1));
-    Player p2 = new Player("Test");
+    Player p2 = new Player("Test", PlayerColor.RED);
     g.addPlayer(p2);
     assertTrue(g.getPlayers().contains(p2));
     assertFalse(p1.getName().equals(p2.getName()));

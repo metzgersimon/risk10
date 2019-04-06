@@ -66,6 +66,7 @@ public class Player {
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
+    this.eliminatedPlayers = new ArrayList<>();
     this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
@@ -233,7 +234,7 @@ public class Player {
   public void addElimiatedPlayer(Player p) {
     eliminatedPlayers.add(p);
   }
-  
+
   /**
    * @author qiychen
    * @param c1 card1
@@ -267,16 +268,16 @@ public class Player {
         default:
           armies = 15 + (number - 5) * 5;
       }
-      
-      if(this.getTerritories().contains(c1.getTerritory())) {
+
+      if (this.getTerritories().contains(c1.getTerritory())) {
         c1.getTerritory().setNumberOfArmies(2);
         Main.b.updateLabelTerritory(c1.getTerritory());
       }
-      if(this.getTerritories().contains(c2.getTerritory())) {
+      if (this.getTerritories().contains(c2.getTerritory())) {
         c2.getTerritory().setNumberOfArmies(2);
         Main.b.updateLabelTerritory(c2.getTerritory());
       }
-      if(this.getTerritories().contains(c3.getTerritory())) {
+      if (this.getTerritories().contains(c3.getTerritory())) {
         c3.getTerritory().setNumberOfArmies(2);
         Main.b.updateLabelTerritory(c3.getTerritory());
       }
@@ -345,7 +346,7 @@ public class Player {
     for (Continent c : this.getContinents()) {
       result += c.getValue();
     }
-   
+
     // player receives armies for each card set depending on the number of previous traded sets
     result += valueActuallyTradedIn;
     this.valueActuallyTradedIn = 0;
