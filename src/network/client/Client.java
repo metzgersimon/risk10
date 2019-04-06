@@ -12,6 +12,7 @@ import game.Player;
 import network.Parameter;
 import network.messages.JoinGameMessage;
 import network.messages.Message;
+import network.messages.SendChatMessageMessage;
 
 public class Client extends Thread {
 
@@ -54,7 +55,7 @@ public class Client extends Thread {
   }
 
   public void run() {
-
+    transact();
   }
 
   /**
@@ -63,6 +64,7 @@ public class Client extends Thread {
    * @param m
    */
   public void sendMessage(Message m) {
+    System.out.println("test send message");
     try {
       toServer.writeObject(m);
     } catch (IOException e) {
@@ -77,11 +79,19 @@ public class Client extends Thread {
     // To get response
   }
 
+  /**
+   * handle incoming messages from server
+   */
   public void transact() {
     while (active) {
       try {
         Message message = (Message) fromServer.readObject();
         switch (message.getType()) {
+          case BROADCAST:
+            String name = ((SendChatMessageMessage) message).getUsername();
+            String content = ((SendChatMessageMessage) message).getMessage();
+            System.out.println("from server: " + name + " " + content);
+            break;
           case LEAVE:
             break;
           case DISPLAY:

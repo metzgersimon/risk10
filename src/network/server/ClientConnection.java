@@ -5,8 +5,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import game.Player;
+import gui.Gui;
+import gui.JoinGameLobbyController;
+import main.Main;
 import network.messages.Message;
+import network.messages.MessageType;
+import network.messages.SendChatMessageMessage;
 
 public class ClientConnection extends Thread {
 
@@ -21,24 +29,27 @@ public class ClientConnection extends Thread {
 
   public ClientConnection(Socket s) {
     this.socket = s;
- /* try {
+    this.active = true;
+    try {
       this.toClient = new ObjectOutputStream(s.getOutputStream());
       this.fromClient = new ObjectInputStream(s.getInputStream());
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    }*/
-    
+    }
+
   }
 
   /**
    * Constructor
+   * @author qiychen
    * @param s
    * @param server
    */
   public ClientConnection(Socket s, Server server) {
     this.server = server;
     this.socket = s;
+    this.active = true;
     try {
       this.toClient = new ObjectOutputStream(s.getOutputStream());
       this.fromClient = new ObjectInputStream(s.getInputStream());
@@ -49,8 +60,8 @@ public class ClientConnection extends Thread {
   }
 
   public void run() {
-    
-   
+
+    transact();
   }
 
   /**
@@ -59,14 +70,24 @@ public class ClientConnection extends Thread {
   public void sendMessage(Message m) {
     try {
       toClient.writeObject(m);
+      // to test
+      // if(m.getType()==MessageType.BROADCAST) {
+      // joinLobby.addMessage(((SendChatMessageMessage)m).getMessage());
+      // joinLobby=new JoinGameLobbyController();
+
+      // joinLobby.addMessage(((SendChatMessageMessage)m).getMessage());
+      // }
+
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
 
-  /**send message to all clients
-   * @author qiychen 
+  /**
+   * send message to all clients
+   * 
+   * @author qiychen
    * @param m
    */
   public void sendMessagesToallClients(Message m) {
@@ -76,13 +97,21 @@ public class ClientConnection extends Thread {
     }
   }
 
+  /**
+   * handle incoming messages from clients
+   */
   public void transact() {
+    System.out.println("connection works");
     while (active) {
       try {
         Message message = (Message) this.fromClient.readObject();
         switch (message.getType()) {
           case BROADCAST:
-
+            String name = ((SendChatMessageMessage) message).getUsername();
+            String content = ((SendChatMessageMessage) message).getMessage();
+            this.sendMessagesToallClients(message);
+            System.out.println(
+                "Message from client with the content " + content + " sent to all clients");
             break;
           case SEND:
             break;

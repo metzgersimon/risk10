@@ -474,7 +474,7 @@ public class Game {
       cardStats.put(x.getName(), x.getNumberOfCards());
     }
   }
-
+  
   /**
    * @author skaur
    * @param moveFrom : territory selected from where the army is going to be moved
@@ -653,6 +653,22 @@ public class Game {
    */
   public void joinGame(Player player){
     this.gameFinder = new GameFinder();
+  }
+
+  public Server getServer() {
+    return server;
+  }
+
+  public void setServer(Server server) {
+    this.server = server;
+  }
+
+  public GameFinder getGameFinder() {
+    return gameFinder;
+  }
+
+  public void setGameFinder(GameFinder gameFinder) {
+    this.gameFinder = gameFinder;
   }
 }
 

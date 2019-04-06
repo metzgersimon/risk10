@@ -48,9 +48,9 @@ public class GameFinder extends Thread {
       System.out.println("A package is recieved from " + responseP.getAddress());
       //get the ip address and create a socket for it
       InetAddress address = responseP.getAddress();
-//       client = new Client(address);
-//       client.start();
-      new ClientProtocol(address).start();
+       client = new Client(address);
+       client.start();
+//      new ClientProtocol(address).start();
       System.out.println("Client Created");
 
     } catch (IOException e) {
