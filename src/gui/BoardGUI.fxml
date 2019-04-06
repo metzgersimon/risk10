@@ -68,7 +68,7 @@
                      <children>
                         <SplitPane fx:id="cardPane" dividerPositions="0.7" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
                           <items>
-                            <AnchorPane fx:id="upperPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="504.0" prefWidth="500.0" visible="false" SplitPane.resizableWithParent="false" />
+                            <AnchorPane fx:id="upperPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="350.0" prefWidth="500.0" visible="false" SplitPane.resizableWithParent="false" />
                             <AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
                                  <children>
                                     <VBox prefHeight="212.0" prefWidth="648.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -103,8 +103,8 @@
                                                 </VBox>
                                              </children>
                                              <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="243.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="240.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="417.0" minWidth="10.0" prefWidth="264.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="274.0" />
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -181,6 +181,9 @@
                                              </VBox.margin>
                                           </FlowPane>
                                        </children>
+                                       <padding>
+                                          <Insets bottom="25.0" />
+                                       </padding>
                                     </VBox>
                                  </children>
                               </AnchorPane>
