@@ -26,11 +26,13 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       System.out.print(random + " ");
     } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
-    
+
     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-    System.out.println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()+"--"+Main.g.getWorld().getTerritories().get(random));
-//    System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
-//    System.out.println(Main.g.getWorld().getTerritories().get(random));
+    System.out
+        .println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()
+            + "--" + Main.g.getWorld().getTerritories().get(random));
+    // System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+    // System.out.println(Main.g.getWorld().getTerritories().get(random));
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -63,9 +65,9 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void armyDistribution() {
-    for(int i = 0; i < this.getCards().size(); i++) {
-      for(int j = i+1; j < this.getCards().size()-1; j++) {
-        for(int k = j+1; k < this.getCards().size()-2; k++) {
+    for (int i = 0; i < this.getCards().size(); i++) {
+      for (int j = i + 1; j < this.getCards().size() - 1; j++) {
+        for (int k = j + 1; k < this.getCards().size() - 2; k++) {
           this.tradeCards(this.getCards().get(i), this.getCards().get(j), this.getCards().get(k));
         }
       }
@@ -73,10 +75,10 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
     Territory territory = null;
-    while(this.getNumberArmiesToDistibute() != 0) {
+    while (this.getNumberArmiesToDistibute() != 0) {
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
-        randomNumberOfArmies = (int) (Math.random()*this.getNumberArmiesToDistibute())+1;
+        randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
         int i = 1;
         for (Territory t : this.getTerritories()) {
           if (i == randomTerritory) {
@@ -90,7 +92,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
       Main.b.updateLabelTerritory(territory);
     }
-   
+
 
 
   }
@@ -101,63 +103,74 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     int randomNumberOfArmies = 0;
     Territory territoryOwn = null;
     Territory territoryOpponent = null;
-    boolean isCapableToAttack = true;
     int numberOfAttackDices = 0;
     int numberOfDefendDices = 0;
-    while(isCapableToAttack) {
+    double attackProbability = 1.0;
+
+    while (this.isCapableToAttack() && Math.random() < attackProbability) {
+      // choose own territory that is able to attack
       do {
         randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size()) + 1;
-        randomNumberOfArmies = (int) (Math.random()*this.getNumberArmiesToDistibute())+1;
         int i = 1;
         for (Territory t : this.getTerritories()) {
           if (i == randomTerritoryOwn) {
             territoryOwn = t;
-            int j = 1;
-            for(Territory tOpponent: territoryOwn.getNeighbor()) {
-              do {
-                randomTerritoryOpponent = (int) (Math.random() * territoryOwn.getNeighbor().size())+1;
-                if(j == randomTerritoryOpponent && !this.getTerritories().contains(tOpponent)) {
-                  territoryOpponent = tOpponent;
-                }
-                else {  
-                j++;
-                }
-              } while(territoryOpponent.getOwner().equals(this));
-            }
-          }
-          else {
-          i++;
+            randomNumberOfArmies = (int) (Math.random() * t.getNumberOfArmies()) + 1;
+
+          } else {
+            i++;
           }
         }
-        numberOfAttackDices = (territoryOwn.getNumberOfArmies()-1)%3+1;
-        if(territoryOpponent.getNumberOfArmies() >= 2) {
-          numberOfDefendDices = 2;
-        }
-        else {
-          numberOfDefendDices = 1;
-        }
-        Vector<Integer> attackerDices = Dice.rollDices(numberOfAttackDices);
-        Vector<Integer> defenderDices = Dice.rollDices(numberOfDefendDices);
-        
-        if(Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent, randomNumberOfArmies)) {
-          Main.b.updateLabelTerritory(territoryOwn);
-          Main.b.updateLabelTerritory(territoryOpponent);
-          territoryOpponent.setOwner(this);
-          Main.b.updateColorTerritory(territoryOpponent);
-        }
-        else {
-          Main.b.updateLabelTerritory(territoryOwn);
-          Main.b.updateLabelTerritory(territoryOpponent);
-        }
-      } while ());
-      
-      
-      
+      } while (territoryOwn.getNumberOfArmies() == 1
+          || territoryOwn.getHostileNeighbor().size() == 0);
+
+
+      // choose hostile neighbor territory
+      randomTerritoryOpponent =
+          (int) (Math.random() * territoryOwn.getHostileNeighbor().size()) + 1;
+      territoryOpponent = territoryOwn.getHostileNeighbor().get(randomTerritoryOpponent);
+
+      // calculate number of dices
+      numberOfAttackDices =
+          (territoryOwn.getNumberOfArmies() - 1) < 3 ? territoryOwn.getNumberOfArmies() - 1 : 3;
+      numberOfDefendDices = (territoryOpponent.getNumberOfArmies()) >= 2 ? 2 : 1;
+
+      // get dice Values
+      Vector<Integer> attackerDices = Dice.rollDices(numberOfAttackDices);
+      Vector<Integer> defenderDices = Dice.rollDices(numberOfDefendDices);
+
+      // attack chosen territory and update GUI
+      if (Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
+          randomNumberOfArmies)) {
+        Main.b.updateLabelTerritory(territoryOwn);
+        Main.b.updateLabelTerritory(territoryOpponent);
+        Main.b.updateColorTerritory(territoryOpponent);
+      } else {
+        Main.b.updateLabelTerritory(territoryOwn);
+        Main.b.updateLabelTerritory(territoryOpponent);
+      }
+      attackProbability = 0.66;
     }
+
+    Main.g.setGameState(GameState.FORTIFY);
+    Main.b.prepareFortify();
+    this.fortify();
+
   }
 
   public void fortify() {
 
   }
+
+  public boolean isCapableToAttack() {
+    for (Territory t : this.getTerritories()) {
+      if (t.getNumberOfArmies() > 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
 
 }

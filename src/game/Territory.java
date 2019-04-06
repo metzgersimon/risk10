@@ -1,6 +1,8 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.ArrayBlockingQueue;
 import gui.BoardRegion;
 
 /**
@@ -67,6 +69,16 @@ public class Territory {
     return this.neighbor;
   }
 
+  public ArrayList<Territory> getHostileNeighbor() {
+    ArrayList<Territory> hostileNeighbor = new ArrayList<>();
+    for (Territory t : this.getNeighbor()) {
+      if (!this.getOwner().equals(t.getOwner())) {
+        hostileNeighbor.add(t);
+      }
+    }
+    return hostileNeighbor;
+  }
+
   /**
    * @return String = name of a territory Getter-method
    */
@@ -80,20 +92,23 @@ public class Territory {
   public void setNumberOfArmies(int amount) {
     this.numberOfArmies += amount;
   }
+
   /**
    * 
    * @param amount = number of armies in total
    */
   public void setNumberOfArmies2(int amount) {
-    this.numberOfArmies=amount;
+    this.numberOfArmies = amount;
   }
-   /**
-    * 
-    * @param amount = number of armies to reduce from numberOfArmies
-    */
+
+  /**
+   * 
+   * @param amount = number of armies to reduce from numberOfArmies
+   */
   public void setReducedNumberOfArmies(int amount) {
     this.numberOfArmies -= amount;
   }
+
   /**
    * @return number of armies at this territory Getter-method
    */
@@ -104,7 +119,7 @@ public class Territory {
   /**
    * @return id of a territory Getter-method
    */
-  
+
   public int getId() {
     return id;
   }
