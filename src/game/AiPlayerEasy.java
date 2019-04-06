@@ -1,7 +1,6 @@
 package game;
 
-import gui.BoardController;
-import javafx.application.Platform;
+import java.util.Vector;
 import main.Main;
 
 /**
@@ -97,7 +96,64 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void attack() {
-
+    int randomTerritoryOwn = 0;
+    int randomTerritoryOpponent = 0;
+    int randomNumberOfArmies = 0;
+    Territory territoryOwn = null;
+    Territory territoryOpponent = null;
+    boolean isCapableToAttack = true;
+    int numberOfAttackDices = 0;
+    int numberOfDefendDices = 0;
+    while(isCapableToAttack) {
+      do {
+        randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size()) + 1;
+        randomNumberOfArmies = (int) (Math.random()*this.getNumberArmiesToDistibute())+1;
+        int i = 1;
+        for (Territory t : this.getTerritories()) {
+          if (i == randomTerritoryOwn) {
+            territoryOwn = t;
+            int j = 1;
+            for(Territory tOpponent: territoryOwn.getNeighbor()) {
+              do {
+                randomTerritoryOpponent = (int) (Math.random() * territoryOwn.getNeighbor().size())+1;
+                if(j == randomTerritoryOpponent && !this.getTerritories().contains(tOpponent)) {
+                  territoryOpponent = tOpponent;
+                }
+                else {  
+                j++;
+                }
+              } while(territoryOpponent.getOwner().equals(this));
+            }
+          }
+          else {
+          i++;
+          }
+        }
+        numberOfAttackDices = (territoryOwn.getNumberOfArmies()-1)%3+1;
+        if(territoryOpponent.getNumberOfArmies() >= 2) {
+          numberOfDefendDices = 2;
+        }
+        else {
+          numberOfDefendDices = 1;
+        }
+        Vector<Integer> attackerDices = Dice.rollDices(numberOfAttackDices);
+        Vector<Integer> defenderDices = Dice.rollDices(numberOfDefendDices);
+        
+        if(Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent, randomNumberOfArmies)) {
+          Main.b.updateLabelTerritory(territoryOwn);
+          Main.b.updateLabelTerritory(territoryOpponent);
+          territoryOpponent.setOwner(this);
+          Main.b.updateColorTerritory(territoryOpponent);
+        }
+        else {
+          Main.b.updateLabelTerritory(territoryOwn);
+          Main.b.updateLabelTerritory(territoryOpponent);
+        }
+      } while ());
+      
+      
+      
+    }
   }
 
   public void fortify() {
