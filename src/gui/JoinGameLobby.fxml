@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.HostGameLobbyController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.JoinGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
     <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" layoutX="-7.0" layoutY="-2.0" prefHeight="800.0" prefWidth="1280.0">
@@ -100,7 +108,7 @@
           <children>
             <GridPane prefHeight="800.0" prefWidth="267.0001220703125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
               <children>
-                <SplitPane dividerPositions="0.6751740139211136" focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <SplitPane focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <items>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="308.0">
                       <children>
@@ -109,15 +117,7 @@
                             <URL value="@HostGameLobby.css" />
                           </stylesheets>
                         </TextField>
-                      </children>
-                    </AnchorPane>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="143.0">
-                      <children>
-                        <Button fx:id="sendButton" layoutX="-4.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="45.0" prefWidth="147.0" styleClass="roundButton, circleButton, null" text="Send">
-                          <stylesheets>
-                            <URL value="@HostGameLobby.css" />
-                          </stylesheets>
-                        </Button>
+                                    <Button fx:id="sendButton1" layoutX="344.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
                       </children>
                     </AnchorPane>
                   </items>
@@ -130,7 +130,7 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </Label>
-                <TextArea fx:id="chatBox" blendMode="BLUE" prefWidth="200.0" styleClass="chatbox" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <TextArea fx:id="button" blendMode="BLUE" prefWidth="200.0" styleClass="chatbox" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <stylesheets>
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>

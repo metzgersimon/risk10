@@ -2,6 +2,7 @@ package main;
 
 import game.Game;
 import gui.BoardController;
+import gui.JoinGameLobbyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
   public static Game g = new Game();
   public static BoardController b;
-
+  
   public static Stage stage ;
 
   @Override
