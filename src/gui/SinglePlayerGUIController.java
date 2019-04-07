@@ -1,6 +1,8 @@
 package gui;
 
 import game.AiPlayerEasy;
+import game.AiPlayerHard;
+import game.AiPlayerMedium;
 import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +26,9 @@ public class SinglePlayerGUIController {
   private Slider difficulty;
 
   @FXML
+  private Button addAi;
+
+  @FXML
   void back(ActionEvent event) {
     Main.g.removePlayer();
     
@@ -38,6 +43,8 @@ public class SinglePlayerGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    Main.g.setPlayers(null);
+    startGame.setDisable(true);
   }
 
   @FXML
@@ -51,7 +58,7 @@ public class SinglePlayerGUIController {
       Main.b.setMain(this, Main.g);
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -64,10 +71,25 @@ public class SinglePlayerGUIController {
    * @author pcoberge
    */
   public void handleAddBot() {
+    startGame.setDisable(false);
     if (Main.g.getPlayers().size() < 6) {
-      Player p = new AiPlayerEasy();
+      Player p = null;
+      switch ((int) difficulty.getValue()) {
+        case (1):
+          p = new AiPlayerEasy();
+          break;
+        case (2):
+          p = new AiPlayerMedium();
+          break;
+        case (3):
+          p = new AiPlayerHard();
+          break;
+      }
       Main.g.addPlayer(p);
       System.out.println(p.getName());
+      if (Main.g.getPlayers().size() == 6) {
+        addAi.setDisable(true);
+      }
     }
   }
 }

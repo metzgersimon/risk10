@@ -314,7 +314,7 @@ public class BoardController {
   public void displayGameState() {
     Platform.runLater(new Runnable() {
       public void run() {
-        switch(Main.g.getGameState()) {
+        switch (Main.g.getGameState()) {
           case INITIALIZING_TERRITORY:
             gameState.setText("Choose your Territory!");
             progress = new ProgressBar(0.05);
@@ -338,15 +338,16 @@ public class BoardController {
         }
       }
     });
-   
-  }
-  
 
-  public void updateLabelTerritory(Territory t) {
+  }
+
+
+  public synchronized void updateLabelTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
-        t.getBoardRegion().getRegion().setEffect(new Glow(1));
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.5));
         t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+        t.getBoardRegion().getRegion().setEffect(new Lighting());
       }
     });
   }
@@ -354,7 +355,6 @@ public class BoardController {
   public void updateColorTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
-     
         t.getBoardRegion().getRegion().setBackground(new Background(new BackgroundFill(
             Main.g.getCurrentPlayer().getColor().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
       }
@@ -505,6 +505,7 @@ public class BoardController {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
+                r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
               }
               break;
@@ -522,6 +523,7 @@ public class BoardController {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
+                r.setEffect(new Lighting());
                 Main.g.furtherInitialArmyDistribution();
               }
               break;
@@ -537,7 +539,7 @@ public class BoardController {
                   setArmyPane.toFront();
                 }
               });
-            
+
               break;
 
             case ATTACK:
@@ -558,15 +560,15 @@ public class BoardController {
                         territory.getBoardRegion().getRegion().setDisable(true);
                       }
                     }
-                  } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
+                  } else if (selectedTerritory != null
+                      && selectedTerritory.getNeighbor().contains(t)) {
                     selectedTerritory_attacked = t;
                     diceSlider.setMax(t.getNumberOfArmies() - 1);
                     // ATTACK METHODE
                     /*
                      * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
-                     * armies);
-                     * selectedTerritory.getBoardRegion().getNumberOfArmy().setText(selectedTerritory.
-                     * getNumberOfArmies()+"");
+                     * armies); selectedTerritory.getBoardRegion().getNumberOfArmy().setText(
+                     * selectedTerritory. getNumberOfArmies()+"");
                      * t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");
                      */
 
@@ -576,7 +578,7 @@ public class BoardController {
                   }
                 }
               });
-              
+
               break;
 
             case FORTIFY:
@@ -646,7 +648,7 @@ public class BoardController {
         setArmyPane.toBack();
         grayPane.toBack();
         selectedTerritory.getBoardRegion().getRegion().setEffect(null);
-        if(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
+        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
           Main.g.setGameState(GameState.ATTACK);
           displayGameState();
         }
@@ -815,8 +817,9 @@ public class BoardController {
       right.getChildren().add(pane);
       pane.setStyle(null);
     }
-    if(!left.getChildren().isEmpty() && !center.getChildren().isEmpty() && !right.getChildren().isEmpty() && 
-        topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
+    if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
+        && !right.getChildren().isEmpty()
+        && topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
       tradeIn.setDisable(false);
     }
     return img;
@@ -901,14 +904,14 @@ public class BoardController {
             Main.g.setCard(topList.get(0));
             Main.g.setCard(topList.get(1));
             Main.g.setCard(topList.get(2));
-            
+
 
             String cards = Integer.toString(++tradedCards);
             tradedCardSets.setText(cards);
             topList.remove(0);
             topList.remove(1);
             topList.remove(2);
-            
+
             left.getChildren().remove(0);
             center.getChildren().remove(0);
             right.getChildren().remove(0);
@@ -1104,20 +1107,21 @@ public class BoardController {
    */
 
 
-//  @FXML
-//  public void changeTerritoryColor(ActionEvent e) {
-//    Region r = (Region) e.getSource();
-//    r.setDisable(false);
-//    r.setStyle(":hover -fx-background-color: yellow;");// +g.getCurrentPlayer().getColor().getRgbColor()+";");
-//
-//    // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
-//
-//    // String s = g.getTerritories().get(0).getName();
-//
-//    // r = g.getTerritories().getName();
-//    // r.setStyle("-fx-background-color: yellow;");
-//
-//  }
+  // @FXML
+  // public void changeTerritoryColor(ActionEvent e) {
+  // Region r = (Region) e.getSource();
+  // r.setDisable(false);
+  // r.setStyle(":hover -fx-background-color: yellow;");//
+  // +g.getCurrentPlayer().getColor().getRgbColor()+";");
+  //
+  // // r.setStyle("-fx-background-color: "+p.getColor().getColorO().toString().toLowerCase()+";");
+  //
+  // // String s = g.getTerritories().get(0).getName();
+  //
+  // // r = g.getTerritories().getName();
+  // // r.setStyle("-fx-background-color: yellow;");
+  //
+  // }
 
 
 

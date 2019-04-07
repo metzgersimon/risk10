@@ -72,11 +72,18 @@ public class Territory {
   public ArrayList<Territory> getHostileNeighbor() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();
     for (Territory t : this.getNeighbor()) {
-      if (!this.getOwner().equals(t.getOwner())) {
+      if (this.getOwner() == null || !this.getOwner().equals(t.getOwner())) {
         hostileNeighbor.add(t);
       }
     }
     return hostileNeighbor;
+  }
+
+  public ArrayList<Territory> getHostileNeighbor(Player p) {
+    this.setOwner(p);
+    ArrayList<Territory> territories = this.getHostileNeighbor();
+    this.setOwner(null);
+    return territories;
   }
 
   /**
