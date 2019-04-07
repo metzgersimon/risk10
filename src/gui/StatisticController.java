@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import game.Game;
 import game.Player;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import main.Main;
 
 
@@ -22,6 +26,9 @@ public class StatisticController {
   @FXML
   private TableView table;
   
+  public StatisticController() {
+    this.openStats();
+  }
   
   /**
    * creates a table with the end game statistics
@@ -51,6 +58,16 @@ public class StatisticController {
     
     for (Player x : Main.g.getPlayers()) {
       table.getItems().add(x);
+    }
+    
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+      Parent root = loader.load();
+      Stage stage = main.Main.stage;
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

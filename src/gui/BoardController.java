@@ -428,7 +428,8 @@ public class BoardController {
   public void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
       public void run() {
-        try {
+        StatisticController sc = new StatisticController();
+        /**  try {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
@@ -438,7 +439,7 @@ public class BoardController {
           // ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception e) {
           e.printStackTrace();
-        }
+        } */
       }
     });
   }
