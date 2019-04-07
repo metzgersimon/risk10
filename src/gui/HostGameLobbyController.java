@@ -33,7 +33,7 @@ public class HostGameLobbyController {
 
   /** text area in which all the players can see the message */
   @FXML
-  TextArea chatBox;
+  static TextArea chatBox;
 
   @FXML
   Button leaveGame;
@@ -137,5 +137,7 @@ public class HostGameLobbyController {
     }
     
   }
-  
+   public static void showMessage(String content) {
+     chatBox.appendText(content);
+   }
 }
