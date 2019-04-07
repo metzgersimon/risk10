@@ -28,6 +28,7 @@ public class MultiPlayerGUIController {
 
   @FXML
   void back(ActionEvent event) {
+    Main.g.removePlayer();
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -45,8 +46,8 @@ public class MultiPlayerGUIController {
   void hostGame(ActionEvent event) {
     try {
       //only to test connection
-      Main.g.hostGame(ProfileSelectionGUIController.player,HostGameGUIController.numberofPlayers);
-      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
+      // Main.g.hostGame(ProfileSelectionGUIController.player,HostGameGUIController.numberofPlayers);
+      // MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -63,8 +64,8 @@ public class MultiPlayerGUIController {
   void joinGame(ActionEvent event) {
     try {
     //only to test connection
-      Main.g.joinGame(ProfileSelectionGUIController.player);
-      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
+      // Main.g.joinGame(ProfileSelectionGUIController.player);
+      // MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;

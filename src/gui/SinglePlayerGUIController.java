@@ -25,6 +25,8 @@ public class SinglePlayerGUIController {
 
   @FXML
   void back(ActionEvent event) {
+    Main.g.removePlayer();
+    
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();

@@ -3,7 +3,6 @@ package main;
 import java.net.URL;
 import game.Game;
 import gui.BoardController;
-import gui.JoinGameLobbyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +16,7 @@ import javafx.stage.Stage;
  * @author liwang Main method to invoke LoginGUI
  */
 public class Main extends Application {
+
   public static Game g = new Game();
   public static BoardController b;
 

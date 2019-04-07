@@ -74,6 +74,21 @@ public class Game {
   }
 
   /**
+   * Reomove a new player from the list
+   * 
+   * @author liwang
+   * @param name
+   * @return
+   */
+  public void removePlayer() {
+    if (gameState == GameState.NEW_GAME) {
+      players.remove(players.size() - 1);
+    }
+  }
+
+
+
+  /**
    * Set the initial order of Players
    * 
    * @author liwang
