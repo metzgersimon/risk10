@@ -27,7 +27,7 @@
               <items>
                 <AnchorPane maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="347.0" styleClass="backgraound-color">
                   <children>
-                    <Button layoutX="65.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                    <Button fx:id="leaveGame" layoutX="65.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveGame" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
                         <DropShadow />
                       </effect>

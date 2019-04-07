@@ -3,10 +3,14 @@ package gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.client.GameFinder;
@@ -34,6 +38,23 @@ public class JoinGameLobbyController {
     client = Main.g.getGameFinder().getClient();
     client.sendMessage(m);
     button.appendText(client.getName() + "said" + message + "\n");
+  }
+/**
+ * @author qiychen
+ * @param back to host and join game page and close the thread
+ */
+  @FXML
+  void handleLeaveGame(ActionEvent event) {
+    try {
+      //Main.g.getGameFinder().closeConnection();
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }

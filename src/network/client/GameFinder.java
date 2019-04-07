@@ -57,6 +57,11 @@ public class GameFinder extends Thread {
       e.printStackTrace();
     }
   }
+  public void closeConnection() { 
+    this.client.disconnect();
+    this.interrupt();
+  
+  }
   
   public Client getClient() {
     return this.client;

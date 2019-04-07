@@ -146,7 +146,14 @@ public class Server extends Thread {
   public void stopServer() {
     if (!this.serverSocket.isClosed()) {
       System.out.println("stopping server....");
-      this.isRunning = false;
+      try {
+        this.serverSocket.close();
+        this.isRunning = false;
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    
     }
   }
 

@@ -93,6 +93,7 @@ public class HostGameLobbyController {
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
     try {
+      Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
