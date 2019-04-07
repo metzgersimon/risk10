@@ -740,6 +740,7 @@ public class BoardController {
 
   @FXML
   public void handleCardPane() {
+    gridCardPane.setVisible(true);
     double j = cardPane.getDividerPositions()[0];
     if (cardPane.getDividerPositions()[0] >= 0.9) {
       for (double i = cardPane.getDividerPositions()[0]; i >= 0; i -= j / 100.0) {
