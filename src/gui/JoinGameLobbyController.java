@@ -1,6 +1,7 @@
 package gui;
 
 
+import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,8 @@ public class JoinGameLobbyController {
   private TextArea button;
   private Client client;
 
+  private Game g;
+  
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
@@ -39,14 +42,15 @@ public class JoinGameLobbyController {
     client.sendMessage(m);
     button.appendText(client.getName() + "said" + message + "\n");
   }
-/**
- * @author qiychen
- * @param back to host and join game page and close the thread
- */
+
+  /**
+   * @author qiychen
+   * @param back to host and join game page and close the thread
+   */
   @FXML
   void handleLeaveGame(ActionEvent event) {
     try {
-      //Main.g.getGameFinder().closeConnection();
+      // Main.g.getGameFinder().closeConnection();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -55,6 +59,17 @@ public class JoinGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void setMain(Client client2, Game g) {
+    this.client = client2;
+    this.g = g;
+
+  }
+
+  public void showMessage(String content) {
+    button.appendText(content);
+    
   }
 
 }

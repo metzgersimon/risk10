@@ -3,6 +3,8 @@ package main;
 import java.net.URL;
 import game.Game;
 import gui.BoardController;
+import gui.HostGameLobbyController;
+import gui.JoinGameLobbyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +21,8 @@ public class Main extends Application {
 
   public static Game g = new Game();
   public static BoardController b;
+  public static HostGameLobbyController h;
+  public static JoinGameLobbyController j;
 
   public static Stage stage;
 

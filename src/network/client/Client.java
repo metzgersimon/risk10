@@ -9,6 +9,12 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import game.Player;
+import gui.HostGameGUIController;
+import gui.HostGameLobbyController;
+import gui.JoinGameLobbyController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import main.Main;
 import network.Parameter;
 import network.messages.JoinGameMessage;
 import network.messages.Message;
@@ -16,12 +22,17 @@ import network.messages.SendChatMessageMessage;
 
 public class Client extends Thread {
 
+
+
   private InetAddress address;
   private Socket s;
   private Player player;
   private ObjectInputStream fromServer;
   private ObjectOutputStream toServer;
   private boolean active;
+
+  private JoinGameLobbyController clientUi;
+  private HostGameLobbyController hostUi;
 
   public Client(InetAddress address) {
     this.address = address;
@@ -83,6 +94,13 @@ public class Client extends Thread {
    * handle incoming messages from server
    */
   public void transact() {
+    // clientUi = new JoinGameLobbyController();
+    // hostUi = new HostGameLobbyController();
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+    Main.j = loader.getController();
+    Main.j.setMain(this, Main.g);
+
     while (active) {
       try {
         Message message = (Message) fromServer.readObject();
@@ -91,6 +109,14 @@ public class Client extends Thread {
             String name = ((SendChatMessageMessage) message).getUsername();
             String content = ((SendChatMessageMessage) message).getMessage();
             System.out.println("from server: " + name + " " + content);
+            // clientUi.showMessage(content);
+            // main.Main.h.showMessage(content);
+            Main.j.showMessage(content);
+            System.out.println("client show " + content);
+            // hostUi.showMessage(content);
+            // main.Main.j.showMessage(content);
+            // hc.showMessage(content);
+            System.out.println("host show " + content);
             break;
           case LEAVE:
             break;
