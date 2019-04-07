@@ -1123,7 +1123,7 @@
                                        <children>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../ressources/gui/next.png" />
+                                                <Image url="@../ressources/gui/nextGameState.png" />
                                              </image>
                                           </ImageView>
                                        </children>
