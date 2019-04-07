@@ -36,6 +36,4 @@ public class JoinGameLobbyController {
     button.appendText(client.getName() + "said" + message + "\n");
   }
 
-
-
 }

@@ -55,6 +55,8 @@ public class ProfileSelectionGUIController {
 
   @FXML
   private Button createNewProfile;
+  
+  public static Player player;
 
 
 
@@ -94,15 +96,14 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void choose(MouseEvent event) {
+    
     String playerName = "something wrong";
     A: switch (((ImageView) event.getSource()).getId()) {
       case ("image1"):
         playerName = names[0];
-        System.out.println("the choosen name is " + playerName);
         break A;
       case ("image2"):
         playerName = names[1];
-        System.out.println("the choosen name is " + playerName);
         break;
       case ("image3"):
         playerName = names[2];
@@ -112,13 +113,12 @@ public class ProfileSelectionGUIController {
         break;
       case ("image5"):
         playerName = names[4];
-        System.out.println("the choosen name is " + playerName);
         break;
     }
 
-    System.out.println(playerName);
-    Player p = new Player(playerName, PlayerColor.BLUE);
-    Main.g.addPlayer(p);
+    // System.out.println(playerName);
+    player = new Player(playerName, PlayerColor.BLUE);
+    Main.g.addPlayer(player);
 
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
