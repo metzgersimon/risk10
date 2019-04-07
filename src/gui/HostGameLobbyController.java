@@ -33,7 +33,7 @@ public class HostGameLobbyController {
 
   /** text area in which all the players can see the message */
   @FXML
-  static TextArea chatBox;
+  TextArea chatBox;
 
   @FXML
   Button leaveGame;
@@ -48,21 +48,27 @@ public class HostGameLobbyController {
   Slider botLevel;
 
   /** check boxes shows the status of the joined player */
-  @FXML CheckBox hostBox;
-  @FXML CheckBox box1;
-  @FXML CheckBox box2;
-  @FXML CheckBox box3;
-  @FXML CheckBox box4;
-  @FXML CheckBox box5;
-  /**number of players the host want to play game with*/
+  @FXML
+  CheckBox hostBox;
+  @FXML
+  CheckBox box1;
+  @FXML
+  CheckBox box2;
+  @FXML
+  CheckBox box3;
+  @FXML
+  CheckBox box4;
+  @FXML
+  CheckBox box5;
+  /** number of players the host want to play game with */
   private int player = HostGameGUIController.numberofPlayers;
-  
- // private ArrayList<Player> players; // list of players/clients who will join the game
+
+  private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will join the game
   private static ArrayList<CheckBox> playerNames;
 
   public HostGameLobbyController() {
     // TODO Auto-generated constructor stub
-  //  enableTheBoxes();
+    // enableTheBoxes();
   }
 
   /** to handle the event when the button "send" is clicked */
@@ -86,7 +92,7 @@ public class HostGameLobbyController {
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
-    try {      
+    try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -131,13 +137,14 @@ public class HostGameLobbyController {
     playerNames.add(box3);
     playerNames.add(box4);
     playerNames.add(box5);
-//    hostBox.setSelected(true);
+    // hostBox.setSelected(true);
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
-        playerNames.get(i).setDisable(false);
+      playerNames.get(i).setDisable(false);
     }
-    
+
   }
-   public static void showMessage(String content) {
-     chatBox.appendText(content);
-   }
+
+  public void showMessage(String content) {
+    chatBox.appendText(content);
+  }
 }

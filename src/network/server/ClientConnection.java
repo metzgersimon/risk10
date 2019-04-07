@@ -42,6 +42,7 @@ public class ClientConnection extends Thread {
 
   /**
    * Constructor
+   * 
    * @author qiychen
    * @param s
    * @param server
@@ -112,7 +113,7 @@ public class ClientConnection extends Thread {
             this.sendMessagesToallClients(message);
             System.out.println(
                 "Message from client with the content " + content + " sent to all clients");
-            gui.HostGameLobbyController.showMessage(content);
+            // gui.HostGameLobbyController.showMessage(content);
             break;
           case SEND:
             break;
