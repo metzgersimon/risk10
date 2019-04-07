@@ -1,5 +1,6 @@
 package main;
 
+import java.net.URL;
 import game.Game;
 import gui.BoardController;
 import gui.JoinGameLobbyController;
@@ -7,6 +8,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 
@@ -16,8 +19,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
   public static Game g = new Game();
   public static BoardController b;
-  
-  public static Stage stage ;
+
+  public static Stage stage;
 
   @Override
   public void start(Stage primaryStage) {
@@ -35,6 +38,11 @@ public class Main extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    final URL resource = getClass().getResource("/ressources/gui/Demoth.mp3");
+    final Media media = new Media(resource.toString());
+    final MediaPlayer mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
   }
 
   public static void main(String[] args) {

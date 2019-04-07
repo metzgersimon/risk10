@@ -228,20 +228,26 @@ public class Game {
 
 
 
+  /**
+   * @param attacker
+   * @param defender
+   * @param attack
+   * @param defend
+   * @param numberOfAttackers
+   * @return true if attacker conquers the opponent territory
+   */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
     System.out.println(attacker);
     System.out.println(defender);
     switch (defender.size()) {
       case (2):
-        System.out.println(attacker.get(attacker.size() - 2) + " " + defender.get(1));
         if (attacker.get(attacker.size() - 2) > defender.get(1)) {
           defend.setNumberOfArmies(-1);
         } else {
           attack.setNumberOfArmies(-1);
         }
       case (1):
-        System.out.println(attacker.get(attacker.size() - 1) + " " + defender.get(0));
         if (attacker.get(attacker.size() - 1) > defender.get(0)) {
           defend.setNumberOfArmies(-1);
         } else {
