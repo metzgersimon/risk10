@@ -583,6 +583,15 @@ public class Game {
     return (this.currentPlayer = players.get(0));
   }
 
+  public Player getNextPlayer() {
+    for (int i = 0; i < players.size() - 1; i++) {
+      if (players.get(i).equals(currentPlayer)) {
+        return this.players.get(i + 1);
+      }
+    }
+    return players.get(0);
+  }
+
   /**
    * @author smetzger
    * @author pcoberge

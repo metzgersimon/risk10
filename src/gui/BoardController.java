@@ -355,8 +355,9 @@ public class BoardController {
   public void updateColorTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
-        t.getBoardRegion().getRegion().setBackground(new Background(new BackgroundFill(
-            Main.g.getCurrentPlayer().getColor().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        t.getBoardRegion().getRegion()
+            .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
+                CornerRadii.EMPTY, Insets.EMPTY)));
       }
     });
   }
@@ -429,17 +430,14 @@ public class BoardController {
     Platform.runLater(new Runnable() {
       public void run() {
         StatisticController sc = new StatisticController();
-        /**  try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Stage stage = main.Main.stage;
-          // stage.setTitle("Board");
-          stage.setScene(new Scene(root));
-          stage.show();
-          // ((Node) event.getSource()).getScene().getWindow().hide();
-        } catch (Exception e) {
-          e.printStackTrace();
-        } */
+        /**
+         * try { FXMLLoader fxmlLoader = new
+         * FXMLLoader(getClass().getResource("StatisticGUI.fxml")); Parent root = (Parent)
+         * fxmlLoader.load(); Stage stage = main.Main.stage; // stage.setTitle("Board");
+         * stage.setScene(new Scene(root)); stage.show(); // ((Node)
+         * event.getSource()).getScene().getWindow().hide(); } catch (Exception e) {
+         * e.printStackTrace(); }
+         */
       }
     });
   }
