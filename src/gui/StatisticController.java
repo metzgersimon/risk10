@@ -3,6 +3,8 @@ package gui;
 import java.util.ArrayList;
 import game.Game;
 import game.Player;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,9 +28,7 @@ public class StatisticController {
   @FXML
   private TableView table;
   
-  public StatisticController() {
-    this.openStats();
-  }
+
   
   /**
    * creates a table with the end game statistics
@@ -38,11 +38,11 @@ public class StatisticController {
 
     table = new TableView();
 
-    TableColumn<String, Player> c1 = new TableColumn<>("Rank");
-    TableColumn<String, Player> c2 = new TableColumn<>("Name");
-    TableColumn<String, Player> c3 = new TableColumn<>("Attacks");
-    TableColumn<String, Player> c4 = new TableColumn<>("T conquered");
-    TableColumn<String, Player> c5 = new TableColumn<>("Session Wins");
+    TableColumn<Player, Integer> c1 = new TableColumn<>("Rank");
+    TableColumn<Player, String> c2 = new TableColumn<>("Name");
+    TableColumn<Player, Integer> c3 = new TableColumn<>("Attacks");
+    TableColumn<Player, Integer> c4 = new TableColumn<>("T conquered");
+    TableColumn<Player, Integer> c5 = new TableColumn<>("Session Wins");
 
     c1.setCellValueFactory(new PropertyValueFactory<>("rank"));
     c2.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -50,25 +50,15 @@ public class StatisticController {
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
     
+    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());   
+    table.setItems(playerList);
+    
     table.getColumns().add(c1);
     table.getColumns().add(c2);
     table.getColumns().add(c3);
     table.getColumns().add(c4);
     table.getColumns().add(c5);
-    
-    for (Player x : Main.g.getPlayers()) {
-      table.getItems().add(x);
-    }
-    
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
-      Parent root = loader.load();
-      Stage stage = main.Main.stage;
-      stage.setScene(new Scene(root));
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+   
   }
 
 }

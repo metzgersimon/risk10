@@ -430,14 +430,18 @@ public class BoardController {
     Platform.runLater(new Runnable() {
       public void run() {
         StatisticController sc = new StatisticController();
-        /**
-         * try { FXMLLoader fxmlLoader = new
-         * FXMLLoader(getClass().getResource("StatisticGUI.fxml")); Parent root = (Parent)
-         * fxmlLoader.load(); Stage stage = main.Main.stage; // stage.setTitle("Board");
-         * stage.setScene(new Scene(root)); stage.show(); // ((Node)
-         * event.getSource()).getScene().getWindow().hide(); } catch (Exception e) {
-         * e.printStackTrace(); }
-         */
+        sc.openStats();
+          try {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          // stage.setTitle("Board");
+          stage.setScene(new Scene(root));
+          stage.show();
+          // ((Node) event.getSource()).getScene().getWindow().hide();
+        } catch (Exception e) {
+          e.printStackTrace();
+        } 
       }
     });
   }
