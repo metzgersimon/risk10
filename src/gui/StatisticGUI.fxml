@@ -27,9 +27,9 @@
       <TableView fx:id="table" layoutX="275.0" layoutY="237.0" prefHeight="392.0" prefWidth="730.0">
          <columns>
             <TableColumn fx:id="c1" prefWidth="75.0" text="Rank" />
-            <TableColumn fx:id="c2" prefWidth="166.0" text="Player" />
-            <TableColumn fx:id="c3" prefWidth="149.0" text="#Attacks" />
-            <TableColumn fx:id="c4" prefWidth="105.0" text="#T. Conquered" />
+            <TableColumn fx:id="c2" prefWidth="200.0" text="Player" />
+            <TableColumn fx:id="c3" prefWidth="149.0" text="Attacks" />
+            <TableColumn fx:id="c4" minWidth="20.0" prefWidth="170.0" text="Territories Conquered" />
             <TableColumn fx:id="c5" prefWidth="133.0" text="Session wins" />
          </columns>
       </TableView>
