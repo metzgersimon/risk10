@@ -532,6 +532,8 @@ public class BoardController {
               break;
 
             case ARMY_DISTRIBUTION:
+              Main.g.getCurrentPlayer().computeAdditionalNumberOfArmies();
+//              Main.g.getCurrentPlayer().setNumberArmiesToDistribute(armies);
               System.out.println(g.getCurrentPlayer().getNumberArmiesToDistibute());
               Platform.runLater(new Runnable() {
                 public void run() {
@@ -566,7 +568,7 @@ public class BoardController {
                   } else if (selectedTerritory != null
                       && selectedTerritory.getNeighbor().contains(t)) {
                     selectedTerritory_attacked = t;
-                    diceSlider.setMax(t.getNumberOfArmies() - 1);
+                    diceSlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
                     // ATTACK METHODE
                     /*
                      * int armies=(int) setArmySlider.getValue(); g.attack(selectedTerritory, t,
@@ -674,20 +676,27 @@ public class BoardController {
     int numberDicesOpponent = selectedTerritory_attacked.getNumberOfArmies() > 1 ? 2 : 1;
     Vector<Integer> attacker = Dice.rollDices(numberOfDices);
     Vector<Integer> defender = Dice.rollDices(numberDicesOpponent);
-    attackDice1.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
+//    attackDice1 = getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png")
+    attackDice1.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png").toString(), true));
+//    attackDice1.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
     if (attacker.size() > 2) {
-      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
-      attackDice3.setImage(new Image("dice_" + attacker.get(attacker.size() - 2) + "_RED.png"));
+      attackDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png").toString(), true));
+//      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
+      attackDice3.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 2) + "_RED.png").toString(), true));
+//      attackDice3.setImage(new Image("dice_" + attacker.get(attacker.size() - 2) + "_RED.png"));
     } else if (attacker.size() == 2) {
-      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 3) + "_RED.png"));
+//      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 3) + "_RED.png"));
+      attackDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 3) + "_RED.png").toString(), true));
       attackDice3.setVisible(false);
     } else {
       attackDice2.setVisible(false);
       attackDice3.setVisible(false);
     }
-    defendDice1.setImage(new Image("dice_" + defender.get(defender.size() - 1) + "_BLUE.png"));
+//    defendDice1.setImage(new Image("dice_" + defender.get(defender.size() - 1) + "_BLUE.png"));
+    defendDice1.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + defender.get(defender.size() - 1) + "_BLUE.png").toString(), true));
     if (defender.size() == 2) {
-      defendDice2.setImage(new Image("dice_" + defender.get(defender.size() - 2) + "_BLUE.png"));
+//      defendDice2.setImage(new Image("dice_" + defender.get(defender.size() - 2) + "_BLUE.png"));
+      defendDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + defender.get(defender.size() - 2) + "_BLUE.png").toString(), true));
     } else {
       defendDice2.setVisible(false);
     }
