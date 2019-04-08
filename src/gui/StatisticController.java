@@ -1,5 +1,8 @@
 package gui;
 
+
+
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -10,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -26,7 +30,7 @@ import main.Main;
  *
  */
 
-public class StatisticController {
+public class StatisticController implements Initializable{
 
   @FXML
   private TableView<Player> table;
@@ -51,8 +55,8 @@ public class StatisticController {
    * creates a table with the end game statistics
    * 
    */
-  public void intialize() {
-    System.out.println("Test");
+  @Override
+  public void initialize(URL arg0, ResourceBundle arg1) {
     /**
     TableColumn<Player, Integer> c1 = new TableColumn<>("Rank");
     TableColumn<Player, String> c2 = new TableColumn<>("Name");
@@ -66,10 +70,8 @@ public class StatisticController {
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
     
-    ArrayList<Player> testList = new ArrayList<Player>();
-    testList.add(new Player("Preston", 10, PlayerColor.BLUE));
-    
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());   
+    System.out.println("Size of playerList: " + playerList.size());
     table.setItems(playerList);
     
     table.getColumns().add(c1);
@@ -77,7 +79,7 @@ public class StatisticController {
     table.getColumns().add(c3);
     table.getColumns().add(c4);
     table.getColumns().add(c5);
-   
+    
   }
 
 }
