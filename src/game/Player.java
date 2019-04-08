@@ -31,10 +31,10 @@ public class Player {
   private int numberOfTerritories;
   private int numberOfCards;
   private int valueActuallyTradedIn;
-  public static int territoriesConquered;
-  public static int numberOfAttacks;
-  public static int rank;
-  public static int sessionWins;
+  public int territoriesConquered;
+  public int numberOfAttacks;
+  public int rank;
+  public int sessionWins;
 
   /**
    * create a new player
@@ -54,10 +54,10 @@ public class Player {
     this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
-    territoriesConquered = 0;
-    numberOfAttacks = 0;
-    rank = 0;
-    sessionWins = 0;
+    this.territoriesConquered = 1;
+    this.numberOfAttacks = 0;
+    this.rank = 0;
+    this.sessionWins = 0;
   }
 
   public Player(String name, PlayerColor color) {
@@ -70,6 +70,10 @@ public class Player {
     this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
+    this.territoriesConquered = 0;
+    this.numberOfAttacks = 0;
+    this.rank = (int)(Math.random()*6);
+    this.sessionWins = 0;
   }
 
   public String getName() {
@@ -143,16 +147,32 @@ public class Player {
     return rank;
   }
   
+  public void setRank(int rank) {
+    this.rank = rank;  
+  }
+  
   public int getNumberOfAttacks() {
     return numberOfAttacks;
+  }
+  
+  public void setNumberOfAttacks(int attacks) {
+    this.numberOfAttacks = attacks;
   }
   
   public int getTerritoriesConquered() {
     return territoriesConquered;
   }
   
+  public void setTerritoriesConquered(int tc) {
+    this.territoriesConquered = tc;
+  }
+  
   public int getSessionWins() {
     return sessionWins;
+  }
+  
+  public void setSessionWins(int sw) {
+    this.sessionWins = sw;
   }
 
   /**

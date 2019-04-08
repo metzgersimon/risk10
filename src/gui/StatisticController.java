@@ -65,9 +65,11 @@ public class StatisticController implements Initializable{
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
     
+    c1.setSortType(TableColumn.SortType.ASCENDING);
+    
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());   
-    System.out.println("Size of playerList: " + playerList.size());
     table.setItems(playerList);
+    table.getSortOrder().add(c1);
     
   }
 
