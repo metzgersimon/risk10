@@ -63,16 +63,14 @@ public class MultiPlayerGUIController {
 
   @FXML
   void joinGame(ActionEvent event) {
+    FXMLLoader fxmlLoader = null;
     try {
       // only to test connection
       Main.g.joinGame(ProfileSelectionGUIController.player);
       MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      JoinGameLobbyController controller = fxmlLoader.getController();
-
-      Client client = Main.g.getGameFinder().getClient();
-      client.setController(controller);
+      
       Stage stage = main.Main.stage;
       stage.setTitle("Game Lobby");
       stage.setScene(new Scene(root));
@@ -82,6 +80,9 @@ public class MultiPlayerGUIController {
       System.out.println("Can't load JoinGameLobbyGUI.fxml");
       e.printStackTrace();
     }
+    JoinGameLobbyController controller = fxmlLoader.getController();
+    Client client = Main.g.getGameFinder().getClient();
+    client.setController(controller);
   }
 
 }
