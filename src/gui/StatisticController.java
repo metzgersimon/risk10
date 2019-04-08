@@ -3,6 +3,7 @@ package gui;
 
 
 
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -57,13 +58,7 @@ public class StatisticController implements Initializable{
    */
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
-    /**
-    TableColumn<Player, Integer> c1 = new TableColumn<>("Rank");
-    TableColumn<Player, String> c2 = new TableColumn<>("Name");
-    TableColumn<Player, Integer> c3 = new TableColumn<>("Attacks");
-    TableColumn<Player, Integer> c4 = new TableColumn<>("T conquered");
-    TableColumn<Player, Integer> c5 = new TableColumn<>("Session Wins");
-*/
+
     c1.setCellValueFactory(new PropertyValueFactory<>("rank"));
     c2.setCellValueFactory(new PropertyValueFactory<>("name"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfAttacks"));
@@ -73,12 +68,6 @@ public class StatisticController implements Initializable{
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());   
     System.out.println("Size of playerList: " + playerList.size());
     table.setItems(playerList);
-    
-    table.getColumns().add(c1);
-    table.getColumns().add(c2);
-    table.getColumns().add(c3);
-    table.getColumns().add(c4);
-    table.getColumns().add(c5);
     
   }
 
