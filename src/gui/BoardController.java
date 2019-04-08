@@ -434,8 +434,6 @@ public class BoardController {
   public void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
       public void run() {
-        StatisticController sc = new StatisticController();
-        sc.openStats();
         try {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
