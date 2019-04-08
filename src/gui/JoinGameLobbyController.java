@@ -30,10 +30,11 @@ public class JoinGameLobbyController {
 
   @FXML
   private TextArea button;
-  private Client client;
+  private Client client = Main.g.getGameFinder().getClient();;
 
   private Game g;
-  
+
+
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
@@ -64,12 +65,11 @@ public class JoinGameLobbyController {
   public void setMain(Client client2, Game g) {
     this.client = client2;
     this.g = g;
-
   }
 
   public void showMessage(String content) {
     button.appendText(content);
-    
+
   }
 
 }

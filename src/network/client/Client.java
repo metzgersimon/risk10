@@ -14,6 +14,8 @@ import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import main.Main;
 import network.Parameter;
 import network.messages.JoinGameMessage;
@@ -31,8 +33,8 @@ public class Client extends Thread {
   private ObjectOutputStream toServer;
   private boolean active;
 
-  private JoinGameLobbyController clientUi;
-  private HostGameLobbyController hostUi;
+  private JoinGameLobbyController controller = null;
+  // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address) {
     this.address = address;
@@ -90,6 +92,10 @@ public class Client extends Thread {
     // To get response
   }
 
+  public void setController(JoinGameLobbyController controller) {
+    this.controller = controller;
+  }
+
   /**
    * handle incoming messages from server
    */
@@ -97,9 +103,9 @@ public class Client extends Thread {
     // clientUi = new JoinGameLobbyController();
     // hostUi = new HostGameLobbyController();
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-    Main.j = loader.getController();
-    Main.j.setMain(this, Main.g);
+    // FXMLLoader loader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+    // Main.j = loader.getController();
+    // Main.j.setMain(this, Main.g);
 
     while (active) {
       try {
@@ -111,12 +117,18 @@ public class Client extends Thread {
             System.out.println("from server: " + name + " " + content);
             // clientUi.showMessage(content);
             // main.Main.h.showMessage(content);
-            Main.j.showMessage(content);
+            // Main.j.showMessage(content);
             System.out.println("client show " + content);
             // hostUi.showMessage(content);
             // main.Main.j.showMessage(content);
             // hc.showMessage(content);
             System.out.println("host show " + content);
+            controller.showMessage(content);
+            // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
+            // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+            // Parent root = (Parent) fxmlLoader.load();
+            // TextArea chat = (TextArea) root.lookup("#lblData");
+            // chat.appendText(content);
             break;
           case LEAVE:
             break;

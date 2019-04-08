@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.Main;
+import network.client.Client;
 
 public class MultiPlayerGUIController {
 
@@ -68,6 +69,10 @@ public class MultiPlayerGUIController {
       MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
+      JoinGameLobbyController controller = fxmlLoader.getController();
+
+      Client client = Main.g.getGameFinder().getClient();
+      client.setController(controller);
       Stage stage = main.Main.stage;
       stage.setTitle("Game Lobby");
       stage.setScene(new Scene(root));
