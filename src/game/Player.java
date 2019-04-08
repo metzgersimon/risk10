@@ -138,6 +138,22 @@ public class Player {
   public void setNumberOfCards(int numberOfCards) {
     this.numberOfCards = numberOfCards;
   }
+  
+  public int getRank() {
+    return rank;
+  }
+  
+  public int getNumberOfAttacks() {
+    return numberOfAttacks;
+  }
+  
+  public int getTerritoriesConquered() {
+    return territoriesConquered;
+  }
+  
+  public int getSessionWins() {
+    return sessionWins;
+  }
 
   /**
    * 
