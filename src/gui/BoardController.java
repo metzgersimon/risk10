@@ -64,6 +64,7 @@ public class BoardController {
 
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
+  private int numberOfDices;
   private static int tradedCards = 0;
   private CardDeck deck = new CardDeck();
   // Views
@@ -362,6 +363,10 @@ public class BoardController {
     });
   }
 
+  public void updateDiceSlider(Territory t) {
+    this.diceSlider.setMax(t.getNumberOfArmies() - 1);
+  }
+
   /**
    * @author smetzger
    * @author pcoberge
@@ -371,8 +376,8 @@ public class BoardController {
   public void prepareAttack() {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
-        t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
         t.getBoardRegion().getRegion().setDisable(false);
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.3));
       } else {
         t.getBoardRegion().getRegion().setDisable(true);
       }
@@ -431,7 +436,7 @@ public class BoardController {
       public void run() {
         StatisticController sc = new StatisticController();
         sc.openStats();
-          try {
+        try {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
@@ -441,7 +446,7 @@ public class BoardController {
           // ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception e) {
           e.printStackTrace();
-        } 
+        }
       }
     });
   }
@@ -533,7 +538,7 @@ public class BoardController {
 
             case ARMY_DISTRIBUTION:
               Main.g.getCurrentPlayer().computeAdditionalNumberOfArmies();
-//              Main.g.getCurrentPlayer().setNumberArmiesToDistribute(armies);
+              // Main.g.getCurrentPlayer().setNumberArmiesToDistribute(armies);
               System.out.println(g.getCurrentPlayer().getNumberArmiesToDistibute());
               Platform.runLater(new Runnable() {
                 public void run() {
@@ -550,21 +555,25 @@ public class BoardController {
             case ATTACK:
               Platform.runLater(new Runnable() {
                 public void run() {
+                  System.out.println(t);
                   if (selectedTerritory == null) {
                     selectedTerritory = t;
                     r.setEffect(new Lighting());
                     for (Territory territory : t.getNeighbor()) {
                       if (!territory.getOwner().equals(t.getOwner())) {
                         territory.getBoardRegion().getRegion().setEffect(new Glow(0.5));
-                        territory.getBoardRegion().getRegion().getStyleClass()
-                            .add(":hover -fx-background-color: yellow;");
-                      }
-                    }
-                    for (Territory territory : g.getWorld().getTerritories().values()) {
-                      if (territory.getBoardRegion().getRegion().getEffect() == null) {
+                        territory.getBoardRegion().getRegion().setDisable(false);
+                        // territory.getBoardRegion().getRegion().getStyleClass()
+                        // .add(":hover -fx-background-color: yellow;");
+                      } else {
                         territory.getBoardRegion().getRegion().setDisable(true);
                       }
                     }
+                    // for (Territory territory : g.getWorld().getTerritories().values()) {
+                    // if (territory.getBoardRegion().getRegion().getEffect() == null) {
+                    // territory.getBoardRegion().getRegion().setDisable(true);
+                    // }
+                    // }
                   } else if (selectedTerritory != null
                       && selectedTerritory.getNeighbor().contains(t)) {
                     selectedTerritory_attacked = t;
@@ -577,6 +586,14 @@ public class BoardController {
                      * t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies()+"");
                      */
 
+                    int numberOfDicesOpponent =
+                        selectedTerritory_attacked.getNumberOfArmies() >= 2 ? 2 : 1;
+                    switch (numberOfDicesOpponent) {
+                      case (1):
+                        defendDice1.setVisible(true);
+                      case (2):
+                        defendDice2.setVisible(true);
+                    }
                     // open pop-up with Dices
                     grayPane.toFront();
                     dicePane.toFront();
@@ -623,8 +640,11 @@ public class BoardController {
     Platform.runLater(new Runnable() {
       public void run() {
         for (Territory t : g.getWorld().getTerritories().values()) {
-          t.getBoardRegion().getRegion().setEffect(null);
-          t.getBoardRegion().getRegion().setDisable(false);
+          t.getBoardRegion().getRegion().setEffect(new Lighting());
+          t.getBoardRegion().getRegion().setDisable(true);
+          if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
+            t.getBoardRegion().getRegion().setDisable(false);
+          }
         }
         selectedTerritory_attacked = null;
         selectedTerritory = null;
@@ -655,51 +675,66 @@ public class BoardController {
         selectedTerritory.getBoardRegion().getRegion().setEffect(null);
         if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
           Main.g.setGameState(GameState.ATTACK);
+          prepareAttack();
           displayGameState();
         }
       }
     });
   }
 
-  public void throwDices() {
-    int numberOfDices = 0;
+  public void handleNumberOfDices(MouseEvent e) {
     switch ((int) diceSlider.getValue()) {
       case (1):
-        numberOfDices = 1;
+        attackDice1.setVisible(true);
+        this.numberOfDices = 1;
         break;
       case (2):
-        numberOfDices = 2;
+        attackDice2.setVisible(true);
+        this.numberOfDices = 2;
         break;
       default:
-        numberOfDices = 3;
+        this.numberOfDices = 3;
+        attackDice3.setVisible(true);
     }
+  }
+
+  public void throwDices() {
     int numberDicesOpponent = selectedTerritory_attacked.getNumberOfArmies() > 1 ? 2 : 1;
     Vector<Integer> attacker = Dice.rollDices(numberOfDices);
     Vector<Integer> defender = Dice.rollDices(numberDicesOpponent);
-//    attackDice1 = getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png")
-    attackDice1.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png").toString(), true));
-//    attackDice1.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
+    System.out.println(attacker.size());
+    attackDice1.setImage(new Image(getClass()
+        .getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png")
+        .toString(), true));
+    if (attacker.size() >= 2) {
+      attackDice2.setImage(new Image(getClass()
+          .getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 2) + "_RED.png")
+          .toString(), true));
+      // attackDice3.setImage(new Image(getClass()
+      // .getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 2) + "_RED.png")
+      // .toString(), true));
+    }
     if (attacker.size() > 2) {
-      attackDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 1) + "_RED.png").toString(), true));
-//      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 1) + "_RED.png"));
-      attackDice3.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 2) + "_RED.png").toString(), true));
-//      attackDice3.setImage(new Image("dice_" + attacker.get(attacker.size() - 2) + "_RED.png"));
-    } else if (attacker.size() == 2) {
-//      attackDice2.setImage(new Image("dice_" + attacker.get(attacker.size() - 3) + "_RED.png"));
-      attackDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 3) + "_RED.png").toString(), true));
-      attackDice3.setVisible(false);
-    } else {
-      attackDice2.setVisible(false);
-      attackDice3.setVisible(false);
+      attackDice3.setImage(new Image(getClass()
+          .getResource("/ressources/dices/dice_" + attacker.get(attacker.size() - 3) + "_RED.png")
+          .toString(), true));
+      // attackDice3.setVisible(false);
     }
-//    defendDice1.setImage(new Image("dice_" + defender.get(defender.size() - 1) + "_BLUE.png"));
-    defendDice1.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + defender.get(defender.size() - 1) + "_BLUE.png").toString(), true));
+    // else {
+    // attackDice2.setVisible(false);
+    // attackDice3.setVisible(false);
+    // }
+    defendDice1.setImage(new Image(getClass()
+        .getResource("/ressources/dices/dice_" + defender.get(defender.size() - 1) + "_BLUE.png")
+        .toString(), true));
     if (defender.size() == 2) {
-//      defendDice2.setImage(new Image("dice_" + defender.get(defender.size() - 2) + "_BLUE.png"));
-      defendDice2.setImage(new Image(getClass().getResource("/ressources/dices/dice_" + defender.get(defender.size() - 2) + "_BLUE.png").toString(), true));
-    } else {
-      defendDice2.setVisible(false);
+      defendDice2.setImage(new Image(getClass()
+          .getResource("/ressources/dices/dice_" + defender.get(defender.size() - 2) + "_BLUE.png")
+          .toString(), true));
     }
+    // else {
+    // defendDice2.setVisible(false);
+    // }
 
     if (g.attack(attacker, defender, selectedTerritory, selectedTerritory_attacked,
         (int) diceSlider.getValue())) {

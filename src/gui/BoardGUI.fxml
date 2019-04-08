@@ -126,7 +126,7 @@
                                     </Pane>
                                  </children>
                               </GridPane>
-                              <Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+                              <Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" onDragDone="#handleNumberOfDices" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>

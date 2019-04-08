@@ -253,14 +253,14 @@ public class Game {
    */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
-    System.out.println(attacker);
-    System.out.println(defender);
     switch (defender.size()) {
       case (2):
-        if (attacker.get(attacker.size() - 2) > defender.get(1)) {
-          defend.setNumberOfArmies(-1);
-        } else {
-          attack.setNumberOfArmies(-1);
+        if (attacker.size() >= 2) {
+          if (attacker.get(attacker.size() - 2) > defender.get(1)) {
+            defend.setNumberOfArmies(-1);
+          } else {
+            attack.setNumberOfArmies(-1);
+          }
         }
       case (1):
         if (attacker.get(attacker.size() - 1) > defender.get(0)) {
@@ -268,7 +268,6 @@ public class Game {
         } else {
           attack.setNumberOfArmies(-1);
         }
-        System.out.println();
     }
 
     if (defend.getNumberOfArmies() == 0) {
@@ -280,6 +279,7 @@ public class Game {
       checkAllPlayers();
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
+      Main.b.updateColorTerritory(defend);
       if (!this.getPlayers().contains(p)) {
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
@@ -290,6 +290,7 @@ public class Game {
       }
       return true;
     } else {
+      Main.b.updateDiceSlider(attack);
       updateLiveStatistics();
       return false;
     }
