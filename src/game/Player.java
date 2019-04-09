@@ -338,6 +338,7 @@ public class Player {
    *         Precondition: only own territories can be chosen, player has enough armies left
    */
   public boolean armyDistribution(int amount, Territory t) {
+//    this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
       this.numberArmiesToDistribute -= amount;
@@ -346,6 +347,11 @@ public class Player {
       return false;
     }
   }
+  
+  public int totalArmiesToDistribute() {
+    return this.numberArmiesToDistribute + computeAdditionalNumberOfArmies();
+  }
+  
 
   /**
    * @author liwang

@@ -81,7 +81,7 @@
                                  <children>
                                     <Pane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_6_RED.png" />
                                              </image>
@@ -90,7 +90,7 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                        <children>
-                                          <ImageView fx:id="defendDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="defendDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_6_BLUE.png" />
                                              </image>
@@ -99,7 +99,7 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                        <children>
-                                          <ImageView fx:id="attackDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="attackDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_6_RED.png" />
                                              </image>
@@ -108,7 +108,7 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
-                                          <ImageView fx:id="defendDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="defendDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_2_BLUE.png" />
                                              </image>
@@ -117,7 +117,7 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                        <children>
-                                          <ImageView fx:id="attackDice3" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="attackDice3" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_3_RED.png" />
                                              </image>
@@ -126,7 +126,7 @@
                                     </Pane>
                                  </children>
                               </GridPane>
-                              <Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" onDragDone="#handleNumberOfDices" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+                              <Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -1284,7 +1284,7 @@
                <center>
                   <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
                      <content>
-                        <ListView disable="true" style="-fx-background-color: white;" />
+                        <ListView disable="false" style="-fx-background-color: white;" />
                      </content>
                   </ScrollPane>
                </center>

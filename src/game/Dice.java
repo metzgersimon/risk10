@@ -158,7 +158,11 @@ public class Dice {
     for (int i = 0; i < numberOfDices; i++) {
      rolledNumbers.add(rollSingleDice());
     }
-    Collections.sort(rolledNumbers);
+    Collections.sort(rolledNumbers,  Collections.reverseOrder());
+//    Collections.sort(rolledNumbers);
+//    for(int x: rolledNumbers) {
+//      System.out.println(rolledNumbers.get(x));
+//    }
     return rolledNumbers;
   }
 

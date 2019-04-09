@@ -54,7 +54,6 @@ public class AiPlayerEasy extends Player implements AiPlayer {
           territory = t;
           break;
         } else {
-          System.out.println("ELSE" + i);
           i++;
         }
       }

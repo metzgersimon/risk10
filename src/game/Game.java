@@ -256,14 +256,16 @@ public class Game {
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
-          if (attacker.get(attacker.size() - 2) > defender.get(1)) {
+          System.out.println("Case2: attacker: "+attacker.get(1)+ " defender: "+defender.get(1));;
+          if (attacker.get(1) > defender.get(1)) {
             defend.setNumberOfArmies(-1);
           } else {
             attack.setNumberOfArmies(-1);
           }
         }
       case (1):
-        if (attacker.get(attacker.size() - 1) > defender.get(0)) {
+        System.out.println("Case1: attacker: "+attacker.get(0)+ " defender: "+defender.get(0));;
+        if (attacker.get(0) > defender.get(0)) {
           defend.setNumberOfArmies(-1);
         } else {
           attack.setNumberOfArmies(-1);
@@ -271,6 +273,7 @@ public class Game {
     }
 
     if (defend.getNumberOfArmies() == 0) {
+      System.out.println("defending territory is dead.");
       Player p = defend.getOwner();
       p.getTerritories().remove(defend);
       defend.setOwner(attack.getOwner());
@@ -296,175 +299,7 @@ public class Game {
     }
   }
 
-  // /**
-  // *
-  // * @param attack territory
-  // * @param defend territory
-  // * @param attack with a number of armies
-  // * @return Owner from defend territory
-  // */
-  // public Territory attack(Territory attack, Territory defend, int armies) {
-  // this.attackWon = 0;
-  // this.defendWon = 0;
-  // Territory winner = defend;
-  // if (gameState == GameState.ATTACK) {
-  // HashSet<Territory> neigbors = attack.getNeighbor();
-  // if (attack.getOwner() == currentPlayer && defend.getOwner() != currentPlayer
-  // && neigbors.contains(defend) && attack.getNumberOfArmies() > 1) {
-  //
-  // int attackTotalarmies = attack.getNumberOfArmies();
-  // int defendTotalarmies = defend.getNumberOfArmies();
-  // // row the dice
-  // int attackDiceTimes = this.rollDiceTimes(armies, "attack");
-  // int defendDiceTimes = this.rollDiceTimes(defendTotalarmies, "defend");
-  // // if the both sides roll same times
-  // if (attackDiceTimes == defendDiceTimes) {
-  // int remainingAttackArmies = armies;
-  // int remainingDefendArmies = defendTotalarmies;
-  // for (int i = 0; i < attackDiceTimes; i++) {
-  // if (remainingAttackArmies > 3 && remainingDefendArmies > 2) {
-  // this.rollDices(3, 2);
-  // remainingAttackArmies -= 3;
-  // remainingDefendArmies -= 2;
-  // } else {
-  // this.rollDices(remainingAttackArmies, remainingDefendArmies);
-  // }
-  // }
-  // // attack side rolls more
-  // } else if (attackDiceTimes > defendDiceTimes) {
-  // int remainingAttackArmies = armies;
-  // int remainingDefendArmies = defendTotalarmies;
-  // for (int i = 0; i < attackDiceTimes; i++) {
-  // if (remainingAttackArmies > 3 && remainingDefendArmies >= 2) {
-  // this.rollDices(3, 2);
-  // remainingAttackArmies -= 3;
-  // remainingDefendArmies -= 2;
-  // } else if (remainingAttackArmies > 3 && remainingDefendArmies == 1) {
-  // this.rollDices(3, 1);
-  // remainingAttackArmies -= 3;
-  // remainingDefendArmies -= 1;
-  // } else {
-  // attackWon += remainingAttackArmies;
-  // }
-  // }
-  // } else {
-  // // defend side rolls more
-  // for (int i = 0; i < defendDiceTimes; i++) {
-  // int remainingAttackArmies = armies;
-  // int remainingDefendArmies = defendTotalarmies;
-  // if (remainingAttackArmies >= 3 && remainingDefendArmies >= 2) {
-  // this.rollDices(3, 2);
-  // remainingAttackArmies -= 3;
-  // remainingDefendArmies -= 2;
-  // } else if (remainingAttackArmies < 3 && remainingDefendArmies >= 2) {
-  // this.rollDices(remainingAttackArmies, 2);
-  // remainingAttackArmies -= remainingAttackArmies;
-  // remainingDefendArmies -= 2;
-  // } else {
-  // defendWon += remainingDefendArmies;
-  // }
-  // }
-  //
-  //
-  //
-  // }
-  // // change armies
-  // if (attackWon > 0) {
-  // if (attackWon == defendTotalarmies) {
-  // winner = attack;
-  // Player.territoriesConquered++;
-  // defend.setOwner(currentPlayer);
-  // defend.setNumberOfArmies2(attackWon); // setNumberOfArmies methode need to be changed
-  // // armies moved form attack territory to defend territory
-  // attack.setNumberOfArmies2(attackTotalarmies - attackWon);
-  // } else {
-  // defend.setNumberOfArmies2(defendTotalarmies - attackWon);
-  //
-  // }
-  // } else if (defendWon > 0) {
-  // attack.setNumberOfArmies2(attackTotalarmies - defendWon);
-  // }
-  //
-  // } else {
-  // System.out.println("Attacking is not possible");
-  // }
-  //
-  //
-  //
-  // } else {
-  // System.out.println("Not in attacking phase");
-  // }
-  // Player.numberOfAttacks++;
-  // return winner;
-  //
-  // }
-
-  // /**
-  // * @author qiychen
-  // * @param arr
-  // * @return a desceding array (Dice) for example Dice: [5, 4, 2]
-  // */
-  // public int[] sortDesceding(int[] arr) {
-  // Arrays.sort(arr);
-  // int[] reverseArray = new int[arr.length];
-  // for (int i = 0; i < reverseArray.length; i++) {
-  // reverseArray[i] = arr[reverseArray.length - i - 1];
-  // }
-  // return reverseArray;
-  // }
-
-  // /**
-  // * @author qiychen
-  // * @param armies
-  // * @param side from attack or defend
-  // * @return the number of times that the dice has been rolled, attack max.3 dices at one time,
-  // * defend max.2 times at one time
-  // */
-  // public int rollDiceTimes(int armies, String side) {
-  // if (side.equals("attack")) {
-  // double tmp = ((double) armies) / 3.0;
-  // int times = (int) Math.ceil(tmp);
-  // return times;
-  // } else if (side.equals("defend")) {
-  // double tmp = ((double) armies) / 2.0;
-  // int times = (int) Math.ceil(tmp);
-  // return times;
-  // } else {
-  // System.out.println("please choose a side");
-  // return 0;
-  // }
-  // }
-
-  // /**
-  // * @author qiychen
-  // * @param attack armies
-  // * @param defend armies get the number of wins from attack/defend side the number of wins will
-  // be
-  // * saved in static variable attackWon and defendWon
-  // */
-  // public void rollDices(int attack, int defend) {
-  // Dice dice = new Dice();
-  // int[] attackDice = dice.rollDices(attack);
-  // int[] defendDice = dice.rollDices(defend);
-  // // sort Dice descending
-  // attackDice = this.sortDesceding(attackDice);
-  // defendDice = this.sortDesceding(defendDice);
-  // // compare dice number
-  // int length;// select min length
-  // if (attackDice.length <= defendDice.length) {
-  // length = attackDice.length;
-  // } else {
-  // length = defendDice.length;
-  // }
-  // for (int i = 0; i < length; i++) {
-  // if (attackDice[i] > defendDice[i]) {
-  // attackWon++;
-  // } else {
-  // defendWon++;
-  // }
-  // }
-  //
-  // }
+ 
 
   /**
    * @author prto, @author smetzger
@@ -505,6 +340,7 @@ public class Game {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
+   
     if (gameState == GameState.FORTIFY) {
       // check if both territories belong to the current player
       if (this.currentPlayer.equals(moveFrom.getOwner())
@@ -640,6 +476,7 @@ public class Game {
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
       Main.b.prepareArmyDistribution();
+      this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       // Main.b.displayArmyDistribution();
       Main.b.displayGameState();
     }
