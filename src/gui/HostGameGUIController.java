@@ -25,12 +25,14 @@ public class HostGameGUIController {
 
   @FXML
   private Button confirm;
+  private HostGameLobbyController hostLobController=null;
   @FXML
   void confirm(ActionEvent event) {
+    FXMLLoader fxmlLoader=null;
     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
     System.out.println(numberofPlayers);
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Host Game Lobby");
@@ -40,6 +42,7 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    hostLobController=fxmlLoader.getController();
   }
 
   public void initialize() {
@@ -61,6 +64,10 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public HostGameLobbyController getHostController() {
+    return this.hostLobController;
   }
  
 }

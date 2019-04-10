@@ -34,6 +34,7 @@ public class Client extends Thread {
   private boolean active;
 
   private JoinGameLobbyController controller = null;
+  private HostGameLobbyController hostcontroller=null;
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address) {
@@ -95,6 +96,9 @@ public class Client extends Thread {
   public void setController(JoinGameLobbyController controller) {
     this.controller = controller;
   }
+  public void setControllerHost(HostGameLobbyController hostcontroller) {
+    this.hostcontroller=hostcontroller;
+  }
 
   /**
    * handle incoming messages from server
@@ -124,6 +128,8 @@ public class Client extends Thread {
             // hc.showMessage(content);
             System.out.println("host show " + content);
             controller.showMessage(content);
+            hostcontroller.showMessage(content);
+            
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
             // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
             // Parent root = (Parent) fxmlLoader.load();
