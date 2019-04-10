@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -16,7 +24,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.JoinGameLobbyController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.JoinGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
     <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" layoutX="-7.0" layoutY="-2.0" prefHeight="800.0" prefWidth="1280.0">
@@ -54,7 +62,7 @@
                 </AnchorPane>
                 <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="557.0" styleClass="backgraound-color">
                   <children>
-                    <CheckBox alignment="CENTER" contentDisplay="TOP" graphicTextGap="6.0" layoutX="40.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                   Host">
+                    <CheckBox fx:id="hostBox" alignment="CENTER" contentDisplay="TOP" graphicTextGap="6.0" layoutX="40.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                   Host">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
@@ -67,22 +75,22 @@
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
-                    <CheckBox alignment="CENTER" disable="true" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 2">
+                    <CheckBox fx:id="client2" alignment="CENTER" disable="true" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 2">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER" disable="true" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 3">
+                    <CheckBox fx:id="client3" alignment="CENTER" disable="true" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 3">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER" disable="true" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 4">
+                    <CheckBox fx:id="client4" alignment="CENTER" disable="true" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 4">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox alignment="CENTER" disable="true" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 5">
+                    <CheckBox fx:id="client5" alignment="CENTER" disable="true" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 5">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
@@ -130,10 +138,13 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </Label>
-                <TextArea fx:id="button" blendMode="BLUE" prefWidth="200.0" styleClass="chatbox" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <TextArea fx:id="button" blendMode="BLUE" editable="false" prefWidth="200.0" styleClass="chat-text" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <stylesheets>
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
+                           <cursor>
+                              <Cursor fx:constant="V_RESIZE" />
+                           </cursor>
                 </TextArea>
               </children>
               <columnConstraints>

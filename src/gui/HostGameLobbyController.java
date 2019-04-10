@@ -65,7 +65,7 @@ public class HostGameLobbyController {
   CheckBox box5;
   /** number of players the host want to play game with */
   private int player = HostGameGUIController.numberofPlayers;
-
+  MultiPlayerGUIController multi;
   private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will join the game
   public static ArrayList<CheckBox> playerNames;
   public static HashMap<Integer, String> playersJoined = new HashMap<Integer,String>();
@@ -134,11 +134,11 @@ public class HostGameLobbyController {
   }
 
   public void addPlayerName(int index, String name) {
-    counter++;
-    playersJoined.put(counter, name);
-    playerNames.get(counter).setSelected(true);
-    playerNames.get(counter).setText(name);
-    enableStartButton();   
+//    counter++;
+    playersJoined.put(index, name);
+    playerNames.get(index).setSelected(true);
+    playerNames.get(index).setText(name);
+//     enableStartButton();   
   }
   public void initialize() {
     
@@ -153,7 +153,7 @@ public class HostGameLobbyController {
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
       playerNames.get(i).setDisable(false);
     }
-    test();
+   
   }
 
   public void showMessage(String content) {
@@ -167,9 +167,18 @@ public class HostGameLobbyController {
   }
   
   public void test() {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUIController.fxml"));
-    MultiPlayerGUIController multi = fxmlLoader.getController();
-    multi.setController(this);
+    try {
+     Main.m.setController(this);
+    System.out.println("sdsds");
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  public void setController(MultiPlayerGUIController multiPlayerGUIController) {
+   this.multi = multiPlayerGUIController;
+    
   }
 
 }

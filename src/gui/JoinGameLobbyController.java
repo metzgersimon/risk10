@@ -1,6 +1,7 @@
 package gui;
 
 
+import java.util.ArrayList;
 import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,13 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
-import network.client.GameFinder;
 import network.messages.SendChatMessageMessage;
 
 
@@ -33,8 +34,14 @@ public class JoinGameLobbyController {
   private Client client = Main.g.getGameFinder().getClient();;
 
   private Game g;
-
-
+  
+  @FXML CheckBox clientPlayer;
+  @FXML CheckBox hostBox;
+  @FXML CheckBox client2;
+  @FXML CheckBox client3;
+  @FXML CheckBox client4;
+  @FXML CheckBox client5;
+  ArrayList<CheckBox> clientBoxes = new ArrayList<CheckBox>();
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
@@ -68,8 +75,22 @@ public class JoinGameLobbyController {
   }
 
   public void showMessage(String content) {
+    button.setStyle("-fx-text-fill:black; -fx-font-size: 15px;");
     button.appendText(content);
 
   }
 
+  public void initialize() {  
+    clientBoxes = new ArrayList<CheckBox>();
+    clientBoxes .add(hostBox);
+    clientBoxes .add(clientPlayer);
+    clientBoxes .add(client2);
+    clientBoxes .add(client3);
+    clientBoxes .add(client4);
+    clientBoxes .add(client5);
+//    hostBox.setSelected(true);
+    for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
+     clientBoxes.get(i).setDisable(false);
+    }
+  }
 }
