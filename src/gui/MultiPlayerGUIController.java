@@ -26,7 +26,7 @@ public class MultiPlayerGUIController {
 
   /** List of players who have joined the game */
   public static List<Player> playersList = new ArrayList<Player>();
-
+  HostGameLobbyController hostLobbyController;
   @FXML
   void back(ActionEvent event) {
     Main.g.removePlayer();
@@ -60,17 +60,21 @@ public class MultiPlayerGUIController {
       e.printStackTrace();
     }
   }
-
+  
+  public void setController(HostGameLobbyController c) {
+    System.out.println("dsds");
+    this.hostLobbyController = c;
+    System.out.println("dsds");
+  }
   @FXML
   void joinGame(ActionEvent event) {
     FXMLLoader fxmlLoader = null;
     try {
       // only to test connection
       Main.g.joinGame(ProfileSelectionGUIController.player);
-      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
+//      Main.g.addPlayer(ProfileSelectionGUIController.player);
       fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      
+      Parent root = (Parent) fxmlLoader.load();    
       Stage stage = main.Main.stage;
       stage.setTitle("Game Lobby");
       stage.setScene(new Scene(root));
@@ -83,6 +87,8 @@ public class MultiPlayerGUIController {
     JoinGameLobbyController controller = fxmlLoader.getController();
     Client client = Main.g.getGameFinder().getClient();
     client.setController(controller);
+//    this.hostLobbyController.addPlayerName(2,"sandep");
+ 
   }
-
+  
 }

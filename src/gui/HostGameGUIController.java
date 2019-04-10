@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import main.Main;
 
 public class HostGameGUIController {
 
@@ -24,7 +25,6 @@ public class HostGameGUIController {
 
   @FXML
   private Button confirm;
-
   @FXML
   void confirm(ActionEvent event) {
     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
@@ -62,5 +62,5 @@ public class HostGameGUIController {
       e.printStackTrace();
     }
   }
-
+ 
 }

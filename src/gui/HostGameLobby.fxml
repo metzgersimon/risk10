@@ -45,7 +45,7 @@
                         <Color blue="0.000" green="0.000" red="0.200" fx:id="x1" />
                       </textFill>
                     </Label>
-                    <Slider layoutX="98.0" layoutY="519.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="56.0" prefWidth="210.0" snapToTicks="true">
+                    <Slider fx:id="botLevel" layoutX="98.0" layoutY="519.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="56.0" prefWidth="210.0" snapToTicks="true">
                       <effect>
                         <DropShadow color="#ff3d00" />
                       </effect>
@@ -58,7 +58,7 @@
                     <Label layoutX="85.0" layoutY="506.0" styleClass="subHeadlines" text="Easy" textFill="BLACK" />
                     <Label layoutX="181.0" layoutY="503.0" styleClass="subHeadlines" text="Medium" textFill="BLACK" />
                     <Label layoutX="289.0" layoutY="506.0" styleClass="subHeadlines" text="Hard" textFill="$x1" />
-                    <Button layoutX="113.0" layoutY="249.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text=" ADD BOT">
+                    <Button fx:id="addBots" layoutX="113.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleAddBot" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text=" ADD BOT">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -78,7 +78,7 @@
                 </AnchorPane>
                 <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="426.0" styleClass="backgraound-color">
                   <children>
-                    <Button fx:id="startGame" layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
+                    <Button fx:id="startGame" disable="true" layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
                       <effect>
                         <DropShadow />
                       </effect>

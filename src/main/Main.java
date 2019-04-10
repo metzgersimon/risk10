@@ -4,8 +4,10 @@ import java.net.URL;
 import game.Game;
 import game.TestGame;
 import gui.BoardController;
+import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
+import gui.MultiPlayerGUIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,7 +26,7 @@ public class Main extends Application {
   public static BoardController b;
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
-
+  public static MultiPlayerGUIController m; 
   public static Stage stage;
 
   @Override

@@ -1,6 +1,8 @@
 package gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import game.AiPlayerEasy;
 import game.AiPlayerHard;
@@ -17,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -64,18 +67,15 @@ public class HostGameLobbyController {
   private int player = HostGameGUIController.numberofPlayers;
 
   private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will join the game
-  private static ArrayList<CheckBox> playerNames;
+  public static ArrayList<CheckBox> playerNames;
+  public static HashMap<Integer, String> playersJoined = new HashMap<Integer,String>();
+  public static int counter = 0;
 
-  public HostGameLobbyController() {
-    // TODO Auto-generated constructor stub
-    // enableTheBoxes();
-  }
 
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
     try {
-
       String message = textField.getText() + " \n";
       chatBox.appendText(message);
       System.out.println(message);
@@ -118,34 +118,58 @@ public class HostGameLobbyController {
         p = new AiPlayerHard();
       }
       Main.g.addPlayer(p);
-      addPlayerInList(p.getName());
+//      addPlayerInList(p.getName());
+      System.out.println("An AI player " + p.getName() + " has joined the game ");
+      addPlayerName(counter,p.getName());
     }
   }
 
   public void addPlayerInList(String name) {
-    for (int i = 0; i < playerNames.size(); i++) {
-      if (playerNames.get(i).isDisabled()) {
-        playerNames.get(i).setDisable(false);
-        playerNames.get(i).setText(name);
-      }
-    }
+//    for (int i = 0; i < playerNames.size(); i++) {
+//      if (playerNames.get(i).isDisabled()) {
+//        playerNames.get(i).setDisable(false);
+//        playerNames.get(i).setText(name);
+//      }
+//    }
   }
 
+  public void addPlayerName(int index, String name) {
+    counter++;
+    playersJoined.put(counter, name);
+    playerNames.get(counter).setSelected(true);
+    playerNames.get(counter).setText(name);
+    enableStartButton();   
+  }
   public void initialize() {
+    
     playerNames = new ArrayList<CheckBox>();
+    playerNames.add(hostBox);
     playerNames.add(box1);
     playerNames.add(box2);
     playerNames.add(box3);
     playerNames.add(box4);
     playerNames.add(box5);
-    // hostBox.setSelected(true);
+    hostBox.setSelected(true);
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
       playerNames.get(i).setDisable(false);
     }
-
+    test();
   }
 
   public void showMessage(String content) {
     chatBox.appendText(content);
   }
+  
+  public void enableStartButton(){
+    if(Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers ) {
+      startGame.setDisable(false);
+    }
+  }
+  
+  public void test() {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUIController.fxml"));
+    MultiPlayerGUIController multi = fxmlLoader.getController();
+    multi.setController(this);
+  }
+
 }
