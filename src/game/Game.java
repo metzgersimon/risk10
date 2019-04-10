@@ -283,6 +283,8 @@ public class Game {
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
+//      int randomCard = (int)((Math.random()*Main.g.getCards().size()));
+//      p.setCards(Main.g.getCards().get(randomCard));
       if (!this.getPlayers().contains(p)) {
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());

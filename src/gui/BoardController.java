@@ -69,7 +69,7 @@ public class BoardController implements Initializable {
 
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
-  private int numberOfDices;
+  private int numberOfDices = 1;
   private static int tradedCards = 0;
   private CardDeck deck = new CardDeck();
   // Views
@@ -570,7 +570,7 @@ public class BoardController implements Initializable {
 
             case ARMY_DISTRIBUTION:
 
-              System.out.println(g.getCurrentPlayer().getNumberArmiesToDistibute());
+              System.out.println("Armies to distribute: "+g.getCurrentPlayer().getNumberArmiesToDistibute());
               Platform.runLater(new Runnable() {
                 public void run() {
                   setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
@@ -728,42 +728,44 @@ public class BoardController implements Initializable {
     });
   }
 
-  public int handleNumberOfDices() {
+  public void handleNumberOfDices() {
+//    int numberDices = 1;
     Platform.runLater(new Runnable() {
+     
       public void run() {
-    int numberOfDices = 1;
-    System.out.println((int) diceSlider.getValue());
+    System.out.println("Value Dice Slider: "+(int) diceSlider.getValue());
     switch ((int) diceSlider.getValue()) {
       case (2):
         attackDice2.setVisible(true);
       numberOfDices = 2;
       case (1):
         attackDice1.setVisible(true);
-        numberOfDices =  1;
+       numberOfDices =  1;
         break;
     
       default:
-        numberOfDices = 3;
+      numberOfDices = 3;
         attackDice1.setVisible(true);
         attackDice2.setVisible(true);
         attackDice3.setVisible(true);
     } 
     } 
   });
-    return numberOfDices;
+//    return numberDices;
   }
 
   public void throwDices() {
     Platform.runLater(new Runnable() {
       public void run() {
-        int numberDicesSelf = handleNumberOfDices();
-        System.out.println(numberDicesSelf);
+//        int numberDicesSelf = handleNumberOfDices();
+        System.out.println("number of Dices : "+numberOfDices);
+        System.out.println("Selected Territory attacked: "+selectedTerritory_attacked );
         int numberDicesOpponent = selectedTerritory_attacked.getNumberOfArmies() > 1 ? 2 : 1;
 //        Vector<Integer> attacker = Dice.rollDices(this.numberOfDices);
-        Vector<Integer> attacker = Dice.rollDices(numberDicesSelf);
+        Vector<Integer> attacker = Dice.rollDices(numberOfDices);
         Vector<Integer> defender = Dice.rollDices(numberDicesOpponent);
-        System.out.println(attacker.size());
-        System.out.println(defender.size());
+        System.out.println("attacker vector size: "+attacker.size());
+        System.out.println("defender vector size: "+defender.size());
         attackDice1.setImage(new Image(getClass()
             .getResource("/ressources/dices/dice_" + attacker.get(0) + "_RED.png")
             .toString(), true));

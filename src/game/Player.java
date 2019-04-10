@@ -348,10 +348,6 @@ public class Player {
     }
   }
   
-  public int totalArmiesToDistribute() {
-    return this.numberArmiesToDistribute + computeAdditionalNumberOfArmies();
-  }
-  
 
   /**
    * @author liwang
