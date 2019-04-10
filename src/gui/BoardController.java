@@ -589,6 +589,7 @@ public class BoardController implements Initializable {
                   System.out.println(t);
                   //Erster Klick 
                   if (selectedTerritory == null) {
+                    System.out.println("Territory ist null");
                     selectedTerritory = t;
                     r.setEffect(new Lighting());
                     for (Territory territory : t.getHostileNeighbor()) {
@@ -607,6 +608,7 @@ public class BoardController implements Initializable {
                  
                   } else if (selectedTerritory != null
                       && selectedTerritory.getNeighbor().contains(t)) {
+                    System.out.println("Territory ist ungleich null");
                     selectedTerritory_attacked = t;
                     diceSlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
                     // ATTACK METHODE
@@ -683,6 +685,7 @@ public class BoardController implements Initializable {
             prepareArmyDistribution();
             break;
           case ATTACK:
+            System.out.println("selected attacked null CLICKBACK");
             selectedTerritory_attacked = null;
             dicePane.toBack();
             attackDice1.setVisible(false);
