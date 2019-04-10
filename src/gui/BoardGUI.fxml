@@ -1133,6 +1133,7 @@
                               </AnchorPane>
                            </children>
                         </GridPane>
+                        <Line endX="391.0" endY="450.0" layoutX="233.0" layoutY="114.0" rotate="32.0" scaleX="0.58" scaleY="0.58" scaleZ="0.9" startX="353.0" startY="475.0" stroke="#1a05ff" strokeWidth="5.0" />
                      </children>
                   </Pane>
                   <GridPane fx:id="gridCardPane" prefHeight="200.0" prefWidth="856.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1294,5 +1295,6 @@
             </BorderPane>
         </items>
       </SplitPane>
+      <Line endX="391.0" endY="450.0" startX="353.0" startY="475.0" stroke="#1a05ff" strokeWidth="3.0" />
    </children>
 </AnchorPane>
