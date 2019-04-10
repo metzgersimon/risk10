@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
@@ -109,7 +111,7 @@ public class HostGameLobbyController {
   void handleAddBot(ActionEvent event) {
     // TODO
     Player p;
-    if (Main.g.getPlayers().size() < 6) {
+    if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
       if (botLevel.getValue() == 0.0) {
         p = new AiPlayerEasy();
       } else if (botLevel.getValue() == 1.0) {
@@ -121,6 +123,12 @@ public class HostGameLobbyController {
 //      addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
       addPlayerName(counter,p.getName());
+    } else {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error alert");
+      alert.setHeaderText("Can not add player");
+      alert.setContentText("Player Lobby already full");
+      alert.showAndWait();
     }
   }
 
@@ -134,7 +142,8 @@ public class HostGameLobbyController {
   }
 
   public void addPlayerName(int index, String name) {
-//    counter++;
+    index++;
+    counter = index;
     playersJoined.put(index, name);
     playerNames.get(index).setSelected(true);
     playerNames.get(index).setText(name);
