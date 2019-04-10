@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import game.Player;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
@@ -32,28 +33,45 @@ public class Client extends Thread {
   private ObjectInputStream fromServer;
   private ObjectOutputStream toServer;
   private boolean active;
-
+  private int port;
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller=null;
   // private HostGameLobbyController hostUi;
 
-  public Client(InetAddress address) {
+  public Client(InetAddress addressn, int port) {
     this.address = address;
+    this.port = port;
     connect();
   }
 
   /**
-   * Constructor
+   * Constructor to join the game on discovery
    * 
    * @param address
    * @param player
    */
-  public Client(InetAddress address, Player player) {
+  public Client(InetAddress address, Player player, int port) {
     this.address = address;
     this.player = player;
+    this.port = port;
     connect();
   }
-
+/**
+ * Second Constructor to join the game by giving the ip and port address
+ * and starts the client thread
+ * @skaur
+ * @param ip
+ * @param port
+ */
+  public Client(String ip, int port) {
+    try {
+      this.address = InetAddress.getByName(ip);
+    } catch (UnknownHostException e) {
+      e.printStackTrace();
+    }
+    this.port = port;
+    connect();
+  }
   public boolean connect() {
     try {
       this.s = new Socket(address, Parameter.PORT);
@@ -166,10 +184,4 @@ public class Client extends Thread {
       e.printStackTrace();
     }
   }
-
 }
-
-// grobe interface
-// mit methoden
-// liste von sockets, an alle schicken
-//

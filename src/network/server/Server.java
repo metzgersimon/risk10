@@ -1,7 +1,6 @@
 package network.server;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -12,8 +11,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import network.Parameter;
-import network.messages.Message;
-import network.messages.SendChatMessageMessage;
 
 
 /** Game Server that host the game **/
@@ -116,7 +113,7 @@ public class Server extends Thread {
    */
   public void listen() {
     try {
-      serverSocket = new ServerSocket(Parameter.PORT);
+        serverSocket = new ServerSocket(Parameter.PORT);
         socket = serverSocket.accept();
         ClientConnection c = new ClientConnection(socket,this);
         System.out.println("dsds");

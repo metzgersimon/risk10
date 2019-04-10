@@ -11,10 +11,12 @@ public class GameFinder extends Thread {
  
   private Client client;
   private DatagramSocket datagramSocket;
+  private int port;
   /**
    * @author skaur
    */
   public GameFinder() {
+    this.port = Parameter.PORT;
     this.start();
   }
 
@@ -48,7 +50,7 @@ public class GameFinder extends Thread {
       System.out.println("A package is recieved from " + responseP.getAddress());
       //get the ip address and create a socket for it
       InetAddress address = responseP.getAddress();
-       client = new Client(address);
+       client = new Client(address,port);
        client.start();
 //      new ClientProtocol(address).start();
       System.out.println("Client Created");

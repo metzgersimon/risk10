@@ -8,6 +8,7 @@ import java.util.Vector;
 import gui.BoardController;
 import main.Main;
 import network.Parameter;
+import network.client.Client;
 import network.client.GameFinder;
 import network.server.Server;
 
@@ -36,9 +37,9 @@ public class Game {
 
 
   /** variables for join and host game */
-  Server server;
-  GameFinder gameFinder;
-
+  private Server server;
+  private GameFinder gameFinder;
+  private Client client;
   /**
    * 
    * @author qiychen Constructor
@@ -519,10 +520,20 @@ public class Game {
    * @author skaur this methods creates an instance of gamefinder class and starts looking for
    *         broadcasting server gameFinder class then creates a client for the current player
    */
-  public void joinGame(Player player) {
+  public void joinGameonDiscovery(Player player) {
     this.gameFinder = new GameFinder();
   }
-
+  /**
+   * @author skaur 
+   * this methods creates an instance of Client class and starts directly connects to the
+   *  broadcasting server 
+   * @param ip
+   * @param port
+   */
+  public void joinGame(String ip, int port) {
+    this.client = new Client(ip,port);
+    this.client.start();
+  }
   public Server getServer() {
     return server;
   }

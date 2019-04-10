@@ -66,16 +66,15 @@ public class MultiPlayerGUIController {
   }
   
  public void setController(HostGameLobbyController c) {
-    System.out.println("dsds");
     this.hostLobbyController = c;
-    System.out.println("dsds");
   }
+ 
   @FXML
   void joinGame(ActionEvent event) {
     FXMLLoader fxmlLoader = null;
     try {
       // only to test connection
-      Main.g.joinGame(ProfileSelectionGUIController.player);
+      Main.g.joinGameonDiscovery(ProfileSelectionGUIController.player);
 //      Main.g.addPlayer(ProfileSelectionGUIController.player);
       fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();    

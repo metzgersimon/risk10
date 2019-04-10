@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
 
 public class EnterIPGUIController {
 
@@ -21,6 +22,9 @@ public class EnterIPGUIController {
   @FXML
   private TextField ip;
 
+  @FXML
+  private TextField port;
+  
   @FXML
   void back(ActionEvent event) {
     try {
@@ -37,8 +41,9 @@ public class EnterIPGUIController {
   }
 
   @FXML
-  void connect(ActionEvent event) {
+  void discover(ActionEvent event) {
     try {
+      Main.g.joinGameonDiscovery(ProfileSelectionGUIController.player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -50,5 +55,22 @@ public class EnterIPGUIController {
       e.printStackTrace();
     }
   }
+  
+  @FXML
+  void connect(ActionEvent event) {
+    try {  
+      Main.g.joinGame(ip.getText(),Integer.parseInt(ip.getText()));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setTitle("Join Game Lobby");
+      stage.setScene(new Scene(root));
+      stage.show();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
 
 }

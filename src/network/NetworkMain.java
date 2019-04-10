@@ -1,5 +1,6 @@
 package network;
 
+import network.client.Client;
 import network.server.Server;
 
 public class NetworkMain {
@@ -9,7 +10,7 @@ public class NetworkMain {
    */
   
   public static void main (String [] args) {
-    Server server = new Server(Parameter.PORT,5);
-    server.start();
+   Client c = new Client("localHost",8888);
+   c.start();
   }
 }
