@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -33,7 +42,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
    <children>
       <Pane fx:id="cantBeTraded" layoutX="450.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
@@ -74,7 +83,7 @@
                                  <children>
                                     <Pane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                          <ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../resources/dice/dice_6_RED.png" />
                                              </image>
@@ -154,7 +163,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin>
                               </Slider>
-                              <Button fx:id="fortifyButton" mnemonicParsing="false" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
+                              <Button fx:id="fortifyButton" mnemonicParsing="false" onAction="#confirmFortify" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -1220,6 +1229,9 @@
                                              <image>
                                                 <Image url="@../ressources/gui/nextGameState.png" />
                                              </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
                                           </ImageView>
                                        </graphic></Button>
                                  </children>

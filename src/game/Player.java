@@ -396,6 +396,68 @@ public class Player {
       return result;
     }
   }
+  
+  /**
+   * @author skaur
+   * @param moveFrom : territory selected from where the army is going to be moved
+   * @param moveTo : territory where the army is going to moved
+   * @param armyToMove: no. of armies selected to be move
+   * @return: false if invalid parameter are selected; should be called in a while loop until the
+   *          player selects valid paramater or skip the fortify gamestate
+   */
+  public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
+   
+    if (Main.g.getGameState() == GameState.FORTIFY) {
+      // check if both territories belong to the current player
+      if (this.equals(moveFrom.getOwner())
+          && (this.equals(moveTo.getOwner()))) {
+        // HashSet<Territory> neighbors = moveFrom.getNeighbor();
+        // if (neighbors.contains(moveTo)) {
+        // beide Zeilen in eine verpackt
+        // check if both territories are neighbors
+        if (moveFrom.getNeighbor().contains(moveTo)) {
+          // int currentNoArmies = moveFrom.getNumberOfArmies();
+          // check is current available number of army is greater than the army to move, so that
+          // there
+          // is at least one
+          // army left behind in the territory
+          if (moveFrom.getNumberOfArmies() > armyToMove) {
+            moveFrom.setReducedNumberOfArmies(armyToMove);
+            moveTo.setNumberOfArmies(armyToMove);
+            return true;
+          } else {
+            // error messages which may be implemented in the boardgui later
+            System.out.println(
+                "The number of army to move is greater than the available army in the territory "
+                    + moveFrom.getName());
+            return false;
+          }
+        } else {
+
+          System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
+              + moveFrom.getName() + " are not neighbors");
+          return false;
+        }
+      } else {
+
+        System.out.println(moveFrom.getName() + " or " + moveTo.getName()
+            + " doesnt belong to the current player ");
+        return false;
+      }
+
+    }
+    System.out.println("Not in a fortify mode ");
+    return false;
+  }
+  
+  public boolean equals(Player p) {
+    if(this.getColor().toString().equals(p.getColor().toString())) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }
 
 
