@@ -576,7 +576,8 @@ public class BoardController implements Initializable {
                   setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
                   setArmySlider.setValue(1);
                   selectedTerritory = t;
-                  grayPane.toFront();
+//                  grayPane.toFront();
+                  handleGrayPane();
                   setArmyPane.toFront();
                 }
               });
@@ -674,6 +675,10 @@ public class BoardController implements Initializable {
     moveFrom.getBoardRegion().getNumberOfArmy().setText(moveFrom.getNumberOfArmies() + "");
     moveTo.getBoardRegion().getNumberOfArmy().setText(moveTo.getNumberOfArmies() + "");
     fortifySlider.setValue(moveFrom.getNumberOfArmies() - 1);
+  }
+  
+  public void handleGrayPane() {
+    grayPane.toFront();
   }
 
   public void clickBack() {
@@ -815,8 +820,8 @@ public class BoardController implements Initializable {
             .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
         diceSlider.setValue(selectedTerritory.getNumberOfArmies() - 1);
         
-        selectedTerritory_attacked = null;
-        selectedTerritory = null;
+//        selectedTerritory_attacked = null;
+//        selectedTerritory = null;
       }
     });
   }
@@ -1003,27 +1008,30 @@ public class BoardController implements Initializable {
   @FXML
   public void handleSkipGameState() {
     // handleProgressBar();
-    progress.setStyle("-fx-accent: magenta;");
-    skip.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-      @Override
-      public void handle(MouseEvent e) {
+//    progress.setStyle("-fx-accent: magenta;");
+    System.out.println("Handle Skip GameState");
+    changeGameState.setOnAction(new EventHandler<ActionEvent>() {
+      
+      @Override public void handle(ActionEvent e) {
         switch (Main.g.getGameState()) {
           case ARMY_DISTRIBUTION:
+            System.out.println("Handle Skip GameState: ARMY DISTRIBUTION");
             gameState.setText("Attack!");
-            progress.setProgress(0.66);
+//            progress.setProgress(0.66);
             prepareAttack();
             Main.g.setGameState(GameState.ATTACK);
             break;
           case ATTACK:
+            System.out.println("Handle Skip GameState: ATTACK");
             gameState.setText("Move armies!");
-            progress.setProgress(0.9);
+//            progress.setProgress(0.9);
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
             break;
           case FORTIFY:
+            System.out.println("Handle Skip GameState: ARMY FORTIFY");
             gameState.setText("End your turn!");
-            progress.setProgress(1);
+//            progress.setProgress(1);
             try {
               Thread.sleep(3500);
             } catch (InterruptedException e1) {
@@ -1032,7 +1040,7 @@ public class BoardController implements Initializable {
             }
             Main.g.nextPlayer();
             prepareArmyDistribution();
-            progress.setProgress(0);
+//            progress.setProgress(0);
             break;
         }
       }

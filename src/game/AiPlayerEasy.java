@@ -64,6 +64,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void armyDistribution() {
+    System.out.println("AI army distribution: "+Main.g.getCurrentPlayer());
     for (int i = 0; i < this.getCards().size(); i++) {
       for (int j = i + 1; j < this.getCards().size() - 1; j++) {
         for (int k = j + 1; k < this.getCards().size() - 2; k++) {
@@ -97,6 +98,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void attack() {
+    System.out.println("AI attack: "+Main.g.getCurrentPlayer());
     int randomTerritoryOwn = 0;
     int randomTerritoryOpponent = 0;
     int randomNumberOfArmies = 0;
@@ -158,6 +160,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void fortify() {
+    System.out.println("AI fortify: "+Main.g.getCurrentPlayer());
     Main.g.furtherFortify();
   }
 
