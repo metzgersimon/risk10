@@ -163,7 +163,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin>
                               </Slider>
-                              <Button fx:id="fortifyButton" mnemonicParsing="false" onAction="#confirmFortify" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
+                              <Button fx:id="fortifyButton" mnemonicParsing="false" onAction="#confirmFortify" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>

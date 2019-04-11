@@ -72,7 +72,7 @@ public class Player {
     this.numberOfCards = 0;
     this.territoriesConquered = 0;
     this.numberOfAttacks = 0;
-    this.rank = (int)(Math.random()*6);
+    this.rank = (int) (Math.random() * 6);
     this.sessionWins = 0;
   }
 
@@ -142,35 +142,35 @@ public class Player {
   public void setNumberOfCards(int numberOfCards) {
     this.numberOfCards = numberOfCards;
   }
-  
+
   public int getRank() {
     return rank;
   }
-  
+
   public void setRank(int rank) {
-    this.rank = rank;  
+    this.rank = rank;
   }
-  
+
   public int getNumberOfAttacks() {
     return numberOfAttacks;
   }
-  
+
   public void setNumberOfAttacks(int attacks) {
     this.numberOfAttacks = attacks;
   }
-  
+
   public int getTerritoriesConquered() {
     return territoriesConquered;
   }
-  
+
   public void setTerritoriesConquered(int tc) {
     this.territoriesConquered = tc;
   }
-  
+
   public int getSessionWins() {
     return sessionWins;
   }
-  
+
   public void setSessionWins(int sw) {
     this.sessionWins = sw;
   }
@@ -338,7 +338,7 @@ public class Player {
    *         Precondition: only own territories can be chosen, player has enough armies left
    */
   public boolean armyDistribution(int amount, Territory t) {
-//    this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
+    // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
       this.numberArmiesToDistribute -= amount;
@@ -347,7 +347,8 @@ public class Player {
       return false;
     }
   }
-  
+
+
 
   /**
    * @author liwang
@@ -396,7 +397,7 @@ public class Player {
       return result;
     }
   }
-  
+
   /**
    * @author skaur
    * @param moveFrom : territory selected from where the army is going to be moved
@@ -406,11 +407,9 @@ public class Player {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
-   
     if (Main.g.getGameState() == GameState.FORTIFY) {
       // check if both territories belong to the current player
-      if (this.equals(moveFrom.getOwner())
-          && (this.equals(moveTo.getOwner()))) {
+      if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
         // HashSet<Territory> neighbors = moveFrom.getNeighbor();
         // if (neighbors.contains(moveTo)) {
         // beide Zeilen in eine verpackt
@@ -449,12 +448,11 @@ public class Player {
     System.out.println("Not in a fortify mode ");
     return false;
   }
-  
+
   public boolean equals(Player p) {
-    if(this.getColor().toString().equals(p.getColor().toString())) {
+    if (this.getColor().toString().equals(p.getColor().toString())) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
