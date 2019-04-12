@@ -21,6 +21,8 @@ import main.Main;
 import network.Parameter;
 import network.messages.JoinGameMessage;
 import network.messages.Message;
+import network.messages.PlayerListSizeMessage;
+import network.messages.PlayerListUpdateMessage;
 import network.messages.SendChatMessageMessage;
 
 public class Client extends Thread {
@@ -166,6 +168,10 @@ public class Client extends Thread {
           break;
           case ALLIANCE:
             break;
+          case PLAYER_SIZE: handlePlayerListSize((PlayerListSizeMessage)message);
+          break;
+        case PLAYER_LIST_UPDATE: handlePlayerListUpdate((PlayerListUpdateMessage)message);
+        break;
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
@@ -175,6 +181,14 @@ public class Client extends Thread {
         e.printStackTrace();
       }
     }
+  }
+  
+  public void handlePlayerListSize(PlayerListSizeMessage message) {
+    this.controller.updateBoxes(message.geSize());
+  }
+  
+  public void handlePlayerListUpdate(PlayerListUpdateMessage message) {
+//    this.controller.updateList(message.getPlayer());
   }
 
   /**@author qiychen

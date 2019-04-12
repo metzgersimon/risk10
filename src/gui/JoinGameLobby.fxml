@@ -50,7 +50,7 @@
                     </Label>
                     <Label layoutX="19.0" layoutY="277.0" prefHeight="84.0" prefWidth="300.0" styleClass="headlines" text="Waiting for host to start" />
                     <Label layoutX="8.0" layoutY="342.0" prefHeight="83.99990000000253" prefWidth="300.0" styleClass="headlines" text=" the game" />
-                    <CheckBox alignment="CENTER" disable="false" layoutX="19.0" layoutY="214.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                Client 1">
+                    <CheckBox fx:id="clientPlayer" alignment="CENTER" disable="false" layoutX="19.0" layoutY="214.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                Client 1">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>

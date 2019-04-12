@@ -91,9 +91,13 @@ public class JoinGameLobbyController {
     clientBoxes .add(client3);
     clientBoxes .add(client4);
     clientBoxes .add(client5);
-//    hostBox.setSelected(true);
-    for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
+    hostBox.setSelected(true);
+    clientPlayer.setSelected(true);
+  }
+  
+ public void updateBoxes(int size) {
+   for (int i = 0; i <  size; i++) {
      clientBoxes.get(i).setDisable(false);
     }
-  }
+ }
 }
