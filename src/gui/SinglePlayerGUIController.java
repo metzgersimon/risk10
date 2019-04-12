@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
@@ -134,7 +135,11 @@ public class SinglePlayerGUIController {
   public void clearPane() {
     if (iconPane.getChildren() != null) {
       iconPane.getChildren().clear();
-      Main.g.getPlayers().clear();
+      int i = 1;
+      while(i < Main.g.getPlayers().size()) {
+        Main.g.getPlayers().remove(i);
+        i++;
+      }
     }
   }
 }
