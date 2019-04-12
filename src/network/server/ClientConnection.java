@@ -19,6 +19,7 @@ import network.messages.JoinGameMessage;
 import network.messages.LeaveGameMessage;
 import network.messages.Message;
 import network.messages.MessageType;
+import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 
 public class ClientConnection extends Thread {
@@ -51,7 +52,7 @@ public class ClientConnection extends Thread {
    * Constructor
    * 
    * @author qiychen
-   * @param s
+   * @param socket
    * @param server
    */
   public ClientConnection(Socket s, Server server) {
@@ -78,14 +79,6 @@ public class ClientConnection extends Thread {
   public void sendMessage(Message m) {
     try {
       toClient.writeObject(m);
-      // to test
-      // if(m.getType()==MessageType.BROADCAST) {
-      // joinLobby.addMessage(((SendChatMessageMessage)m).getMessage());
-      // joinLobby=new JoinGameLobbyController();
-
-      // joinLobby.addMessage(((SendChatMessageMessage)m).getMessage());
-      // }
-
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -96,7 +89,7 @@ public class ClientConnection extends Thread {
    * send message to all clients
    * 
    * @author qiychen
-   * @param m
+   * @param message
    */
   public void sendMessagesToallClients(Message m) {
     for (int i = 0; i < server.getConnections().size(); i++) {
@@ -137,6 +130,8 @@ public class ClientConnection extends Thread {
             break;
           case JOIN: handleJoinGame((JoinGameMessage)message);
             break;
+          case ALLIANCE:handleAllianceMessage((SendAllianceMessage)message);
+            break;
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
@@ -174,6 +169,18 @@ public class ClientConnection extends Thread {
     this.players.add(player);
     if (this.server.getHostLobbyController() != null) {
       this.server.getHostLobbyController().updateList(player);
+    }
+  }
+  public void handleAllianceMessage(SendAllianceMessage message) {
+    String playername;
+    for (int i = 0; i < this.players.size(); i++) {
+     playername=this.players.get(i).getName();
+      if(playername.equals(message.getPlayer().getName())) {
+        //give the client connection before sending message
+        //TODO
+        
+        this.sendMessage(message);
+      }
     }
   }
   

@@ -46,7 +46,7 @@ public class Client extends Thread {
 
   /**
    * Constructor to join the game on discovery
-   * 
+   * @author qiychen
    * @param address
    * @param player
    */
@@ -72,6 +72,10 @@ public class Client extends Thread {
     this.port = port;
     connect();
   }
+  /**
+   * @author qiychen
+   * @return whether the connection is established
+   */
   public boolean connect() {
     try {
       this.s = new Socket(address, Parameter.PORT);
@@ -92,8 +96,8 @@ public class Client extends Thread {
 
   /**
    * send message to server
-   * 
-   * @param m
+   * @author qiychen
+   * @param message
    */
   public void sendMessage(Message m) {
     System.out.println("test send message");
@@ -160,6 +164,8 @@ public class Client extends Thread {
             break;
           case JOIN: register();
           break;
+          case ALLIANCE:
+            break;
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
@@ -171,7 +177,7 @@ public class Client extends Thread {
     }
   }
 
-  /**
+  /**@author qiychen
    * disconnect the conneciton
    */
   public void disconnect() {
