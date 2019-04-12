@@ -461,7 +461,6 @@ public class Game {
    */
   public void hostGame(Player hostPlayer, int noOfPlayers) {
     this.server = new Server(Parameter.PORT, noOfPlayers);
-    this.server.start();
     // joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;
   }
 

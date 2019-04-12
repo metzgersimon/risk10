@@ -3,6 +3,7 @@
  */
 package game;
 
+import java.io.Serializable;
 import main.Main;
 
 /**
@@ -10,7 +11,7 @@ import main.Main;
  * @author smetzger
  *
  */
-public class TestGame extends Game{
+public class TestGame extends Game implements Serializable{
   
   
   public void distributeTerritories() {

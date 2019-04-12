@@ -1,5 +1,6 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import main.Main;
  * @author qiychen
  *
  */
-public class Player {
+public class Player implements Serializable{
 
   public static int PLAYER_HUMAN = 0;
   public static int PLAYER_AI_EASY = 1;

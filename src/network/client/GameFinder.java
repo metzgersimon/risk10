@@ -61,8 +61,7 @@ public class GameFinder extends Thread {
   }
   public void closeConnection() { 
     this.client.disconnect();
-    this.interrupt();
-  
+    this.interrupt(); 
   }
   
   public Client getClient() {

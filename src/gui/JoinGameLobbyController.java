@@ -31,7 +31,9 @@ public class JoinGameLobbyController {
 
   @FXML
   private TextArea button;
-  private Client client = Main.g.getGameFinder().getClient();;
+  
+  @FXML private Button leaveGame;
+  private Client client = Main.g.getGameFinder().getClient();
 
   private Game g;
   
@@ -42,6 +44,7 @@ public class JoinGameLobbyController {
   @FXML CheckBox client4;
   @FXML CheckBox client5;
   ArrayList<CheckBox> clientBoxes = new ArrayList<CheckBox>();
+  
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();

@@ -38,7 +38,7 @@ public class Client extends Thread {
   private HostGameLobbyController hostcontroller=null;
   // private HostGameLobbyController hostUi;
 
-  public Client(InetAddress addressn, int port) {
+  public Client(InetAddress address, int port) {
     this.address = address;
     this.port = port;
     connect();
@@ -158,6 +158,8 @@ public class Client extends Thread {
             break;
           case DISPLAY:
             break;
+          case JOIN: register();
+          break;
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block

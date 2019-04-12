@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.Main;
+import network.server.ClientConnection;
+import network.server.Server;
 
 public class HostGameGUIController {
 
@@ -34,6 +36,7 @@ public class HostGameGUIController {
     try {
       fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
+      Main.h = fxmlLoader.getController();
       Stage stage = main.Main.stage;
       stage.setTitle("Host Game Lobby");
       stage.setScene(new Scene(root));
@@ -42,7 +45,8 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    hostLobController=fxmlLoader.getController();
+    HostGameLobbyController controller = fxmlLoader.getController();
+    Main.g.getServer().setController(controller);
   }
 
   public void initialize() {

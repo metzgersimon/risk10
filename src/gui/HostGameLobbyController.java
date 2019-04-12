@@ -8,6 +8,7 @@ import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
 import game.Player;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,14 +66,16 @@ public class HostGameLobbyController {
   CheckBox box4;
   @FXML
   CheckBox box5;
+  
   /** number of players the host want to play game with */
   private int player = HostGameGUIController.numberofPlayers;
   MultiPlayerGUIController multi;
-  private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will join the game
+  private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will
+                                                                // join the game
   public static ArrayList<CheckBox> playerNames;
-  public static HashMap<Integer, String> playersJoined = new HashMap<Integer,String>();
-  public static int counter = 0;
-
+  public static HashMap<Integer, String> playersJoined = new HashMap<Integer, String>();
+  public int counter = 0;
+  public ArrayList<Player> clients = new ArrayList<Player>();
 
   /** to handle the event when the button "send" is clicked */
   @FXML
@@ -120,9 +123,10 @@ public class HostGameLobbyController {
         p = new AiPlayerHard();
       }
       Main.g.addPlayer(p);
-//      addPlayerInList(p.getName());
+      updateList(p);
+      // addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
-      addPlayerName(counter,p.getName());
+      // addPlayerName(counter,p.getName());
     } else {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
@@ -132,25 +136,17 @@ public class HostGameLobbyController {
     }
   }
 
-  public void addPlayerInList(String name) {
-//    for (int i = 0; i < playerNames.size(); i++) {
-//      if (playerNames.get(i).isDisabled()) {
-//        playerNames.get(i).setDisable(false);
-//        playerNames.get(i).setText(name);
-//      }
-//    }
-  }
+  // public void addPlayerInList(String name) {
+  //// for (int i = 0; i < playerNames.size(); i++) {
+  //// if (playerNames.get(i).isDisabled()) {
+  //// playerNames.get(i).setDisable(false);
+  //// playerNames.get(i).setText(name);
+  //// }
+  //// }
+  // }
 
-  public void addPlayerName(int index, String name) {
-    index++;
-    counter = index;
-    playersJoined.put(index, name);
-    playerNames.get(index).setSelected(true);
-    playerNames.get(index).setText(name);
-//     enableStartButton();   
-  }
+
   public void initialize() {
-    
     playerNames = new ArrayList<CheckBox>();
     playerNames.add(hostBox);
     playerNames.add(box1);
@@ -162,32 +158,79 @@ public class HostGameLobbyController {
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
       playerNames.get(i).setDisable(false);
     }
-   
+
   }
 
+  /**
+   * @author skaur this method is called from the server whenever a new is has joined the server and
+   *         whenever a new bot is added to the game lobby update the list of players who are
+   *         joining the lobby
+   */
+  public void updateList(Player p) {
+    // clients = Main.g.getServer().getClientConnection().getPlayer();
+    // clients.addAll(Main.g.getServer().getClientConnection().getPlayer());
+    this.clients.add(p);
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        int size = clients.size();
+        System.out.println(size);
+        String name = clients.get(size - 1).getName();
+        switch (size) {
+          case 1:
+            playerNames.get(1).setSelected(true);
+            playerNames.get(1).setText(name);
+            break;
+          case 2:
+            playerNames.get(2).setSelected(true);
+            playerNames.get(2).setText(name);
+            break;
+          case 3:
+            playerNames.get(3).setSelected(true);
+            playerNames.get(3).setText(name);
+            break;
+          case 4:
+            playerNames.get(4).setSelected(true);
+            playerNames.get(4).setText(name);
+            break;
+          case 5:
+            playerNames.get(5).setSelected(true);
+            playerNames.get(5).setText(name);
+            break;
+          case 6:
+            playerNames.get(6).setSelected(true);
+            playerNames.get(6).setText(name);
+            break;
+          default:
+            break;
+        }
+
+      }
+
+    });
+
+  }
+
+  /**
+   * @param content: text message
+   */
   public void showMessage(String content) {
     chatBox.appendText(content);
   }
-  
-  public void enableStartButton(){
-    if(Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers ) {
+
+  /**
+   * enable the start button, ones the all the clients have joined the lobby
+   */
+  public void enableStartButton() {
+    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
       startGame.setDisable(false);
-    }
-  }
-  
-  public void test() {
-    try {
-     Main.m.setController(this);
-    System.out.println("sdsds");
-    } catch(Exception e) {
-      e.printStackTrace();
     }
   }
 
 
   public void setController(MultiPlayerGUIController multiPlayerGUIController) {
-   this.multi = multiPlayerGUIController;
-    
+    this.multi = multiPlayerGUIController;
+
   }
 
 }

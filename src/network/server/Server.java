@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import gui.HostGameLobbyController;
 import network.Parameter;
 
 
@@ -38,7 +39,8 @@ public class Server extends Thread {
    * this parameter represents the number of players selected by the host to play the game
    */
   private int noOfPlayer;
-
+  private HostGameLobbyController lobbyController;
+  private ClientConnection connection;
   /**
    * @author skaur
    * @param port
@@ -89,7 +91,7 @@ public class Server extends Thread {
 
     });
     t.start();
-
+   this.start();
 
   }
 
@@ -117,8 +119,7 @@ public class Server extends Thread {
         socket = serverSocket.accept();
         ClientConnection c = new ClientConnection(socket,this);
         System.out.println("dsds");
-        clients.add(c);
-        System.out.println(clients.size()+"size");
+        this.connection = c;
         c.start();
         serverSocket.close();
      //new ServerProtocol(socket).start();
@@ -161,4 +162,20 @@ public class Server extends Thread {
   public int getNoOfPlayer() {
     return this.noOfPlayer;
   }
+
+  public void setController(HostGameLobbyController lobbyController){
+    this.lobbyController = lobbyController;
+  }
+ 
+  public HostGameLobbyController getHostLobbyController() {
+    return this.lobbyController;
+  }
+  
+  public ClientConnection getClientConnection() {
+    return this.connection;
+  }
+// public static void main(String [] args) {
+//   Server server = new Server(8888,2);
+//   
+// }
 }

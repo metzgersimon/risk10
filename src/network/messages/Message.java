@@ -1,15 +1,17 @@
 package network.messages;
 
 import java.io.Serializable;
+import game.Player;
 
 
-public class Message implements Serializable {
+public abstract class Message implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   private MessageType type;
   private String content;// content of the message
-  private Object response; //  the answer of the message
+  private Object response; // the answer of the message
+  private Player player;
 
   public Message(MessageType type) {
     this.type = type;
@@ -35,5 +37,7 @@ public class Message implements Serializable {
     this.response = response;
   }
 
-
+  public Player getPlayer() {
+    return this.player;
+  }
 }
