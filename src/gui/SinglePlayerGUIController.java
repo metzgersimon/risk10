@@ -130,16 +130,17 @@ public class SinglePlayerGUIController {
 
 
   /**
+   * Method removes all Ai icons of the vbox and the added players if a new amount of ai players is
+   * selected in the combobox
+   * 
    * @author smetzger
    */
   public void clearPane() {
+    System.out.println(Main.g.getPlayers().size());
+    System.out.println(Main.g.getPlayers().get(0).getName());
     if (iconPane.getChildren() != null) {
       iconPane.getChildren().clear();
-      int i = 1;
-      while(i < Main.g.getPlayers().size()) {
-        Main.g.getPlayers().remove(i);
-        i++;
-      }
+      Main.g.getPlayers().subList(1, Main.g.getPlayers().size()).clear();
     }
   }
 }
