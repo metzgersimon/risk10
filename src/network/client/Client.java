@@ -146,7 +146,7 @@ public class Client extends Thread {
             // hc.showMessage(content);
             System.out.println("host show " + content);
             controller.showMessage(content);
-            hostcontroller.showMessage(content);
+          //  hostcontroller.showMessage(content);
             
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
             // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));

@@ -122,7 +122,10 @@ public class ClientConnection extends Thread {
           case BROADCAST:
             String name = ((SendChatMessageMessage) message).getUsername();
             String content = ((SendChatMessageMessage) message).getMessage();
+            //send message to all clients and show in join game lobby
             this.sendMessagesToallClients(message);
+            //show message in host game lobby
+            this.server.getHostLobbyController().showMessage(content);
             System.out.println(
                 "Message from client with the content " + content + " sent to all clients");
             // gui.HostGameLobbyController.showMessage(content);
