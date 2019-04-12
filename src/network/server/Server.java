@@ -118,8 +118,7 @@ public class Server extends Thread {
         serverSocket = new ServerSocket(Parameter.PORT);
         socket = serverSocket.accept();
         ClientConnection c = new ClientConnection(socket,this);
-        System.out.println("dsds");
-        this.connection = c;
+        clients.add(c);
         c.start();
         serverSocket.close();
      //new ServerProtocol(socket).start();
