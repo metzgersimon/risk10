@@ -45,8 +45,10 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    HostGameLobbyController controller = fxmlLoader.getController();
-    Main.g.getServer().setController(controller);
+      
+    hostLobController = fxmlLoader.getController();
+    Main.g.getServer().setController(hostLobController);
+    Main.g.getGameFinderHost().getClient().setControllerHost(hostLobController);
   }
 
   public void initialize() {

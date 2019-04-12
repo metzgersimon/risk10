@@ -25,6 +25,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
+import network.client.Client;
+import network.messages.SendChatMessageMessage;
 
 public class HostGameLobbyController {
 
@@ -80,13 +82,18 @@ public class HostGameLobbyController {
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
-    try {
-      String message = textField.getText() + " \n";
-      chatBox.appendText(message);
-      System.out.println(message);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+//    try {
+//      String message = textField.getText() + " \n";
+//      chatBox.appendText(message);
+//      System.out.println(message);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+     String message = textField.getText();
+     SendChatMessageMessage m = new SendChatMessageMessage("test", message);
+     Client client = Main.g.getGameFinderHost().getClient();
+     client.sendMessage(m);
+     chatBox.appendText(client.getName() + "said" + message + "\n");
   }
 
 
@@ -162,7 +169,7 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @author skaur this method is called from the server whenever a new is has joined the server and
+   * @author skaur this method is called from the server class whenever a new player has joined and
    *         whenever a new bot is added to the game lobby update the list of players who are
    *         joining the lobby
    */
@@ -215,7 +222,7 @@ public class HostGameLobbyController {
    * @param content: text message
    */
   public void showMessage(String content) {
-    chatBox.appendText(content);
+    chatBox.appendText(content + "\n");
   }
 
   /**

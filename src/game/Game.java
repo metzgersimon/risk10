@@ -40,6 +40,7 @@ public class Game {
   private Server server;
   private GameFinder gameFinder;
   private Client client;
+  private GameFinder gameFinderHost;
   /**
    * 
    * @author qiychen Constructor
@@ -460,7 +461,10 @@ public class Game {
    *        join the game lobby (game lobby UI opens)
    */
   public void hostGame(Player hostPlayer, int noOfPlayers) {
-    this.server = new Server(Parameter.PORT, noOfPlayers);
+    //start the server
+    this.server = new Server(Parameter.PORT, noOfPlayers);  
+    //create client for the host palyer
+    this.gameFinderHost = new GameFinder();
     // joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;
   }
 
@@ -497,6 +501,11 @@ public class Game {
   public void setGameFinder(GameFinder gameFinder) {
     this.gameFinder = gameFinder;
   }
+  
+  public GameFinder getGameFinderHost() {
+    return this.gameFinderHost;
+  }
+  
 }
 
 

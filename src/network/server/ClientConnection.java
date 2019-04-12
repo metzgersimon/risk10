@@ -123,7 +123,6 @@ public class ClientConnection extends Thread {
             String name = ((SendChatMessageMessage) message).getUsername();
             String content = ((SendChatMessageMessage) message).getMessage();
             this.sendMessagesToallClients(message);
-            this.hostLobbyController.showMessage(content);
             System.out.println(
                 "Message from client with the content " + content + " sent to all clients");
             // gui.HostGameLobbyController.showMessage(content);
