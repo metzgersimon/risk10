@@ -4,13 +4,19 @@ import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
 import game.Player;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -26,12 +32,27 @@ public class SinglePlayerGUIController {
   private Slider difficulty;
 
   @FXML
-  private Button addAi;
+  private ComboBox addAi;
+
+  @FXML
+  private HBox iconPane;
+
+  @FXML
+  private ImageView aiIcon;
+  private String numberOfAiString;
+  private int numberOfAi;
+
+  @FXML
+  public void initialize() {
+    ObservableList<String> numberOfAis = FXCollections.observableArrayList("1", "2", "3", "4", "5");
+    addAi.setItems(numberOfAis);
+  }
+
 
   @FXML
   void back(ActionEvent event) {
     Main.g.removePlayer();
-    
+
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -70,26 +91,50 @@ public class SinglePlayerGUIController {
    * @author smetzger
    * @author pcoberge
    */
-  public void handleAddBot() {
+  public void handleAddAi() {
     startGame.setDisable(false);
+
+    numberOfAiString = addAi.getSelectionModel().getSelectedItem().toString();
+    numberOfAi = Integer.parseInt(numberOfAiString);
+
+    clearPane();
+
     if (Main.g.getPlayers().size() < 6) {
-      Player p = null;
-      switch ((int) difficulty.getValue()) {
-        case (1):
-          p = new AiPlayerEasy();
-          break;
-        case (2):
-          p = new AiPlayerMedium();
-          break;
-        case (3):
-          p = new AiPlayerHard();
-          break;
+      for (int i = 0; i < numberOfAi; i++) {
+        Player p = null;
+        ImageView aiIcon = new ImageView();
+        aiIcon.setImage(
+            new Image(getClass().getResource("/ressources/gui/robot2.png").toString(), true));
+        switch ((int) difficulty.getValue()) {
+
+          case (1):
+            p = new AiPlayerEasy();
+            break;
+          case (2):
+            p = new AiPlayerMedium();
+            break;
+          case (3):
+            p = new AiPlayerHard();
+            break;
+        }
+        Main.g.addPlayer(p);
+        System.out.println(p.getName());
+
+        iconPane.getChildren().add(aiIcon);
+        System.out.println("IMAGE ADDED");
+
       }
-      Main.g.addPlayer(p);
-      System.out.println(p.getName());
-      if (Main.g.getPlayers().size() == 6) {
-        addAi.setDisable(true);
-      }
+    }
+  }
+
+
+  /**
+   * @author smetzger
+   */
+  public void clearPane() {
+    if (iconPane.getChildren() != null) {
+      iconPane.getChildren().clear();
+      Main.g.getPlayers().clear();
     }
   }
 }
