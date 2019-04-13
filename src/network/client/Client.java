@@ -13,6 +13,7 @@ import game.Player;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -24,6 +25,7 @@ import network.messages.Message;
 import network.messages.PlayerListSizeMessage;
 import network.messages.PlayerListUpdateMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.StartGameMessage;
 
 public class Client extends Thread {
 
@@ -160,6 +162,7 @@ public class Client extends Thread {
             // TextArea chat = (TextArea) root.lookup("#lblData");
             // chat.appendText(content);
             break;
+          case START_GAME : handleStartGameMessage((StartGameMessage) message);
           case LEAVE:
             break;
           case DISPLAY:
@@ -191,6 +194,16 @@ public class Client extends Thread {
 //    this.controller.updateList(message.getPlayer());
   }
 
+  public void handleStartGameMessage(StartGameMessage message) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+          //update application thread
+        controller.viewBoardGame();
+      }
+  });
+    
+  }
   /**@author qiychen
    * disconnect the conneciton
    */

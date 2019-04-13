@@ -21,6 +21,7 @@ import network.messages.Message;
 import network.messages.MessageType;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.StartGameMessage;
 
 public class ClientConnection extends Thread {
 
@@ -125,7 +126,8 @@ public class ClientConnection extends Thread {
             break;
           case SEND:
             break;
-
+          case START_GAME : handleStartGameMessage((StartGameMessage) message);
+            break;
           case LEAVE: handleLeaveGameMessage((LeaveGameMessage) message);
             break;
           case JOIN: handleJoinGame((JoinGameMessage)message);
@@ -182,6 +184,10 @@ public class ClientConnection extends Thread {
         this.sendMessage(message);
       }
     }
+  }
+  
+  public void handleStartGameMessage(StartGameMessage startMessage) {
+    this.sendMessagesToallClients(startMessage);
   }
   
   public void handleLeaveGameMessage(LeaveGameMessage message){

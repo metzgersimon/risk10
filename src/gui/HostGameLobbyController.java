@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.StartGameMessage;
 
 public class HostGameLobbyController {
 
@@ -134,6 +135,7 @@ public class HostGameLobbyController {
       // addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
       // addPlayerName(counter,p.getName());
+      this.enableStartButton();
     } else {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
@@ -215,6 +217,7 @@ public class HostGameLobbyController {
       }
 
     });
+    this.enableStartButton();
 
   }
 
@@ -229,7 +232,9 @@ public class HostGameLobbyController {
    * enable the start button, ones the all the clients have joined the lobby
    */
   public void enableStartButton() {
-    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
+//    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
+    if (this.clients.size() == HostGameGUIController.numberofPlayers-1) {
+    
       startGame.setDisable(false);
     }
   }
@@ -238,6 +243,22 @@ public class HostGameLobbyController {
   public void setController(MultiPlayerGUIController multiPlayerGUIController) {
     this.multi = multiPlayerGUIController;
 
+  }
+  
+  @FXML
+  public void handleStartGameButton(ActionEvent event) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setScene(new Scene(root));
+      stage.show();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    StartGameMessage startGameMessage = new StartGameMessage();
+    Main.g.getGameFinderHost().getClient().sendMessage(startGameMessage);
   }
 
 }

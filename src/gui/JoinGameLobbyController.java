@@ -100,4 +100,17 @@ public class JoinGameLobbyController {
      clientBoxes.get(i).setDisable(false);
     }
  }
+ 
+ public void viewBoardGame() {
+   try {
+     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+     Parent root = (Parent) fxmlLoader.load();
+     Stage stage = main.Main.stage;
+     stage.setScene(new Scene(root));
+     stage.show();
+     // ((Node) event.getSource()).getScene().getWindow().hide();
+   } catch (Exception e) {
+     e.printStackTrace();
+   }
+ }
 }

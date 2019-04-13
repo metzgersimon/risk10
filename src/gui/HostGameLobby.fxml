@@ -78,7 +78,7 @@
                 </AnchorPane>
                 <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="426.0" styleClass="backgraound-color">
                   <children>
-                    <Button fx:id="startGame" disable="true" layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
+                    <Button fx:id="startGame" disable="true" layoutX="122.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleStartGameButton" prefHeight="20.0" prefWidth="175.0" styleClass="circleButton" text="START  GAME">
                       <effect>
                         <DropShadow />
                       </effect>
