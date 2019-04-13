@@ -789,6 +789,10 @@ public class BoardController implements Initializable {
   public void throwDices() {
     Platform.runLater(new Runnable() {
       public void run() {
+        // update opponent number of dices
+        if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
+          defendDice2.setVisible(false);
+        }
         // int numberDicesSelf = handleNumberOfDices();
         System.out.println("number of Dices : " + numberOfDices);
         System.out.println("Selected Territory attacked: " + selectedTerritory_attacked);
@@ -1099,6 +1103,8 @@ public class BoardController implements Initializable {
         }
         Main.g.nextPlayer();
         prepareArmyDistribution();
+        Main.g.furtherFortify();
+        System.out.println(Main.g.getCurrentPlayer());
         // progress.setProgress(0);
         break;
     }

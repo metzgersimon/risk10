@@ -439,6 +439,8 @@ public class Game {
     this.nextPlayer();
     Main.b.prepareArmyDistribution();
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+    this.setGameState(GameState.ARMY_DISTRIBUTION);
+    Main.b.displayGameState();
     if (this.getCurrentPlayer() instanceof AiPlayer) {
       try {
         Thread.sleep(1000);
@@ -449,8 +451,6 @@ public class Game {
       AiPlayer p = (AiPlayer) this.getCurrentPlayer();
       p.armyDistribution();
     }
-    this.setGameState(GameState.ARMY_DISTRIBUTION);
-    Main.b.displayGameState();
   }
 
 

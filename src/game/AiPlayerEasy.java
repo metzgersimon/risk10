@@ -64,7 +64,9 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void armyDistribution() {
-    System.out.println("AI army distribution: "+Main.g.getCurrentPlayer());
+    System.out.println("AI army distribution: " + Main.g.getCurrentPlayer().getName());
+    
+    // trade-in cards
     for (int i = 0; i < this.getCards().size(); i++) {
       for (int j = i + 1; j < this.getCards().size() - 1; j++) {
         for (int k = j + 1; k < this.getCards().size() - 2; k++) {
@@ -72,10 +74,13 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         }
       }
     }
+    
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
     Territory territory = null;
+    // choose territory
     while (this.getNumberArmiesToDistibute() != 0) {
+      System.out.println(this.getNumberArmiesToDistibute());
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
         randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
@@ -92,13 +97,13 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
       Main.b.updateLabelTerritory(territory);
     }
-
-
-
+    Main.b.handleSkipGameState();
+    Main.b.prepareAttack();
+    this.attack();
   }
 
   public void attack() {
-    System.out.println("AI attack: "+Main.g.getCurrentPlayer());
+    System.out.println("AI attack: " + Main.g.getCurrentPlayer().getName());
     int randomTerritoryOwn = 0;
     int randomTerritoryOpponent = 0;
     int randomNumberOfArmies = 0;
@@ -128,7 +133,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
       // choose hostile neighbor territory
       randomTerritoryOpponent =
-          (int) (Math.random() * territoryOwn.getHostileNeighbor().size()) + 1;
+          (int) (Math.random() * territoryOwn.getHostileNeighbor().size());
       territoryOpponent = territoryOwn.getHostileNeighbor().get(randomTerritoryOpponent);
 
       // calculate number of dices
@@ -153,14 +158,15 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       attackProbability = 0.66;
     }
 
-    Main.g.setGameState(GameState.FORTIFY);
+    Main.b.handleSkipGameState();
     Main.b.prepareFortify();
     this.fortify();
 
   }
 
   public void fortify() {
-    System.out.println("AI fortify: "+Main.g.getCurrentPlayer());
+    System.out.println("AI fortify: " + Main.g.getCurrentPlayer());
+    Main.b.handleSkipGameState();
     Main.g.furtherFortify();
   }
 
