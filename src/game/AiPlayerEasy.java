@@ -103,7 +103,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   }
 
   public void attack() {
-    System.out.println("AI attack: " + Main.g.getCurrentPlayer().getName());
+    System.out.println("AI attack: " + Main.g.getCurrentPlayer().getName()+ " -- "+ this.getColor().toString());
     int randomTerritoryOwn = 0;
     int randomTerritoryOpponent = 0;
     int randomNumberOfArmies = 0;
@@ -148,6 +148,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
+        System.out.println(territoryOwn.getName() + " -- "+ territoryOpponent.getName());
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
         Main.b.updateColorTerritory(territoryOpponent);

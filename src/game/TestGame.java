@@ -40,6 +40,7 @@ public class TestGame extends Game implements Serializable{
     initNumberOfArmies();
 
     this.setCurrentPlayer(this.getPlayers().get(0));
+    System.out.println(this.getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
 //    Main.b.prepareInitTerritoryDistribution();
     distributeTerritories();

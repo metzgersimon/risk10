@@ -140,7 +140,8 @@ public class Game {
     // Compute number of armies
     initNumberOfArmies();
 
-    currentPlayer = players.get(0);
+    setCurrentPlayer(players.get(0));//currentPlayer = players.get(0);
+    System.out.println("1"+getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
     Main.b.prepareInitTerritoryDistribution();
     Main.b.displayGameState();
@@ -436,14 +437,16 @@ public class Game {
   }
 
   public void furtherFortify() {
+    System.out.println(this.getCurrentPlayer().getName());
     this.nextPlayer();
+    System.out.println(this.getCurrentPlayer().getName());
     Main.b.prepareArmyDistribution();
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();
     this.setGameState(GameState.ARMY_DISTRIBUTION);
     Main.b.displayGameState();
     if (this.getCurrentPlayer() instanceof AiPlayer) {
       try {
-        Thread.sleep(1000);
+        Thread.sleep(10000);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

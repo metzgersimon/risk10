@@ -865,26 +865,37 @@ public class BoardController implements Initializable {
   }
 
 
-  public void confirmFortify() {
+  public synchronized void confirmFortify() {
     Platform.runLater(new Runnable() {
       public void run() {
         int amount = (int) fortifySlider.getValue();
+        System.out.println("Test1");
         if (g.getCurrentPlayer().fortify(selectedTerritory, selectedTerritory_attacked, amount)) {
+          System.out.println("Test2");
           selectedTerritory.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory.getNumberOfArmies() + "");
+          selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
+          .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
         }
         // setArmyPane.toBack();
+        System.out.println("Test3");
         grayPane.toBack();
         selectedTerritory = null;
         selectedTerritory_attacked = null;
         fortifyPane.toBack();
         // selectedTerritory.getBoardRegion().getRegion().setEffect(null);
         prepareArmyDistribution();
+//        try {
+//          Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//          // TODO Auto-generated catch block
+//          e.printStackTrace();
+//        }
 
         // Main.g.setGameState(GameState.ATTACK);
         // prepareAttack();
         // displayGameState();
-        Main.g.furtherFortify();
+//        Main.g.furtherFortify();
 
       }
     });
@@ -894,20 +905,16 @@ public class BoardController implements Initializable {
 
   @FXML
   public void handleCardPane() {
-    gridCardPane.setVisible(true);
-    double j = cardPane.getDividerPositions()[0];
-    if (cardPane.getDividerPositions()[0] >= 0.9) {
-      for (double i = cardPane.getDividerPositions()[0]; i >= 0; i -= j / 100.0) {
-        cardPane.getDividers().get(0).setPosition(i);
+    Platform.runLater(new Runnable() {
+      public void run() {
+        if(gridCardPane.isVisible()) {
+          gridCardPane.setVisible(false);
+        }
+        else {
+          gridCardPane.setVisible(true);
+        }
       }
-      // cardPane.setDividerPosition(0, 0);
-    } else {
-      for (double i = cardPane.getDividerPositions()[0]; i <= 1; i += j / 100.0) {
-        cardPane.getDividers().get(0).setPosition(i);
-      }
-      // cardPane.getDividers().get(0).setPosition(1);
-      // cardPane.setDividerPosition(0, 1.0);
-    }
+    });
   }
 
 
@@ -919,44 +926,51 @@ public class BoardController implements Initializable {
    */
   @FXML
   public ImageView handleCardDragAndDrop(MouseEvent e) {
-    ImageView img = (ImageView) e.getSource();
-    String url = img.getImage().impl_getUrl();
-    String file = url.substring(url.lastIndexOf('/') + 1, url.length());
-    String[] split = file.split("\\.");
-    int cardId = Integer.parseInt(split[0]);
-    Card card = (Card) deck.getCards().get(cardId);
-    this.initializeCardLists();
+//    Platform.runLater(new Runnable() {
+//      public void run() {
+        ImageView img = (ImageView) e.getSource();
+        String url = img.getImage().impl_getUrl();
+        String file = url.substring(url.lastIndexOf('/') + 1, url.length());
+        String[] split = file.split("\\.");
+        int cardId = Integer.parseInt(split[0]);
+        Card card = (Card) deck.getCards().get(cardId);
+        initializeCardLists();
 
-    if (left.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
-      selectCard(card);
+        if (left.getChildren().isEmpty()) {
+          img.setMouseTransparent(true);
+          selectCard(card);
 
-      StackPane pane = (StackPane) img.getParent();
-      left.getChildren().add(pane);
-      pane.getStylesheets().clear();
-    } else if (center.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
+          StackPane pane = (StackPane) img.getParent();
+          left.getChildren().add(pane);
+          pane.getStylesheets().clear();
+        } else if (center.getChildren().isEmpty()) {
+          img.setMouseTransparent(true);
 
-      selectCard(card);
+          selectCard(card);
 
-      StackPane pane = (StackPane) img.getParent();
-      center.getChildren().add(pane);
-      pane.setStyle(null);
-    } else if (right.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
+          StackPane pane = (StackPane) img.getParent();
+          center.getChildren().add(pane);
+          pane.setStyle(null);
+        } else if (right.getChildren().isEmpty()) {
+          img.setMouseTransparent(true);
 
-      selectCard(card);
+          selectCard(card);
 
-      StackPane pane = (StackPane) img.getParent();
-      right.getChildren().add(pane);
-      pane.setStyle(null);
-    }
-    if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
-        && !right.getChildren().isEmpty()
-        && topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
-      tradeIn.setDisable(false);
-    }
+          StackPane pane = (StackPane) img.getParent();
+          right.getChildren().add(pane);
+          pane.setStyle(null);
+        }
+        if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
+            && !right.getChildren().isEmpty()
+            && topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
+          tradeIn.setDisable(false);
+        }
+//      
+//      }
+//    
+//    });
     return img;
+
   }
 
   /**

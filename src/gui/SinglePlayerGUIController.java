@@ -84,8 +84,9 @@ public class SinglePlayerGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    System.out.println("-----------------------------");
     Main.g.initGame();
-    System.out.println(Main.g.getGameState());
+    System.out.println("2"+Main.g.getGameState());
   }
 
   /**
@@ -119,10 +120,10 @@ public class SinglePlayerGUIController {
             break;
         }
         Main.g.addPlayer(p);
-        System.out.println(p.getName());
+//        System.out.println(p.getName());
 
         iconPane.getChildren().add(aiIcon);
-        System.out.println("IMAGE ADDED");
+//        System.out.println("IMAGE ADDED");
 
       }
     }
@@ -136,8 +137,8 @@ public class SinglePlayerGUIController {
    * @author smetzger
    */
   public void clearPane() {
-    System.out.println(Main.g.getPlayers().size());
-    System.out.println(Main.g.getPlayers().get(0).getName());
+//    System.out.println(Main.g.getPlayers().size());
+//    System.out.println(Main.g.getPlayers().get(0).getName());
     if (iconPane.getChildren() != null) {
       iconPane.getChildren().clear();
       Main.g.getPlayers().subList(1, Main.g.getPlayers().size()).clear();

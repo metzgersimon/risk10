@@ -8,7 +8,3 @@
 	-fx-tick-label-fill: white;
 }
 
-.Background{
-	-fx-background-image: url('../ressources/gui/risk_pic.png');
-	-fx-background-size: 100% 110%
-}
