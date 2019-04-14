@@ -1,50 +1,17 @@
 package gui;
 
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class ProfileImagePickerGUIController {
 
   @FXML
-  private ImageView image3;
-
-  @FXML
-  private ImageView image10;
-
-  @FXML
-  private ImageView image5;
-
-  @FXML
-  private ImageView image7;
-
-  @FXML
-  private ImageView image6;
-
-  @FXML
-  private ImageView image2;
-
-  @FXML
-  private ImageView image8;
-
-  @FXML
-  private ImageView image9;
-
-  @FXML
-  private ImageView image4;
-
-  @FXML
-  private ImageView image1;
+  private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10;
 
   @FXML
   void chooseImage(MouseEvent event) {
@@ -61,14 +28,12 @@ public class ProfileImagePickerGUIController {
         stage.setTitle("Edit Profile");
         stage.setScene(new Scene(root));
         stage.show();
-        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
       }
     } else {
       try {
         CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
-
         CreateProfileGUIController.id = getId(id);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
@@ -77,7 +42,6 @@ public class ProfileImagePickerGUIController {
         stage.setTitle("Create Profile");
         stage.setScene(new Scene(root));
         stage.show();
-        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -131,9 +95,9 @@ public class ProfileImagePickerGUIController {
     }
     return nr;
   }
-  
+
   public void initialize() {
-    EditProfileGUIController.image = null;
+    // EditProfileGUIController.image = null;
   }
 
 }

@@ -1,122 +1,127 @@
 package gui;
 
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * @author liwang
+ * 
+ *         Controller class of CreateProfile GUI
+ *
+ */
 public class CreateProfileGUIController {
 
   public static String username = null;
   public static Image image = null;
   public static int id = 0;
+  public static boolean toInizialied = false; // if there is a need to initialize name or image
 
-  public static boolean empty = true;
+  private Stage stage = main.Main.stage;
 
   @FXML
-  private Button conform;
-
+  private Button save;
   @FXML
   private TextField name;
-
   @FXML
   private ImageView profileImage;
+  @FXML
+  private Pane warningPane;
+  @FXML
+  private Label warning;
+  @FXML
+  private Button ok;
 
+  /**
+   * @author liwang
+   * 
+   *         this method opens ProfileImagePickerGUI when the default image file is clicked
+   * 
+   * @param event
+   */
   @FXML
   void chooseImage(MouseEvent event) {
-    empty = false;
-    // FileChooser fileChooser = new FileChooser();
-    // File file = fileChooser.showOpenDialog(null);
-    //
-    // FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)",
-    // "*.JPG");
-    // fileChooser.getExtensionFilters().add(jpg);
-    // fileChooser.setTitle("Select a profile image");
-    // fileChooser.setInitialDirectory(
-    // new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
-    //
-    // try {
-    // BufferedImage bufferedImage = ImageIO.read(file);
-    // Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-    // profileImage.setImage(image);
-    //
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
+    toInizialied = true; // gui need to be initialized if user comes back to this
     username = name.getText();
-
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
-      Stage stage = main.Main.stage;
       stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
       stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
 
   }
 
+  /**
+   * @author liwang
+   * 
+   *         this method save the created profile and go back to profileSelection GUI, to be
+   *         successfully saved, the name should not be empty or repeated and an image is selected
+   * 
+   * @param event save the created profile and go back to profileSelection GUI
+   */
   @FXML
-  void conform(ActionEvent event) {
+  void save(ActionEvent event) {
     username = name.getText();
 
     boolean nameAvailable = true;
     boolean nameNotEmpty = true;
 
+
     for (int i = 0; i <= ProfileSelectionGUIController.count; i++) {
       if (username.equals(ProfileSelectionGUIController.names[i])) {
         nameAvailable = false;
-        showNameUnavilable();
+        warning.setText("The name already exists, please enter another name");
+        warningPane.toFront();
+        name.setDisable(true);
+        save.setDisable(true);
         break;
       }
       if (username.equals("")) {
         nameNotEmpty = false;
-        showNameEmpty();
+        warning.setText("The name should not be empty");
+        warningPane.toFront();
+        name.setDisable(true);
+        save.setDisable(true);
       }
     }
 
-    if (nameAvailable && nameNotEmpty) {
+    if (image == null) {
+      warning.setText("Please choose your profile image");
+      warningPane.toFront();
+      name.setDisable(true);
+      save.setDisable(true);
+    }
+
+    if (nameAvailable && nameNotEmpty && image != null) {
       image = profileImage.getImage();
       ProfileSelectionGUIController.images[ProfileSelectionGUIController.count] = image;
       ProfileSelectionGUIController.names[ProfileSelectionGUIController.count] = username;
       ProfileSelectionGUIController.count++;
 
+      // add the profile in the xml
       ProfileManager.addNewProfile(username, id);
-      ProfileManager.readXml();
-      ProfileManager.printAllProfiles();
 
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
-        Stage stage = main.Main.stage;
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
-        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
         System.out.println("Can't load ProfileSelectionGUI.fxml");
@@ -125,49 +130,30 @@ public class CreateProfileGUIController {
 
   }
 
-  private void showNameEmpty() {
-    Stage dialogStage = new Stage();
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    VBox vbox = new VBox(new Text("The name should not be empty"));
-    Button okButton = new Button("OK");
-    okButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        dialogStage.close();
-
-      }
-    });
-
-    vbox.getChildren().add(okButton);
-    vbox.setAlignment(Pos.CENTER);
-    vbox.setPadding(new Insets(15));
-    dialogStage.setScene(new Scene(vbox));
-    dialogStage.show();
+  /**
+   * @author liwang
+   * 
+   *         this method is to bring the warning to the back after user confirm the warning
+   * 
+   * @param event
+   */
+  @FXML
+  void handleOk(ActionEvent event) {
+    warningPane.toBack();
+    name.setDisable(false);
+    save.setDisable(false);
   }
 
-  private void showNameUnavilable() {
-    Stage dialogStage = new Stage();
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    VBox vbox = new VBox(new Text("The name already exists, please enter another name"));
-    Button okButton = new Button("OK");
-    okButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        dialogStage.close();
-
-      }
-    });
-
-    vbox.getChildren().add(okButton);
-    vbox.setAlignment(Pos.CENTER);
-    vbox.setPadding(new Insets(15));
-    dialogStage.setScene(new Scene(vbox));
-    dialogStage.show();
-
-  }
-
+  /**
+   * @author liwang
+   * 
+   *         this method is to initialize this gui, if there is already name entered, it should be
+   *         shown, when the image is chosen and go back to this gui, the chosen image will also be
+   *         shown
+   * 
+   */
   public void initialize() {
-    if (!empty) {
+    if (toInizialied) {
       if (image != null) {
         profileImage.setImage(image);
       }
@@ -175,7 +161,6 @@ public class CreateProfileGUIController {
         name.setText(username);
       }
     }
-    empty = true;
-
+    toInizialied = false;
   }
 }

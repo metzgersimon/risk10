@@ -81,6 +81,7 @@ public class ProfileSelectionGUIController {
 
   @FXML
   void handleCreateNewProfileButton(ActionEvent event) {
+    CreateProfileGUIController.image = null;
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
