@@ -19,7 +19,7 @@ import org.jdom2.output.XMLOutputter;
 
 public class ProfileManager {
   public static LinkedHashMap<String, PlayerProfile> profileList;
-  PlayerProfile selectedProfile;
+  public static PlayerProfile selectedProfile;
 
   /**
    * Adds a new profile to the list
@@ -75,7 +75,7 @@ public class ProfileManager {
    * @author prto
    * @param key name of profile to be selected
    */
-  public void setSelectedProfile(String key) {
+  public static void setSelectedProfile(String key) {
     selectedProfile = profileList.get(key);
   }
 

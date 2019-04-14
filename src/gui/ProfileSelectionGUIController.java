@@ -117,9 +117,13 @@ public class ProfileSelectionGUIController {
         break;
     }
 
-    // System.out.println(playerName);
-    player = new Player(playerName, PlayerColor.YELLOW);
+    // create an instance of the Player, add it to the Player list and link it to profile
+    System.out.println("Player instance created with name " + playerName + " and color "
+        + PlayerColor.values()[Main.g.getPlayers().size()]);
+    player = new Player(playerName, game.PlayerColor.values()[Main.g.getPlayers().size()]);
     Main.g.addPlayer(player);
+    ProfileManager.setSelectedProfile(playerName);
+
 
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
