@@ -27,17 +27,18 @@ public class MultiPlayerGUIController {
 
   @FXML
   private Button joinGame;
-  
+
   @FXML
   private TextField address;
-  
+
   @FXML
   private Button connect;
 
   /** List of players who have joined the game */
   public static List<Player> playersList = new ArrayList<Player>();
-  private HostGameGUIController hostGui=null;
-  private HostGameLobbyController hostLobbyController=null;
+  private HostGameGUIController hostGui = null;
+  private HostGameLobbyController hostLobbyController = null;
+
   @FXML
   void back(ActionEvent event) {
     Main.g.removePlayer();
@@ -56,11 +57,13 @@ public class MultiPlayerGUIController {
 
   @FXML
   void hostGame(ActionEvent event) {
-    FXMLLoader fxmlLoader=null;
+    FXMLLoader fxmlLoader = null;
     try {
       // only to test connection
-      Main.g.hostGame(ProfileSelectionGUIController.player, HostGameGUIController.numberofPlayers);
-      MultiPlayerGUIController.playersList.add(ProfileSelectionGUIController.player);
+      Player hostPlayer = main.Main.g.getPlayers().get(0);
+      Main.g.hostGame(hostPlayer, HostGameGUIController.numberofPlayers);
+      MultiPlayerGUIController.playersList.add(hostPlayer);
+
       fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -71,21 +74,30 @@ public class MultiPlayerGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    hostGui=fxmlLoader.getController();
-    hostLobbyController=hostGui.getHostController();
+    hostGui = fxmlLoader.getController();
+    hostLobbyController = hostGui.getHostController();
   }
-  
- public void setController(HostGameLobbyController c) {
+
+  public void setController(HostGameLobbyController c) {
     this.hostLobbyController = c;
   }
- 
+
   @FXML
   void joinGame(ActionEvent event) {
+
+    // create an instance of the Player, add it to the Player list and link it to profile
+    String name = ProfileSelectionGUIController.selectedPlayerName;
+    System.out.println("Player instance created with name " + name + " and color "
+        + PlayerColor.values()[Main.g.getPlayers().size()]);
+    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
+    Main.g.addPlayer(player);
+    ProfileManager.setSelectedProfile(name);
+
     FXMLLoader fxmlLoader = null;
     try {
       // only to test connection
-      Main.g.joinGameonDiscovery(ProfileSelectionGUIController.player);
-//      Main.g.addPlayer(ProfileSelectionGUIController.player);
+      Main.g.joinGameonDiscovery(player);
+      // Main.g.addPlayer(ProfileSelectionGUIController.player);
       fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Main.j = fxmlLoader.getController();
@@ -102,28 +114,29 @@ public class MultiPlayerGUIController {
     Client client = Main.g.getGameFinder().getClient();
     client.setController(controller);
     client.setControllerHost(hostLobbyController);
-    
-    
-   //send join game message to the server
-    JoinGameMessage joinMessage = new JoinGameMessage(ProfileSelectionGUIController.player);
-    client.sendMessage(joinMessage);  
+
+
+    // send join game message to the server
+    JoinGameMessage joinMessage = new JoinGameMessage(player);
+    client.sendMessage(joinMessage);
   }
-  
+
   /**
    * join game lobby with ip address and port
+   * 
    * @param event
    */
   @FXML
   void joinGameWithAddress(ActionEvent event) {
     try {
       String ip_port = address.getText();
-      String [] tokens =ip_port.split("_");
+      String[] tokens = ip_port.split("_");
       int port;
       try {
         port = Integer.parseInt(tokens[1]);
-        Main.g.joinGame(tokens[0],port);
+        Main.g.joinGame(tokens[0], port);
       } catch (NumberFormatException e) {
-        System.out.println(getClass()  + " : Port number is not in correct format "); 
+        System.out.println(getClass() + " : Port number is not in correct format ");
         e.printStackTrace();
       }
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
@@ -137,5 +150,5 @@ public class MultiPlayerGUIController {
       e.printStackTrace();
     }
   }
-  
+
 }

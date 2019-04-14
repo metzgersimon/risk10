@@ -56,9 +56,7 @@ public class ProfileSelectionGUIController {
   @FXML
   private Button createNewProfile;
 
-  public static Player player;
-
-
+  public static String selectedPlayerName = null;
 
   /**
    * Event handle class invoked when back Button clicked
@@ -98,32 +96,24 @@ public class ProfileSelectionGUIController {
   @FXML
   void choose(MouseEvent event) {
 
-    String playerName = "something wrong";
+
     A: switch (((ImageView) event.getSource()).getId()) {
       case ("image1"):
-        playerName = names[0];
+        selectedPlayerName = names[0];
         break A;
       case ("image2"):
-        playerName = names[1];
+        selectedPlayerName = names[1];
         break;
       case ("image3"):
-        playerName = names[2];
+        selectedPlayerName = names[2];
         break;
       case ("image4"):
-        playerName = names[3];
+        selectedPlayerName = names[3];
         break;
       case ("image5"):
-        playerName = names[4];
+        selectedPlayerName = names[4];
         break;
     }
-
-    // create an instance of the Player, add it to the Player list and link it to profile
-    System.out.println("Player instance created with name " + playerName + " and color "
-        + PlayerColor.values()[Main.g.getPlayers().size()]);
-    player = new Player(playerName, game.PlayerColor.values()[Main.g.getPlayers().size()]);
-    Main.g.addPlayer(player);
-    ProfileManager.setSelectedProfile(playerName);
-
 
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {

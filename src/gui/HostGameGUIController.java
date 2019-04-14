@@ -1,5 +1,7 @@
 package gui;
 
+import game.Player;
+import game.PlayerColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,10 +29,20 @@ public class HostGameGUIController {
 
   @FXML
   private Button confirm;
-  private HostGameLobbyController hostLobController=null;
+  private HostGameLobbyController hostLobController = null;
+
   @FXML
   void confirm(ActionEvent event) {
-    FXMLLoader fxmlLoader=null;
+
+    // create an instance of the Player, add it to the Player list and link it to profile
+    String name = ProfileSelectionGUIController.selectedPlayerName;
+    System.out.println("Player instance created with name " + name + " and color "
+        + PlayerColor.values()[Main.g.getPlayers().size()]);
+    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
+    Main.g.addPlayer(player);
+    ProfileManager.setSelectedProfile(name);
+
+    FXMLLoader fxmlLoader = null;
     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
     System.out.println(numberofPlayers);
     try {
@@ -45,7 +57,7 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-      
+
     hostLobController = fxmlLoader.getController();
     Main.g.getServer().setController(hostLobController);
     Main.g.getGameFinderHost().getClient().setControllerHost(hostLobController);
@@ -75,5 +87,5 @@ public class HostGameGUIController {
   public HostGameLobbyController getHostController() {
     return this.hostLobController;
   }
- 
+
 }

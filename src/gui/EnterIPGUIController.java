@@ -1,5 +1,7 @@
 package gui;
 
+import game.Player;
+import game.PlayerColor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,7 @@ public class EnterIPGUIController {
 
   @FXML
   private TextField port;
-  
+
   @FXML
   void back(ActionEvent event) {
     try {
@@ -42,8 +44,15 @@ public class EnterIPGUIController {
 
   @FXML
   void discover(ActionEvent event) {
+    // create an instance of the Player, add it to the Player list and link it to profile
+    String name = ProfileSelectionGUIController.selectedPlayerName;
+    System.out.println("Player instance created with name " + name + " and color "
+        + PlayerColor.values()[Main.g.getPlayers().size()]);
+    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
+    Main.g.addPlayer(player);
+    ProfileManager.setSelectedProfile(name);
     try {
-      Main.g.joinGameonDiscovery(ProfileSelectionGUIController.player);
+      Main.g.joinGameonDiscovery(player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -55,11 +64,11 @@ public class EnterIPGUIController {
       e.printStackTrace();
     }
   }
-  
+
   @FXML
   void connect(ActionEvent event) {
-    try {  
-      Main.g.joinGame(ip.getText(),Integer.parseInt(ip.getText()));
+    try {
+      Main.g.joinGame(ip.getText(), Integer.parseInt(ip.getText()));
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -71,6 +80,6 @@ public class EnterIPGUIController {
       e.printStackTrace();
     }
   }
-  
+
 
 }
