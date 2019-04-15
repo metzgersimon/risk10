@@ -168,7 +168,7 @@ public class ClientConnection extends Thread {
   * @param message
   */
   public void handleJoinGame(JoinGameMessage message) {
-    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()], Server.game);
+    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()]);
     Server.game.addPlayer(player);
     this.players.add(player);
     if (this.server.getHostLobbyController() != null) {

@@ -28,6 +28,7 @@ import main.Main;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
+import network.server.Server;
 
 public class HostGameLobbyController {
 
@@ -108,9 +109,8 @@ public class HostGameLobbyController {
 
   @FXML
   void handleAddBot(ActionEvent event) {
-    // TODO
     Player p;
-    if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
+    if (Server.game.getPlayers().size() < HostGameGUIController.numberofPlayers) {
       if (botLevel.getValue() == 0.0) {
         p = new AiPlayerEasy();
       } else if (botLevel.getValue() == 1.0) {
@@ -118,11 +118,10 @@ public class HostGameLobbyController {
       } else {
         p = new AiPlayerHard();
       }
-      Main.g.addPlayer(p);
+      Server.game.addPlayer(p);
       updateList(p);
       // addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
-      // addPlayerName(counter,p.getName());
       this.enableStartButton();
     } else {
       Alert alert = new Alert(AlertType.ERROR);
@@ -142,7 +141,10 @@ public class HostGameLobbyController {
   //// }
   // }
 
-
+/**
+ * enable the check boxes according to the selected number of players by the host player
+ * @skaur
+ */
   public void initialize() {
     playerNames = new ArrayList<CheckBox>();
     playerNames.add(hostBox);
@@ -216,10 +218,10 @@ public class HostGameLobbyController {
 
   /**
    * enable the start button, ones the all the clients have joined the lobby
+   * @skaur
    */
   public void enableStartButton() {
-//    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
-    if (this.clients.size() == HostGameGUIController.numberofPlayers-1) {  
+    if (Server.game.getPlayers().size() == HostGameGUIController.numberofPlayers) {  
       startGame.setDisable(false);
     }
   }

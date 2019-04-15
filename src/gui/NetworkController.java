@@ -4,7 +4,11 @@ import network.Parameter;
 import network.client.Client;
 import network.client.GameFinder;
 import network.server.Server;
-
+/**
+ * this class contains methods which connects the network with gui
+ * @author sandeepkaur
+ *
+ */
 public class NetworkController {
 
   public static Server server;
