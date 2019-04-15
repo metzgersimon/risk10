@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Bloom?>
@@ -34,7 +35,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
 	<children>
 		<Pane fx:id="cantBeTraded" layoutX="450.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
 			<children>
@@ -1364,16 +1365,16 @@
 					<bottom>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
-								<TextField HBox.hgrow="ALWAYS" />
-								<Button graphicTextGap="2.0" mnemonicParsing="false" text="Send" HBox.hgrow="ALWAYS" />
+								<TextField fx:id="messages" HBox.hgrow="ALWAYS" />
+								<Button fx:id="send" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleSendMessage" text="Send" HBox.hgrow="ALWAYS" />
 							</children>
 						</HBox>
 					</bottom>
 					<center>
 						<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
-							<content>
-								<ListView disable="false" style="-fx-background-color: white;" />
-							</content>
+                     <content>
+                        <TextArea fx:id="chat" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
 						</ScrollPane>
 					</center>
 					<top>

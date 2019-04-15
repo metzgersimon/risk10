@@ -31,6 +31,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.Bloom;
@@ -82,8 +83,10 @@ public class BoardController implements Initializable {
   private Button chatRoomButton;
   @FXML
   private SplitPane splitter;
+  //@FXML
+  //private ListView chat;
   @FXML
-  private ListView chat;
+  private TextArea chat;
   @FXML
   private Button send;
   @FXML
@@ -1261,6 +1264,14 @@ public class BoardController implements Initializable {
     items = FXCollections.observableArrayList(sb.toString());
     statistic = new ListView(items);
     return statistic;
+  }
+  @FXML
+  void handleSendMessage(ActionEvent event) {
+    String message= messages.getText();
+   // SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
+   // client=Main.g.getGameFinderHost().getClient();
+   // client.sendMessage(chatmessage);
+    chat.appendText(message+"\n");
   }
 
 }
