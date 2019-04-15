@@ -1,5 +1,6 @@
 package game;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import gui.BoardRegion;
@@ -9,7 +10,7 @@ import javafx.scene.layout.Region;
 /**
  * @author pcoberge The class World defines all countries that exist in the risk-game.
  */
-public class World {
+public class World implements Serializable {
   static HashMap<Integer, Territory> territories = new HashMap<>();
   static HashMap<BoardRegion, Territory> territoriesBoardRegion = new HashMap<>();
   static HashMap<Region, Territory> territoriesRegion = new HashMap<>();

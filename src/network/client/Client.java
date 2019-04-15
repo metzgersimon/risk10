@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -21,13 +22,14 @@ import javafx.scene.control.TextArea;
 import main.Main;
 import network.Parameter;
 import network.messages.JoinGameMessage;
+import network.messages.JoinGameResponseMessage;
 import network.messages.Message;
 import network.messages.PlayerListSizeMessage;
 import network.messages.PlayerListUpdateMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
 
-public class Client extends Thread {
+public class Client extends Thread implements Serializable {
 
 
 
@@ -56,7 +58,7 @@ public class Client extends Thread {
    */
   public Client(InetAddress address, Player player, int port) {
     this.address = address;
-    this.player = player;
+//    this.player = player;
     this.port = port;
     connect();
   }
@@ -113,8 +115,8 @@ public class Client extends Thread {
     }
   }
 
-  public void register() {
-    JoinGameMessage join = new JoinGameMessage(player);
+  public void register(String name) {
+    JoinGameMessage join = new JoinGameMessage(name);
     this.sendMessage(join);
     // To get response
   }
@@ -167,20 +169,18 @@ public class Client extends Thread {
             break;
           case DISPLAY:
             break;
-          case JOIN: register();
-          break;
           case ALLIANCE:
             break;
           case PLAYER_SIZE: handlePlayerListSize((PlayerListSizeMessage)message);
           break;
         case PLAYER_LIST_UPDATE: handlePlayerListUpdate((PlayerListUpdateMessage)message);
         break;
+        case JOIN_REPONSE : handleJoinGameResponse((JoinGameResponseMessage)message);
+        break;
         }
       } catch (ClassNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
@@ -203,6 +203,10 @@ public class Client extends Thread {
       }
   });
     
+  }
+  
+  public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
+    this.player = responseMessage.getPlayer();
   }
   /**@author qiychen
    * disconnect the conneciton

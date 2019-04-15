@@ -1,5 +1,6 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import network.client.Client;
 import network.client.GameFinder;
 import network.server.Server;
 
-public class Game {
+public class Game implements Serializable{
   public final static int MAX_PLAYERS = 6;
   // public final static int NEW_GAME = 0;
   // public final static int PLACE_ARMIES = 1;
@@ -492,7 +493,7 @@ public class Game {
    *        and starts the server thread on a specified port, after calling this methods host should
    *        join the game lobby (game lobby UI opens)
    */
-  public void hostGame(Player hostPlayer, int noOfPlayers) {
+  public void hostGame(int noOfPlayers) {
     // start the server
     this.server = new Server(Parameter.PORT, noOfPlayers);
     // create client for the host palyer

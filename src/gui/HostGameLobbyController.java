@@ -71,32 +71,20 @@ public class HostGameLobbyController {
   CheckBox box5;
   
   /** number of players the host want to play game with */
-  private int player = HostGameGUIController.numberofPlayers;
-  MultiPlayerGUIController multi;
-  private ArrayList<Player> players = main.Main.g.getPlayers(); // list of players/clients who will
-                                                                // join the game
   public static ArrayList<CheckBox> playerNames;
-  public static HashMap<Integer, String> playersJoined = new HashMap<Integer, String>();
-  public int counter = 0;
   public ArrayList<Player> clients = new ArrayList<Player>();
 
+  private MultiPlayerGUIController multi;
+  
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
-//    try {
-//      String message = textField.getText() + " \n";
-//      chatBox.appendText(message);
-//      System.out.println(message);
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
      String message = textField.getText();
      SendChatMessageMessage m = new SendChatMessageMessage("test", message);
-     Client client = Main.g.getGameFinderHost().getClient();
+     System.out.println(NetworkController.gameFinderHost);
+     Client client = NetworkController.gameFinderHost.getClient();
      client.sendMessage(m);
-     chatBox.appendText(client.getName() + "said" + message + "\n");
   }
-
 
   /**
    * @author skaur
@@ -176,8 +164,6 @@ public class HostGameLobbyController {
    *         joining the lobby
    */
   public void updateList(Player p) {
-    // clients = Main.g.getServer().getClientConnection().getPlayer();
-    // clients.addAll(Main.g.getServer().getClientConnection().getPlayer());
     this.clients.add(p);
     Platform.runLater(new Runnable() {
       @Override
@@ -187,28 +173,28 @@ public class HostGameLobbyController {
         String name = clients.get(size - 1).getName();
         switch (size) {
           case 1:
+            playerNames.get(0).setSelected(true);
+            playerNames.get(0).setText(name);
+            break;
+          case 2:
             playerNames.get(1).setSelected(true);
             playerNames.get(1).setText(name);
             break;
-          case 2:
+          case 3:
             playerNames.get(2).setSelected(true);
             playerNames.get(2).setText(name);
             break;
-          case 3:
+          case 4:
             playerNames.get(3).setSelected(true);
             playerNames.get(3).setText(name);
             break;
-          case 4:
+          case 5:
             playerNames.get(4).setSelected(true);
             playerNames.get(4).setText(name);
             break;
-          case 5:
+          case 6:
             playerNames.get(5).setSelected(true);
             playerNames.get(5).setText(name);
-            break;
-          case 6:
-            playerNames.get(6).setSelected(true);
-            playerNames.get(6).setText(name);
             break;
           default:
             break;
@@ -233,8 +219,7 @@ public class HostGameLobbyController {
    */
   public void enableStartButton() {
 //    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
-    if (this.clients.size() == HostGameGUIController.numberofPlayers-1) {
-    
+    if (this.clients.size() == HostGameGUIController.numberofPlayers-1) {  
       startGame.setDisable(false);
     }
   }

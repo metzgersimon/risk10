@@ -68,7 +68,4 @@ public class GameFinder extends Thread {
     return this.client;
   }
 
-  public static void main(String[] args) {
-    new GameFinder();
-  }
 }

@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.Main;
+import network.Parameter;
+import network.client.GameFinder;
 import network.server.ClientConnection;
 import network.server.Server;
 
@@ -30,21 +32,16 @@ public class HostGameGUIController {
   @FXML
   private Button confirm;
   private HostGameLobbyController hostLobController = null;
-
+  private NetworkController networkController = new NetworkController();
+  
   @FXML
   void confirm(ActionEvent event) {
-
     // create an instance of the Player, add it to the Player list and link it to profile
     String name = ProfileSelectionGUIController.selectedPlayerName;
-    System.out.println("Player instance created with name " + name + " and color "
-        + PlayerColor.values()[Main.g.getPlayers().size()]);
-    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
-    Main.g.addPlayer(player);
-    ProfileManager.setSelectedProfile(name);
-
     FXMLLoader fxmlLoader = null;
-    numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
-    System.out.println(numberofPlayers);
+     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
+     networkController.hostGame(numberofPlayers);
+    
     try {
       fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -57,10 +54,10 @@ public class HostGameGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     hostLobController = fxmlLoader.getController();
-    Main.g.getServer().setController(hostLobController);
-    Main.g.getGameFinderHost().getClient().setControllerHost(hostLobController);
+    NetworkController.server.setController(hostLobController);
+    NetworkController.gameFinderHost.getClient().setControllerHost(hostLobController);
+    NetworkController.gameFinderHost.getClient().register(name);
   }
 
   public void initialize() {

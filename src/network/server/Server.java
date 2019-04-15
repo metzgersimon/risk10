@@ -1,6 +1,7 @@
 package network.server;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -10,13 +11,19 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import game.Game;
 import gui.HostGameLobbyController;
 import network.Parameter;
 
 
 /** Game Server that host the game **/
 
-public class Server extends Thread {
+public class Server extends Thread implements Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
   /** the port where server connects to the clients */
   private int port;
@@ -25,7 +32,7 @@ public class Server extends Thread {
   private ServerSocket serverSocket;
 
   /** A list clients connected to the game server */
-  private List<ClientConnection> clients = new ArrayList<ClientConnection>();
+  public List<ClientConnection> clients = new ArrayList<ClientConnection>();
 
   /** The socket used for communication */
   private Socket socket;
@@ -41,6 +48,8 @@ public class Server extends Thread {
   private int noOfPlayer;
   private HostGameLobbyController lobbyController;
   private ClientConnection connection;
+  public static Game game;
+  private InetAddress ipAddress;
   /**
    * @author skaur
    * @param port
@@ -48,6 +57,12 @@ public class Server extends Thread {
   public Server(int port, int noOfPlayers) {
     this.port = port;
     this.noOfPlayer = noOfPlayers;
+    Server.game = new Game();
+    try {
+      this.ipAddress = InetAddress.getLocalHost();
+    } catch (UnknownHostException e1) {
+      e1.printStackTrace();
+    }
     Thread t = new Thread(new Runnable() {
       public void run() {
         DatagramSocket datagramSocket = null;
@@ -70,13 +85,6 @@ public class Server extends Thread {
                 DatagramPacket responsePacket = new DatagramPacket(sendResponse,
                     sendResponse.length, getPacket.getAddress(), getPacket.getPort());
                 datagramSocket.send(responsePacket);
-                // serverSocket = new ServerSocket(Parameter.PORT);
-                // Socket s = serverSocket.accept();
-                // ClientConnection cc = new ClientConnection(s);
-                // creating a socket each client, gets an response back
-                // new ClientConnection(getPacket.getAddress(),Parameter.PORT).connect();
-                // clientNo++;
-                //
                 System.out.println("Client Connection for client no. " + counter + " created");
                 counter++;
              
@@ -172,6 +180,10 @@ public class Server extends Thread {
   
   public ClientConnection getClientConnection() {
     return this.connection;
+  }
+  
+  public InetAddress getIpAddress() {
+    return this.ipAddress;
   }
 // public static void main(String [] args) {
 //   Server server = new Server(8888,2);

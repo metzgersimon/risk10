@@ -61,14 +61,15 @@ public class Player implements Serializable {
     this.sessionWins = 0;
   }
 
-  public Player(String name, PlayerColor color) {
+  public Player(String name, PlayerColor color, Game game) {
     this.name = name;
     this.color = color;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.eliminatedPlayers = new ArrayList<>();
-    this.g = Main.g;
+//    this.g = Main.g;
+    this.g = game;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 0;

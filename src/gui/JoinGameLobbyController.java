@@ -33,10 +33,8 @@ public class JoinGameLobbyController {
   private TextArea button;
   
   @FXML private Button leaveGame;
-  private Client client = Main.g.getGameFinder().getClient();
 
-  private Game g;
-  
+  private Game g;  
   @FXML CheckBox clientPlayer;
   @FXML CheckBox hostBox;
   @FXML CheckBox client2;
@@ -49,9 +47,8 @@ public class JoinGameLobbyController {
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
     SendChatMessageMessage m = new SendChatMessageMessage("test", message);
-    client = Main.g.getGameFinder().getClient();
-    client.sendMessage(m);
-    button.appendText(client.getName() + "said" + message + "\n");
+    System.out.println(NetworkController.gameFinder.getClient());
+    NetworkController.gameFinder.getClient().sendMessage(m);
   }
 
   /**
@@ -71,11 +68,11 @@ public class JoinGameLobbyController {
       e.printStackTrace();
     }
   }
-
-  public void setMain(Client client2, Game g) {
-    this.client = client2;
-    this.g = g;
-  }
+//
+//  public void setMain(Client client2, Game g) {
+//    this.client = client2;
+//    this.g = g;
+//  }
 
   public void showMessage(String content) {
     button.setStyle("-fx-text-fill:black; -fx-font-size: 15px;");

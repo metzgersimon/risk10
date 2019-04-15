@@ -16,6 +16,7 @@ import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
 import main.Main;
 import network.messages.JoinGameMessage;
+import network.messages.JoinGameResponseMessage;
 import network.messages.LeaveGameMessage;
 import network.messages.Message;
 import network.messages.MessageType;
@@ -167,11 +168,14 @@ public class ClientConnection extends Thread {
   * @param message
   */
   public void handleJoinGame(JoinGameMessage message) {
-    Player player = message.getPlayer();
+    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()], Server.game);
+    Server.game.addPlayer(player);
     this.players.add(player);
     if (this.server.getHostLobbyController() != null) {
       this.server.getHostLobbyController().updateList(player);
     }
+    JoinGameResponseMessage response = new JoinGameResponseMessage(player);
+    this.sendMessage(response);
   }
   public void handleAllianceMessage(SendAllianceMessage message) {
     String playername;

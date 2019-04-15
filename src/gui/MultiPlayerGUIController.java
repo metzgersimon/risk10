@@ -15,7 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
+import network.client.GameFinder;
 import network.messages.JoinGameMessage;
+import network.server.Server;
 
 public class MultiPlayerGUIController {
 
@@ -38,10 +40,13 @@ public class MultiPlayerGUIController {
   public static List<Player> playersList = new ArrayList<Player>();
   private HostGameGUIController hostGui = null;
   private HostGameLobbyController hostLobbyController = null;
+  private NetworkController networkController = new NetworkController();
 
   @FXML
   void back(ActionEvent event) {
-    Main.g.removePlayer();
+  if(NetworkController.server != null) {
+    Server.game.removePlayer();
+  }
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -59,11 +64,6 @@ public class MultiPlayerGUIController {
   void hostGame(ActionEvent event) {
     FXMLLoader fxmlLoader = null;
     try {
-      // only to test connection
-      Player hostPlayer = main.Main.g.getPlayers().get(0);
-      Main.g.hostGame(hostPlayer, HostGameGUIController.numberofPlayers);
-      MultiPlayerGUIController.playersList.add(hostPlayer);
-
       fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -84,21 +84,12 @@ public class MultiPlayerGUIController {
 
   @FXML
   void joinGame(ActionEvent event) {
-
     // create an instance of the Player, add it to the Player list and link it to profile
     String name = ProfileSelectionGUIController.selectedPlayerName;
-    System.out.println("Player instance created with name " + name + " and color "
-        + PlayerColor.values()[Main.g.getPlayers().size()]);
-    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
-    Main.g.addPlayer(player);
-    ProfileManager.setSelectedProfile(name);
-
     FXMLLoader fxmlLoader = null;
+    networkController.joinGameonDiscovery();
     try {
-      // only to test connection
-      Main.g.joinGameonDiscovery(player);
-      // Main.g.addPlayer(ProfileSelectionGUIController.player);
-      fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+     fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Main.j = fxmlLoader.getController();
       Stage stage = main.Main.stage;
@@ -110,15 +101,22 @@ public class MultiPlayerGUIController {
       System.out.println("Can't load JoinGameLobbyGUI.fxml");
       e.printStackTrace();
     }
+    Thread t = new Thread() {
+      public void run() {
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+    t.start();
     JoinGameLobbyController controller = fxmlLoader.getController();
-    Client client = Main.g.getGameFinder().getClient();
+    Client client = NetworkController.gameFinder.getClient();
     client.setController(controller);
     client.setControllerHost(hostLobbyController);
-
-
     // send join game message to the server
-    JoinGameMessage joinMessage = new JoinGameMessage(player);
-    client.sendMessage(joinMessage);
+    client.register(name);
   }
 
   /**

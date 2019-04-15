@@ -1,24 +1,21 @@
 package network.messages;
-
-import game.Player;
-
+/**
+ * 
+ * @author sandeepkaur
+ *
+ */
 public class JoinGameMessage extends Message {
 
   private static final long serialVersionUID = 1L;
-  private Player player;
+  private String name;
 
-  public JoinGameMessage(Player player) {
+  public JoinGameMessage(String name) {
     super(MessageType.JOIN);
-    this.player = player;
-
+    this.name = name;
   }
 
-  public Player getPlayer() {
-    return player;
-  }
-
-  public void setPlayer(Player player) {
-    this.player = player;
+  public String getName() {
+    return this.name;
   }
 
 }
