@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -43,7 +34,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
 	<children>
 		<Pane fx:id="cantBeTraded" layoutX="450.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
 			<children>
@@ -59,185 +50,32 @@
 			<items>
 				<AnchorPane minWidth="1024.0" SplitPane.resizableWithParent="false">
 					<children>
-						<Pane fx:id="dicePane" layoutX="312.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="450.0" prefWidth="450.0">
-							<children>
-								<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: rgb(20,20,20);">
-									<children>
-										<Label text="Dices" textFill="WHITE">
-											<font>
-												<Font name="System Bold" size="23.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="20.0" />
-											</VBox.margin>
-										</Label>
-										<GridPane alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="200.0">
-											<columnConstraints>
-												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-											</columnConstraints>
-											<rowConstraints>
-												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-											</rowConstraints>
-											<children>
-												<Pane prefHeight="200.0" prefWidth="200.0">
-													<children>
-														<ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-															<image>
-																<Image url="@../../resources/dice/dice_6_RED.png" />
-															</image>
-														</ImageView>
-													</children>
-												</Pane>
-												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-													<children>
-														<ImageView fx:id="defendDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
-															<image>
-																<Image url="@../../resources/dice/dice_6_BLUE.png" />
-															</image>
-														</ImageView>
-													</children>
-												</Pane>
-												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-													<children>
-														<ImageView fx:id="attackDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
-															<image>
-																<Image url="@../../resources/dice/dice_6_RED.png" />
-															</image>
-														</ImageView>
-													</children>
-												</Pane>
-												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-													<children>
-														<ImageView fx:id="defendDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
-															<image>
-																<Image url="@../../resources/dice/dice_2_BLUE.png" />
-															</image>
-														</ImageView>
-													</children>
-												</Pane>
-												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-													<children>
-														<ImageView fx:id="attackDice3" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
-															<image>
-																<Image url="@../../resources/dice/dice_3_RED.png" />
-															</image>
-														</ImageView>
-													</children>
-												</Pane>
-											</children>
-										</GridPane>
-										<Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
-											<VBox.margin>
-												<Insets />
-											</VBox.margin>
-										</Slider>
-										<Button fx:id="throwDices" mnemonicParsing="false" onMouseClicked="#throwDices" style="-fx-background-color: white;" text="Throw dices" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="15.0" />
-											</font>
-											<VBox.margin>
-												<Insets bottom="10.0" />
-											</VBox.margin>
-											<cursor>
-												<Cursor fx:constant="HAND" />
-											</cursor>
-											<opaqueInsets>
-												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-											</opaqueInsets>
-											<effect>
-												<Bloom threshold="1.0" />
-											</effect>
-										</Button>
-									</children>
-								</VBox>
-								<HBox prefHeight="100.0" prefWidth="200.0" />
-							</children>
-						</Pane>
-						<Pane fx:id="fortifyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0">
-							<children>
-								<VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
-									<children>
-										<Label text="Move Army" textFill="WHITE">
-											<font>
-												<Font name="System Bold" size="23.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="20.0" />
-											</VBox.margin>
-										</Label>
-										<Slider fx:id="fortifySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="300.0" min="1.0" minHeight="40.0" minWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
-											<VBox.margin>
-												<Insets left="10.0" right="10.0" />
-											</VBox.margin>
-										</Slider>
-										<Button fx:id="fortifyButton" mnemonicParsing="false" onAction="#confirmFortify" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="15.0" />
-											</font>
-											<VBox.margin>
-												<Insets bottom="10.0" />
-											</VBox.margin>
-										</Button>
-									</children>
-								</VBox>
-							</children>
-						</Pane>
-						<Pane fx:id="setArmyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0">
-							<children>
-								<VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
-									<children>
-										<Label text="Set Army" textFill="WHITE">
-											<font>
-												<Font name="System Bold" size="23.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="20.0" />
-											</VBox.margin>
-										</Label>
-										<Slider fx:id="setArmySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="300.0" min="1.0" minHeight="40.0" minWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
-											<VBox.margin>
-												<Insets left="10.0" right="10.0" />
-											</VBox.margin>
-										</Slider>
-										<Button fx:id="setArmyButton" mnemonicParsing="false" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="set" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="15.0" />
-											</font>
-											<VBox.margin>
-												<Insets bottom="10.0" />
-											</VBox.margin>
-										</Button>
-									</children>
-								</VBox>
-							</children>
-						</Pane>
-						<Pane fx:id="quitPane" layoutX="362.0" layoutY="160.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
-							<children>
-								<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="350.0">
-									<children>
-										<Label text="Quit Game?" wrapText="true">
-											<VBox.margin>
-												<Insets top="30.0" />
-											</VBox.margin>
-											<font>
-												<Font size="24.0" />
-											</font>
-										</Label>
-										<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
-											<children>
-												<Button fx:id="yesLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLeave" prefWidth="70.0" text="Yes" />
-												<Button fx:id="noLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNoLeave" prefWidth="70.0" text="No" />
-											</children>
-										</HBox>
-									</children>
-								</VBox>
-							</children>
-						</Pane>
-						<Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<Pane prefHeight="718.0" prefWidth="1024.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+					<Pane prefHeight="718.0" prefWidth="1024.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="96.0" fitWidth="88.0" layoutX="722.0" layoutY="611.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/gui/infantry.png" />
+                           </image>
+                        </ImageView>
+                        <Circle fx:id="circle" fill="#f9f8f6" layoutX="787.0" layoutY="624.0" radius="13.0" stroke="#f5f4f3">
+                           <effect>
+                              <Lighting bumpInput="$null">
+                                 <light>
+                                    <Light.Distant color="#f98c39" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </Circle>
+                        <Label fx:id="armiesToDistribute" alignment="CENTER" layoutX="774.0" layoutY="609.0" prefHeight="31.0" prefWidth="25.0" text="0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     </Pane>
 						<Pane prefHeight="720.0" prefWidth="1020.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<Region fx:id="westernAustralia" layoutX="843.0" layoutY="530.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@boardGUI.css">
@@ -1202,6 +1040,7 @@
 								</Label>
 							</children>
 						</Pane>
+						<Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						<GridPane fx:id="gridCardPane" layoutX="197.0" prefHeight="720.0" prefWidth="827.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<columnConstraints>
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="816.0" minWidth="0.0" prefWidth="772.0" />
@@ -1336,6 +1175,189 @@
       								</SplitPane>
 							</children>
 						</GridPane>
+						<Pane fx:id="dicePane" layoutX="312.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="450.0" prefWidth="450.0" visible="false">
+							<children>
+								<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: rgb(20,20,20);">
+									<children>
+										<Label text="Dices" textFill="WHITE">
+											<font>
+												<Font name="System Bold" size="23.0" />
+											</font>
+											<VBox.margin>
+												<Insets top="20.0" />
+											</VBox.margin>
+										</Label>
+										<GridPane alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="200.0">
+											<columnConstraints>
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+												<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+											</columnConstraints>
+											<rowConstraints>
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+												<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+											</rowConstraints>
+											<children>
+												<Pane prefHeight="200.0" prefWidth="200.0">
+													<children>
+														<ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+															<image>
+																<Image url="@../../resources/dice/dice_6_RED.png" />
+															</image>
+														</ImageView>
+													</children>
+												</Pane>
+												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+													<children>
+														<ImageView fx:id="defendDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+															<image>
+																<Image url="@../../resources/dice/dice_6_BLUE.png" />
+															</image>
+														</ImageView>
+													</children>
+												</Pane>
+												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+													<children>
+														<ImageView fx:id="attackDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+															<image>
+																<Image url="@../../resources/dice/dice_6_RED.png" />
+															</image>
+														</ImageView>
+													</children>
+												</Pane>
+												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+													<children>
+														<ImageView fx:id="defendDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+															<image>
+																<Image url="@../../resources/dice/dice_2_BLUE.png" />
+															</image>
+														</ImageView>
+													</children>
+												</Pane>
+												<Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+													<children>
+														<ImageView fx:id="attackDice3" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+															<image>
+																<Image url="@../../resources/dice/dice_3_RED.png" />
+															</image>
+														</ImageView>
+													</children>
+												</Pane>
+											</children>
+										</GridPane>
+										<Slider fx:id="diceSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="-Infinity" min="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+											<VBox.margin>
+												<Insets />
+											</VBox.margin>
+										</Slider>
+										<Button fx:id="throwDices" mnemonicParsing="false" onMouseClicked="#throwDices" style="-fx-background-color: white;" text="Throw dices" textAlignment="CENTER">
+											<font>
+												<Font name="System Bold" size="15.0" />
+											</font>
+											<VBox.margin>
+												<Insets bottom="10.0" />
+											</VBox.margin>
+											<cursor>
+												<Cursor fx:constant="HAND" />
+											</cursor>
+											<opaqueInsets>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</opaqueInsets>
+											<effect>
+												<Bloom threshold="1.0" />
+											</effect>
+										</Button>
+									</children>
+								</VBox>
+								<HBox prefHeight="100.0" prefWidth="200.0" />
+							</children>
+						</Pane>
+						<Pane fx:id="fortifyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0" visible="false">
+							<children>
+								<VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
+									<children>
+										<Label text="Move Army" textFill="WHITE">
+											<font>
+												<Font name="System Bold" size="23.0" />
+											</font>
+											<VBox.margin>
+												<Insets top="20.0" />
+											</VBox.margin>
+										</Label>
+										<Slider fx:id="fortifySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="300.0" min="1.0" minHeight="40.0" minWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+											<VBox.margin>
+												<Insets left="10.0" right="10.0" />
+											</VBox.margin>
+										</Slider>
+										<Button fx:id="fortifyButton" mnemonicParsing="false" onAction="#confirmFortify" style="-fx-background-color: white;" text="transfer" textAlignment="CENTER">
+											<font>
+												<Font name="System Bold" size="15.0" />
+											</font>
+											<VBox.margin>
+												<Insets bottom="10.0" />
+											</VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+										</Button>
+									</children>
+								</VBox>
+							</children>
+						</Pane>
+						<Pane fx:id="setArmyPane" layoutX="357.0" layoutY="240.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0" visible="false">
+							<children>
+								<VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
+									<children>
+										<Label text="Set Army" textFill="WHITE">
+											<font>
+												<Font name="System Bold" size="23.0" />
+											</font>
+											<VBox.margin>
+												<Insets top="20.0" />
+											</VBox.margin>
+										</Label>
+										<Slider fx:id="setArmySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxHeight="-Infinity" maxWidth="300.0" min="1.0" minHeight="40.0" minWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="SetSlider" stylesheets="@BoardGUI_additional.css" value="1.0">
+											<VBox.margin>
+												<Insets left="10.0" right="10.0" />
+											</VBox.margin>
+										</Slider>
+										<Button fx:id="setArmyButton" mnemonicParsing="false" onMouseClicked="#confirmArmyDistribution" style="-fx-background-color: white;" text="set" textAlignment="CENTER">
+											<font>
+												<Font name="System Bold" size="15.0" />
+											</font>
+											<VBox.margin>
+												<Insets bottom="10.0" />
+											</VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+										</Button>
+									</children>
+								</VBox>
+							</children>
+						</Pane>
+						<Pane fx:id="quitPane" layoutX="362.0" layoutY="160.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+							<children>
+								<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="350.0">
+									<children>
+										<Label text="Quit Game?" wrapText="true">
+											<VBox.margin>
+												<Insets top="30.0" />
+											</VBox.margin>
+											<font>
+												<Font size="24.0" />
+											</font>
+										</Label>
+										<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+											<children>
+												<Button fx:id="yesLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLeave" prefWidth="70.0" text="Yes" />
+												<Button fx:id="noLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNoLeave" prefWidth="70.0" text="No" />
+											</children>
+										</HBox>
+									</children>
+								</VBox>
+							</children>
+						</Pane>
 					</children>
 				</AnchorPane>
 				<BorderPane minWidth="256.0">

@@ -26,7 +26,7 @@ public class Main extends Application {
   public static BoardController b;
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
-  public static MultiPlayerGUIController m; 
+  public static MultiPlayerGUIController m;
   public static Stage stage;
 
   @Override
@@ -49,7 +49,7 @@ public class Main extends Application {
     final URL resource = getClass().getResource("/ressources/gui/Demoth.mp3");
     final Media media = new Media(resource.toString());
     final MediaPlayer mediaPlayer = new MediaPlayer(media);
-    //mediaPlayer.play();
+    // mediaPlayer.play();
   }
 
   public static void main(String[] args) {

@@ -19,7 +19,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
    * @author smetzger
    * @author pcoberge
    */
-  public void initialTerritoryDistribution() {
+  public synchronized void initialTerritoryDistribution() {
     int random = 0;
     do {
       random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
@@ -42,7 +42,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     Main.g.furtherInitialTerritoryDistribution();
   }
 
-  public void initialArmyDistribution() {
+  public synchronized void initialArmyDistribution() {
     int random = 0;
     Territory territory = null;
     do {
@@ -63,18 +63,20 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   }
 
-  public void armyDistribution() {
+  public synchronized void armyDistribution() {
     System.out.println("AI army distribution: " + Main.g.getCurrentPlayer().getName());
-    
+
     // trade-in cards
-    for (int i = 0; i < this.getCards().size(); i++) {
-      for (int j = i + 1; j < this.getCards().size() - 1; j++) {
-        for (int k = j + 1; k < this.getCards().size() - 2; k++) {
-          this.tradeCards(this.getCards().get(i), this.getCards().get(j), this.getCards().get(k));
+    if (this.getCards().size() >= 3) {
+      for (int i = 0; i < this.getCards().size(); i++) {
+        for (int j = i + 1; j < this.getCards().size() - 1; j++) {
+          for (int k = j + 1; k < this.getCards().size() - 2; k++) {
+            this.tradeCards(this.getCards().get(i), this.getCards().get(j), this.getCards().get(k));
+          }
         }
       }
     }
-    
+
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
     Territory territory = null;
@@ -98,12 +100,18 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       Main.b.updateLabelTerritory(territory);
     }
     Main.b.handleSkipGameState();
-    Main.b.prepareAttack();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     this.attack();
   }
 
-  public void attack() {
-    System.out.println("AI attack: " + Main.g.getCurrentPlayer().getName()+ " -- "+ this.getColor().toString());
+  public synchronized void attack() {
+    System.out.println(
+        "AI attack: " + Main.g.getCurrentPlayer().getName() + " -- " + this.getColor().toString());
     int randomTerritoryOwn = 0;
     int randomTerritoryOpponent = 0;
     int randomNumberOfArmies = 0;
@@ -113,7 +121,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     int numberOfDefendDices = 0;
     double attackProbability = 1.0;
 
-    while (this.isCapableToAttack() && Math.random() < attackProbability) {
+    while (this.isCapableToAttack() && Math.random() > attackProbability) {
       // choose own territory that is able to attack
       do {
         randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size()) + 1;
@@ -132,8 +140,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
 
       // choose hostile neighbor territory
-      randomTerritoryOpponent =
-          (int) (Math.random() * territoryOwn.getHostileNeighbor().size());
+      randomTerritoryOpponent = (int) (Math.random() * territoryOwn.getHostileNeighbor().size());
       territoryOpponent = territoryOwn.getHostileNeighbor().get(randomTerritoryOpponent);
 
       // calculate number of dices
@@ -148,27 +155,40 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
-        System.out.println(territoryOwn.getName() + " -- "+ territoryOpponent.getName());
+        System.out.println(territoryOwn.getName() + " -- " + territoryOpponent.getName());
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
         Main.b.updateColorTerritory(territoryOpponent);
+        System.out.println("UPDATE");
       } else {
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        System.out.println(territoryOwn.getName() + " -- " + territoryOpponent.getName());
       }
       attackProbability = 0.66;
     }
 
     Main.b.handleSkipGameState();
-    Main.b.prepareFortify();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    System.out.println("next Step");
     this.fortify();
 
   }
 
-  public void fortify() {
+  public synchronized void fortify() {
     System.out.println("AI fortify: " + Main.g.getCurrentPlayer());
     Main.b.handleSkipGameState();
-    Main.g.furtherFortify();
   }
 
   public boolean isCapableToAttack() {

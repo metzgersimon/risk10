@@ -41,6 +41,7 @@ public class Game {
   private GameFinder gameFinder;
   private Client client;
   private GameFinder gameFinderHost;
+
   /**
    * 
    * @author qiychen Constructor
@@ -95,7 +96,7 @@ public class Game {
    * 
    * @author liwang
    * @param
-   * @return 
+   * @return
    */
   public Player setPlayerOrder() {
 
@@ -140,8 +141,8 @@ public class Game {
     // Compute number of armies
     initNumberOfArmies();
 
-    setCurrentPlayer(players.get(0));//currentPlayer = players.get(0);
-    System.out.println("1"+getCurrentPlayer().getName());
+    setCurrentPlayer(players.get(0));// currentPlayer = players.get(0);
+    System.out.println("1" + getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
     Main.b.prepareInitTerritoryDistribution();
     Main.b.displayGameState();
@@ -259,7 +260,8 @@ public class Game {
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
-          System.out.println("Case2: attacker: "+attacker.get(1)+ " defender: "+defender.get(1));;
+          System.out
+              .println("Case2: attacker: " + attacker.get(1) + " defender: " + defender.get(1));;
           if (attacker.get(1) > defender.get(1)) {
             defend.setNumberOfArmies(-1);
           } else {
@@ -267,7 +269,8 @@ public class Game {
           }
         }
       case (1):
-        System.out.println("Case1: attacker: "+attacker.get(0)+ " defender: "+defender.get(0));;
+        System.out
+            .println("Case1: attacker: " + attacker.get(0) + " defender: " + defender.get(0));;
         if (attacker.get(0) > defender.get(0)) {
           defend.setNumberOfArmies(-1);
         } else {
@@ -286,8 +289,8 @@ public class Game {
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
-//      int randomCard = (int)((Math.random()*Main.g.getCards().size()));
-//      p.setCards(Main.g.getCards().get(randomCard));
+      // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
+      // p.setCards(Main.g.getCards().get(randomCard));
       if (!this.getPlayers().contains(p)) {
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
@@ -298,13 +301,15 @@ public class Game {
       }
       return true;
     } else {
-      Main.b.updateDiceSlider(attack);
+      if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
+        Main.b.updateDiceSlider(attack);
+      }
       updateLiveStatistics();
       return false;
     }
   }
 
- 
+
 
   /**
    * @author prto, @author smetzger
@@ -336,7 +341,7 @@ public class Game {
     }
   }
 
- 
+
 
   /**
    * Shows statistics when the game is over
@@ -383,28 +388,41 @@ public class Game {
     return players.get(0);
   }
 
+  public boolean getRemainingInitialArmies() {
+    for (int i = 0; i < this.players.size(); i++) {
+      if (this.players.get(i).getNumberArmiesToDistibute() > 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
    * @author smetzger
    * @author pcoberge
    */
-  public void furtherInitialTerritoryDistribution() {
+  public synchronized void furtherInitialTerritoryDistribution() {
     this.nextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialTerritoryDistribution();
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+        // try {
+        // Thread.sleep(100);
+        // } catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
       }
     } else {
       this.setGameState(GameState.INITIALIZING_ARMY);
       Main.b.prepareArmyDistribution();
       Main.b.displayGameState();
+      if (this.getCurrentPlayer() instanceof AiPlayer) {
+        AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+        p.initialArmyDistribution();
+      }
     }
   }
 
@@ -412,10 +430,11 @@ public class Game {
    * @author smetzger
    * @author pcoberge
    */
-  public void furtherInitialArmyDistribution() {
+  public synchronized void furtherInitialArmyDistribution() {
     this.nextPlayer();
-    if (this.getLastPlayer().getNumberArmiesToDistibute() != 0) {
-      Main.b.prepareArmyDistribution();
+    Main.b.prepareArmyDistribution();
+    // if (this.getLastPlayer().getNumberArmiesToDistibute() != 0) {
+    if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         try {
           Thread.sleep(1000);
@@ -429,28 +448,38 @@ public class Game {
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
-      Main.b.prepareArmyDistribution();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+      // Main.b.prepareArmyDistribution();
       // Main.b.displayArmyDistribution();
       Main.b.displayGameState();
+      if (this.getCurrentPlayer() instanceof AiPlayer) {
+        AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+        p.armyDistribution();
+      }
     }
   }
 
-  public void furtherFortify() {
+  public synchronized void furtherFortify() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     System.out.println(this.getCurrentPlayer().getName());
     this.nextPlayer();
     System.out.println(this.getCurrentPlayer().getName());
-    Main.b.prepareArmyDistribution();
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+    Main.b.prepareArmyDistribution();
     this.setGameState(GameState.ARMY_DISTRIBUTION);
     Main.b.displayGameState();
     if (this.getCurrentPlayer() instanceof AiPlayer) {
-      try {
-        Thread.sleep(10000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+      // try {
+      // Thread.sleep(1000);
+      // } catch (InterruptedException e) {
+      // // TODO Auto-generated catch block
+      // e.printStackTrace();
+      // }
       AiPlayer p = (AiPlayer) this.getCurrentPlayer();
       p.armyDistribution();
     }
@@ -464,9 +493,9 @@ public class Game {
    *        join the game lobby (game lobby UI opens)
    */
   public void hostGame(Player hostPlayer, int noOfPlayers) {
-    //start the server
-    this.server = new Server(Parameter.PORT, noOfPlayers);  
-    //create client for the host palyer
+    // start the server
+    this.server = new Server(Parameter.PORT, noOfPlayers);
+    // create client for the host palyer
     this.gameFinderHost = new GameFinder();
     // joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;
   }
@@ -478,17 +507,18 @@ public class Game {
   public void joinGameonDiscovery(Player player) {
     this.gameFinder = new GameFinder();
   }
+
   /**
-   * @author skaur 
-   * this methods creates an instance of Client class and starts directly connects to the
-   *  broadcasting server 
+   * @author skaur this methods creates an instance of Client class and starts directly connects to
+   *         the broadcasting server
    * @param ip
    * @param port
    */
   public void joinGame(String ip, int port) {
-    this.client = new Client(ip,port);
+    this.client = new Client(ip, port);
     this.client.start();
   }
+
   public Server getServer() {
     return server;
   }
@@ -504,11 +534,11 @@ public class Game {
   public void setGameFinder(GameFinder gameFinder) {
     this.gameFinder = gameFinder;
   }
-  
+
   public GameFinder getGameFinderHost() {
     return this.gameFinderHost;
   }
-  
+
 }
 
 

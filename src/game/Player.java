@@ -11,7 +11,7 @@ import main.Main;
  * @author qiychen
  *
  */
-public class Player implements Serializable{
+public class Player implements Serializable {
 
   public static int PLAYER_HUMAN = 0;
   public static int PLAYER_AI_EASY = 1;
@@ -411,9 +411,7 @@ public class Player implements Serializable{
     if (Main.g.getGameState() == GameState.FORTIFY) {
       // check if both territories belong to the current player
       if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
-        // HashSet<Territory> neighbors = moveFrom.getNeighbor();
-        // if (neighbors.contains(moveTo)) {
-        // beide Zeilen in eine verpackt
+        
         // check if both territories are neighbors
         if (moveFrom.getNeighbor().contains(moveTo)) {
           // int currentNoArmies = moveFrom.getNumberOfArmies();
