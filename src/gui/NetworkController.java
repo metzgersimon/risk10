@@ -19,6 +19,7 @@ public class NetworkController {
   public void hostGame(int noOfPlayer) {
     server = new Server(Parameter.PORT,noOfPlayer);
     gameFinderHost = new GameFinder();
+    gameFinderHost.getClient().isHost = true;
   }
   
   public void joinGameonDiscovery(){

@@ -95,7 +95,7 @@ public class HostGameLobbyController {
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
     try {
-      Main.g.getServer().stopServer();
+//      Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -234,8 +234,9 @@ public class HostGameLobbyController {
   
   @FXML
   public void handleStartGameButton(ActionEvent event) {
+    FXMLLoader fxmlLoader = null;
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
@@ -244,8 +245,11 @@ public class HostGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    StartGameMessage startGameMessage = new StartGameMessage();
+    Server server = NetworkController.server;
+    StartGameMessage startGameMessage = new StartGameMessage(Server.game);
     NetworkController.gameFinderHost.getClient().sendMessage(startGameMessage);
+    server.setBoardController(fxmlLoader.getController());
+    NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());
   }
 
 }

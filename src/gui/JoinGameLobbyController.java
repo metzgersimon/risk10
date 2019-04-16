@@ -97,8 +97,9 @@ public class JoinGameLobbyController {
   }
  
  public void viewBoardGame() {
+   FXMLLoader fxmlLoader = null; 
    try {
-     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+     fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
      Parent root = (Parent) fxmlLoader.load();
      Stage stage = main.Main.stage;
      stage.setScene(new Scene(root));
@@ -107,5 +108,6 @@ public class JoinGameLobbyController {
    } catch (Exception e) {
      e.printStackTrace();
    }
+   NetworkController.gameFinder.getClient().setBoardController(fxmlLoader.getController());
  }
 }

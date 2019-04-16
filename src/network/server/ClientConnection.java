@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import game.GameState;
 import game.Player;
 import game.PlayerColor;
+import gui.BoardController;
 import gui.Gui;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
@@ -36,6 +38,7 @@ public class ClientConnection extends Thread {
   private Server server;
   private HostGameLobbyController hostLobbyController;
   private ArrayList<Player> players = new ArrayList<Player>();
+  private BoardController boardController ;
   
   public ClientConnection(Socket s) {
     this.socket = s;
@@ -61,6 +64,7 @@ public class ClientConnection extends Thread {
     this.server = server;
     this.socket = s;
     this.active = true;
+    this.boardController = server.getBoardController();
     try {
       this.toClient = new ObjectOutputStream(s.getOutputStream());
       this.fromClient = new ObjectInputStream(s.getInputStream());

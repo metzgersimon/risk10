@@ -1,5 +1,6 @@
 package network.messages.game;
 
+import game.Game;
 import network.messages.Message;
 import network.messages.MessageType;
 
@@ -10,11 +11,15 @@ public class StartGameMessage extends Message {
   /**
    * @skaur
    */
-  public StartGameMessage() {
+  private Game g;
+  public StartGameMessage(Game g) {
     super(MessageType.START_GAME);
-    
+    this.g = g ;
   }
 
+   public Game getGame() {
+    return this.g;
+  }
 
   
 }

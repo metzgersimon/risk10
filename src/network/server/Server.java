@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import game.Game;
+import gui.BoardController;
 import gui.HostGameLobbyController;
 import network.Parameter;
 
@@ -50,6 +51,7 @@ public class Server extends Thread implements Serializable {
   private ClientConnection connection;
   public static Game game;
   private InetAddress ipAddress;
+  private BoardController boardController;
   /**
    * @author skaur
    * @param port
@@ -184,6 +186,14 @@ public class Server extends Thread implements Serializable {
   
   public InetAddress getIpAddress() {
     return this.ipAddress;
+  }
+  
+  public void setBoardController(BoardController boardController) {
+    this.boardController = boardController;
+  }
+  
+  public BoardController getBoardController() {
+    return this.boardController;
   }
 // public static void main(String [] args) {
 //   Server server = new Server(8888,2);

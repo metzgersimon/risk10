@@ -10,7 +10,11 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import game.AiPlayer;
+import game.Game;
+import game.GameState;
 import game.Player;
+import gui.BoardController;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
@@ -27,7 +31,9 @@ import network.messages.Message;
 import network.messages.PlayerListSizeMessage;
 import network.messages.PlayerListUpdateMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
+import network.server.Server;
 
 public class Client extends Thread implements Serializable {
 
@@ -42,6 +48,9 @@ public class Client extends Thread implements Serializable {
   private int port;
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller=null;
+  private BoardController boardController;
+  private Game game;
+  public static boolean isHost = false;
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {
@@ -127,6 +136,7 @@ public class Client extends Thread implements Serializable {
   public void setControllerHost(HostGameLobbyController hostcontroller) {
     this.hostcontroller=hostcontroller;
   }
+  
 
   /**
    * handle incoming messages from server
@@ -192,15 +202,23 @@ public class Client extends Thread implements Serializable {
  * @param message
  */
   public void handleStartGameMessage(StartGameMessage message) {
+    this.game = message.getGame();
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
           //update application thread
+        if(!isHost) {
         controller.viewBoardGame();
       }
+      }
   });   
+
   }
   
+  public void sendInitialTerritoryMessage() {
+//    int army = this.boardController
+//    SelectInitialTerritoryMessage territoryMessage = new SelectInitialTerritoryMessage();
+  }
   public void handlePlayerListSize(PlayerListSizeMessage message) {
 //    this.controller.updateBoxes(message.geSize());
   }
@@ -216,8 +234,13 @@ public class Client extends Thread implements Serializable {
   public Player getPlayer() {
     return this.player;
   }
+  
+  public void setBoardController(BoardController boardController) {
+    this.boardController = boardController;
+  }
+  
   /**@author qiychen
-   * disconnect the conneciton
+   * disconnect the connection
    */
   public void disconnect() {
     try {
