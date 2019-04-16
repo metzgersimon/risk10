@@ -145,6 +145,7 @@ public class Game implements Serializable{
     setCurrentPlayer(players.get(0));// currentPlayer = players.get(0);
     System.out.println("1" + getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
+    System.out.println(Main.b);
     Main.b.prepareInitTerritoryDistribution();
     Main.b.displayGameState();
 

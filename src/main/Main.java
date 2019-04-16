@@ -22,12 +22,13 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-  public static Game g = new TestGame();
+  public static Game g = new Game();
   public static BoardController b;
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
   public static MultiPlayerGUIController m;
   public static Stage stage;
+  //public static Game g;
 
   @Override
   public void start(Stage primaryStage) {

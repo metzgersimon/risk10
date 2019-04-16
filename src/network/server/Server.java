@@ -14,6 +14,7 @@ import java.util.List;
 import game.Game;
 import gui.BoardController;
 import gui.HostGameLobbyController;
+import main.Main;
 import network.Parameter;
 
 
@@ -49,7 +50,6 @@ public class Server extends Thread implements Serializable {
   private int noOfPlayer;
   private HostGameLobbyController lobbyController;
   private ClientConnection connection;
-  public static Game game;
   private InetAddress ipAddress;
   private BoardController boardController;
   /**
@@ -59,7 +59,7 @@ public class Server extends Thread implements Serializable {
   public Server(int port, int noOfPlayers) {
     this.port = port;
     this.noOfPlayer = noOfPlayers;
-    Server.game = new Game();
+    Main.g = new Game();
     try {
       this.ipAddress = InetAddress.getLocalHost();
     } catch (UnknownHostException e1) {

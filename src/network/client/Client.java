@@ -202,22 +202,26 @@ public class Client extends Thread implements Serializable {
  * @param message
  */
   public void handleStartGameMessage(StartGameMessage message) {
-    this.game = message.getGame();
+    Main.g = message.getGame();
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
           //update application thread
         if(!isHost) {
         controller.viewBoardGame();
+        Main.g.initGame();
       }
       }
-  });   
+  }); 
+    System.out.println("Heelo");
+//    Main.g.initNumberOfArmies();
+//    Main.g.setCurrentPlayer(Main.g.getPlayers().get(0));// currentPlayer = players.get(0);
+//    Main.g.setGameState(GameState.INITIALIZING_TERRITORY);
 
   }
   
   public void sendInitialTerritoryMessage() {
-//    int army = this.boardController
-//    SelectInitialTerritoryMessage territoryMessage = new SelectInitialTerritoryMessage();
+
   }
   public void handlePlayerListSize(PlayerListSizeMessage message) {
 //    this.controller.updateBoxes(message.geSize());

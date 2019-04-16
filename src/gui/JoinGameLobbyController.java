@@ -102,6 +102,8 @@ public class JoinGameLobbyController {
      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
      Parent root = (Parent) fxmlLoader.load();
      Stage stage = main.Main.stage;
+     Main.b = fxmlLoader.getController();
+     System.out.println(Main.b);
      stage.setScene(new Scene(root));
      stage.show();
      // ((Node) event.getSource()).getScene().getWindow().hide();

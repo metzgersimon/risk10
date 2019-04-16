@@ -110,7 +110,7 @@ public class HostGameLobbyController {
   @FXML
   void handleAddBot(ActionEvent event) {
     Player p;
-    if (Server.game.getPlayers().size() < HostGameGUIController.numberofPlayers) {
+    if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
       if (botLevel.getValue() == 0.0) {
         p = new AiPlayerEasy();
       } else if (botLevel.getValue() == 1.0) {
@@ -118,7 +118,7 @@ public class HostGameLobbyController {
       } else {
         p = new AiPlayerHard();
       }
-      Server.game.addPlayer(p);
+      Main.g.addPlayer(p);
       updateList(p);
       // addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
@@ -221,7 +221,7 @@ public class HostGameLobbyController {
    * @skaur
    */
   public void enableStartButton() {
-    if (Server.game.getPlayers().size() == HostGameGUIController.numberofPlayers) {  
+    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {  
       startGame.setDisable(false);
     }
   }
@@ -238,6 +238,7 @@ public class HostGameLobbyController {
     try {
       fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
+      Main.b = fxmlLoader.getController();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
       stage.show();
@@ -246,7 +247,7 @@ public class HostGameLobbyController {
       e.printStackTrace();
     }
     Server server = NetworkController.server;
-    StartGameMessage startGameMessage = new StartGameMessage(Server.game);
+    StartGameMessage startGameMessage = new StartGameMessage(Main.g);
     NetworkController.gameFinderHost.getClient().sendMessage(startGameMessage);
     server.setBoardController(fxmlLoader.getController());
     NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());

@@ -45,7 +45,7 @@ public class MultiPlayerGUIController {
   @FXML
   void back(ActionEvent event) {
   if(NetworkController.server != null) {
-    Server.game.removePlayer();
+     Main.g.removePlayer();
   }
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
