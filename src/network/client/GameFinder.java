@@ -12,12 +12,20 @@ public class GameFinder extends Thread {
   private Client client;
   private DatagramSocket datagramSocket;
   private int port;
+  private String ip;
   /**
    * @author skaur
    */
   public GameFinder() {
     this.port = Parameter.PORT;
     this.start();
+  }
+  
+  public GameFinder(String ip, int port) {
+    this.port = port;
+    this.ip = ip;
+    this.client = new Client(ip,port);
+    client.start();
   }
 
   /**

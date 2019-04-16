@@ -126,18 +126,20 @@ public class MultiPlayerGUIController {
    */
   @FXML
   void joinGameWithAddress(ActionEvent event) {
+    String name = ProfileSelectionGUIController.selectedPlayerName;
+    FXMLLoader fxmlLoader = null;
     try {
       String ip_port = address.getText();
       String[] tokens = ip_port.split("_");
       int port;
       try {
         port = Integer.parseInt(tokens[1]);
-        Main.g.joinGame(tokens[0], port);
+        networkController.joinGame(tokens[0], port);
       } catch (NumberFormatException e) {
         System.out.println(getClass() + " : Port number is not in correct format ");
         e.printStackTrace();
       }
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Game Lobby");
@@ -147,6 +149,12 @@ public class MultiPlayerGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    JoinGameLobbyController controller = fxmlLoader.getController();
+    Client client = NetworkController.gameFinder.getClient();
+    client.setController(controller);
+    client.setControllerHost(hostLobbyController);
+    // send join game message to the server
+    client.register(name);
   }
-
+  
 }

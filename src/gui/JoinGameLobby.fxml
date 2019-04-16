@@ -75,22 +75,22 @@
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Label>
-                    <CheckBox fx:id="client2" alignment="CENTER" disable="true" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 2">
+                    <CheckBox fx:id="client2" alignment="CENTER" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 2">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox fx:id="client3" alignment="CENTER" disable="true" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 3">
+                    <CheckBox fx:id="client3" alignment="CENTER" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 3">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox fx:id="client4" alignment="CENTER" disable="true" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 4">
+                    <CheckBox fx:id="client4" alignment="CENTER" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 4">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <CheckBox fx:id="client5" alignment="CENTER" disable="true" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 5">
+                    <CheckBox fx:id="client5" alignment="CENTER" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 5">
                       <effect>
                         <SepiaTone level="0.3" />
                       </effect>
@@ -120,7 +120,7 @@
                   <items>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="308.0">
                       <children>
-                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" prefHeight="45.0" prefWidth="348.0" promptText="" styleClass="label" text="Enter the messages here..">
+                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" onKeyPressed="#handleSendMessage" onKeyReleased="#handleSendMessage" prefHeight="45.0" prefWidth="348.0" promptText="" styleClass="subHeadlines">
                           <stylesheets>
                             <URL value="@HostGameLobby.css" />
                           </stylesheets>
@@ -138,13 +138,16 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </Label>
-                <TextArea fx:id="button" blendMode="BLUE" editable="false" prefWidth="200.0" styleClass="chat-text" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <TextArea fx:id="button" blendMode="BLUE" editable="false" prefWidth="200.0" styleClass="chat-text" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <stylesheets>
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                            <cursor>
                               <Cursor fx:constant="V_RESIZE" />
                            </cursor>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
                 </TextArea>
               </children>
               <columnConstraints>

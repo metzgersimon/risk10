@@ -155,7 +155,7 @@ public class Client extends Thread implements Serializable {
             // main.Main.j.showMessage(content);
             // hc.showMessage(content);
             System.out.println("host show " + content);
-            controller.showMessage(content);
+            controller.showMessage(name.toUpperCase() + ": " +content);
           //  hostcontroller.showMessage(content);
             
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
@@ -186,14 +186,11 @@ public class Client extends Thread implements Serializable {
     }
   }
   
-  public void handlePlayerListSize(PlayerListSizeMessage message) {
-    this.controller.updateBoxes(message.geSize());
-  }
   
-  public void handlePlayerListUpdate(PlayerListUpdateMessage message) {
-//    this.controller.updateList(message.getPlayer());
-  }
-
+/**
+ * this method show case the game board to the client
+ * @param message
+ */
   public void handleStartGameMessage(StartGameMessage message) {
     Platform.runLater(new Runnable() {
       @Override
@@ -201,12 +198,23 @@ public class Client extends Thread implements Serializable {
           //update application thread
         controller.viewBoardGame();
       }
-  });
-    
+  });   
+  }
+  
+  public void handlePlayerListSize(PlayerListSizeMessage message) {
+//    this.controller.updateBoxes(message.geSize());
+  }
+  
+  public void handlePlayerListUpdate(PlayerListUpdateMessage message) {
+//    this.controller.updateList(message.getPlayer());
   }
   
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     this.player = responseMessage.getPlayer();
+  }
+  
+  public Player getPlayer() {
+    return this.player;
   }
   /**@author qiychen
    * disconnect the conneciton

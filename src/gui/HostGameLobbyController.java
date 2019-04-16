@@ -245,7 +245,7 @@ public class HostGameLobbyController {
       e.printStackTrace();
     }
     StartGameMessage startGameMessage = new StartGameMessage();
-    Main.g.getGameFinderHost().getClient().sendMessage(startGameMessage);
+    NetworkController.gameFinderHost.getClient().sendMessage(startGameMessage);
   }
 
 }

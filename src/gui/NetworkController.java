@@ -12,7 +12,6 @@ import network.server.Server;
 public class NetworkController {
 
   public static Server server;
-  public static Client hostClient;
   public static Client client;
   public static GameFinder gameFinder;
   public static GameFinder gameFinderHost;
@@ -27,5 +26,8 @@ public class NetworkController {
     client = gameFinder.getClient();
   }
   
+  public void joinGame(String ip, int port) {
+   gameFinder = new GameFinder(ip,port);
+  }
   
 }

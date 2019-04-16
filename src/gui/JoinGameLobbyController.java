@@ -46,8 +46,9 @@ public class JoinGameLobbyController {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
-    SendChatMessageMessage m = new SendChatMessageMessage("test", message);
-    System.out.println(NetworkController.gameFinder.getClient());
+    System.out.println(NetworkController.client);
+    SendChatMessageMessage m = new SendChatMessageMessage(
+    NetworkController.gameFinder.getClient().getPlayer().getName(), message);
     NetworkController.gameFinder.getClient().sendMessage(m);
   }
 
@@ -76,10 +77,13 @@ public class JoinGameLobbyController {
 
   public void showMessage(String content) {
     button.setStyle("-fx-text-fill:black; -fx-font-size: 15px;");
-    button.appendText(content);
+    button.appendText(content + "\n");
 
   }
 
+  /**
+   * @skaur
+   */
   public void initialize() {  
     clientBoxes = new ArrayList<CheckBox>();
     clientBoxes .add(hostBox);
@@ -91,12 +95,6 @@ public class JoinGameLobbyController {
     hostBox.setSelected(true);
     clientPlayer.setSelected(true);
   }
-  
- public void updateBoxes(int size) {
-   for (int i = 0; i <  size; i++) {
-     clientBoxes.get(i).setDisable(false);
-    }
- }
  
  public void viewBoardGame() {
    try {
