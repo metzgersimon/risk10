@@ -18,6 +18,7 @@ import gui.BoardController;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
+import gui.NetworkController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,7 +51,7 @@ public class Client extends Thread implements Serializable {
   private HostGameLobbyController hostcontroller=null;
   private BoardController boardController;
   private Game game;
-  public static boolean isHost = false;
+  public static boolean isHost;
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {
@@ -165,7 +166,19 @@ public class Client extends Thread implements Serializable {
             // main.Main.j.showMessage(content);
             // hc.showMessage(content);
             System.out.println("host show " + content);
-            controller.showMessage(name.toUpperCase() + ": " +content);
+            if(NetworkController.ingame) {
+              if(Client.isHost) {
+                System.out.println("from host,do nothing");
+              }else{
+                boardController.showMessage(name.toUpperCase() + ": " +content);
+                System.out.println("from client, do something ");
+              }
+              
+            }else {
+              controller.showMessage(name.toUpperCase() + ": " +content);
+            }
+            
+           
           //  hostcontroller.showMessage(content);
             
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));

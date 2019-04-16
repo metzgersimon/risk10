@@ -54,6 +54,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import main.Main;
+import network.client.Client;
+import network.messages.SendChatMessageMessage;
 
 /**
  * 
@@ -1268,10 +1270,21 @@ public class BoardController implements Initializable {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message= messages.getText();
-   // SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
-   // client=Main.g.getGameFinderHost().getClient();
-   // client.sendMessage(chatmessage);
+    SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
+    if(Client.isHost) {
+      System.out.println("host side");
+      Client client=NetworkController.gameFinderHost.getClient();
+      client.sendMessage(chatmessage);
+    }else {
+      System.out.println("client side");
+      Client client=NetworkController.gameFinder.getClient();
+      client.sendMessage(chatmessage);
+    }
     chat.appendText(message+"\n");
+  }
+
+  public void showMessage(String message) {
+    chat.appendText(message);
   }
 
 }

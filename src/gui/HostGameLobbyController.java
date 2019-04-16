@@ -251,6 +251,7 @@ public class HostGameLobbyController {
     NetworkController.gameFinderHost.getClient().sendMessage(startGameMessage);
     server.setBoardController(fxmlLoader.getController());
     NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());
+    NetworkController.ingame=true;
   }
 
 }

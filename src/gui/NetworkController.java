@@ -15,16 +15,19 @@ public class NetworkController {
   public static Client client;
   public static GameFinder gameFinder;
   public static GameFinder gameFinderHost;
-  
+  public static boolean ingame=false;
   public void hostGame(int noOfPlayer) {
     server = new Server(Parameter.PORT,noOfPlayer);
     gameFinderHost = new GameFinder();
-    gameFinderHost.getClient().isHost = true;
+    client=gameFinderHost.getClient();
+    Client.isHost=true;
+
   }
   
   public void joinGameonDiscovery(){
     gameFinder = new GameFinder();
     client = gameFinder.getClient();
+    Client.isHost=false;
   }
   
   public void joinGame(String ip, int port) {
