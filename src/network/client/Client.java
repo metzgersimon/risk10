@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import main.Main;
 import network.Parameter;
+import network.messages.GameMessageMessage;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
 import network.messages.Message;
@@ -48,7 +49,7 @@ public class Client extends Thread implements Serializable {
   private boolean active;
   private int port;
   private JoinGameLobbyController controller = null;
-  private HostGameLobbyController hostcontroller=null;
+  private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
   private Game game;
   public static boolean isHost;
@@ -63,23 +64,26 @@ public class Client extends Thread implements Serializable {
 
   /**
    * Constructor to join the game on discovery
+   * 
    * @author qiychen
    * @param address
    * @param player
    */
   public Client(InetAddress address, Player player, int port) {
     this.address = address;
-//    this.player = player;
+    // this.player = player;
     this.port = port;
     connect();
   }
-/**
- * Second Constructor to join the game by giving the ip and port address
- * and starts the client thread
- * @skaur
- * @param ip
- * @param port
- */
+
+  /**
+   * Second Constructor to join the game by giving the ip and port address and starts the client
+   * thread
+   * 
+   * @skaur
+   * @param ip
+   * @param port
+   */
   public Client(String ip, int port) {
     try {
       this.address = InetAddress.getByName(ip);
@@ -89,6 +93,7 @@ public class Client extends Thread implements Serializable {
     this.port = port;
     connect();
   }
+
   /**
    * @author qiychen
    * @return whether the connection is established
@@ -113,6 +118,7 @@ public class Client extends Thread implements Serializable {
 
   /**
    * send message to server
+   * 
    * @author qiychen
    * @param message
    */
@@ -135,10 +141,11 @@ public class Client extends Thread implements Serializable {
   public void setController(JoinGameLobbyController controller) {
     this.controller = controller;
   }
+
   public void setControllerHost(HostGameLobbyController hostcontroller) {
-    this.hostcontroller=hostcontroller;
+    this.hostcontroller = hostcontroller;
   }
-  
+
 
   /**
    * handle incoming messages from server
@@ -167,43 +174,53 @@ public class Client extends Thread implements Serializable {
             // main.Main.j.showMessage(content);
             // hc.showMessage(content);
             System.out.println("host show " + content);
-            if(NetworkController.ingame) {
-              if(Client.isHost) {
-                System.out.println("from host,do nothing");
-              }else{
-                boardController.showMessage(name.toUpperCase() + ": " +content);
-                System.out.println("from client, do something ");
-              }
-              
-            }else {
-              if(!isHost) {
-              controller.showMessage(  ": " +content);
-              }
-            }
-            
-           
-          //  hostcontroller.showMessage(content);
-            
+            // if(NetworkController.ingame) {
+            // if(Client.isHost) {
+            // System.out.println("from host,do nothing");
+            // }else{
+            // boardController.showMessage(name.toUpperCase() + ": " +content);
+            // System.out.println("from client, do something ");
+            // }
+            //
+            // }else {
+            if(!isHost) {
+            controller.showMessage(  ": " + content);
+             }
+            // }
+
+
+            // hostcontroller.showMessage(content);
+
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
             // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
             // Parent root = (Parent) fxmlLoader.load();
             // TextArea chat = (TextArea) root.lookup("#lblData");
             // chat.appendText(content);
             break;
-          case START_GAME : handleStartGameMessage((StartGameMessage) message);
+          case START_GAME:
+            handleStartGameMessage((StartGameMessage) message);
           case LEAVE:
             break;
           case DISPLAY:
             break;
           case ALLIANCE:
             break;
-          case PLAYER_SIZE: handlePlayerListSize((PlayerListSizeMessage)message);
-          break;
-        case PLAYER_LIST_UPDATE: handlePlayerListUpdate((PlayerListUpdateMessage)message);
-        break;
-        case JOIN_REPONSE : handleJoinGameResponse((JoinGameResponseMessage)message);
-        break;
-        case INITIAL_TERRITORY : handleInitialTerritory((SelectInitialTerritoryMessage) message);
+          case PLAYER_SIZE:
+            handlePlayerListSize((PlayerListSizeMessage) message);
+            break;
+          case PLAYER_LIST_UPDATE:
+            handlePlayerListUpdate((PlayerListUpdateMessage) message);
+            break;
+          case JOIN_REPONSE:
+            handleJoinGameResponse((JoinGameResponseMessage) message);
+            break;
+          case INITIAL_TERRITORY:
+            handleInitialTerritory((SelectInitialTerritoryMessage) message);
+            break;
+          case INGAME:
+            String content2 = ((GameMessageMessage) message).getMessage();
+            Main.b.showMessage(content2);
+            break;
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -212,56 +229,58 @@ public class Client extends Thread implements Serializable {
       }
     }
   }
-  
-  
-/**
- * this method show case the game board to the client
- * @author skaur
- * @param message
- */
+
+
+  /**
+   * this method show case the game board to the client
+   * 
+   * @author skaur
+   * @param message
+   */
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g = message.getGame();
-//    if(!(player instanceof AiPlayer)) {
+    // if(!(player instanceof AiPlayer)) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-      networkController.viewBoardGame();
-      Main.b.connectRegionTerritory();
-      Main.g.initGame();
-     }
-      
-    }); 
-//  }
+        networkController.viewBoardGame();
+        Main.b.connectRegionTerritory();
+        Main.g.initGame();
+      }
+
+    });
+    // }
   }
-  
-     public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
-     System.out.println(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-  
- }
+
+  public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
+    System.out.println(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+
+  }
+
   public void handlePlayerListSize(PlayerListSizeMessage message) {
-//    this.controller.updateBoxes(message.geSize());
+    // this.controller.updateBoxes(message.geSize());
   }
-  
+
   public void handlePlayerListUpdate(PlayerListUpdateMessage message) {
-//    this.controller.updateList(message.getPlayer());
+    // this.controller.updateList(message.getPlayer());
   }
-  
+
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     this.player = responseMessage.getPlayer();
   }
-  
+
   public Player getPlayer() {
     return this.player;
   }
-  
+
   public void setBoardController(BoardController boardController) {
     this.boardController = boardController;
   }
-  
-  /**@author qiychen
-   * disconnect the connection
+
+  /**
+   * @author qiychen disconnect the connection
    */
   public void disconnect() {
     try {

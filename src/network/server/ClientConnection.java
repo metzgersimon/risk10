@@ -126,13 +126,8 @@ public class ClientConnection extends Thread {
             //send message to all clients and show in join game lobby
             this.sendMessagesToallClients(message);
             //show message in host game lobby
-            if(NetworkController.ingame) {
-              this.server.getBoardController().showMessage(name.toUpperCase() + " : " + content);
-            }else {
               this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
-            }           
-
-            System.out.println(
+           System.out.println(
                 "Message from client with the content " + content + " sent to all clients");
             // gui.HostGameLobbyController.showMessage(content);
             break;
@@ -147,6 +142,11 @@ public class ClientConnection extends Thread {
           case ALLIANCE:handleAllianceMessage((SendAllianceMessage)message);
             break;
           case INITIAL_TERRITORY: recieveInitialTerritory((SelectInitialTerritoryMessage) message);
+          break;
+          case INGAME:
+            this.sendMessagesToallClients(message);
+            break;
+        
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block

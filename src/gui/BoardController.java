@@ -55,6 +55,7 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
+import network.messages.GameMessageMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
@@ -86,8 +87,8 @@ public class BoardController implements Initializable {
   private Button chatRoomButton;
   @FXML
   private SplitPane splitter;
-  //@FXML
-  //private ListView chat;
+  // @FXML
+  // private ListView chat;
   @FXML
   private TextArea chat;
   @FXML
@@ -302,7 +303,7 @@ public class BoardController implements Initializable {
     this.boardGui = boardGui;
     this.g = g;
     connectRegionTerritory();
-//    sb.append("Game started");
+    // sb.append("Game started");
     chat.appendText("Game started!\n");
   }
 
@@ -314,7 +315,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn.\n");
+        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
@@ -345,21 +346,19 @@ public class BoardController implements Initializable {
   public synchronized void prepareArmyDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn.\n");
+        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
-        if(Main.g.getCurrentPlayer() instanceof AiPlayer) {
-          for(Territory t: Main.g.getWorld().getTerritories().values()) {
+        if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+          for (Territory t : Main.g.getWorld().getTerritories().values()) {
             t.getBoardRegion().getRegion().setDisable(true);
           }
-        }
-        else{
+        } else {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
               t.getBoardRegion().getRegion().setEffect(null);
               t.getBoardRegion().getRegion().setDisable(false);
-            } 
-            else {
+            } else {
               t.getBoardRegion().getRegion().setDisable(true);
               t.getBoardRegion().getRegion().setEffect(new Lighting());
             }
@@ -378,27 +377,27 @@ public class BoardController implements Initializable {
       public void run() {
         switch (Main.g.getGameState()) {
           case INITIALIZING_TERRITORY:
-//            chat.appendText("Initial Territory Distribution phase: \n");
+            // chat.appendText("Initial Territory Distribution phase: \n");
             gameState.setText("Choose your Territory!");
             // progress = new ProgressBar(0.05);
             break;
           case INITIALIZING_ARMY:
-//            chat.appendText("Initial Army Distribution phase: \n");
+            // chat.appendText("Initial Army Distribution phase: \n");
             gameState.setText("Place your Armies!1");
             // progress.setProgress(0.1);
             break;
           case ARMY_DISTRIBUTION:
-//            chat.appendText("Army Distribution phase: \n");
+            // chat.appendText("Army Distribution phase: \n");
             gameState.setText("Place your Armies!2");
             // progress.setProgress(0.3);
             break;
           case ATTACK:
-//            chat.appendText("Attack phase: \n");
+            // chat.appendText("Attack phase: \n");
             gameState.setText("Attack!");
             // progress.setProgress(0.6);
             break;
           case FORTIFY:
-//            chat.appendText("Fortify phase: \n");
+            // chat.appendText("Fortify phase: \n");
             gameState.setText("Move your Armies!");
             // progress.setProgress(0.95);
             break;
@@ -440,7 +439,7 @@ public class BoardController implements Initializable {
    *         Method to prepare the BoardGUI for phase ATTACK
    */
   public synchronized void prepareAttack() {
-    chat.appendText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn.\n");
+    chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
         t.getBoardRegion().getRegion().setDisable(false);
@@ -459,7 +458,7 @@ public class BoardController implements Initializable {
    *         Method to prepare the BoradGUI for phase FORTIFY
    */
   public synchronized void prepareFortify() {
-    chat.appendText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn.\n");
+    chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1
           && t.getHostileNeighbor().size() != t.getNeighbor().size()) {
@@ -586,7 +585,7 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
-              
+
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
               }
@@ -662,7 +661,8 @@ public class BoardController implements Initializable {
                     nameAttacker.setText(Main.g.getCurrentPlayer().getName());
                     nameDefender.setText(selectedTerritory_attacked.getOwner().getName());
                     armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
-                    armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
+                    armiesDefender
+                        .setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
                     int numberOfDicesOpponent =
                         selectedTerritory_attacked.getNumberOfArmies() >= 2 ? 2 : 1;
                     switch (numberOfDicesOpponent) {
@@ -839,7 +839,7 @@ public class BoardController implements Initializable {
       public void run() {
         nameAttacker.setText(Main.g.getCurrentPlayer().getName());
         nameDefender.setText(selectedTerritory_attacked.getOwner().getName());
-       
+
         // update opponent number of dices
         if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
           defendDice2.setVisible(false);
@@ -1303,24 +1303,28 @@ public class BoardController implements Initializable {
     statistic = new ListView(items);
     return statistic;
   }
+
   @FXML
   void handleSendMessage(ActionEvent event) {
-    String message= messages.getText();
-    SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
-    if(Client.isHost) {
-      System.out.println("host side");
-      Client client=NetworkController.gameFinderHost.getClient();
-      client.sendMessage(chatmessage);
-    }else {
-      System.out.println("client side");
-      Client client=NetworkController.gameFinder.getClient();
-      client.sendMessage(chatmessage);
-    }
-    chat.appendText(message+"\n");
+    String message = messages.getText();
+    // SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
+    // if(Client.isHost) {
+    // System.out.println("host side");
+    // Client client=NetworkController.gameFinderHost.getClient();
+    // client.sendMessage(chatmessage);
+    // }else {
+    // System.out.println("client side");
+    // Client client=NetworkController.gameFinder.getClient();
+    // client.sendMessage(chatmessage);
+    // }
+    GameMessageMessage chatmessage = new GameMessageMessage("test", message);
+    Client client = NetworkController.gameFinder.getClient();
+    client.sendMessage(chatmessage);
+    // chat.appendText(message+"\n");
   }
 
   public void showMessage(String message) {
-    chat.appendText(message);
+    chat.appendText(message + "\n");
   }
 
 }
