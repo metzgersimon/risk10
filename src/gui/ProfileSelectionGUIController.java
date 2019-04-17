@@ -119,7 +119,7 @@ public class ProfileSelectionGUIController {
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";
-      Main.g.addPlayer(new Player(selectedPlayerName, PlayerColor.YELLOW));
+      Main.g.addPlayer(new Player(selectedPlayerName, PlayerColor.YELLOW, Main.g));
     } else {
       toOpen = "MultiPlayerGUI.fxml";
     }
