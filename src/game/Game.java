@@ -476,6 +476,7 @@ public class Game implements Serializable{
     this.setGameState(GameState.ARMY_DISTRIBUTION);
     Main.b.displayGameState();
     if (this.getCurrentPlayer() instanceof AiPlayer) {
+      System.out.println("Test further fortify");
       // try {
       // Thread.sleep(1000);
       // } catch (InterruptedException e) {

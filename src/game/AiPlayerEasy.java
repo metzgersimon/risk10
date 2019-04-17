@@ -11,7 +11,7 @@ import main.Main;
 public class AiPlayerEasy extends Player implements AiPlayer {
 
   public AiPlayerEasy() {
-    super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()]);
+    super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
 
@@ -82,7 +82,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     Territory territory = null;
     // choose territory
     while (this.getNumberArmiesToDistibute() != 0) {
-      System.out.println(this.getNumberArmiesToDistibute());
+//      System.out.println(this.getNumberArmiesToDistibute());
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
         randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
@@ -119,22 +119,27 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     Territory territoryOpponent = null;
     int numberOfAttackDices = 0;
     int numberOfDefendDices = 0;
-    double attackProbability = 1.0;
+    double attackProbability = 0;
 
-    while (this.isCapableToAttack() && Math.random() > attackProbability) {
+    double random = Math.random();
+   
+    while (this.isCapableToAttack() && random > attackProbability) {
       // choose own territory that is able to attack
+      System.out.println("Random1: "+random);
       do {
-        randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size()) + 1;
-        int i = 1;
-        for (Territory t : this.getTerritories()) {
-          if (i == randomTerritoryOwn) {
-            territoryOwn = t;
-            randomNumberOfArmies = (int) (Math.random() * t.getNumberOfArmies()) + 1;
-
-          } else {
-            i++;
-          }
-        }
+        randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size());
+        territoryOwn = this.getTerritoriesArrayList().get(randomTerritoryOwn);
+//        int i = 1;
+//        for (Territory t : this.getTerritories()) {
+//          if (i == randomTerritoryOwn) {
+//            territoryOwn = t;
+//           
+            randomNumberOfArmies = (int) (Math.random() * territoryOwn.getNumberOfArmies()-1) + 1;
+//            System.out.println("Territory t: "+t + " - - RandomArmies: "+randomNumberOfArmies);
+//          } else {
+//            i++;
+//          }
+//        }
       } while (territoryOwn.getNumberOfArmies() == 1
           || territoryOwn.getHostileNeighbor().size() == 0);
 
@@ -172,6 +177,8 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         System.out.println(territoryOwn.getName() + " -- " + territoryOpponent.getName());
       }
       attackProbability = 0.66;
+      random = Math.random();
+      System.out.println("Random2: "+random);
     }
 
     Main.b.handleSkipGameState();

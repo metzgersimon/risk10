@@ -134,6 +134,7 @@ public class SinglePlayerGUIController {
           break;
       }
       Main.g.addPlayer(p);
+      System.out.println(p.getName());
       numberAI.setText(Main.g.getPlayers().size() - 1 + "");
       // System.out.println(p.getName());
 

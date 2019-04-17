@@ -36,6 +36,7 @@ public class Player implements Serializable {
   public int numberOfAttacks;
   public int rank;
   public int sessionWins;
+  private static StringBuffer sb = new StringBuffer();
 
   /**
    * create a new player
@@ -61,14 +62,14 @@ public class Player implements Serializable {
     this.sessionWins = 0;
   }
 
-  public Player(String name, PlayerColor color) {
+  public Player(String name, PlayerColor color, Game g) {
     this.name = name;
     this.color = color;
     territories = new HashSet<>();
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.eliminatedPlayers = new ArrayList<>();
-//    this.g = Main.g;
+    this.g = g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 0;
@@ -103,6 +104,11 @@ public class Player implements Serializable {
 
   public HashSet<Territory> getTerritories() {
     return territories;
+  }
+  
+  public ArrayList<Territory> getTerritoriesArrayList(){
+    ArrayList<Territory> list = new ArrayList<Territory>(this.territories);
+    return list;
   }
 
   public void setTerritories(HashSet<Territory> territories) {
@@ -324,6 +330,7 @@ public class Player implements Serializable {
       this.getCards().remove(c1);
       this.getCards().remove(c2);
       this.getCards().remove(c3);
+      sb.append(this.getName()+ " traded in one set and got "+armies+" armies.");
     }
     return armies;
   }
@@ -395,6 +402,7 @@ public class Player implements Serializable {
       return 3;
     } else {
       this.numberArmiesToDistribute = result;
+      sb.append(this.getName() + " receives "+result+ " armies to distribute.");
       return result;
     }
   }
@@ -422,6 +430,7 @@ public class Player implements Serializable {
           if (moveFrom.getNumberOfArmies() > armyToMove) {
             moveFrom.setReducedNumberOfArmies(armyToMove);
             moveTo.setNumberOfArmies(armyToMove);
+            sb.append(this.getName() + " moved "+armyToMove + " from "+moveFrom.getName() + " to "+moveTo.getName()+ ".");
             return true;
           } else {
             // error messages which may be implemented in the boardgui later

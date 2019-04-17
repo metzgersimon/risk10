@@ -48,7 +48,7 @@ public class EnterIPGUIController {
     String name = ProfileSelectionGUIController.selectedPlayerName;
     System.out.println("Player instance created with name " + name + " and color "
         + PlayerColor.values()[Main.g.getPlayers().size()]);
-    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()]);
+    Player player = new Player(name, game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addPlayer(player);
     ProfileManager.setSelectedProfile(name);
     try {

@@ -4,9 +4,11 @@ import java.util.HashSet;
 import main.Main;
 
 public class AiPlayerHard extends Player implements AiPlayer {
+  
+  
 
   public AiPlayerHard() {
-    super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()]);
+    super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
 
@@ -60,6 +62,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
   }
 
   public void armyDistribution() {
+    
 
   }
 
