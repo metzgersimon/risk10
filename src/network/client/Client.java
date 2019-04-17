@@ -52,6 +52,7 @@ public class Client extends Thread implements Serializable {
   private BoardController boardController;
   private Game game;
   public static boolean isHost;
+  private NetworkController networkController = new NetworkController();
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {
@@ -175,7 +176,9 @@ public class Client extends Thread implements Serializable {
               }
               
             }else {
-              controller.showMessage(name.toUpperCase() + ": " +content);
+              if(!isHost) {
+              controller.showMessage(  ": " +content);
+              }
             }
             
            
@@ -200,6 +203,7 @@ public class Client extends Thread implements Serializable {
         break;
         case JOIN_REPONSE : handleJoinGameResponse((JoinGameResponseMessage)message);
         break;
+        case INITIAL_TERRITORY : handleInitialTerritory((SelectInitialTerritoryMessage) message);
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -212,30 +216,30 @@ public class Client extends Thread implements Serializable {
   
 /**
  * this method show case the game board to the client
+ * @author skaur
  * @param message
  */
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g = message.getGame();
+//    if(!(player instanceof AiPlayer)) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-          //update application thread
-        if(!isHost) {
-        controller.viewBoardGame();
-        Main.g.initGame();
-      }
-      }
-  }); 
-    System.out.println("Heelo");
-//    Main.g.initNumberOfArmies();
-//    Main.g.setCurrentPlayer(Main.g.getPlayers().get(0));// currentPlayer = players.get(0);
-//    Main.g.setGameState(GameState.INITIALIZING_TERRITORY);
-
+      networkController.viewBoardGame();
+      Main.b.connectRegionTerritory();
+      Main.g.initGame();
+     }
+      
+    }); 
+//  }
   }
   
-  public void sendInitialTerritoryMessage() {
-
-  }
+     public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
+     System.out.println(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+  
+ }
   public void handlePlayerListSize(PlayerListSizeMessage message) {
 //    this.controller.updateBoxes(message.geSize());
   }

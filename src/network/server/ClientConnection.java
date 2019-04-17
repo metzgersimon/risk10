@@ -25,6 +25,7 @@ import network.messages.Message;
 import network.messages.MessageType;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
 public class ClientConnection extends Thread {
@@ -145,6 +146,7 @@ public class ClientConnection extends Thread {
             break;
           case ALLIANCE:handleAllianceMessage((SendAllianceMessage)message);
             break;
+          case INITIAL_TERRITORY: recieveInitialTerritory((SelectInitialTerritoryMessage) message);
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
@@ -178,7 +180,7 @@ public class ClientConnection extends Thread {
   * @param message
   */
   public void handleJoinGame(JoinGameMessage message) {
-    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()]);
+    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()],Main.g);
     Main.g.addPlayer(player);
     this.players.add(player);
     if (this.server.getHostLobbyController() != null) {
@@ -187,6 +189,10 @@ public class ClientConnection extends Thread {
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
   }
+  public void recieveInitialTerritory(SelectInitialTerritoryMessage message) {
+    this.sendMessagesToallClients(message);
+  }
+  
   public void handleAllianceMessage(SendAllianceMessage message) {
     String playername;
     for (int i = 0; i < this.players.size(); i++) {
