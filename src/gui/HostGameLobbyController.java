@@ -82,8 +82,7 @@ public class HostGameLobbyController {
   void handleSendMessage(ActionEvent event) {
      String message = textField.getText();
      SendChatMessageMessage m = new SendChatMessageMessage("test", message);
-     System.out.println(NetworkController.gameFinderHost);
-     Client client = NetworkController.gameFinderHost.getClient();
+     Client client = NetworkController.gameFinder.getClient();
      client.sendMessage(m);
   }
 
@@ -234,24 +233,24 @@ public class HostGameLobbyController {
   
   @FXML
   public void handleStartGameButton(ActionEvent event) {
-    FXMLLoader fxmlLoader = null;
-    try {
-      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Main.b = fxmlLoader.getController();
-      Stage stage = main.Main.stage;
-      stage.setScene(new Scene(root));
-      stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    Server server = NetworkController.server;
+//    FXMLLoader fxmlLoader = null;
+//    try {
+//      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+//      Parent root = (Parent) fxmlLoader.load();
+//      Main.b = fxmlLoader.getController();
+//      Stage stage = main.Main.stage;
+//      stage.setScene(new Scene(root));
+//      stage.show();
+//      // ((Node) event.getSource()).getScene().getWindow().hide();
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    Server server = NetworkController.server;
     StartGameMessage startGameMessage = new StartGameMessage(Main.g);
-    NetworkController.gameFinderHost.getClient().sendMessage(startGameMessage);
-    server.setBoardController(fxmlLoader.getController());
-    NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());
-    NetworkController.ingame=true;
+    NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
+  //  server.setBoardController(fxmlLoader.getController());
+//    NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());
+//    NetworkController.ingame=true;
   }
 
 }

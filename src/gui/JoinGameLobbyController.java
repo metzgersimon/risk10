@@ -48,7 +48,7 @@ public class JoinGameLobbyController {
     String message = textField.getText();
     System.out.println(NetworkController.client);
     SendChatMessageMessage m = new SendChatMessageMessage(
-    NetworkController.gameFinder.getClient().getPlayer().getName(), message);
+    "TEST", message);
     NetworkController.gameFinder.getClient().sendMessage(m);
   }
 

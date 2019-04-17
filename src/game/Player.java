@@ -52,7 +52,7 @@ public class Player implements Serializable {
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.tradedCardSets = 0;
-    this.g = Main.g;
+//    this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 1;
@@ -69,6 +69,22 @@ public class Player implements Serializable {
     cards = new ArrayList<>();
     this.eliminatedPlayers = new ArrayList<>();
 //    this.g = Main.g;
+    this.numberOfTerritories = 0;
+    this.numberOfCards = 0;
+    this.territoriesConquered = 0;
+    this.numberOfAttacks = 0;
+    this.rank = (int) (Math.random() * 6);
+    this.sessionWins = 0;
+  }
+  
+  public Player(String name, PlayerColor color, Game g) {
+    this.name = name;
+    this.color = color;
+    territories = new HashSet<>();
+    continents = new HashSet<>();
+    cards = new ArrayList<>();
+    this.eliminatedPlayers = new ArrayList<>();
+    this.g = g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 0;

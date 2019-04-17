@@ -56,8 +56,8 @@ public class HostGameGUIController {
     }
     hostLobController = fxmlLoader.getController();
     NetworkController.server.setController(hostLobController);
-    NetworkController.gameFinderHost.getClient().setControllerHost(hostLobController);
-    NetworkController.gameFinderHost.getClient().register(name);
+    NetworkController.gameFinder.getClient().setControllerHost(hostLobController);
+    NetworkController.gameFinder.getClient().register(name);
   }
 
   public void initialize() {

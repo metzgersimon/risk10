@@ -52,6 +52,7 @@ public class Client extends Thread implements Serializable {
   private BoardController boardController;
   private Game game;
   public static boolean isHost;
+  private NetworkController networkController = new NetworkController();
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {
@@ -175,7 +176,9 @@ public class Client extends Thread implements Serializable {
               }
               
             }else {
-              controller.showMessage(name.toUpperCase() + ": " +content);
+              if(!isHost) {
+              controller.showMessage(  ": " +content);
+              }
             }
             
            
@@ -212,25 +215,28 @@ public class Client extends Thread implements Serializable {
   
 /**
  * this method show case the game board to the client
+ * @author skaur
  * @param message
  */
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g = message.getGame();
+    if(!(player instanceof AiPlayer)) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-          //update application thread
-        if(!isHost) {
-        controller.viewBoardGame();
-        Main.g.initGame();
-      }
-      }
-  }); 
-    System.out.println("Heelo");
-//    Main.g.initNumberOfArmies();
+    networkController.viewBoardGame();
 //    Main.g.setCurrentPlayer(Main.g.getPlayers().get(0));// currentPlayer = players.get(0);
+//    System.out.println("1" + Main.g.getCurrentPlayer().getName());
 //    Main.g.setGameState(GameState.INITIALIZING_TERRITORY);
-
+//    System.out.println(Main.b);
+//    Main.b.prepareInitTerritoryDistribution();
+//    Main.b.displayGameState();
+    boardController.connectRegionTerritory();
+      Main.g.initGame();
+      }
+      
+    }); 
+  }
   }
   
   public void sendInitialTerritoryMessage() {
