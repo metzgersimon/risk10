@@ -226,6 +226,8 @@ public class Client extends Thread implements Serializable {
       @Override
       public void run() {
       networkController.viewBoardGame();
+      Main.b.connectRegionTerritory();
+      Main.g.initGame();
      }
       
     }); 

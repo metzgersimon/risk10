@@ -208,8 +208,6 @@ public class ClientConnection extends Thread {
   
   public void handleStartGameMessage(StartGameMessage startMessage) {
     this.sendMessagesToallClients(startMessage);
-    Main.b.connectRegionTerritory();
-    Main.g.initGame();
   }
   
   public void handleLeaveGameMessage(LeaveGameMessage message){
