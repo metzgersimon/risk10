@@ -1,5 +1,6 @@
 package network.messages.game;
 
+import game.Territory;
 import network.messages.Message;
 import network.messages.MessageType;
 /**
@@ -10,14 +11,14 @@ public class SelectInitialTerritoryMessage extends Message {
 
   private static final long serialVersionUID = 1L;
   
-  private int territoryID;
+  private Territory territory;
   
-  public SelectInitialTerritoryMessage(int territoryID) {
+  public SelectInitialTerritoryMessage(Territory territory) {
     super(MessageType.INITIAL_TERRITORY);
   }
   
-  public int getTerritoryID() {
-    return this.territoryID;
+  public Territory getTerritoryID() {
+    return this.territory;
   }
 
 

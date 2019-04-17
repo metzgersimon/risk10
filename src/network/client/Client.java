@@ -203,6 +203,7 @@ public class Client extends Thread implements Serializable {
         break;
         case JOIN_REPONSE : handleJoinGameResponse((JoinGameResponseMessage)message);
         break;
+        case INITIAL_TERRITORY : handleInitialTerritory((SelectInitialTerritoryMessage) message);
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -220,28 +221,23 @@ public class Client extends Thread implements Serializable {
  */
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g = message.getGame();
-    if(!(player instanceof AiPlayer)) {
+//    if(!(player instanceof AiPlayer)) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-    networkController.viewBoardGame();
-//    Main.g.setCurrentPlayer(Main.g.getPlayers().get(0));// currentPlayer = players.get(0);
-//    System.out.println("1" + Main.g.getCurrentPlayer().getName());
-//    Main.g.setGameState(GameState.INITIALIZING_TERRITORY);
-//    System.out.println(Main.b);
-//    Main.b.prepareInitTerritoryDistribution();
-//    Main.b.displayGameState();
-    boardController.connectRegionTerritory();
-      Main.g.initGame();
-      }
+      networkController.viewBoardGame();
+     }
       
     }); 
-  }
+//  }
   }
   
-  public void sendInitialTerritoryMessage() {
-
-  }
+     public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
+     System.out.println(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+  
+ }
   public void handlePlayerListSize(PlayerListSizeMessage message) {
 //    this.controller.updateBoxes(message.geSize());
   }

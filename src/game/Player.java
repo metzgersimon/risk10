@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import gui.NetworkController;
 import main.Main;
+import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
  * 
@@ -381,6 +383,9 @@ public class Player implements Serializable {
       this.addTerritories(t);
       this.numberArmiesToDistribute -= 1;
       t.setNumberOfArmies(1);
+      SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t);
+      System.out.println(t);
+      NetworkController.gameFinder.getClient().sendMessage(message);
       return true;
     } else {
       return false;

@@ -56,6 +56,7 @@ import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
  * 
@@ -316,6 +317,7 @@ public class BoardController implements Initializable {
           }
         } else {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
+            System.out.println(t);
             if (t.getOwner() == null) {
               t.getBoardRegion().getRegion().setDisable(false);
             }
@@ -562,6 +564,7 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
+              
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
               }
