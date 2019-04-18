@@ -129,17 +129,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       do {
         randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size());
         territoryOwn = this.getTerritoriesArrayList().get(randomTerritoryOwn);
-//        int i = 1;
-//        for (Territory t : this.getTerritories()) {
-//          if (i == randomTerritoryOwn) {
-//            territoryOwn = t;
-//           
             randomNumberOfArmies = (int) (Math.random() * territoryOwn.getNumberOfArmies()-1) + 1;
-//            System.out.println("Territory t: "+t + " - - RandomArmies: "+randomNumberOfArmies);
-//          } else {
-//            i++;
-//          }
-//        }
       } while (territoryOwn.getNumberOfArmies() == 1
           || territoryOwn.getHostileNeighbor().size() == 0);
 
@@ -158,7 +148,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       Vector<Integer> defenderDices = Dice.rollDices(numberOfDefendDices);
 
       // attack chosen territory and update GUI
-      if (Main.g.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
+      if (super.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
         System.out.println(territoryOwn.getName() + " -- " + territoryOpponent.getName());
         Main.b.updateLabelTerritory(territoryOwn);

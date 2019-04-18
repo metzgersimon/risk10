@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Vector;
 import gui.NetworkController;
 import main.Main;
 import network.messages.game.SelectInitialTerritoryMessage;
@@ -349,6 +350,7 @@ public class Player implements Serializable {
    */
   public boolean armyDistribution(int amount, Territory t) {
     // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
+    System.out.println(t.getOwner().getName());
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
       this.numberArmiesToDistribute -= amount;
@@ -374,9 +376,11 @@ public class Player implements Serializable {
       this.addTerritories(t);
       this.numberArmiesToDistribute -= 1;
       t.setNumberOfArmies(1);
-      SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t);
-      System.out.println(t);
+      if(Main.g.isNetworkGame()) {
+        SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t);
+//      System.out.println(t);
       NetworkController.gameFinder.getClient().sendMessage(message);
+      }
       return true;
     } else {
       return false;
@@ -411,6 +415,68 @@ public class Player implements Serializable {
       return result;
     }
   }
+  
+  /**
+   * @param attacker
+   * @param defender
+   * @param attack
+   * @param defend
+   * @param numberOfAttackers
+   * @return true if attacker conquers the opponent territory
+   */
+  public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
+      Territory defend, int numberOfAttackers) {
+    switch (defender.size()) {
+      case (2):
+        if (attacker.size() >= 2) {
+          System.out
+              .println("Case2: attacker: " + attacker.get(1) + " defender: " + defender.get(1));;
+          if (attacker.get(1) > defender.get(1)) {
+            defend.setNumberOfArmies(-1);
+          } else {
+            attack.setNumberOfArmies(-1);
+          }
+        }
+      case (1):
+        System.out
+            .println("Case1: attacker: " + attacker.get(0) + " defender: " + defender.get(0));;
+        if (attacker.get(0) > defender.get(0)) {
+          defend.setNumberOfArmies(-1);
+        } else {
+          attack.setNumberOfArmies(-1);
+        }
+    }
+
+    if (defend.getNumberOfArmies() == 0) {
+      System.out.println("defending territory is dead.");
+      Player p = defend.getOwner();
+      p.getTerritories().remove(defend);
+      defend.setOwner(attack.getOwner());
+      attack.getOwner().addTerritories(defend);
+      Main.g.updateLiveStatistics();
+      Main.g.checkAllPlayers();
+      attack.setNumberOfArmies(-numberOfAttackers);
+      defend.setNumberOfArmies(numberOfAttackers);
+      Main.b.updateColorTerritory(defend);
+      // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
+      // p.setCards(Main.g.getCards().get(randomCard));
+      if (!Main.g.getPlayers().contains(p)) {
+        attack.getOwner().addElimiatedPlayer(p);
+        attack.getOwner().setCards(p.getCards());
+      }
+      if (Main.g.getPlayers().size() == 1) {
+        // attacker wins game
+        Main.g.setGameState(GameState.END_GAME);
+      }
+      return true;
+    } else {
+      if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        Main.b.updateDiceSlider(attack);
+      }
+      Main.g.updateLiveStatistics();
+      return false;
+    }
+  }
 
   /**
    * @author skaur
@@ -421,7 +487,7 @@ public class Player implements Serializable {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
-    if (Main.g.getGameState() == GameState.FORTIFY) {
+//    if (Main.g.getGameState() == GameState.FORTIFY) {
       // check if both territories belong to the current player
       if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
         
@@ -457,9 +523,9 @@ public class Player implements Serializable {
         return false;
       }
 
-    }
-    System.out.println("Not in a fortify mode ");
-    return false;
+//    }
+//    System.out.println("Not in a fortify mode ");
+//    return false;
   }
 
   public boolean equals(Player p) {

@@ -34,6 +34,7 @@ public class Game implements Serializable{
   public HashMap<String, Integer> territoryStats;
   public HashMap<String, Integer> cardStats;
   private HashSet<String> aiNames = new HashSet<String>();
+  private boolean isNetworkGame;
 
 
 
@@ -145,7 +146,7 @@ public class Game implements Serializable{
     setCurrentPlayer(players.get(0));// currentPlayer = players.get(0);
     System.out.println("1" + getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
-    System.out.println(Main.b);
+//    System.out.println(Main.b);
     Main.b.prepareInitTerritoryDistribution();
     Main.b.displayGameState();
 
@@ -249,67 +250,7 @@ public class Game implements Serializable{
 
 
 
-  /**
-   * @param attacker
-   * @param defender
-   * @param attack
-   * @param defend
-   * @param numberOfAttackers
-   * @return true if attacker conquers the opponent territory
-   */
-  public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
-      Territory defend, int numberOfAttackers) {
-    switch (defender.size()) {
-      case (2):
-        if (attacker.size() >= 2) {
-          System.out
-              .println("Case2: attacker: " + attacker.get(1) + " defender: " + defender.get(1));;
-          if (attacker.get(1) > defender.get(1)) {
-            defend.setNumberOfArmies(-1);
-          } else {
-            attack.setNumberOfArmies(-1);
-          }
-        }
-      case (1):
-        System.out
-            .println("Case1: attacker: " + attacker.get(0) + " defender: " + defender.get(0));;
-        if (attacker.get(0) > defender.get(0)) {
-          defend.setNumberOfArmies(-1);
-        } else {
-          attack.setNumberOfArmies(-1);
-        }
-    }
-
-    if (defend.getNumberOfArmies() == 0) {
-      System.out.println("defending territory is dead.");
-      Player p = defend.getOwner();
-      p.getTerritories().remove(defend);
-      defend.setOwner(attack.getOwner());
-      attack.getOwner().addTerritories(defend);
-      updateLiveStatistics();
-      checkAllPlayers();
-      attack.setNumberOfArmies(-numberOfAttackers);
-      defend.setNumberOfArmies(numberOfAttackers);
-      Main.b.updateColorTerritory(defend);
-      // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
-      // p.setCards(Main.g.getCards().get(randomCard));
-      if (!this.getPlayers().contains(p)) {
-        attack.getOwner().addElimiatedPlayer(p);
-        attack.getOwner().setCards(p.getCards());
-      }
-      if (getPlayers().size() == 1) {
-        // attacker wins game
-        this.gameState = GameState.END_GAME;
-      }
-      return true;
-    } else {
-      if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
-        Main.b.updateDiceSlider(attack);
-      }
-      updateLiveStatistics();
-      return false;
-    }
-  }
+  
 
 
 
@@ -540,6 +481,14 @@ public class Game implements Serializable{
 
   public GameFinder getGameFinderHost() {
     return this.gameFinderHost;
+  }
+
+  public boolean isNetworkGame() {
+    return isNetworkGame;
+  }
+
+  public void setNetworkGame(boolean isNetworkGame) {
+    this.isNetworkGame = isNetworkGame;
   }
 
 }

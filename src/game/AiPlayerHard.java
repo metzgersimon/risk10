@@ -20,13 +20,13 @@ public class AiPlayerHard extends Player implements AiPlayer {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner() == null) {
         minHostile =
-            minHostile > t.getHostileNeighbor(this).size() ? t.getHostileNeighbor(this).size()
+            minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size()
                 : minHostile;
       }
     }
     HashSet<Territory> minHostileTerritories = new HashSet<>();
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
-      if (t.getOwner() == null && t.getHostileNeighbor(this).size() == minHostile) {
+      if (t.getOwner() == null && t.getHostileNeighbor().size() == minHostile) {
         minHostileTerritories.add(t);
       }
     }

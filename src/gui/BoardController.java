@@ -324,7 +324,7 @@ public class BoardController implements Initializable {
           }
         } else {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
-            System.out.println(t);
+//            System.out.println(t);
             if (t.getOwner() == null) {
               t.getBoardRegion().getRegion().setDisable(false);
             }
@@ -879,7 +879,7 @@ public class BoardController implements Initializable {
         }
 
 
-        if (g.attack(attacker, defender, selectedTerritory, selectedTerritory_attacked,
+        if (Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory, selectedTerritory_attacked,
             (int) diceSlider.getValue()) || (selectedTerritory.getNumberOfArmies() == 1)) {
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
@@ -1142,7 +1142,7 @@ public class BoardController implements Initializable {
     // progress.setStyle("-fx-accent: magenta;");
     Platform.runLater(new Runnable() {
       public void run() {
-        System.out.println("Handle Skip GameState");
+//        System.out.println("Handle Skip GameState");
         // changeGameState.setOnAction(new EventHandler<ActionEvent>() {
         changeGameState.setEffect(new Bloom());
         // @Override public void handle(ActionEvent e) {
