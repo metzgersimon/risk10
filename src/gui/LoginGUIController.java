@@ -3,17 +3,18 @@ package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * @author liwang Controller class for LoginGUI
+ * Controller class for LoginGUI
+ * 
+ * @author liwang
  */
 public class LoginGUIController {
-  
+
   public static boolean init = true;
 
   @FXML
@@ -22,6 +23,7 @@ public class LoginGUIController {
   /**
    * Event handle class invoked when the klickToStart Button clicked to open the MainMenuGUI
    * 
+   * @author liwang
    * @param event
    */
   @FXML
@@ -33,7 +35,6 @@ public class LoginGUIController {
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }

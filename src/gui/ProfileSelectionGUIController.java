@@ -15,10 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import main.Main;
 import java.util.ArrayList;
-import game.*;
 
 /**
- * @author liwang Controller class for ProfileSelectionGUI
+ * Controller class for ProfileSelectionGUI
  */
 public class ProfileSelectionGUIController {
 
@@ -31,6 +30,11 @@ public class ProfileSelectionGUIController {
    * which profile will be edited
    */
   public static int editNr;
+
+  /**
+   * the selected Player name
+   */
+  public static String selectedPlayerName = null;
 
   /**
    * fields to save and order names and images of profiles
@@ -56,11 +60,10 @@ public class ProfileSelectionGUIController {
   @FXML
   private Button createNewProfile;
 
-  public static String selectedPlayerName = null;
-
   /**
    * Event handle class invoked when back Button clicked
    * 
+   * @author liwang
    * @param event
    */
   @FXML
@@ -77,6 +80,12 @@ public class ProfileSelectionGUIController {
     }
   }
 
+  /**
+   * Event handle class invoked when create new Profile Button clicked
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void handleCreateNewProfileButton(ActionEvent event) {
     CreateProfileGUIController.image = null;
@@ -92,15 +101,55 @@ public class ProfileSelectionGUIController {
     }
   }
 
+  /**
+   * Event handle class invoked when edit Button clicked
+   * 
+   * @author liwang
+   * @param event
+   */
+  @FXML
+  void edit(ActionEvent event) {
+    switch (((Button) event.getSource()).getId()) {
+      case ("edit1"):
+        editNr = 0;
+        break;
+      case ("edit2"):
+        editNr = 1;
+        break;
+      case ("edit3"):
+        editNr = 2;
+        break;
+      case ("edit4"):
+        editNr = 3;
+        break;
+      case ("edit5"):
+        editNr = 4;
+        break;
+    }
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
+      Parent root = fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setTitle("Edit Profile");
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
+  /**
+   * Event handle class invoked when a profile is clicked
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void choose(MouseEvent event) {
-
-
-    A: switch (((ImageView) event.getSource()).getId()) {
+    switch (((ImageView) event.getSource()).getId()) {
       case ("image1"):
         selectedPlayerName = names[0];
-        break A;
+        break;
       case ("image2"):
         selectedPlayerName = names[1];
         break;
@@ -114,8 +163,7 @@ public class ProfileSelectionGUIController {
         selectedPlayerName = names[4];
         break;
     }
-  
-  
+
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";
@@ -136,7 +184,9 @@ public class ProfileSelectionGUIController {
   }
 
   /**
-   * @author prto loads all saved player profiles
+   * loads all saved player profiles
+   * 
+   * @author prto
    */
   public void loadProfiles() {
     ProfileManager.readXml();
@@ -153,7 +203,11 @@ public class ProfileSelectionGUIController {
   }
 
 
-
+  /**
+   * load all saved profiles, calculate the position and show them
+   * 
+   * @author liwang
+   */
   public void initialize() {
 
     loadProfiles();
@@ -194,39 +248,6 @@ public class ProfileSelectionGUIController {
 
     if (count == 5) {
       createNewProfile.setDisable(true);
-    }
-  }
-
-  @FXML
-  void edit(ActionEvent event) {
-
-    switch (((Button) event.getSource()).getId()) {
-      case ("edit1"):
-        editNr = 0;
-        break;
-      case ("edit2"):
-        editNr = 1;
-        break;
-      case ("edit3"):
-        editNr = 2;
-        break;
-      case ("edit4"):
-        editNr = 3;
-        break;
-      case ("edit5"):
-        editNr = 4;
-        break;
-    }
-
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
-      Parent root = fxmlLoader.load();
-      Stage stage = main.Main.stage;
-      stage.setTitle("Edit Profile");
-      stage.setScene(new Scene(root));
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
     }
   }
 

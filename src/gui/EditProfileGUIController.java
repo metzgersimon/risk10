@@ -1,18 +1,11 @@
 package gui;
 
-
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -23,57 +16,49 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Controller class for EditProfileGUI
+ * 
+ * @author liwang
+ */
 public class EditProfileGUIController {
 
+  int nr;
 
-  int nr = ProfileSelectionGUIController.editNr;
-
-  public static int id = 0;
   public static boolean edit = false;
+  public static int imageId = 0;
   public static Image image = null;
-
   public static String profileName = null;
+
+  private static boolean nameChanged = false;
+  private static boolean imageChanged = false;
 
   @FXML
   private Button save;
-
   @FXML
   private TextField name;
-
   @FXML
   private ImageView profileImage;
-
   @FXML
   private Button delete;
 
-
-
+  /**
+   * Event handle class invoked when the profile image is clicked
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void chooseImage(MouseEvent event) {
-    // FileChooser fileChooser = new FileChooser();
-    // File file = fileChooser.showOpenDialog(null);
-    //
-    // FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPG files (*.jpg)",
-    // "*.JPG");
-    // fileChooser.getExtensionFilters().add(jpg);
-    // fileChooser.setTitle("Select a profile image");
-    // fileChooser.setInitialDirectory(
-    // new File(System.getProperty("user.home"), ".risk10/resources/avatars"));
-    //
-    // try {
-    // BufferedImage bufferedImage = ImageIO.read(file);
-    // Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-    // profileImage.setImage(image);
-    //
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
     edit = true;
-    profileName = name.getText();
+    if (!profileName.equals(name.getText())) {
+      nameChanged = true;
+      profileName = name.getText();
+    }
+    imageChanged = true;
 
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
@@ -82,12 +67,17 @@ public class EditProfileGUIController {
       stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
       stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Event handle class invoked when delete button is clicked
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void delete(ActionEvent event) {
     Stage dialogStage = new Stage();
@@ -105,15 +95,10 @@ public class EditProfileGUIController {
     okButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        ProfileManager.deleteProfile(name.getText());
-
-        while (nr < ProfileSelectionGUIController.count - 1) {
-          ProfileSelectionGUIController.names[nr] = ProfileSelectionGUIController.names[nr + 1];
-          ProfileSelectionGUIController.images[nr] = ProfileSelectionGUIController.images[nr + 1];
-          nr++;
-        }
-        ProfileSelectionGUIController.count--;
-
+        /**
+         * delete the profile in xml
+         */
+        ProfileManager.deleteProfile(ProfileSelectionGUIController.names[nr]);
 
         dialogStage.close();
         try {
@@ -124,7 +109,6 @@ public class EditProfileGUIController {
           stage.setTitle("Profile Selection");
           stage.setScene(new Scene(root));
           stage.show();
-          // ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception ex) {
           ex.printStackTrace();
         }
@@ -140,8 +124,16 @@ public class EditProfileGUIController {
 
   }
 
+  /**
+   * Event handle class invoked when save button is clicked
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void save(ActionEvent event) {
+    nameChanged = false;
+    imageChanged = false;
     String profileName = name.getText();
 
     boolean nameAvailable = true;
@@ -161,13 +153,10 @@ public class EditProfileGUIController {
     }
 
     if (nameAvailable && nameNotEmpty) {
-      
-      ProfileManager.editProfile(ProfileSelectionGUIController.names[nr], profileName, id);
-      ProfileSelectionGUIController.names[nr] = profileName;
-      Image i = profileImage.getImage();
-      ProfileSelectionGUIController.images[nr] = i;
-      image = null;
-
+      /**
+       * edit the profile in xml
+       */
+      ProfileManager.editProfile(ProfileSelectionGUIController.names[nr], profileName, imageId);
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
@@ -175,7 +164,6 @@ public class EditProfileGUIController {
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
-        // ((Node) event.getSource()).getScene().getWindow().hide();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -224,16 +212,25 @@ public class EditProfileGUIController {
 
   }
 
+  /**
+   * initialize the gui to ensure consistency
+   * 
+   * @author liwang
+   */
   public void initialize() {
     edit = false;
     nr = ProfileSelectionGUIController.editNr;
-    profileImage.setImage(ProfileSelectionGUIController.images[nr]);
-    // profileImage.setImage((ProfileManager.profileList.get(ProfileSelectionGUIController.n)).getImage());
-     if (image != null) {
-     profileImage.setImage(image);
-     }
-    name.setText(ProfileSelectionGUIController.names[nr]);
 
+    if (!nameChanged) {
+      profileName = ProfileSelectionGUIController.names[nr];
+    }
+    name.setText(profileName);
+
+    if (!imageChanged) {
+      image = (ProfileManager.profileList.get(profileName)).getImage();
+      imageId = (ProfileManager.profileList.get(profileName)).getIdInt();
+    }
+    profileImage.setImage(image);
   }
 
 }

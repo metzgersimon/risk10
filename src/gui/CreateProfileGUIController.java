@@ -16,9 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * @author liwang
+ * Controller class of CreateProfile GUI
  * 
- *         Controller class of CreateProfile GUI
+ * @author liwang
  *
  */
 public class CreateProfileGUIController {
@@ -44,10 +44,9 @@ public class CreateProfileGUIController {
   private Button ok;
 
   /**
+   * this method opens ProfileImagePickerGUI when the default image file is clicked
+   * 
    * @author liwang
-   * 
-   *         this method opens ProfileImagePickerGUI when the default image file is clicked
-   * 
    * @param event
    */
   @FXML
@@ -67,20 +66,19 @@ public class CreateProfileGUIController {
   }
 
   /**
+   * this method save the created profile and go back to profileSelection GUI, to be successfully
+   * saved, the name should not be empty or repeated and an image is selected
+   * 
    * @author liwang
-   * 
-   *         this method save the created profile and go back to profileSelection GUI, to be
-   *         successfully saved, the name should not be empty or repeated and an image is selected
-   * 
    * @param event save the created profile and go back to profileSelection GUI
    */
   @FXML
   void save(ActionEvent event) {
+    toInizialied = false;
     username = name.getText();
 
     boolean nameAvailable = true;
     boolean nameNotEmpty = true;
-
 
     for (int i = 0; i <= ProfileSelectionGUIController.count; i++) {
       if (username.equals(ProfileSelectionGUIController.names[i])) {
@@ -131,10 +129,9 @@ public class CreateProfileGUIController {
   }
 
   /**
+   * this method is to bring the warning to the back after user confirm the warning
+   * 
    * @author liwang
-   * 
-   *         this method is to bring the warning to the back after user confirm the warning
-   * 
    * @param event
    */
   @FXML
@@ -145,12 +142,10 @@ public class CreateProfileGUIController {
   }
 
   /**
+   * this method is to initialize this gui, if there is already name entered, it should be shown,
+   * when the image is chosen and go back to this gui, the chosen image will also be shown
+   * 
    * @author liwang
-   * 
-   *         this method is to initialize this gui, if there is already name entered, it should be
-   *         shown, when the image is chosen and go back to this gui, the chosen image will also be
-   *         shown
-   * 
    */
   public void initialize() {
     if (toInizialied) {
@@ -161,6 +156,6 @@ public class CreateProfileGUIController {
         name.setText(username);
       }
     }
-    toInizialied = false;
+
   }
 }

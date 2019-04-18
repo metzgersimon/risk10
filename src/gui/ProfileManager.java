@@ -64,8 +64,8 @@ public class ProfileManager {
     PlayerProfile profile = profileList.get(oldName);
     profile.profileName = newName;
     profile.imageId = imageId;
-    profileList.remove(oldName);
-    profileList.put(newName, profile);
+    // profileList.remove(oldName);
+    // profileList.put(newName, profile);
     saveXml();
   }
 

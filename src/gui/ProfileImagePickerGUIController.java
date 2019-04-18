@@ -8,19 +8,29 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Controller class for ProfileImagePickerGUI
+ * 
+ * @author liwang
+ */
 public class ProfileImagePickerGUIController {
 
   @FXML
   private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10;
 
+  /**
+   * this method saved the chosen image and go back to edit or create profile gui
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void chooseImage(MouseEvent event) {
     String id = ((ImageView) event.getSource()).getId();
 
-    // System.out.println(id);
     if (EditProfileGUIController.edit) {
       EditProfileGUIController.image = ((ImageView) event.getSource()).getImage();
-      EditProfileGUIController.id = getId(id);
+      EditProfileGUIController.imageId = getId(id);
       try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
@@ -48,56 +58,38 @@ public class ProfileImagePickerGUIController {
     }
   }
 
+  /**
+   * convert the id from string to int since the id in scence builder can not be a simple int
+   * 
+   * @author liwang
+   * @param id of the image type String
+   * @return int the id of image type Integer
+   */
   public static int getId(String id) {
-    int nr = 0;
     switch (id) {
       case ("image1"):
-        EditProfileGUIController.id = 1;
-        nr = 1;
-        break;
+        return 1;
       case ("image2"):
-        EditProfileGUIController.id = 2;
-        nr = 2;
-        break;
+        return 2;
       case ("image3"):
-        EditProfileGUIController.id = 3;
-        nr = 3;
-        break;
+        EditProfileGUIController.imageId = 3;
+        return 3;
       case ("image4"):
-        EditProfileGUIController.id = 4;
-        nr = 4;
-        break;
+        return 4;
       case ("image5"):
-        EditProfileGUIController.id = 5;
-        nr = 5;
-        break;
+        return 5;
       case ("image6"):
-        EditProfileGUIController.id = 6;
-        nr = 6;
-        break;
+        return 6;
       case ("image7"):
-        EditProfileGUIController.id = 7;
-        nr = 7;
-        break;
+        return 7;
       case ("image8"):
-        EditProfileGUIController.id = 8;
-        nr = 8;
-        break;
+        return 8;
       case ("image9"):
-        EditProfileGUIController.id = 9;
-        nr = 9;
-        break;
+        return 9;
       case ("image10"):
-        EditProfileGUIController.id = 10;
-        nr = 10;
-        break;
-
+        return 10;
     }
-    return nr;
-  }
-
-  public void initialize() {
-    // EditProfileGUIController.image = null;
+    return 0;
   }
 
 }

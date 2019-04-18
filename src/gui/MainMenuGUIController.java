@@ -10,25 +10,34 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * @author liwang Controller class for MainMenuGUI
+ * Controller class for MainMenuGUI
+ * 
+ * @author liwang
  */
 public class MainMenuGUIController {
 
+  /**
+   * singlePlayer or multiPlayer
+   */
   public static String mode;
 
   @FXML
   private Button singlePlayer;
-
   @FXML
   private Button multiPlayer;
-
   @FXML
   private Button settings;
 
+  /**
+   * Event handle class invoked when the single Player or multi Player Button clicked to choose the
+   * player profile
+   * 
+   * @author liwang
+   * @param event
+   */
   @FXML
   void openProfile(ActionEvent event) {
     mode = (String) ((Node) event.getSource()).getId();
-
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -36,7 +45,6 @@ public class MainMenuGUIController {
       stage.setTitle("Profile Selection");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -45,6 +53,7 @@ public class MainMenuGUIController {
   /**
    * Event handle class invoked when the settings Button clicked to open the SettingGUI
    * 
+   * @author liwang
    * @param event
    */
   @FXML
@@ -56,7 +65,6 @@ public class MainMenuGUIController {
       stage.setTitle("Settings");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load SettingsGUI.fxml");
       e.printStackTrace();
