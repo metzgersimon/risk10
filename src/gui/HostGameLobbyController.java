@@ -81,7 +81,7 @@ public class HostGameLobbyController {
   @FXML
   void handleSendMessage(ActionEvent event) {
      String message = textField.getText();
-     SendChatMessageMessage m = new SendChatMessageMessage("test", message);
+     SendChatMessageMessage m = new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
      Client client = NetworkController.gameFinder.getClient();
      client.sendMessage(m);
   }

@@ -1317,8 +1317,9 @@ public class BoardController implements Initializable {
     // Client client=NetworkController.gameFinder.getClient();
     // client.sendMessage(chatmessage);
     // }
-    GameMessageMessage chatmessage = new GameMessageMessage("test", message);
+    GameMessageMessage chatmessage = new GameMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
     Client client = NetworkController.gameFinder.getClient();
+  //  System.out.println("from board gui"+client.getPlayer().getName());
     client.sendMessage(chatmessage);
     // chat.appendText(message+"\n");
   }

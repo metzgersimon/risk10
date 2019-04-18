@@ -10,6 +10,7 @@ public class GameMessageMessage extends Message {
 
   public GameMessageMessage(String username, String message) {
     super(MessageType.INGAME);
+    this.username=username;
     this.message = message;
 
   }

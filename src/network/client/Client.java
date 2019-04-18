@@ -184,7 +184,7 @@ public class Client extends Thread implements Serializable {
             //
             // }else {
             if(!isHost) {
-            controller.showMessage(  ": " + content);
+            controller.showMessage(name.toUpperCase()+" : " + content);
              }
             // }
 
@@ -218,8 +218,9 @@ public class Client extends Thread implements Serializable {
             handleInitialTerritory((SelectInitialTerritoryMessage) message);
             break;
           case INGAME:
-            String content2 = ((GameMessageMessage) message).getMessage();
-            Main.b.showMessage(content2);
+            String username= ((GameMessageMessage) message).getUsername();
+            String messageContent = ((GameMessageMessage) message).getMessage();
+            Main.b.showMessage(username.toUpperCase() + " : " + messageContent);
             break;
         }
       } catch (ClassNotFoundException e) {

@@ -46,9 +46,8 @@ public class JoinGameLobbyController {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
-    System.out.println(NetworkController.client);
     SendChatMessageMessage m = new SendChatMessageMessage(
-    "TEST", message);
+    ProfileSelectionGUIController.selectedPlayerName, message);
     NetworkController.gameFinder.getClient().sendMessage(m);
   }
 
