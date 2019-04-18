@@ -258,7 +258,7 @@ public class Client extends Thread implements Serializable {
   public void handleAllianceMessage(SendAllianceMessage message) {
     String privateUsername = message.getSender();
     String privateMessage = message.getContent();
-    Main.b.showMessage(privateUsername.toUpperCase() + " : " + privateMessage);
+    Main.b.showAllianceMessage(privateUsername.toUpperCase() + " : " + privateMessage);
   }
 
   /**

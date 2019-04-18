@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import org.jdom2.Text;
 import game.AiPlayer;
 import game.Card;
 import game.CardDeck;
@@ -90,6 +91,8 @@ public class BoardController implements Initializable {
   private SplitPane splitter;
   // @FXML
   // private ListView chat;
+  @FXML
+  private TextField playername;
   @FXML
   private TextArea chat;
   @FXML
@@ -1308,18 +1311,25 @@ public class BoardController implements Initializable {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = messages.getText();
+    String player=playername.getText();
     String author=ProfileSelectionGUIController.selectedPlayerName;
-    GameMessageMessage chatmessage = new GameMessageMessage(author, message);
-    SendAllianceMessage privatemessage=new SendAllianceMessage("panda", message,author);
     Client client = NetworkController.gameFinder.getClient();
-  //  System.out.println("from board gui"+client.getPlayer().getName());
-    client.sendMessage(chatmessage);
-    client.sendMessage(privatemessage);
+    if(player.equals("")||player.isEmpty()||playername==null) {
+      GameMessageMessage chatmessage = new GameMessageMessage(author, message);
+      client.sendMessage(chatmessage);
+    }else {
+      SendAllianceMessage privatemessage=new SendAllianceMessage(player, message,author);
+      client.sendMessage(privatemessage);
+    }
+
     // chat.appendText(message+"\n");
   }
 
   public void showMessage(String message) {
     chat.appendText(message + "\n");
+  }
+  public void showAllianceMessage(String message) {
+    chat.appendText(message + " (private) "+"\n");
   }
 
 }

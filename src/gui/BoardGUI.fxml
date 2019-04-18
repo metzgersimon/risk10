@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -44,7 +35,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardController">
 	<children>
 		<Pane fx:id="cantBeTraded" layoutX="450.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
 			<children>
@@ -1421,6 +1412,7 @@
 					<bottom>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
+                        <TextField fx:id="playername" prefHeight="25.0" prefWidth="56.0" />
 								<TextField fx:id="messages" HBox.hgrow="ALWAYS" />
 								<Button fx:id="send" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleSendMessage" text="Send" HBox.hgrow="ALWAYS" />
 							</children>
