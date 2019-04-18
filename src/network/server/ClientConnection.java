@@ -18,6 +18,7 @@ import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
 import gui.NetworkController;
 import main.Main;
+import network.client.Client;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
 import network.messages.LeaveGameMessage;
@@ -40,8 +41,9 @@ public class ClientConnection extends Thread {
   private Server server;
   private HostGameLobbyController hostLobbyController;
   private ArrayList<Player> players = new ArrayList<Player>();
-  private BoardController boardController ;
-  
+  private BoardController boardController;
+  private String playerN;
+
   public ClientConnection(Socket s) {
     this.socket = s;
     this.active = true;
@@ -105,12 +107,13 @@ public class ClientConnection extends Thread {
       c.sendMessage(m);
     }
   }
-  
- 
+
+
 
   public void setHostController(HostGameLobbyController controller) {
     this.hostLobbyController = controller;
   }
+
   /**
    * handle incoming messages from clients
    */
@@ -123,30 +126,35 @@ public class ClientConnection extends Thread {
           case BROADCAST:
             String name = ((SendChatMessageMessage) message).getUsername();
             String content = ((SendChatMessageMessage) message).getMessage();
-            //send message to all clients and show in join game lobby
+            // send message to all clients and show in join game lobby
             this.sendMessagesToallClients(message);
-            //show message in host game lobby
-              this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
-           System.out.println(
+            // show message in host game lobby
+            this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
+            System.out.println(
                 "Message from client with the content " + content + " sent to all clients");
             // gui.HostGameLobbyController.showMessage(content);
             break;
           case SEND:
             break;
-          case START_GAME : handleStartGameMessage((StartGameMessage) message);
+          case START_GAME:
+            handleStartGameMessage((StartGameMessage) message);
             break;
-          case LEAVE: handleLeaveGameMessage((LeaveGameMessage) message);
+          case LEAVE:
+            handleLeaveGameMessage((LeaveGameMessage) message);
             break;
-          case JOIN: handleJoinGame((JoinGameMessage)message);
+          case JOIN:
+            handleJoinGame((JoinGameMessage) message);
             break;
-          case ALLIANCE:handleAllianceMessage((SendAllianceMessage)message);
+          case ALLIANCE:
+            handleAllianceMessage((SendAllianceMessage) message);
             break;
-          case INITIAL_TERRITORY: recieveInitialTerritory((SelectInitialTerritoryMessage) message);
-          break;
+          case INITIAL_TERRITORY:
+            recieveInitialTerritory((SelectInitialTerritoryMessage) message);
+            break;
           case INGAME:
             this.sendMessagesToallClients(message);
             break;
-        
+
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block
@@ -173,14 +181,18 @@ public class ClientConnection extends Thread {
       e.printStackTrace();
     }
   }
- /**
-  * This methods is called whenever client is connected to the server
-  * This method update the list of players in the gamelobby
-  * @author skaur
-  * @param message
-  */
+
+  /**
+   * This methods is called whenever client is connected to the server This method update the list
+   * of players in the gamelobby
+   * 
+   * @author skaur
+   * @param message
+   */
   public void handleJoinGame(JoinGameMessage message) {
-    Player player = new Player(message.getName(),game.PlayerColor.values()[Main.g.getPlayers().size()],Main.g);
+    playerN = message.getName();
+    Player player = new Player(message.getName(),
+        game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addPlayer(player);
     this.players.add(player);
     if (this.server.getHostLobbyController() != null) {
@@ -189,36 +201,49 @@ public class ClientConnection extends Thread {
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
   }
+
   public void recieveInitialTerritory(SelectInitialTerritoryMessage message) {
     this.sendMessagesToallClients(message);
   }
-  
+
+  /**
+   * @author qiychen
+   * @param message can be send only to a specific client only in this client gui will message be
+   *        demostrated
+   */
   public void handleAllianceMessage(SendAllianceMessage message) {
-    String playername;
-    for (int i = 0; i < this.players.size(); i++) {
-     playername=this.players.get(i).getName();
-      if(playername.equals(message.getPlayer().getName())) {
-        //give the client connection before sending message
-        //TODO
-        
-        this.sendMessage(message);
+    String playername = message.getPlayerName();
+    System.out.println("Clientconnection playername " + playername);
+    for (int i = 0; i < server.getConnections().size(); i++) {
+      ClientConnection c = server.getConnections().get(i);
+      if (playername.equals(c.getPlayerName())) {
+        c.sendMessage(message);
       }
     }
+
   }
-  
+
   public void handleStartGameMessage(StartGameMessage startMessage) {
     this.sendMessagesToallClients(startMessage);
   }
-  
-  public void handleLeaveGameMessage(LeaveGameMessage message){
-    //TODO
-    //remove the player from the list
-    //send message to all the client to leave the game lobby
-    //if in the gamelobby then only remove the person from list
+
+  public void handleLeaveGameMessage(LeaveGameMessage message) {
+    // TODO
+    // remove the player from the list
+    // send message to all the client to leave the game lobby
+    // if in the gamelobby then only remove the person from list
   }
- 
-  public ArrayList<Player> getPlayer(){
+
+  public ArrayList<Player> getPlayer() {
     return this.players;
+  }
+
+  /**
+   * @author qiychen
+   * @return name of the player
+   */
+  public String getPlayerName() {
+    return this.playerN;
   }
 
 }

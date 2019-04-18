@@ -32,6 +32,7 @@ import network.messages.JoinGameResponseMessage;
 import network.messages.Message;
 import network.messages.PlayerListSizeMessage;
 import network.messages.PlayerListUpdateMessage;
+import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
@@ -123,7 +124,7 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public void sendMessage(Message m) {
-    System.out.println("test send message");
+    System.out.println("test send message" + m.getContent());
     try {
       toServer.writeObject(m);
     } catch (IOException e) {
@@ -166,31 +167,11 @@ public class Client extends Thread implements Serializable {
             String name = ((SendChatMessageMessage) message).getUsername();
             String content = ((SendChatMessageMessage) message).getMessage();
             System.out.println("from server: " + name + " " + content);
-            // clientUi.showMessage(content);
-            // main.Main.h.showMessage(content);
-            // Main.j.showMessage(content);
             System.out.println("client show " + content);
-            // hostUi.showMessage(content);
-            // main.Main.j.showMessage(content);
-            // hc.showMessage(content);
             System.out.println("host show " + content);
-            // if(NetworkController.ingame) {
-            // if(Client.isHost) {
-            // System.out.println("from host,do nothing");
-            // }else{
-            // boardController.showMessage(name.toUpperCase() + ": " +content);
-            // System.out.println("from client, do something ");
-            // }
-            //
-            // }else {
-            if(!isHost) {
-            controller.showMessage(name.toUpperCase()+" : " + content);
-             }
-            // }
-
-
-            // hostcontroller.showMessage(content);
-
+            if (!isHost) {
+              controller.showMessage(name.toUpperCase() + " : " + content);
+            }
             // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
             // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
             // Parent root = (Parent) fxmlLoader.load();
@@ -204,6 +185,7 @@ public class Client extends Thread implements Serializable {
           case DISPLAY:
             break;
           case ALLIANCE:
+            handleAllianceMessage((SendAllianceMessage) message);
             break;
           case PLAYER_SIZE:
             handlePlayerListSize((PlayerListSizeMessage) message);
@@ -218,9 +200,7 @@ public class Client extends Thread implements Serializable {
             handleInitialTerritory((SelectInitialTerritoryMessage) message);
             break;
           case INGAME:
-            String username= ((GameMessageMessage) message).getUsername();
-            String messageContent = ((GameMessageMessage) message).getMessage();
-            Main.b.showMessage(username.toUpperCase() + " : " + messageContent);
+            handleIngameMessage((GameMessageMessage) message);
             break;
         }
       } catch (ClassNotFoundException e) {
@@ -230,7 +210,6 @@ public class Client extends Thread implements Serializable {
       }
     }
   }
-
 
   /**
    * this method show case the game board to the client
@@ -270,6 +249,27 @@ public class Client extends Thread implements Serializable {
 
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     this.player = responseMessage.getPlayer();
+  }
+
+  /**
+   * @author qiychen
+   * @param show private message in board gui
+   */
+  public void handleAllianceMessage(SendAllianceMessage message) {
+    String privateUsername = message.getSender();
+    String privateMessage = message.getContent();
+    Main.b.showMessage(privateUsername.toUpperCase() + " : " + privateMessage);
+  }
+
+  /**
+   * @author qiychen
+   * @param messages in boardgui will be showed
+   */
+  private void handleIngameMessage(GameMessageMessage message) {
+    String username = message.getUsername();
+    String messageContent = message.getMessage();
+    Main.b.showMessage(username.toUpperCase() + " : " + messageContent);
+
   }
 
   public Player getPlayer() {

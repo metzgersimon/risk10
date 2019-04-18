@@ -56,6 +56,7 @@ import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.messages.GameMessageMessage;
+import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
@@ -1307,20 +1308,13 @@ public class BoardController implements Initializable {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = messages.getText();
-    // SendChatMessageMessage chatmessage=new SendChatMessageMessage("test", message);
-    // if(Client.isHost) {
-    // System.out.println("host side");
-    // Client client=NetworkController.gameFinderHost.getClient();
-    // client.sendMessage(chatmessage);
-    // }else {
-    // System.out.println("client side");
-    // Client client=NetworkController.gameFinder.getClient();
-    // client.sendMessage(chatmessage);
-    // }
-    GameMessageMessage chatmessage = new GameMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
+    String author=ProfileSelectionGUIController.selectedPlayerName;
+    GameMessageMessage chatmessage = new GameMessageMessage(author, message);
+    SendAllianceMessage privatemessage=new SendAllianceMessage("panda", message,author);
     Client client = NetworkController.gameFinder.getClient();
   //  System.out.println("from board gui"+client.getPlayer().getName());
     client.sendMessage(chatmessage);
+    client.sendMessage(privatemessage);
     // chat.appendText(message+"\n");
   }
 

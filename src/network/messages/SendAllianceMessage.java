@@ -11,19 +11,38 @@ import game.Player;
 public class SendAllianceMessage extends Message {
   private Player player;
   private String content;
+  private String playerName;
+  private String sender;
   private static final long serialVersionUID = 1L;
 
-  public SendAllianceMessage(Player player, String content) {
+  public SendAllianceMessage(String playerName, String content, String sender) {
     super(MessageType.ALLIANCE);
-    this.player = player;
+    this.playerName = playerName;
+    this.content = content;
+    this.sender=sender;
+  }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
+  public void setPlayerName(String playerName) {
+    this.playerName = playerName;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
     this.content = content;
   }
 
-  public Player getPlayer() {
-    return player;
+  public String getSender() {
+    return sender;
   }
 
-  public void setPlayer(Player player) {
-    this.player = player;
+  public void setSender(String sender) {
+    this.sender = sender;
   }
 }
