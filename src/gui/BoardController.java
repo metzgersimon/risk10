@@ -555,20 +555,24 @@ public class BoardController implements Initializable {
   public synchronized void clicked(MouseEvent e) {
     Thread th = new Thread() {
       public void run() {
+        if(Main.g.isNetworkGame()) {
+          if(!NetworkController.gameFinder.getClient().getPlayer().equals(Main.g.getCurrentPlayer())){
+          return;
+          } 
+        }
         Region r = (Region) e.getSource();
         Territory t = Main.g.getWorld().getTerritoriesRegion().get(r);
-
         Platform.runLater(new Runnable() {
           public void run() {
             r.setEffect(null);
           }
         });
-
-
+       
         if (!t.equals(selectedTerritory)) {
           switch (Main.g.getGameState()) {
             // new game
             case INITIALIZING_TERRITORY:
+             
               if (Main.g.getCurrentPlayer().initialTerritoryDistribution(t)) {
                 // Farbe aendern!!!
                 Platform.runLater(new Runnable() {
@@ -590,9 +594,18 @@ public class BoardController implements Initializable {
                   e1.printStackTrace();
                 }
 
+               
+                if(Main.g.isNetworkGame()) {
+                SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
+                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                System.out.println("Color : " + message.getColor().toString());
+                NetworkController.gameFinder.getClient().sendMessage(message);
+                return;
+                }
+              }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
-              }
+                
               break;
             // place armies
             case INITIALIZING_ARMY:

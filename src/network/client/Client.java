@@ -61,6 +61,7 @@ public class Client extends Thread implements Serializable {
     this.address = address;
     this.port = port;
     connect();
+    Main.g.setNetworkGame(true);
   }
 
   /**
@@ -75,6 +76,7 @@ public class Client extends Thread implements Serializable {
     // this.player = player;
     this.port = port;
     connect();
+    Main.g.setNetworkGame(true);
   }
 
   /**
@@ -93,6 +95,7 @@ public class Client extends Thread implements Serializable {
     }
     this.port = port;
     connect();
+    Main.g.setNetworkGame(true);
   }
 
   /**
@@ -218,8 +221,11 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public void handleStartGameMessage(StartGameMessage message) {
-    Main.g = message.getGame();
+    Main.g.setPlayers(message.getPlayerList());
     // if(!(player instanceof AiPlayer)) {
+    for(Player p : Main.g.getPlayers()) {
+      System.out.println(p.getName());
+    }
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -233,9 +239,19 @@ public class Client extends Thread implements Serializable {
   }
 
   public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
-    System.out.println(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    if (!(this.player.getColor().toString().equals(message.getColor()))) {  
+      if(! (this.player instanceof AiPlayer))
+      System.out.println("color " + this.player.getColor().toString() + " " + message.getColor());
+    Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setOwner(Main.g.getCurrentPlayer());
+    Main.g.getCurrentPlayer().addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
+    Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    Main.g.furtherInitialTerritoryDistribution();
+    } else {
+      Main.g.furtherInitialTerritoryDistribution();
+    }
 
   }
 

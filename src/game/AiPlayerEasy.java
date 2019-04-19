@@ -25,6 +25,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
       System.out.print(random + " ");
     } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
+    if(!Main.g.isNetworkGame()) {
     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
 
     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
@@ -40,6 +41,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       e.printStackTrace();
     }
     Main.g.furtherInitialTerritoryDistribution();
+    }
   }
 
   public synchronized void initialArmyDistribution() {

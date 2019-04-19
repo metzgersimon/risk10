@@ -1,25 +1,31 @@
 package network.messages.game;
 
-import game.Game;
+import java.util.ArrayList;
+import game.Player;
 import network.messages.Message;
 import network.messages.MessageType;
 
-/** Message which says the game has started**/
+/**
+ * Message which says the game has started and sends player list every client
+ * 
+ * @skaur
+ **/
 public class StartGameMessage extends Message {
 
   private static final long serialVersionUID = 1L;
-  /**
-   * @skaur
-   */
-  private Game g;
-  public StartGameMessage(Game g) {
-    super(MessageType.START_GAME);
-    this.g = g ;
-  }
-
-   public Game getGame() {
-    return this.g;
-  }
-
   
+  /**
+   * List of players who have joined the game lobby
+   */
+  private ArrayList<Player> playerList;
+
+  public StartGameMessage(ArrayList<Player> playerList) {
+    super(MessageType.START_GAME);
+    this.playerList = playerList;
+  }
+
+  public ArrayList<Player> getPlayerList() {
+    return this.playerList;
+  }
+
 }

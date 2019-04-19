@@ -75,7 +75,6 @@ public class HostGameLobbyController {
   public static ArrayList<CheckBox> playerNames;
   public ArrayList<Player> clients = new ArrayList<Player>();
 
-  private MultiPlayerGUIController multi;
   
   /** to handle the event when the button "send" is clicked */
   @FXML
@@ -225,12 +224,6 @@ public class HostGameLobbyController {
     }
   }
 
-
-  public void setController(MultiPlayerGUIController multiPlayerGUIController) {
-    this.multi = multiPlayerGUIController;
-
-  }
-  
   @FXML
   public void handleStartGameButton(ActionEvent event) {
 //    FXMLLoader fxmlLoader = null;
@@ -246,7 +239,7 @@ public class HostGameLobbyController {
 //      e.printStackTrace();
 //    }
 //    Server server = NetworkController.server;
-    StartGameMessage startGameMessage = new StartGameMessage(Main.g);
+    StartGameMessage startGameMessage = new StartGameMessage(Main.g.getPlayers());
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   //  server.setBoardController(fxmlLoader.getController());
 //    NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());

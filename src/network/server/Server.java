@@ -52,6 +52,7 @@ public class Server extends Thread implements Serializable {
   private ClientConnection connection;
   private InetAddress ipAddress;
   private BoardController boardController;
+
   /**
    * @author skaur
    * @param port
@@ -59,7 +60,7 @@ public class Server extends Thread implements Serializable {
   public Server(int port, int noOfPlayers) {
     this.port = port;
     this.noOfPlayer = noOfPlayers;
-    Main.g = new Game();
+    Main.g.setNetworkGame(true);
     try {
       this.ipAddress = InetAddress.getLocalHost();
     } catch (UnknownHostException e1) {
@@ -82,14 +83,14 @@ public class Server extends Thread implements Serializable {
 
             String message = new String(getPacket.getData()).trim();
             if (message.equals("GAME_REQUEST")) {
-                // sending a response back
-                byte[] sendResponse = "Game_RESPONSE".getBytes();
-                DatagramPacket responsePacket = new DatagramPacket(sendResponse,
-                    sendResponse.length, getPacket.getAddress(), getPacket.getPort());
-                datagramSocket.send(responsePacket);
-                System.out.println("Client Connection for client no. " + counter + " created");
-                counter++;
-             
+              // sending a response back
+              byte[] sendResponse = "Game_RESPONSE".getBytes();
+              DatagramPacket responsePacket = new DatagramPacket(sendResponse, sendResponse.length,
+                  getPacket.getAddress(), getPacket.getPort());
+              datagramSocket.send(responsePacket);
+              System.out.println("Client Connection for client no. " + counter + " created");
+              counter++;
+
             }
           }
         } catch (SocketException | UnknownHostException e) {
@@ -101,7 +102,7 @@ public class Server extends Thread implements Serializable {
 
     });
     t.start();
-   this.start();
+    this.start();
 
   }
 
@@ -125,14 +126,14 @@ public class Server extends Thread implements Serializable {
    */
   public void listen() {
     try {
-        serverSocket = new ServerSocket(Parameter.PORT);
-        socket = serverSocket.accept();
-        ClientConnection c = new ClientConnection(socket,this);
-        clients.add(c);
-        c.start();
-        serverSocket.close();
-     //new ServerProtocol(socket).start();
-  
+      serverSocket = new ServerSocket(Parameter.PORT);
+      socket = serverSocket.accept();
+      ClientConnection c = new ClientConnection(socket, this);
+      clients.add(c);
+      c.start();
+      serverSocket.close();
+      // new ServerProtocol(socket).start();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -160,7 +161,7 @@ public class Server extends Thread implements Serializable {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-    
+
     }
   }
 
@@ -172,31 +173,31 @@ public class Server extends Thread implements Serializable {
     return this.noOfPlayer;
   }
 
-  public void setController(HostGameLobbyController lobbyController){
+  public void setController(HostGameLobbyController lobbyController) {
     this.lobbyController = lobbyController;
   }
- 
+
   public HostGameLobbyController getHostLobbyController() {
     return this.lobbyController;
   }
-  
+
   public ClientConnection getClientConnection() {
     return this.connection;
   }
-  
+
   public InetAddress getIpAddress() {
     return this.ipAddress;
   }
-  
+
   public void setBoardController(BoardController boardController) {
     this.boardController = boardController;
   }
-  
+
   public BoardController getBoardController() {
     return this.boardController;
   }
-// public static void main(String [] args) {
-//   Server server = new Server(8888,2);
-//   
-// }
+  // public static void main(String [] args) {
+  // Server server = new Server(8888,2);
+  //
+  // }
 }
