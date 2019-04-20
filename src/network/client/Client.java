@@ -20,28 +20,23 @@ import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
 import gui.NetworkController;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import main.Main;
 import network.Parameter;
 import network.messages.GameMessageMessage;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
 import network.messages.Message;
-import network.messages.PlayerListSizeMessage;
-import network.messages.PlayerListUpdateMessage;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
-import network.server.Server;
+
 
 public class Client extends Thread implements Serializable {
-
-
-
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private InetAddress address;
   private Socket s;
   private Player player;
@@ -52,7 +47,6 @@ public class Client extends Thread implements Serializable {
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
-  private Game game;
   public static boolean isHost;
   private NetworkController networkController = new NetworkController();
   // private HostGameLobbyController hostUi;
@@ -190,12 +184,6 @@ public class Client extends Thread implements Serializable {
           case ALLIANCE:
             handleAllianceMessage((SendAllianceMessage) message);
             break;
-          case PLAYER_SIZE:
-            handlePlayerListSize((PlayerListSizeMessage) message);
-            break;
-          case PLAYER_LIST_UPDATE:
-            handlePlayerListUpdate((PlayerListUpdateMessage) message);
-            break;
           case JOIN_REPONSE:
             handleJoinGameResponse((JoinGameResponseMessage) message);
             break;
@@ -215,7 +203,7 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * this method show case the game board to the client
+   * this method showcase the game board to the all the players
    * 
    * @author skaur
    * @param message
@@ -223,9 +211,9 @@ public class Client extends Thread implements Serializable {
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g.setPlayers(message.getPlayerList());
     // if(!(player instanceof AiPlayer)) {
-    for(Player p : Main.g.getPlayers()) {
-      System.out.println(p.getName());
-    }
+//    for (Player p : Main.g.getPlayers()) {
+//      System.out.println(p.getName());
+//    }
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -238,29 +226,42 @@ public class Client extends Thread implements Serializable {
     // }
   }
 
+  /**
+   * After receiving the Initial Territory information, every client updates the information in
+   * their game instance and game board
+   * 
+   * @author skaur
+   * @param message
+   */
   public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
-    if (!(this.player.getColor().toString().equals(message.getColor()))) {  
-      if(! (this.player instanceof AiPlayer))
-      System.out.println("color " + this.player.getColor().toString() + " " + message.getColor());
-    Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setOwner(Main.g.getCurrentPlayer());
-    Main.g.getCurrentPlayer().addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-    Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
-    Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
-    Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-    Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-    Main.g.furtherInitialTerritoryDistribution();
-    } else {
+    // change the attributes of the aiPlayer after receiving the message
+    if (this.player instanceof AiPlayer) {
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setOwner(this.player);
+      this.player.addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      this.player.numberArmiesToDistribute -= 1;
       Main.g.furtherInitialTerritoryDistribution();
     }
-
-  }
-
-  public void handlePlayerListSize(PlayerListSizeMessage message) {
-    // this.controller.updateBoxes(message.geSize());
-  }
-
-  public void handlePlayerListUpdate(PlayerListUpdateMessage message) {
-    // this.controller.updateList(message.getPlayer());
+    // Dont update the board if the message is sent the by the humanplayer himself
+    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+      // Control if its AI player
+      if (!(this.player instanceof AiPlayer)) {
+        // update the information recieved from the message in game instance
+        Main.g.getWorld().getTerritories().get(message.getTerritoryID())
+            .setOwner(Main.g.getCurrentPlayer());
+        Main.g.getCurrentPlayer()
+            .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+        Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
+        Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
+        // update the label and the color of the territory selected by the other player
+        Main.b
+            .updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+        Main.b
+            .updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+        Main.g.furtherInitialTerritoryDistribution();
+      } else {
+        Main.g.furtherInitialTerritoryDistribution();
+      }
+    }
   }
 
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
@@ -294,6 +295,10 @@ public class Client extends Thread implements Serializable {
 
   public void setBoardController(BoardController boardController) {
     this.boardController = boardController;
+  }
+
+  public int getPort() {
+    return this.port;
   }
 
   /**

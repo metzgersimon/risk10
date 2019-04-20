@@ -371,40 +371,43 @@ public class Player implements Serializable {
    *         Precondition: only free territories can be chosen
    */
   public boolean initialTerritoryDistribution(Territory t) {
-    if(!Main.g.isNetworkGame()) {
-    if (t.getOwner() == null) {
-      t.setOwner(this);
-      this.addTerritories(t);
-      this.numberArmiesToDistribute -= 1;
-      t.setNumberOfArmies(1);
-      return true;
-    } else {
-      return false;
-    }
-    } else {
-    
-    if (t.getOwner() == null) {
-      if(!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-      t.setOwner(this);
-      this.addTerritories(t);
-      this.numberArmiesToDistribute -= 1;
-      t.setNumberOfArmies(1);
-      return true;
-      } else {
-        if(NetworkController.server != null) {
-          SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
-           message.setColor(this.color.toString());
-           NetworkController.gameFinder.getClient().sendMessage(message);
-          return true;
-        }
+    if (!Main.g.isNetworkGame()) {
+      if (t.getOwner() == null) {
+        t.setOwner(this);
+        this.addTerritories(t);
+        this.numberArmiesToDistribute -= 1;
+        t.setNumberOfArmies(1);
         return true;
+      } else {
+        return false;
       }
     } else {
-      return false;
-    }
+      // This part of the method is for the network game
+      // Change the attributes if the current player is human player
+      // The attributes of the AiPlayer will be changed after receiving the message in client class
+      if (t.getOwner() == null) {
+        if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+          t.setOwner(this);
+          this.addTerritories(t);
+          this.numberArmiesToDistribute -= 1;
+          t.setNumberOfArmies(1);
+          return true;
+        } else {
+          // If the current player is AI player, the host player sends the message to the server
+          if (NetworkController.server != null) {
+            SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
+            message.setColor(this.color.toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+            return true;
+          }
+          return true;
+        }
+      } else {
+        return false;
+      }
     }
   }
-  
+
 
 
   /**

@@ -602,10 +602,9 @@ public class BoardController implements Initializable {
                 NetworkController.gameFinder.getClient().sendMessage(message);
                 return;
                 }
-              }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
-                
+              }             
               break;
             // place armies
             case INITIALIZING_ARMY:
