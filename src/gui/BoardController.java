@@ -600,7 +600,6 @@ public class BoardController implements Initializable {
                 message.setColor(Main.g.getCurrentPlayer().getColor().toString());
                 System.out.println("Color : " + message.getColor().toString());
                 NetworkController.gameFinder.getClient().sendMessage(message);
-                return;
                 }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();

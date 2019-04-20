@@ -235,11 +235,14 @@ public class Client extends Thread implements Serializable {
    */
   public void handleInitialTerritory(SelectInitialTerritoryMessage message) {
     // change the attributes of the aiPlayer after receiving the message
-    if (this.player instanceof AiPlayer) {
-      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setOwner(this.player);
-      this.player.addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-      this.player.numberArmiesToDistribute -= 1;
-      Main.g.furtherInitialTerritoryDistribution();
+    if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID())
+          .setOwner(Main.g.getCurrentPlayer());
+      Main.g.getCurrentPlayer()
+          .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
+      // System.out.println("Ai player : " + Main.g.getCurrentPlayer());
+      // Main.g.furtherInitialTerritoryDistribution();
     }
     // Dont update the board if the message is sent the by the humanplayer himself
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
