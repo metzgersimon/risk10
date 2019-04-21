@@ -324,7 +324,8 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
+        //chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
+        showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
@@ -390,6 +391,7 @@ public class BoardController implements Initializable {
             gameState.setText("Choose your Territory!");
             if(g.showTutorialMessages) {
               showMessage(game.TutorialMessages.distributing);
+              showMessage(game.TutorialMessages.distributingTip);
             }
             // progress = new ProgressBar(0.05);
             break;
@@ -409,6 +411,7 @@ public class BoardController implements Initializable {
             // progress.setProgress(0.6);
             if(g.showTutorialMessages) {
               showMessage(game.TutorialMessages.attacking1);
+              showMessage(game.TutorialMessages.attackingTip);
             }
             break;
           case FORTIFY:
@@ -1352,7 +1355,7 @@ public class BoardController implements Initializable {
   }
 
   public void showMessage(String message) {
-    chat.appendText(message + "\n\n");
+    chat.appendText(message + "\n_____________\n");
   }
   public void showAllianceMessage(String message) {
     chat.appendText(message + " (private) "+"\n");
