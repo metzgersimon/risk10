@@ -35,6 +35,7 @@ public class Game implements Serializable{
   public HashMap<String, Integer> cardStats;
   private HashSet<String> aiNames = new HashSet<String>();
   private boolean isNetworkGame;
+  public boolean showTutorialMessages;
 
 
 
@@ -55,6 +56,7 @@ public class Game implements Serializable{
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
     // cards = new CardDeck().shuffle();
+    showTutorialMessages = true; //set to true for testing purposes
 
 
 

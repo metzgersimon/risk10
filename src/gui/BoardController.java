@@ -308,8 +308,13 @@ public class BoardController implements Initializable {
     this.g = g;
     connectRegionTerritory();
     // sb.append("Game started");
-    chat.appendText("Game started!\n");
+    // chat.appendText("Game started!\n");
+    if(g.showTutorialMessages) {
+      showMessage(game.TutorialMessages.welcome);
+      showMessage(game.TutorialMessages.intro);
+    }
   }
+  
 
 
   /**
@@ -319,7 +324,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
@@ -383,6 +388,9 @@ public class BoardController implements Initializable {
           case INITIALIZING_TERRITORY:
             // chat.appendText("Initial Territory Distribution phase: \n");
             gameState.setText("Choose your Territory!");
+            if(g.showTutorialMessages) {
+              showMessage(game.TutorialMessages.distributing);
+            }
             // progress = new ProgressBar(0.05);
             break;
           case INITIALIZING_ARMY:
@@ -399,11 +407,18 @@ public class BoardController implements Initializable {
             // chat.appendText("Attack phase: \n");
             gameState.setText("Attack!");
             // progress.setProgress(0.6);
+            if(g.showTutorialMessages) {
+              showMessage(game.TutorialMessages.attacking1);
+            }
             break;
           case FORTIFY:
             // chat.appendText("Fortify phase: \n");
             gameState.setText("Move your Armies!");
             // progress.setProgress(0.95);
+            if(g.showTutorialMessages) {
+              showMessage(game.TutorialMessages.fortify);
+              showMessage(game.TutorialMessages.fortifyTip);
+            }
             break;
         }
       }
@@ -1337,7 +1352,7 @@ public class BoardController implements Initializable {
   }
 
   public void showMessage(String message) {
-    chat.appendText(message + "\n");
+    chat.appendText(message + "\n\n");
   }
   public void showAllianceMessage(String message) {
     chat.appendText(message + " (private) "+"\n");
