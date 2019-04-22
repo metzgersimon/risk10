@@ -8,7 +8,7 @@ import java.util.Vector;
 import main.Main;
 
 public class AiPlayerMedium extends Player implements AiPlayer {
-  
+
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;
 
@@ -20,7 +20,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
 
   @Override
   public void initialTerritoryDistribution() {
-    for(Territory t: this.getTerritories()) {
+    for (Territory t : this.getTerritories()) {
       for (Territory neighbor : t.getNeighbor()) {
         if (neighbor.getOwner() == null) {
           if (super.initialTerritoryDistribution(neighbor)) {
@@ -34,27 +34,27 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       }
     }
-     int random = 0;
-     do {
-       random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
-       System.out.print(random + " ");
-     } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
-     Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
+    int random = 0;
+    do {
+      random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
+      System.out.print(random + " ");
+    } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
+    Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
 
-     Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-     System.out
-         .println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()
-             + "--" + Main.g.getWorld().getTerritories().get(random));
-     // System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
-     // System.out.println(Main.g.getWorld().getTerritories().get(random));
-     try {
-       Thread.sleep(1000);
-     } catch (InterruptedException e) {
-       // TODO Auto-generated catch block
-       e.printStackTrace();
-     }
-   
-   Main.g.furtherInitialTerritoryDistribution();
+    Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
+    System.out
+        .println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()
+            + "--" + Main.g.getWorld().getTerritories().get(random));
+    // System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+    // System.out.println(Main.g.getWorld().getTerritories().get(random));
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    Main.g.furtherInitialTerritoryDistribution();
   }
 
 
@@ -71,10 +71,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       }
     }
-    if(own != null) {
+    if (own != null) {
       super.armyDistribution(1, own);
-    }
-    else {
+    } else {
       int random = 0;
       do {
         random = (int) (Math.random() * this.getTerritories().size()) + 1;
@@ -93,14 +92,18 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     Main.b.updateLabelTerritory(own);
     Main.g.furtherInitialArmyDistribution();
   }
-  
-  
+
+  /**
+   * 1. sort territories depending on number of armies on it - order them by highest values 2. sort
+   * territories to balance the difference of numbers of armies - order them by lowest values
+   * 
+   */
   public void armyDistribution() {
     System.out.println("Test armyDistribution");
     int max = 0;
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
-    
+
     if (this.getCards().size() >= 3) {
       for (int i = 0; i < this.getCards().size(); i++) {
         for (int j = i + 1; j < this.getCards().size() - 1; j++) {
@@ -110,16 +113,15 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       }
     }
-    
-    for(Territory t: this.getTerritories()) {
+
+    for (Territory t : this.getTerritories()) {
       max = 0;
-      for(Territory tE: t.getHostileNeighbor()) {
-        if( ((t.getNumberOfArmies())-(tE.getNumberOfArmies())) > max) {
-          max = t.getNumberOfArmies()-tE.getNumberOfArmies();
-          if(ownTerritories.containsKey(max)) {
+      for (Territory tE : t.getHostileNeighbor()) {
+        if (((t.getNumberOfArmies()) - (tE.getNumberOfArmies())) > max) {
+          max = t.getNumberOfArmies() - tE.getNumberOfArmies();
+          if (ownTerritories.containsKey(max)) {
             ownTerritories.get(max).add(t);
-          }
-          else {
+          } else {
             HashSet<Territory> tr = new HashSet<Territory>();
             tr.add(t);
             ownTerritories.put(max, tr);
@@ -127,24 +129,25 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       }
     }
-    if(ownTerritories.size() > 0) {
+    if (ownTerritories.size() > 0) {
       sortedValues = new ArrayList<Integer>(ownTerritories.keySet());
       Collections.sort(sortedValues, Collections.reverseOrder());
-      while(this.getNumberArmiesToDistibute() > 0) {
-        for(int i = 0; i < sortedValues.size(); i++) {
-          for(Territory t: ownTerritories.get(sortedValues.get(i))) {
+      while (this.getNumberArmiesToDistibute() > 0) {
+        for (int i = 0; i < sortedValues.size(); i++) {
+          for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            System.out.println("Army distribution: "+t.getName());
+            System.out.println("Army distribution: " + t.getName());
             Main.b.updateLabelTerritory(t);
           }
         }
       }
+    } else {
+      greedyArmyDistribution();
+      if (this.getNumberArmiesToDistibute() > 0) {
+        System.out.println("Random army distribution");
+        randomArmyDistribution();
+      }
     }
-    else {
-      System.out.println("Random army distribution");
-      randomArmyDistribution();
-    }
-  
 
     Main.b.handleSkipGameState();
     this.attack();
@@ -162,28 +165,28 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     Territory attacker = null;
     Territory defender = null;
     int armiesToAttack = 0;
-    while(isCapableToAttack()) {
-      for(Territory t: this.getTerritories()) {
-        for(Territory tE: t.getHostileNeighbor()) {
-          if( ((t.getNumberOfArmies())-(tE.getNumberOfArmies())) > max) {
-            max = t.getNumberOfArmies()-tE.getNumberOfArmies();
+    while (isCapableToAttack()) {
+      for (Territory t : this.getTerritories()) {
+        for (Territory tE : t.getHostileNeighbor()) {
+          if (((t.getNumberOfArmies()) - (tE.getNumberOfArmies())) > max) {
+            max = t.getNumberOfArmies() - tE.getNumberOfArmies();
             attacker = t;
             defender = tE;
-            armiesToAttack = (int) Math.ceil((t.getNumberOfArmies())/2);
-          }    
+            armiesToAttack = (int) Math.ceil((t.getNumberOfArmies()) / 2);
+          }
         }
       }
-      Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3? 3:armiesToAttack); 
-      Vector<Integer> defendDices = Dice.rollDices(defender.getNumberOfArmies() >= 2? 2: defender.getNumberOfArmies());
-      if(max > round) {
-        System.out.println("Max:"+max);
-        if(super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
-          System.out.println("Defending territory owner: "+defender.getOwner().getName());
+      Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3 ? 3 : armiesToAttack);
+      Vector<Integer> defendDices =
+          Dice.rollDices(defender.getNumberOfArmies() >= 2 ? 2 : defender.getNumberOfArmies());
+      if (max > round) {
+        System.out.println("Max:" + max);
+        if (super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
+          System.out.println("Defending territory owner: " + defender.getOwner().getName());
           Main.b.updateLabelTerritory(attacker);
           Main.b.updateLabelTerritory(defender);
           Main.b.updateColorTerritory(defender);
-        }
-        else {
+        } else {
           Main.b.updateLabelTerritory(attacker);
           Main.b.updateLabelTerritory(defender);
           try {
@@ -193,15 +196,14 @@ public class AiPlayerMedium extends Player implements AiPlayer {
             e.printStackTrace();
           }
         }
-        System.out.println(attacker + " -- "+defender);
-      }
-      else {
+        System.out.println(attacker + " -- " + defender);
+      } else {
         break;
       }
       max = round;
       round++;
     }
-    
+
     Main.b.handleSkipGameState();
     try {
       Thread.sleep(2000);
@@ -226,21 +228,22 @@ public class AiPlayerMedium extends Player implements AiPlayer {
             min = tE.getNumberOfArmies() - opponent.getNumberOfArmies();
             own1 = t;
             own2 = tE;
-            armiesToMove = (int) Math.ceil((t.getNumberOfArmies()) * (( (double)t.getOwnNeighbors().size())/(double)t.getNeighbor().size()));
+            armiesToMove = (int) Math.ceil((t.getNumberOfArmies())
+                * (((double) t.getOwnNeighbors().size()) / (double) t.getNeighbor().size()));
           }
         }
       }
     }
-    if(own1 != null && own2 != null) {
+    if (own1 != null && own2 != null) {
       super.fortify(own1, own2, armiesToMove);
-      System.out.println("Territory from: "+own1 + " to: "+own2 + " with "+armiesToMove + " armies.");
+      System.out.println(
+          "Territory from: " + own1 + " to: " + own2 + " with " + armiesToMove + " armies.");
       Main.b.updateLabelTerritory(own1);
       Main.b.updateLabelTerritory(own2);
     }
-    
     Main.b.handleSkipGameState();
   }
-  
+
   public boolean isCapableToAttack() {
     for (Territory t : this.getTerritories()) {
       if (t.getNumberOfArmies() > 1) {
@@ -249,14 +252,15 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     }
     return false;
   }
-  
+
   public void randomArmyDistribution() {
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
     Territory territory = null;
+
     // choose territory
     while (this.getNumberArmiesToDistibute() != 0) {
-//      System.out.println(this.getNumberArmiesToDistibute());
+      // System.out.println(this.getNumberArmiesToDistibute());
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
         randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
@@ -271,9 +275,47 @@ public class AiPlayerMedium extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
+
       Main.b.updateLabelTerritory(territory);
     }
   }
+
+  public void greedyArmyDistribution() {
+    int min = 0;
+    ownTerritories = new HashMap<Integer, HashSet<Territory>>();
+    sortedValues = new ArrayList<Integer>();
+
+    HashSet<Territory> list = new HashSet<>();
+    for (Territory t : this.getTerritories()) {
+      for (Territory oT : t.getHostileNeighbor()) {
+        if (t.getNumberOfArmies() - oT.getNumberOfArmies() < min) {
+          min = t.getNumberOfArmies() - oT.getNumberOfArmies();
+          if (ownTerritories.containsKey(min)) {
+            ownTerritories.get(min).add(t);
+          } else {
+            HashSet<Territory> tr = new HashSet<Territory>();
+            tr.add(t);
+            ownTerritories.put(min, tr);
+          }
+        }
+      }
+    }
+
+    if (ownTerritories.size() > 0) {
+      sortedValues = new ArrayList<Integer>(ownTerritories.keySet());
+      Collections.sort(sortedValues);
+      while (this.getNumberArmiesToDistibute() > 0) {
+        for (int i = 0; i < sortedValues.size(); i++) {
+          for (Territory t : ownTerritories.get(sortedValues.get(i))) {
+            super.armyDistribution(1, t);
+            System.out.println("Army distribution: " + t.getName());
+            Main.b.updateLabelTerritory(t);
+          }
+        }
+      }
+    }
+  }
+
 
 
 }

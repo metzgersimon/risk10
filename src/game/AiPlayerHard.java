@@ -1,17 +1,26 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Vector;
 import main.Main;
 
 public class AiPlayerHard extends Player implements AiPlayer {
-  
-  
+  private HashMap<Integer, HashSet<Territory>> ownTerritories;
+  private ArrayList<Integer> sortedValues;
+
 
   public AiPlayerHard() {
     super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
 
+  /**
+   * if no territory adjacent to another own territory is available, choose a territory with the
+   * least number of neighbor territories
+   */
   public void initialTerritoryDistribution() {
     Territory selection = null;
     int minHostile = 42;
@@ -20,8 +29,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner() == null) {
         minHostile =
-            minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size()
-                : minHostile;
+            minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size() : minHostile;
       }
     }
     HashSet<Territory> minHostileTerritories = new HashSet<>();
@@ -57,20 +65,75 @@ public class AiPlayerHard extends Player implements AiPlayer {
     Main.g.furtherInitialTerritoryDistribution();
   }
 
+  // dummy method
   public void initialArmyDistribution() {
+    for (Territory t : this.getTerritories()) {
+      if (t.getHostileNeighbor().size() > 0) {
+        int sum = 0;
+        for (Territory tO : t.getHostileNeighbor()) {
+          sum += tO.getNumberOfArmies();
+        }
+      }
+    }
 
   }
 
+  // dummy method
   public void armyDistribution() {
-    
 
+
+    Main.b.handleSkipGameState();
+    this.attack();
   }
 
+  // dummy method
   public void attack() {
 
+
+    Main.b.handleSkipGameState();
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    this.fortify();
   }
 
+  /**
+   * at first the territory that has no hostile neighbor territories and has more than one army on
+   * it is chosen, if there is no such territory the territory with the highest difference between
+   * territory and hostile neighbor is chosen
+   */
   public void fortify() {
+    Territory moveFrom = null;
+    Territory moveTo = null;
+    int numberToMove;
 
+    for (Territory t : this.getTerritories()) {
+      if (t.getHostileNeighbor().size() == 0 && t.getNumberOfArmies() > 1) {
+        moveFrom = t;
+      }
+    }
+
+    int max = 0;
+    if (moveFrom != null) {
+      for (Territory t : moveFrom.getOwnNeighbors()) {
+        if (t.getHostileNeighbor().size() >= max) {
+          max = t.getHostileNeighbor().size();
+          moveTo = t;
+        }
+      }
+    }
+
+    if (moveTo != null) {
+      if (super.fortify(moveFrom, moveTo, moveFrom.getNumberOfArmies() - 1)) {
+        System.out.println("Territory from: " + moveFrom + " to: " + moveTo);
+        Main.b.updateLabelTerritory(moveFrom);
+        Main.b.updateLabelTerritory(moveTo);
+      }
+    }
+
+    Main.b.handleSkipGameState();
   }
 }
