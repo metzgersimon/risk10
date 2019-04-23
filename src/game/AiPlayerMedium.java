@@ -94,8 +94,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
   }
 
   /**
-   * 1. sort territories depending on number of armies on it - order them by highest values 2. sort
-   * territories to balance the difference of numbers of armies - order them by lowest values
+   * 1. sort territories depending on number of armies on it - order them by highest values 
+   * 
+   * 2. sort territories to balance the difference of numbers of armies - order them by lowest values
    * 
    */
   public void armyDistribution() {

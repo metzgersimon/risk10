@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.ArrayBlockingQueue;
 import gui.BoardRegion;
+import main.Main;
 
 /**
  * @author pcoberge
@@ -144,8 +145,12 @@ public class Territory {
   /**
    * @return continent this territory belongs to Getter-method
    */
-  public Continente getContinent() {
+  public Continente getContinente() {
     return c;
+  }
+
+  public Continent getContinent() {
+    return Main.g.getWorld().getContinent().get(c);
   }
 
   /**

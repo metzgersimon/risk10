@@ -201,14 +201,14 @@ public class Player implements Serializable {
   public void addTerritories(Territory t) {
     territories.add(t);
     boolean newContinent = true;
-    for (Territory territory : g.getWorld().getContinent().get(t.getContinent()).getTerritories()) {
+    for (Territory territory : t.getContinent().getTerritories()) {
       if (!this.getTerritories().contains(territory)) {
         newContinent = false;
       }
     }
 
     if (newContinent) {
-      this.addContinents(g.getWorld().getContinent().get(t.getContinent()));
+      this.addContinents(t.getContinent());
     }
   }
 
@@ -350,7 +350,6 @@ public class Player implements Serializable {
    */
   public boolean armyDistribution(int amount, Territory t) {
     // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
-    System.out.println(t.getOwner().getName());
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
       this.numberArmiesToDistribute -= amount;

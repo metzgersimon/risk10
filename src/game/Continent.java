@@ -49,13 +49,17 @@ public class Continent {
   public int getValue() {
     return value;
   }
-  
-  public boolean equals(Continent c) {
-    if(this.getName().equals(c.getName())) {
-      return true;
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Continent) {
+      Continent c = (Continent) o;
+      if (this.getName().equals(c.getName())) {
+        return true;
+      } else {
+        return false;
+      }
     }
-    else {
-      return false;
-    }
+    return false;
   }
 }
