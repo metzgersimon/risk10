@@ -49,4 +49,13 @@ public class Continent {
   public int getValue() {
     return value;
   }
+  
+  public boolean equals(Continent c) {
+    if(this.getName().equals(c.getName())) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }

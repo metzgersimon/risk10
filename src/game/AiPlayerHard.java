@@ -10,6 +10,7 @@ import main.Main;
 public class AiPlayerHard extends Player implements AiPlayer {
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;
+  private HashSet<Territory> possibleTerritories;
 
 
   public AiPlayerHard() {
@@ -89,19 +90,137 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
   // dummy method
   public void initialArmyDistribution() {
+    int maxNeighbors = 0;
+    int averageArmies = 0;
+    int sum = 0;
     for (Territory t : this.getTerritories()) {
-      if (t.getHostileNeighbor().size() > 0) {
-        int sum = 0;
+      if (t.getHostileNeighbor().size() > maxNeighbors) {
+        sum = 0;
         for (Territory tO : t.getHostileNeighbor()) {
           sum += tO.getNumberOfArmies();
         }
+        averageArmies = (int) (sum / t.getHostileNeighbor().size());
+        if (averageArmies > t.getNumberOfArmies()) {
+          maxNeighbors = t.getHostileNeighbor().size();
+          if(super.armyDistribution(1, t)) {
+            Main.b.updateLabelTerritory(t);
+            Main.g.furtherInitialArmyDistribution();
+            return;
+          }
+        }
       }
     }
-
+    InitialArmyDistributionMedium();
   }
 
   // dummy method
   public void armyDistribution() {
+    HashMap<Territory,Integer> hostileNeighbors = new HashMap<Territory,Integer>();
+    
+    
+    if (this.getCards().size() >= 3) {
+      for (int i = 0; i < this.getCards().size(); i++) {
+        for (int j = i + 1; j < this.getCards().size() - 1; j++) {
+          for (int k = j + 1; k < this.getCards().size() - 2; k++) {
+            this.tradeCards(this.getCards().get(i), this.getCards().get(j), this.getCards().get(k));
+          }
+        }
+      }
+    }
+    int armiesAttack = (int) Math.round((double) this.getNumberArmiesToDistibute()*(2.0/3.0));
+    do {
+      int sumArmies = 0;
+      for(Territory t: this.getTerritories()) {
+        for(Territory n: t.getHostileNeighbor()) {
+          hostileNeighbors.put(n, 0);
+        }
+      }
+      for(Territory t: hostileNeighbors.keySet()) {
+        for(Territory n: t.getOwnNeighbors()) {
+          sumArmies += n.getNumberOfArmies();
+        }
+        hostileNeighbors.put(t, sumArmies);
+        sumArmies = 0;
+      }
+      
+      int continentSize = 0;
+      int ownTerritorySize = 0;
+      int minDiff = 42;
+      Continent preferredContinent;
+      for(Continent c: Main.g.getWorld().getContinent().values()) {
+        continentSize = c.getTerritories().size();
+        if(!this.getContinents().contains(c)) {
+          for(Territory t: c.getTerritories()) {
+            if(t.getOwner().equals(this)) {
+              ownTerritorySize++;
+            }
+          }
+          if(continentSize - ownTerritorySize < minDiff) {
+            minDiff = continentSize-ownTerritorySize;
+            preferredContinent = c;
+          }
+        }
+      }
+      int max = 0;
+      Territory selectedTerritory;
+      for(Territory t: hostileNeighbors.keySet()) {
+        if(t.getContinent().equals(preferredContinent)) {
+          if(hostileNeighbors.get(t) > max) {
+            max = hostileNeighbors.get(t);
+            selectedTerritory = t;
+          }
+        }
+      }
+     
+      
+      for(Territory t: selectedTerritory.getOwnNeighbors()) {
+        if(armiesAttack > 0) {
+          if(super.armyDistribution(1, t)) {
+            armiesAttack -= 1;
+          }
+        }
+    }
+    
+    }while(armiesAttack > 0);
+
+    int armiesDefend = this.getNumberArmiesToDistibute()-armiesAttack;
+   
+    int max;
+    for (Territory t : this.getTerritories()) {
+      max = 0;
+      for (Territory tE : t.getHostileNeighbor()) {
+        if (((t.getNumberOfArmies()) - (tE.getNumberOfArmies())) > max) {
+          max = t.getNumberOfArmies() - tE.getNumberOfArmies();
+          if (ownTerritories.containsKey(max)) {
+            ownTerritories.get(max).add(t);
+          } else {
+            HashSet<Territory> tr = new HashSet<Territory>();
+            tr.add(t);
+            ownTerritories.put(max, tr);
+          }
+        }
+      }
+    }
+    if (ownTerritories.size() > 0) {
+      sortedValues = new ArrayList<Integer>(ownTerritories.keySet());
+      Collections.sort(sortedValues, Collections.reverseOrder());
+      while (armiesDefend > 0) {
+        for (int i = 0; i < sortedValues.size(); i++) {
+          for (Territory t : ownTerritories.get(sortedValues.get(i))) {
+            super.armyDistribution(1, t);
+            armiesDefend -= 1;
+            System.out.println("Army distribution: " + t.getName());
+            Main.b.updateLabelTerritory(t);
+          }
+        }
+      }
+    } else {
+      greedyArmyDistribution();
+      if (this.getNumberArmiesToDistibute() > 0) {
+        System.out.println("Random army distribution");
+        randomArmyDistribution();
+      }
+    }
 
 
     Main.b.handleSkipGameState();
@@ -157,5 +276,39 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
 
     Main.b.handleSkipGameState();
+  }
+  
+  public void InitialArmyDistributionMedium() {
+
+    int min = 0;
+    Territory own = null;
+    for (Territory t : this.getTerritories()) {
+      for (Territory opponent : t.getHostileNeighbor()) {
+        if (((t.getNumberOfArmies()) - (opponent.getNumberOfArmies())) <= min) {
+          min = t.getNumberOfArmies() - opponent.getNumberOfArmies();
+          own = t;
+        }
+      }
+    }
+    if (own != null) {
+      super.armyDistribution(1, own);
+    } else {
+      int random = 0;
+      do {
+        random = (int) (Math.random() * this.getTerritories().size()) + 1;
+        int i = 1;
+        for (Territory t : this.getTerritories()) {
+          if (i == random) {
+            System.out.println(t.getName());
+            own = t;
+            break;
+          } else {
+            i++;
+          }
+        }
+      } while (!super.armyDistribution(1, own));
+    }
+    Main.b.updateLabelTerritory(own);
+    Main.g.furtherInitialArmyDistribution();
   }
 }
