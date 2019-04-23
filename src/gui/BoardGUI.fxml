@@ -76,7 +76,7 @@
                      </Pane>
 						<Pane prefHeight="720.0" prefWidth="1020.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
-								<Region fx:id="westernAustralia" layoutX="843.0" layoutY="530.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@boardGUI.css">
+								<Region fx:id="westernAustralia" layoutX="843.0" layoutY="530.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -91,7 +91,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="easternAustralia" layoutX="914.0" layoutY="539.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="131.0" prefWidth="88.0" styleClass="Eastern-Australia" stylesheets="@boardGUI.css">
+								<Region fx:id="easternAustralia" layoutX="914.0" layoutY="539.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="131.0" prefWidth="88.0" styleClass="Eastern-Australia" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -106,7 +106,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="newGuinea" layoutX="916.0" layoutY="489.0" onMouseClicked="#clicked" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@boardGUI.css">
+								<Region fx:id="newGuinea" layoutX="916.0" layoutY="489.0" onMouseClicked="#clicked" prefHeight="25.0" prefWidth="70.0" styleClass="New_Guinea" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -121,7 +121,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="indonesia" layoutX="809.0" layoutY="438.0" onMouseClicked="#clicked" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@boardGUI.css">
+								<Region fx:id="indonesia" layoutX="809.0" layoutY="438.0" onMouseClicked="#clicked" prefHeight="89.0" prefWidth="88.0" styleClass="Indonesia" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -136,7 +136,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="brazil" layoutX="247.0" layoutY="448.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="125.0" prefWidth="136.0" styleClass="Brazil" stylesheets="@boardGUI.css">
+								<Region fx:id="brazil" layoutX="247.0" layoutY="448.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="125.0" prefWidth="136.0" styleClass="Brazil" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -151,7 +151,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="peru" layoutX="223.0" layoutY="475.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="82.0" prefWidth="92.0" styleClass="Peru" stylesheets="@boardGUI.css">
+								<Region fx:id="peru" layoutX="223.0" layoutY="475.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="82.0" prefWidth="92.0" styleClass="Peru" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -166,7 +166,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="argentina" layoutX="264.0" layoutY="544.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="135.0" prefWidth="76.0" styleClass="Argentinia" stylesheets="@boardGUI.css">
+								<Region fx:id="argentina" layoutX="264.0" layoutY="544.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="135.0" prefWidth="76.0" styleClass="Argentinia" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -196,7 +196,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="venezuela" layoutX="224.0" layoutY="422.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="68.0" prefWidth="96.0" styleClass="Venezuela" stylesheets="@boardGUI.css">
+								<Region fx:id="venezuela" layoutX="224.0" layoutY="422.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="68.0" prefWidth="96.0" styleClass="Venezuela" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -1474,7 +1474,7 @@
 						<Cursor fx:constant="HAND" />
 					</cursor>
 				</Circle>
-				<ImageView fitHeight="135.0" fitWidth="130.0" layoutX="124.0" layoutY="1.0" mouseTransparent="true" onMouseClicked="#handleCardPane" pickOnBounds="true" preserveRatio="true" x="-30.0" y="-20.0">
+				<ImageView fitHeight="48.0" fitWidth="49.0" layoutX="153.0" layoutY="45.0" mouseTransparent="true" onMouseClicked="#handleCardPane" pickOnBounds="true" preserveRatio="true" x="-30.0" y="-20.0">
 					<image>
 						<Image url="@../ressources/cards/Karten.png" />
 					</image>

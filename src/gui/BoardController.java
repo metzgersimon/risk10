@@ -309,12 +309,12 @@ public class BoardController implements Initializable {
     connectRegionTerritory();
     // sb.append("Game started");
     // chat.appendText("Game started!\n");
-    if(g.showTutorialMessages) {
+    if (g.showTutorialMessages) {
       showMessage(game.TutorialMessages.welcome);
       showMessage(game.TutorialMessages.intro);
     }
   }
-  
+
 
 
   /**
@@ -324,7 +324,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        //chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
+        // chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -334,7 +334,7 @@ public class BoardController implements Initializable {
           }
         } else {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
-//            System.out.println(t);
+            // System.out.println(t);
             if (t.getOwner() == null) {
               t.getBoardRegion().getRegion().setDisable(false);
             }
@@ -389,7 +389,7 @@ public class BoardController implements Initializable {
           case INITIALIZING_TERRITORY:
             // chat.appendText("Initial Territory Distribution phase: \n");
             gameState.setText("Choose your Territory!");
-            if(g.showTutorialMessages) {
+            if (g.showTutorialMessages) {
               showMessage(game.TutorialMessages.distributing);
               showMessage(game.TutorialMessages.distributingTip);
             }
@@ -409,7 +409,7 @@ public class BoardController implements Initializable {
             // chat.appendText("Attack phase: \n");
             gameState.setText("Attack!");
             // progress.setProgress(0.6);
-            if(g.showTutorialMessages) {
+            if (g.showTutorialMessages) {
               showMessage(game.TutorialMessages.attacking1);
               showMessage(game.TutorialMessages.attackingTip);
             }
@@ -418,7 +418,7 @@ public class BoardController implements Initializable {
             // chat.appendText("Fortify phase: \n");
             gameState.setText("Move your Armies!");
             // progress.setProgress(0.95);
-            if(g.showTutorialMessages) {
+            if (g.showTutorialMessages) {
               showMessage(game.TutorialMessages.fortify);
               showMessage(game.TutorialMessages.fortifyTip);
             }
@@ -573,10 +573,11 @@ public class BoardController implements Initializable {
   public synchronized void clicked(MouseEvent e) {
     Thread th = new Thread() {
       public void run() {
-        if(Main.g.isNetworkGame()) {
-          if(!NetworkController.gameFinder.getClient().getPlayer().equals(Main.g.getCurrentPlayer())){
-          return;
-          } 
+        if (Main.g.isNetworkGame()) {
+          if (!NetworkController.gameFinder.getClient().getPlayer()
+              .equals(Main.g.getCurrentPlayer())) {
+            return;
+          }
         }
         Region r = (Region) e.getSource();
         Territory t = Main.g.getWorld().getTerritoriesRegion().get(r);
@@ -585,12 +586,12 @@ public class BoardController implements Initializable {
             r.setEffect(null);
           }
         });
-       
+
         if (!t.equals(selectedTerritory)) {
           switch (Main.g.getGameState()) {
             // new game
             case INITIALIZING_TERRITORY:
-             
+
               if (Main.g.getCurrentPlayer().initialTerritoryDistribution(t)) {
                 // Farbe aendern!!!
                 Platform.runLater(new Runnable() {
@@ -612,16 +613,17 @@ public class BoardController implements Initializable {
                   e1.printStackTrace();
                 }
 
-               
-                if(Main.g.isNetworkGame()) {
-                SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
-                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                System.out.println("Color : " + message.getColor().toString());
-                NetworkController.gameFinder.getClient().sendMessage(message);
+
+                if (Main.g.isNetworkGame()) {
+                  SelectInitialTerritoryMessage message =
+                      new SelectInitialTerritoryMessage(t.getId());
+                  message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                  System.out.println("Color : " + message.getColor().toString());
+                  NetworkController.gameFinder.getClient().sendMessage(message);
                 }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
-              }             
+              }
               break;
             // place armies
             case INITIALIZING_ARMY:
@@ -691,8 +693,8 @@ public class BoardController implements Initializable {
                     diceSlider.setMin(1.0);
                     diceSlider.setValue(1.0);
 
-                    nameAttacker.setText(Main.g.getCurrentPlayer().getName());
-                    nameDefender.setText(selectedTerritory_attacked.getOwner().getName());
+                    nameAttacker.setText(selectedTerritory.getName().replaceAll("_", " "));
+                    nameDefender.setText(selectedTerritory_attacked.getName().replaceAll("_", " "));
                     armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
                     armiesDefender
                         .setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
@@ -912,8 +914,9 @@ public class BoardController implements Initializable {
         }
 
 
-        if (Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory, selectedTerritory_attacked,
-            (int) diceSlider.getValue()) || (selectedTerritory.getNumberOfArmies() == 1)) {
+        if (Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory,
+            selectedTerritory_attacked, (int) diceSlider.getValue())
+            || (selectedTerritory.getNumberOfArmies() == 1)) {
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
 
@@ -1175,7 +1178,7 @@ public class BoardController implements Initializable {
     // progress.setStyle("-fx-accent: magenta;");
     Platform.runLater(new Runnable() {
       public void run() {
-//        System.out.println("Handle Skip GameState");
+        // System.out.println("Handle Skip GameState");
         // changeGameState.setOnAction(new EventHandler<ActionEvent>() {
         changeGameState.setEffect(new Bloom());
         // @Override public void handle(ActionEvent e) {
@@ -1340,14 +1343,14 @@ public class BoardController implements Initializable {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = messages.getText();
-    String player=playername.getText();
-    String author=ProfileSelectionGUIController.selectedPlayerName;
+    String player = playername.getText();
+    String author = ProfileSelectionGUIController.selectedPlayerName;
     Client client = NetworkController.gameFinder.getClient();
-    if(player.equals("")||player.isEmpty()||playername==null) {
+    if (player.equals("") || player.isEmpty() || playername == null) {
       GameMessageMessage chatmessage = new GameMessageMessage(author, message);
       client.sendMessage(chatmessage);
-    }else {
-      SendAllianceMessage privatemessage=new SendAllianceMessage(player, message,author);
+    } else {
+      SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
       client.sendMessage(privatemessage);
     }
 
@@ -1357,8 +1360,9 @@ public class BoardController implements Initializable {
   public void showMessage(String message) {
     chat.appendText(message + "\n_____________\n");
   }
+
   public void showAllianceMessage(String message) {
-    chat.appendText(message + " (private) "+"\n");
+    chat.appendText(message + " (private) " + "\n");
   }
 
 }
