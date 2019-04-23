@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Vector;
 import gui.NetworkController;
 import main.Main;
+import network.messages.game.DistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
@@ -353,6 +354,15 @@ public class Player implements Serializable {
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
       this.numberArmiesToDistribute -= amount;
+      if (Main.g.isNetworkGame()) {
+        if (NetworkController.server != null && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+          DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
+          armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+          NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+          return true;
+        }
+        return true;
+      }
       return true;
     } else {
       return false;

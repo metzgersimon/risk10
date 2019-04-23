@@ -59,6 +59,8 @@ import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.DistributeArmyMessage;
+import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
@@ -315,7 +317,9 @@ public class BoardController implements Initializable {
     }
   }
 
-
+  public void startBoard() {
+    connectRegionTerritory();
+  }
 
   /**
    * @author smetzger
@@ -614,12 +618,12 @@ public class BoardController implements Initializable {
                 }
 
 
-                if (Main.g.isNetworkGame()) {
+                if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                  System.out.println("Color : " + message.getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(message);
+                  return;
                 }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialTerritoryDistribution();
@@ -642,6 +646,12 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
+                if(Main.g.isNetworkGame()) {
+                  DistributeArmyMessage armyMessage = new DistributeArmyMessage(1,t.getId());
+                  armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                  NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+                  return;
+                }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialArmyDistribution();
               }
@@ -661,7 +671,6 @@ public class BoardController implements Initializable {
                   setArmyPane.setVisible(true);
                 }
               });
-
               break;
 
             case ATTACK:
@@ -821,6 +830,11 @@ public class BoardController implements Initializable {
           selectedTerritory.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory.getNumberOfArmies() + "");
           armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+          if(Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+            FurtherDistributeArmyMessage message = new FurtherDistributeArmyMessage(amount,selectedTerritory.getId());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+          }
         }
         setArmyPane.setVisible(false);
         grayPane.setVisible(false);

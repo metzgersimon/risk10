@@ -3,7 +3,7 @@ package network.messages.game;
 import network.messages.Message;
 import network.messages.MessageType;
 
-public class DistributeArmyMessage extends Message {
+public class FurtherDistributeArmyMessage extends Message{
   /**
    * This message class sends and receive the amount of army and the territory to place
    * 
@@ -15,8 +15,8 @@ public class DistributeArmyMessage extends Message {
   private int territoryID;
   private String color;
 
-  public DistributeArmyMessage(int amount, int territoryID) {
-    super(MessageType.DISTRIBUTE_ARMY);
+  public FurtherDistributeArmyMessage(int amount, int territoryID) {
+    super(MessageType.FURTHER_DISTRIBUTE_ARMY);
     this.amount = amount;
     this.territoryID = territoryID;
   }
@@ -38,3 +38,5 @@ public class DistributeArmyMessage extends Message {
   }
 
 }
+
+

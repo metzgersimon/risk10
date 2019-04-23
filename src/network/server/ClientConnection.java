@@ -154,7 +154,14 @@ public class ClientConnection extends Thread {
           case INGAME:
             this.sendMessagesToallClients(message);
             break;
-
+          case DISTRIBUTE_ARMY:
+            this.sendMessagesToallClients(message);
+            break;
+          case FURTHER_DISTRIBUTE_ARMY:
+            this.sendMessagesToallClients(message);
+            break;
+          default:
+            break;
         }
       } catch (ClassNotFoundException e) {
         // TODO Auto-generated catch block

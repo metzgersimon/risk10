@@ -52,7 +52,7 @@ public class EnterIPGUIController {
     Main.g.addPlayer(player);
     ProfileManager.setSelectedProfile(name);
     try {
-      Main.g.joinGameonDiscovery(player);
+//      Main.g.joinGameonDiscovery(player);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -68,7 +68,7 @@ public class EnterIPGUIController {
   @FXML
   void connect(ActionEvent event) {
     try {
-      Main.g.joinGame(ip.getText(), Integer.parseInt(ip.getText()));
+//      Main.g.joinGame(ip.getText(), Integer.parseInt(ip.getText()));
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;

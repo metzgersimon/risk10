@@ -49,7 +49,7 @@ public class NetworkController {
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       Main.b = fxmlLoader.getController();
-      System.out.println(Main.b);
+      Main.b.startBoard();
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();

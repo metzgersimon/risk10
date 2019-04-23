@@ -11,6 +11,7 @@ import main.Main;
 import network.Parameter;
 import network.client.Client;
 import network.client.GameFinder;
+import network.messages.game.FurtherDistributeArmyMessage;
 import network.server.Server;
 
 public class Game implements Serializable{
@@ -36,14 +37,6 @@ public class Game implements Serializable{
   private HashSet<String> aiNames = new HashSet<String>();
   private boolean isNetworkGame;
   public boolean showTutorialMessages;
-
-
-
-  /** variables for join and host game */
-  private Server server;
-  private GameFinder gameFinder;
-  private Client client;
-  private GameFinder gameFinderHost;
 
   /**
    * 
@@ -379,6 +372,7 @@ public class Game implements Serializable{
     this.nextPlayer();
     Main.b.prepareArmyDistribution();
     // if (this.getLastPlayer().getNumberArmiesToDistibute() != 0) {
+    System.out.println("Armies left " + this.getRemainingInitialArmies());
     if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         try {
@@ -429,60 +423,6 @@ public class Game implements Serializable{
       AiPlayer p = (AiPlayer) this.getCurrentPlayer();
       p.armyDistribution();
     }
-  }
-
-
-  /**
-   * @author skaur
-   * @param noOfPlayers no of selected players by the host this method creates an instance of server
-   *        and starts the server thread on a specified port, after calling this methods host should
-   *        join the game lobby (game lobby UI opens)
-   */
-  public void hostGame(int noOfPlayers) {
-    // start the server
-    this.server = new Server(Parameter.PORT, noOfPlayers);
-    // create client for the host palyer
-    this.gameFinderHost = new GameFinder();
-    // joinHostLobby(currentPlayer): call this method to jointheHostGameLobbyGUI;
-  }
-
-  /**
-   * @author skaur this methods creates an instance of gamefinder class and starts looking for
-   *         broadcasting server gameFinder class then creates a client for the current player
-   */
-  public void joinGameonDiscovery(Player player) {
-    this.gameFinder = new GameFinder();
-  }
-
-  /**
-   * @author skaur this methods creates an instance of Client class and starts directly connects to
-   *         the broadcasting server
-   * @param ip
-   * @param port
-   */
-  public void joinGame(String ip, int port) {
-    this.client = new Client(ip, port);
-    this.client.start();
-  }
-
-  public Server getServer() {
-    return server;
-  }
-
-  public void setServer(Server server) {
-    this.server = server;
-  }
-
-  public GameFinder getGameFinder() {
-    return gameFinder;
-  }
-
-  public void setGameFinder(GameFinder gameFinder) {
-    this.gameFinder = gameFinder;
-  }
-
-  public GameFinder getGameFinderHost() {
-    return this.gameFinderHost;
   }
 
   public boolean isNetworkGame() {
