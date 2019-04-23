@@ -22,24 +22,46 @@ public class AiPlayerHard extends Player implements AiPlayer {
    * least number of neighbor territories
    */
   public void initialTerritoryDistribution() {
-    Territory selection = null;
     int minHostile = 42;
-
-    // territories with least number of hostile neighbors
-    for (Territory t : Main.g.getWorld().getTerritories().values()) {
-      if (t.getOwner() == null) {
-        minHostile =
-            minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size() : minHostile;
-      }
-    }
-    HashSet<Territory> minHostileTerritories = new HashSet<>();
-    for (Territory t : Main.g.getWorld().getTerritories().values()) {
-      if (t.getOwner() == null && t.getHostileNeighbor().size() == minHostile) {
-        minHostileTerritories.add(t);
-      }
-    }
-
     double maxPartOfContinent = 0.0;
+    Territory selection = null;
+    HashSet<Territory> minHostileTerritories = new HashSet<>();
+
+    for (Territory t1 : this.getTerritories()) {
+      if (minHostile >= t1.getHostileNeighbor().size()) {
+        minHostile = t1.getHostileNeighbor().size();
+        for (Territory t2 : t1.getHostileNeighbor()) {
+          System.out.println(t2.getName());
+          if (t2.getOwner() == null) {
+            System.out.println(t2.getOwner() != null ? t2.getOwner().getName() : t2.getOwner());
+            minHostileTerritories.add(t2);
+          }
+        }
+      }
+
+    }
+
+    if (minHostileTerritories.size() == 0) {
+      minHostile = 42;
+      // territories with least number of hostile neighbors
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        if (t.getOwner() == null) {
+          minHostile = minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size()
+              : minHostile;
+        }
+      }
+
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        if (t.getOwner() == null && t.getHostileNeighbor().size() == minHostile) {
+          minHostileTerritories.add(t);
+        }
+      }
+    }
+
+    for (Territory t : minHostileTerritories) {
+      System.out.println(t.getName());
+    }
+
     for (Territory t : minHostileTerritories) {
       if ((1.0 / (double) Main.g.getWorld().getContinent().get(t.getContinent()).getTerritories()
           .size()) > maxPartOfContinent) {
@@ -48,7 +70,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
         selection = t;
       }
     }
-
+    System.out.println(selection);
     this.initialTerritoryDistribution(selection);
 
     Main.b.updateLabelTerritory(selection);

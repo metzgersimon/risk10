@@ -56,7 +56,7 @@ public class Player implements Serializable {
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.tradedCardSets = 0;
-//    this.g = Main.g;
+    // this.g = Main.g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 1;
@@ -108,8 +108,8 @@ public class Player implements Serializable {
   public HashSet<Territory> getTerritories() {
     return territories;
   }
-  
-  public ArrayList<Territory> getTerritoriesArrayList(){
+
+  public ArrayList<Territory> getTerritoriesArrayList() {
     ArrayList<Territory> list = new ArrayList<Territory>(this.territories);
     return list;
   }
@@ -333,7 +333,7 @@ public class Player implements Serializable {
       this.getCards().remove(c1);
       this.getCards().remove(c2);
       this.getCards().remove(c3);
-      sb.append(this.getName()+ " traded in one set and got "+armies+" armies.");
+      sb.append(this.getName() + " traded in one set and got " + armies + " armies.");
     }
     return armies;
   }
@@ -433,11 +433,11 @@ public class Player implements Serializable {
       return 3;
     } else {
       this.numberArmiesToDistribute = result;
-      sb.append(this.getName() + " receives "+result+ " armies to distribute.");
+      sb.append(this.getName() + " receives " + result + " armies to distribute.");
       return result;
     }
   }
-  
+
   /**
    * @param attacker
    * @param defender
@@ -509,50 +509,55 @@ public class Player implements Serializable {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
-//    if (Main.g.getGameState() == GameState.FORTIFY) {
-      // check if both territories belong to the current player
-      if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
-        
-        // check if both territories are neighbors
-        if (moveFrom.getNeighbor().contains(moveTo)) {
-          // int currentNoArmies = moveFrom.getNumberOfArmies();
-          // check is current available number of army is greater than the army to move, so that
-          // there
-          // is at least one
-          // army left behind in the territory
-          if (moveFrom.getNumberOfArmies() > armyToMove) {
-            moveFrom.setReducedNumberOfArmies(armyToMove);
-            moveTo.setNumberOfArmies(armyToMove);
-            sb.append(this.getName() + " moved "+armyToMove + " from "+moveFrom.getName() + " to "+moveTo.getName()+ ".");
-            return true;
-          } else {
-            // error messages which may be implemented in the boardgui later
-            System.out.println(
-                "The number of army to move is greater than the available army in the territory "
-                    + moveFrom.getName());
-            return false;
-          }
-        } else {
+    // if (Main.g.getGameState() == GameState.FORTIFY) {
+    // check if both territories belong to the current player
+    if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
 
-          System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
-              + moveFrom.getName() + " are not neighbors");
+      // check if both territories are neighbors
+      if (moveFrom.getNeighbor().contains(moveTo)) {
+        // int currentNoArmies = moveFrom.getNumberOfArmies();
+        // check is current available number of army is greater than the army to move, so that
+        // there
+        // is at least one
+        // army left behind in the territory
+        if (moveFrom.getNumberOfArmies() > armyToMove) {
+          moveFrom.setReducedNumberOfArmies(armyToMove);
+          moveTo.setNumberOfArmies(armyToMove);
+          sb.append(this.getName() + " moved " + armyToMove + " from " + moveFrom.getName() + " to "
+              + moveTo.getName() + ".");
+          return true;
+        } else {
+          // error messages which may be implemented in the boardgui later
+          System.out.println(
+              "The number of army to move is greater than the available army in the territory "
+                  + moveFrom.getName());
           return false;
         }
       } else {
 
-        System.out.println(moveFrom.getName() + " or " + moveTo.getName()
-            + " doesnt belong to the current player ");
+        System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
+            + moveFrom.getName() + " are not neighbors");
         return false;
       }
+    } else {
 
-//    }
-//    System.out.println("Not in a fortify mode ");
-//    return false;
+      System.out.println(
+          moveFrom.getName() + " or " + moveTo.getName() + " doesnt belong to the current player ");
+      return false;
+    }
+
+    // }
+    // System.out.println("Not in a fortify mode ");
+    // return false;
   }
 
   public boolean equals(Player p) {
-    if (this.getColor().toString().equals(p.getColor().toString())) {
-      return true;
+    if (this != null && p != null) {
+      if (this.getColor().toString().equals(p.getColor().toString())) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

@@ -82,7 +82,7 @@ public class Territory {
   public ArrayList<Territory> getOwnNeighbors() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();
     for (Territory t : this.getNeighbor()) {
-      if (this.getOwner().equals(t.getOwner())) {
+      if (t.getOwner() != null && this.getOwner().equals(t.getOwner())) {
         hostileNeighbor.add(t);
       }
     }
