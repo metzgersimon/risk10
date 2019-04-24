@@ -28,7 +28,7 @@ public class Main extends Application {
   public static JoinGameLobbyController j;
   public static MultiPlayerGUIController m;
   public static Stage stage;
-  //public static Game g;
+  // public static Game g;
 
   @Override
   public void start(Stage primaryStage) {

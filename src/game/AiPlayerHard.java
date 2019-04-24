@@ -128,7 +128,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
 
     // armies that attack other territories
-    int armiesAttack = (int) Math.round((double) this.getNumberArmiesToDistibute() * (2.0 / 3.0));
+    int armiesAttack = (int) ((double) this.getNumberArmiesToDistibute() * (2.0 / 3.0));
     do {
       int sumArmies = 0;
       for (Territory t : this.getTerritories()) {
@@ -144,35 +144,35 @@ public class AiPlayerHard extends Player implements AiPlayer {
         sumArmies = 0;
       }
 
-      int continentSize = 0;
-      int ownTerritorySize = 0;
-      int minDiff = 42;
-      Continent preferredContinent = null;
-      for (Continent c : Main.g.getWorld().getContinent().values()) {
-        continentSize = c.getTerritories().size();
-        if (!this.getContinents().contains(c)) {
-          for (Territory t : c.getTerritories()) {
-            if (t.getOwner().equals(this)) {
-              ownTerritorySize++;
-            }
-          }
-          if (continentSize - ownTerritorySize < minDiff) {
-            minDiff = continentSize - ownTerritorySize;
-            preferredContinent = c;
-          }
-        }
-      }
+      // int continentSize = 0;
+      // int ownTerritorySize = 0;
+      // int minDiff = 42;
+      // Continent preferredContinent = null;
+      // for (Continent c : Main.g.getWorld().getContinent().values()) {
+      // continentSize = c.getTerritories().size();
+      // if (!this.getContinents().contains(c)) {
+      // for (Territory t : c.getTerritories()) {
+      // if (t.getOwner().equals(this)) {
+      // ownTerritorySize++;
+      // }
+      // }
+      // if (continentSize - ownTerritorySize < minDiff) {
+      // minDiff = continentSize - ownTerritorySize;
+      // preferredContinent = c;
+      // }
+      // }
+      // }
       int max = 0;
       Territory selectedTerritory = null;
       for (Territory t : hostileNeighbors.keySet()) {
-        if (t.getContinent().equals(preferredContinent)) {
-          if (hostileNeighbors.get(t) > max) {
-            max = hostileNeighbors.get(t);
-            selectedTerritory = t;
-          }
+        // if (t.getContinent().equals(preferredContinent)) {
+        if (hostileNeighbors.get(t) > max) {
+          max = hostileNeighbors.get(t);
+          selectedTerritory = t;
         }
       }
-
+      // }
+      System.out.println(selectedTerritory.getName());
 
       for (Territory t : selectedTerritory.getNeighbor()) {
         if (armiesAttack > 0 && this.equals(t.getOwner())) {
@@ -188,6 +188,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
     // armies that defend territories/ continents
     int armiesDefend = this.getNumberArmiesToDistibute() - armiesAttack;
+    System.out.println("Defend armies number: " + armiesDefend);
     int max = 0;
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
@@ -255,8 +256,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
       }
       for (Territory t : hostileNeighbors.keySet()) {
-        for (Territory n : t.getOwnNeighbors()) {
-          sumArmies += n.getNumberOfArmies();
+        for (Territory n : t.getNeighbor()) {
+          if (n.getOwner().equals(this) && n.getNumberOfArmies() > 1) {
+            sumArmies += n.getNumberOfArmies();
+          }
         }
         hostileNeighbors.put(t, sumArmies);
         sumArmies = 0;

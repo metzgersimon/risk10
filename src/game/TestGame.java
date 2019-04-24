@@ -11,42 +11,44 @@ import main.Main;
  * @author smetzger
  *
  */
-public class TestGame extends Game implements Serializable{
-  
-  
+public class TestGame extends Game implements Serializable {
+
+
   public void distributeTerritories() {
-    
-    for(Territory t: this.getWorld().getTerritories().values()) {
+
+    for (Territory t : this.getWorld().getTerritories().values()) {
       Main.b.updateColorTerritory(t);
       this.getCurrentPlayer().initialTerritoryDistribution(t);
       nextPlayer();
     }
   }
-  
+
   public void distributeArmies() {
-    for(Player p: this.getPlayers()) {
-      while(p.getNumberArmiesToDistibute() > 0) {
-        for(Territory t: p.getTerritories()) {
+    for (Player p : this.getPlayers()) {
+      while (p.getNumberArmiesToDistibute() > 0) {
+        for (Territory t : p.getTerritories()) {
           p.armyDistribution(1, t);
           Main.b.updateLabelTerritory(t);
         }
       }
-     
+
     }
   }
-  
+
   public void initGame() {
     // Compute number of armies
     initNumberOfArmies();
-
+    super.initCardDeck();
+    System.out.println(super.getCards().size());
+    System.out.println(super.getCards().getLast());
     this.setCurrentPlayer(this.getPlayers().get(0));
     System.out.println(this.getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
-//    Main.b.prepareInitTerritoryDistribution();
+    // Main.b.prepareInitTerritoryDistribution();
     distributeTerritories();
     distributeArmies();
     setGameState(GameState.ARMY_DISTRIBUTION);
-//    Main.b.displayGameState();
+    // Main.b.displayGameState();
     this.setCurrentPlayer(this.getPlayers().get(0));
     Main.b.prepareArmyDistribution();
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();

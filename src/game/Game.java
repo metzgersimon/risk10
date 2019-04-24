@@ -14,7 +14,7 @@ import network.client.GameFinder;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.server.Server;
 
-public class Game implements Serializable{
+public class Game implements Serializable {
   public final static int MAX_PLAYERS = 6;
   // public final static int NEW_GAME = 0;
   // public final static int PLACE_ARMIES = 1;
@@ -48,11 +48,7 @@ public class Game implements Serializable{
 
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
-    // cards = new CardDeck().shuffle();
-    showTutorialMessages = true; //set to true for testing purposes
-
-
-
+    showTutorialMessages = true; // set to true for testing purposes
   }
 
   /**
@@ -137,11 +133,12 @@ public class Game implements Serializable{
   public void initGame() {
     // Compute number of armies
     initNumberOfArmies();
-
+    initCardDeck();
+    System.out.println(this.cards.size());
     setCurrentPlayer(players.get(0));// currentPlayer = players.get(0);
     System.out.println("1" + getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
-//    System.out.println(Main.b);
+    // System.out.println(Main.b);
     Main.b.prepareInitTerritoryDistribution();
     Main.b.displayGameState();
 
@@ -173,6 +170,10 @@ public class Game implements Serializable{
     // fortify
     // update BoardGUI
     // change Player
+  }
+
+  public void initCardDeck() {
+    this.cards = new CardDeck().shuffle();
   }
 
   public Player getCurrentPlayer() {
@@ -216,7 +217,7 @@ public class Game implements Serializable{
   }
 
   public void setCard(Card c) {
-    this.cards.add(c);
+    this.cards.addFirst(c);
   }
 
   public LinkedList<Card> getCards() {
@@ -242,10 +243,6 @@ public class Game implements Serializable{
       this.players.get(i).setNumberArmiesToDistribute(number);
     }
   }
-
-
-
-  
 
 
 
@@ -399,6 +396,15 @@ public class Game implements Serializable{
   }
 
   public synchronized void furtherFortify() {
+    if (this.getCurrentPlayer().getSuccessfullAttack()) {
+      Card c = this.cards.getLast();
+      System.out.println("Karte: " + c.getIsWildcard());
+      this.getCurrentPlayer().addCard(c);
+      if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
+        Main.b.insertCards(c);
+      }
+      this.getCurrentPlayer().setSuccessfullAttack(false);
+    }
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e1) {

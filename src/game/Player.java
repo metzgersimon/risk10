@@ -31,6 +31,8 @@ public class Player implements Serializable {
   private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
+  private boolean successfullAttack;
+
   public int numberArmiesToDistribute;
   private int tradedCardSets;
   private int numberOfTerritories;
@@ -40,6 +42,7 @@ public class Player implements Serializable {
   public int numberOfAttacks;
   public int rank;
   public int sessionWins;
+
   private static StringBuffer sb = new StringBuffer();
 
   /**
@@ -221,7 +224,7 @@ public class Player implements Serializable {
   public void lostTerritories(Territory t) {
     territories.remove(t);
     if (this.getContinents().contains(t.getContinent())) {
-      this.lostContinents(g.getWorld().getContinent().get(t.getContinent()));
+      this.lostContinents(t.getContinent());
     }
   }
 
@@ -245,6 +248,10 @@ public class Player implements Serializable {
     return cards;
   }
 
+  public void addCard(Card c) {
+    this.cards.add(c);
+  }
+
   public PlayerColor getColor() {
     return color;
   }
@@ -254,7 +261,9 @@ public class Player implements Serializable {
   }
 
   public void setCards(ArrayList<Card> cards) {
-    this.cards = cards;
+    for (Card c : cards) {
+      this.cards.add(c);
+    }
   }
 
   public void setColor(PlayerColor color) {
@@ -280,6 +289,14 @@ public class Player implements Serializable {
    */
   public void addElimiatedPlayer(Player p) {
     eliminatedPlayers.add(p);
+  }
+
+  public boolean getSuccessfullAttack() {
+    return successfullAttack;
+  }
+  
+  public void setSuccessfullAttack(boolean b) {
+    this.successfullAttack = b;
   }
 
   /**
@@ -489,6 +506,7 @@ public class Player implements Serializable {
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
+      successfullAttack = true;
       // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
       // p.setCards(Main.g.getCards().get(randomCard));
       if (!Main.g.getPlayers().contains(p)) {

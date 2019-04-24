@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -55,6 +57,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import main.Main;
+import main.Parameter;
 import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;
@@ -646,8 +649,8 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
-                if(Main.g.isNetworkGame()) {
-                  DistributeArmyMessage armyMessage = new DistributeArmyMessage(1,t.getId());
+                if (Main.g.isNetworkGame()) {
+                  DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
                   armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(armyMessage);
                   return;
@@ -830,8 +833,9 @@ public class BoardController implements Initializable {
           selectedTerritory.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory.getNumberOfArmies() + "");
           armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-          if(Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-            FurtherDistributeArmyMessage message = new FurtherDistributeArmyMessage(amount,selectedTerritory.getId());
+          if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+            FurtherDistributeArmyMessage message =
+                new FurtherDistributeArmyMessage(amount, selectedTerritory.getId());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(message);
           }
@@ -872,6 +876,7 @@ public class BoardController implements Initializable {
             numberOfDices = 2;
             break;
           case (3):
+          default:
             numberOfDices = 3;
             attackDice1.setVisible(true);
             attackDice2.setVisible(true);
@@ -886,8 +891,8 @@ public class BoardController implements Initializable {
   public synchronized void throwDices() {
     Platform.runLater(new Runnable() {
       public void run() {
-        nameAttacker.setText(Main.g.getCurrentPlayer().getName());
-        nameDefender.setText(selectedTerritory_attacked.getOwner().getName());
+        nameAttacker.setText(selectedTerritory.getName().replaceAll("_", " "));
+        nameDefender.setText(selectedTerritory_attacked.getName().replaceAll("_", " "));
 
         // update opponent number of dices
         if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
@@ -1075,6 +1080,38 @@ public class BoardController implements Initializable {
     // });
     return img;
 
+  }
+
+  @FXML
+  public void insertCards(Card c) {
+    String file = "";
+    if (c.getIsWildcard()) {
+      file = "Wildcard_Card.png";
+    } else {
+      file = c.getId() + ".png";
+    }
+    String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
+    StackPane pane = new StackPane();
+
+    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        handleCardDragAndDrop(e);
+      }
+    };
+
+    ImageView img;
+    try {
+      img = new ImageView(
+          new Image(new File(Parameter.resourcesPath + file).toURI().toURL().toExternalForm()));
+      pane.getChildren().add(img);
+      ownCards.getChildren().add(pane);
+      img.setMouseTransparent(false);
+      img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+      img.setStyle(":hover { -fx-translate-y: -5px;}");
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
   }
 
   /**

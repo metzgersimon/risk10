@@ -36,11 +36,11 @@ public class CardDeck {
   }
 
   public LinkedList shuffle() {
-//    ArrayList keys = new ArrayList(cards.keySet());
-    LinkedList q = new LinkedList(cards.keySet());
-    Collections.shuffle(q);
-//    Collections.shuffle(keys);
-    return q;
+    // ArrayList keys = new ArrayList(cards.keySet());
+    LinkedList<Card> list = new LinkedList(cards.values());
+    Collections.shuffle(list);
+    // Collections.shuffle(keys);
+    return list;
   }
 
   public Card getRandomCard() {
