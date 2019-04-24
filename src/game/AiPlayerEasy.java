@@ -101,18 +101,19 @@ public class AiPlayerEasy extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
-
-      Main.b.updateLabelTerritory(territory);
-  
-    Main.b.handleSkipGameState();
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    this.attack();
+      if (!Main.g.isNetworkGame()) {
+        Main.b.updateLabelTerritory(territory);
       }
+        Main.b.handleSkipGameState();
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        this.attack();
+      }
+    
   }
 
   public synchronized void attack() {

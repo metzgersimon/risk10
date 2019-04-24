@@ -620,8 +620,6 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
-
-
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
@@ -650,7 +648,7 @@ public class BoardController implements Initializable {
                   // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
-                if (Main.g.isNetworkGame()) {
+                if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
                   armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(armyMessage);
