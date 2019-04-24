@@ -298,7 +298,13 @@ public class Client extends Thread implements Serializable {
         System.out.println("client defendarmies " + defendarmies);
         Main.b.updateLabelTerritory(attack);
         Main.b.updateLabelTerritory(defend);
-
+        if(message.getIfConquered()) {
+          Player attacker=attack.getOwner();
+          defend.setOwner(attacker);
+          Main.b.updateColorTerritory(defend);
+        }
+//        System.out.println("attack owner " + attack.getOwner().getName());
+//        System.out.println("defend owner " + defend.getOwner().getName());
       }
     }
   }
