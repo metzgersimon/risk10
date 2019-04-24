@@ -18,6 +18,9 @@ public class AttackMessage extends Message {
   Territory territoryAttacker;
   Territory territoryDefender;
   boolean ifConquered;
+  int attackerArmies;
+  int defendArmies;
+  String color;
   private static final long serialVersionUID = 1L;
 
   public AttackMessage(int lostArmiesAttacker, int lostArmiesDefender, int attackerID,
@@ -32,7 +35,19 @@ public class AttackMessage extends Message {
     this.territoryDefender = territoryDefender;
     this.ifConquered = ifConquered;
   }
+  
 
+  
+  public AttackMessage(int attackerID, int defenderID, boolean ifConquered, int attackerArmies,
+      int defendArmies) {
+    super(MessageType.ATTACK);
+    this.attackerID = attackerID;
+    this.defenderID = defenderID;
+    this.ifConquered = ifConquered;
+    this.attackerArmies=attackerArmies;
+    this.defendArmies=defendArmies;
+  }
+  
   /**
    * get the attack armies
    * 
@@ -64,6 +79,38 @@ public class AttackMessage extends Message {
 
   public boolean getIfConquered() {
     return this.ifConquered;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+
+
+  public int getAttackerArmies() {
+    return attackerArmies;
+  }
+
+
+
+  public void setAttackerArmies(int attackerArmies) {
+    this.attackerArmies = attackerArmies;
+  }
+
+
+
+  public int getDefendArmies() {
+    return defendArmies;
+  }
+
+
+
+  public void setDefendArmies(int defendArmies) {
+    this.defendArmies = defendArmies;
   }
 
 

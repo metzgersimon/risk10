@@ -26,6 +26,7 @@ import network.messages.Message;
 import network.messages.MessageType;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.AttackMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
@@ -160,6 +161,9 @@ public class ClientConnection extends Thread {
           case FURTHER_DISTRIBUTE_ARMY:
             this.sendMessagesToallClients(message);
             break;
+          case ATTACK:
+            receiveAttackTerritory((AttackMessage)message);
+            break;
           default:
             break;
         }
@@ -213,6 +217,10 @@ public class ClientConnection extends Thread {
     this.sendMessagesToallClients(message);
   }
 
+  private void receiveAttackTerritory(AttackMessage message) {
+    this.sendMessagesToallClients(message);
+    
+  }
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be

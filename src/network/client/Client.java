@@ -14,6 +14,7 @@ import game.AiPlayer;
 import game.Game;
 import game.GameState;
 import game.Player;
+import game.Territory;
 import gui.BoardController;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
@@ -28,6 +29,7 @@ import network.messages.JoinGameResponseMessage;
 import network.messages.Message;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
@@ -195,10 +197,15 @@ public class Client extends Thread implements Serializable {
           case INGAME:
             handleIngameMessage((GameMessageMessage) message);
             break;
-          case DISTRIBUTE_ARMY : handleDistributeArmy((DistributeArmyMessage)message);
-          break;
-          case FURTHER_DISTRIBUTE_ARMY : handleFurtheDistributeAmry((FurtherDistributeArmyMessage) message);
-          break;
+          case DISTRIBUTE_ARMY:
+            handleDistributeArmy((DistributeArmyMessage) message);
+            break;
+          case FURTHER_DISTRIBUTE_ARMY:
+            handleFurtheDistributeAmry((FurtherDistributeArmyMessage) message);
+            break;
+          case ATTACK:
+            handleAttackMessage((AttackMessage) message);
+            break;
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -217,9 +224,9 @@ public class Client extends Thread implements Serializable {
   public void handleStartGameMessage(StartGameMessage message) {
     Main.g.setPlayers(message.getPlayerList());
     // if(!(player instanceof AiPlayer)) {
-//    for (Player p : Main.g.getPlayers()) {
-//      System.out.println(p.getName());
-//    }
+    // for (Player p : Main.g.getPlayers()) {
+    // System.out.println(p.getName());
+    // }
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -272,13 +279,37 @@ public class Client extends Thread implements Serializable {
     Main.g.furtherInitialTerritoryDistribution();
   }
 
+  /**
+   * After receiving attack message, update the territory in gui accordingly
+   * 
+   * @author qiychen
+   * @param message
+   */
+  private void handleAttackMessage(AttackMessage message) {
+    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+      if (!(this.player instanceof AiPlayer)) {
+        Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
+        Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
+        int attackarmies = message.getAttackerArmies();
+        int defendarmies = message.getDefendArmies();
+        attack.setNumberOfArmies2(attackarmies);
+        defend.setNumberOfArmies2(defendarmies);
+        System.out.println("client attackarmies " + attackarmies);
+        System.out.println("client defendarmies " + defendarmies);
+        Main.b.updateLabelTerritory(attack);
+        Main.b.updateLabelTerritory(defend);
+
+      }
+    }
+  }
+
   public void handleDistributeArmy(DistributeArmyMessage message) {
     Main.g.furtherInitialArmyDistribution();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
   }
-  
+
   public void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       System.out.println("Further intial army !!!!! reached");

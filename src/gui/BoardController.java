@@ -62,6 +62,7 @@ import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
@@ -949,6 +950,15 @@ public class BoardController implements Initializable {
           defendDice2.setVisible(true);
           grayPane.setVisible(false);
 
+        //network game message 
+          if(Main.g.isNetworkGame()) {
+            AttackMessage message=new AttackMessage(selectedTerritory.getId(), selectedTerritory_attacked.getId(),true,
+                selectedTerritory.getNumberOfArmies(),selectedTerritory_attacked.getNumberOfArmies());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+            System.out.println("network message sent true");
+          }
+          
           updateLabelTerritory(selectedTerritory);
           updateLabelTerritory(selectedTerritory_attacked);
 
@@ -965,6 +975,14 @@ public class BoardController implements Initializable {
           selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
           diceSlider.setValue(selectedTerritory.getNumberOfArmies() - 1);
+        //network game message 
+          if(Main.g.isNetworkGame()) {
+            AttackMessage message=new AttackMessage(selectedTerritory.getId(), selectedTerritory_attacked.getId(),false,
+                selectedTerritory.getNumberOfArmies(),selectedTerritory_attacked.getNumberOfArmies());     
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+            System.out.println("network message sent false");
+          }
         }
 
 
@@ -1391,6 +1409,11 @@ public class BoardController implements Initializable {
     return statistic;
   }
 
+  /**
+   * @author qiychen
+   * @param event Messages regarding chat/alliance can be sent if a specific name is given, private
+   *        messages will be sent, otherwise the message will be sent to all members
+   */
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = messages.getText();
