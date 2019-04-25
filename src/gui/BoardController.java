@@ -381,6 +381,9 @@ public class BoardController implements Initializable {
               if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
                 grayPane.setVisible(true);
                 cardPane.setVisible(true);
+                if(Main.g.showTutorialMessages) {
+                  showMessage(TutorialMessages.forcedTrade);
+                }
               }
             } else {
               t.getBoardRegion().getRegion().setDisable(true);
