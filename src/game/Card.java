@@ -40,8 +40,9 @@ public class Card {
     this.id = territory.getId();
   }
 
-  public Card(boolean isWildcard) {
+  public Card(int id, boolean isWildcard) {
     this.isWildcard = isWildcard;
+    this.id = id;
   }
 
 
@@ -106,7 +107,7 @@ public class Card {
     }
   }
 
-  
+
   /**
    * @author qiychen
    * @param c1 card1
@@ -115,9 +116,9 @@ public class Card {
    * @return whether 3 cards can be traded or not
    */
   public boolean canBeTraded(Card c2, Card c3) {
-    CardSymbol sym1 = this.getTerritory().getSym();
-    CardSymbol sym2 = c2.getTerritory().getSym();
-    CardSymbol sym3 = c3.getTerritory().getSym();
+    CardSymbol sym1 = this.isWildcard ? CardSymbol.WILDCARD : this.getTerritory().getSym();
+    CardSymbol sym2 = c2.isWildcard ? CardSymbol.WILDCARD : c2.getTerritory().getSym();
+    CardSymbol sym3 = c3.isWildcard ? CardSymbol.WILDCARD : c3.getTerritory().getSym();
     // same artillery pictures without wildcards
     boolean same1 = (sym1 == sym2) && (sym2 == sym3);
     // all types of cards without wildcards

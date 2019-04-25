@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="750.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.27490234375" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../ressources/gui/Background.jpg" />
+            <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
       <Label ellipsisString="" layoutX="380.0" prefHeight="262.0" prefWidth="521.0" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">

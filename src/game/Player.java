@@ -32,6 +32,7 @@ public class Player implements Serializable {
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
   private boolean successfullAttack;
+  private boolean startedDistribution;
 
   public int numberArmiesToDistribute;
   private int tradedCardSets;
@@ -294,9 +295,17 @@ public class Player implements Serializable {
   public boolean getSuccessfullAttack() {
     return successfullAttack;
   }
-  
+
   public void setSuccessfullAttack(boolean b) {
     this.successfullAttack = b;
+  }
+
+  public boolean getStartedDistribution() {
+    return startedDistribution;
+  }
+
+  public void setStartedDistribution(boolean startedDistribution) {
+    this.startedDistribution = startedDistribution;
   }
 
   /**
@@ -306,54 +315,68 @@ public class Player implements Serializable {
    * @param c3 card3
    * @return the number of armies received after trade cards
    */
-  public int tradeCards(Card c1, Card c2, Card c3) {
-    int armies = 0;
-    int number = this.getTradedCardSets();
-    if (c1.canBeTraded(c2, c3)) {
-      switch (number) {
-        case 0:
-          armies = 4;
-          break;
-        case 1:
-          armies = 6;
-          break;
-        case 2:
-          armies = 8;
-          break;
-        case 3:
-          armies = 10;
-          break;
-        case 4:
-          armies = 12;
-          break;
-        case 5:
-          armies = 15;
-          break;
-        default:
-          armies = 15 + (number - 5) * 5;
-      }
+  public boolean tradeCards(Card c1, Card c2, Card c3) {
+    if (!this.startedDistribution) {
+      int armies = 0;
+      int number = this.getTradedCardSets();
+      if (c1.canBeTraded(c2, c3)) {
+        switch (number) {
+          case 0:
+            armies = 4;
+            break;
+          case 1:
+            armies = 6;
+            break;
+          case 2:
+            armies = 8;
+            break;
+          case 3:
+            armies = 10;
+            break;
+          case 4:
+            armies = 12;
+            break;
+          case 5:
+            armies = 15;
+            break;
+          default:
+            armies = 15 + (number - 5) * 5;
+        }
 
-      if (this.getTerritories().contains(c1.getTerritory())) {
-        c1.getTerritory().setNumberOfArmies(2);
-        Main.b.updateLabelTerritory(c1.getTerritory());
-      }
-      if (this.getTerritories().contains(c2.getTerritory())) {
-        c2.getTerritory().setNumberOfArmies(2);
-        Main.b.updateLabelTerritory(c2.getTerritory());
-      }
-      if (this.getTerritories().contains(c3.getTerritory())) {
-        c3.getTerritory().setNumberOfArmies(2);
-        Main.b.updateLabelTerritory(c3.getTerritory());
-      }
+        if (this.getTerritories().contains(c1.getTerritory())) {
+          c1.getTerritory().setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(c1.getTerritory());
+        }
+        if (this.getTerritories().contains(c2.getTerritory())) {
+          c2.getTerritory().setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(c2.getTerritory());
+        }
+        if (this.getTerritories().contains(c3.getTerritory())) {
+          c3.getTerritory().setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(c3.getTerritory());
+        }
 
-      this.setTradedCardSets(number++);
-      this.valueActuallyTradedIn = armies;
-      this.getCards().remove(c1);
-      this.getCards().remove(c2);
-      this.getCards().remove(c3);
-      sb.append(this.getName() + " traded in one set and got " + armies + " armies.");
+        this.setTradedCardSets(number++);
+        this.valueActuallyTradedIn = armies;
+        this.getCards().remove(c1);
+        this.getCards().remove(c2);
+        this.getCards().remove(c3);
+        sb.append(this.getName() + " traded in one set and got " + armies + " armies.");
+
+
+
+        int originalReceivedNumber = this.getTerritories().size() / 3;
+        for (Continent c : this.getContinents()) {
+          originalReceivedNumber += c.getValue();
+        }
+        this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
+        this.valueActuallyTradedIn = 0;
+        return true;
+      } else {
+        return false;
+      }
     }
-    return armies;
+    return false;
   }
 
 
@@ -367,6 +390,7 @@ public class Player implements Serializable {
    *         Precondition: only own territories can be chosen, player has enough armies left
    */
   public boolean armyDistribution(int amount, Territory t) {
+    setStartedDistribution(true);
     // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       t.setNumberOfArmies(amount);
@@ -451,9 +475,6 @@ public class Player implements Serializable {
       result += c.getValue();
     }
 
-    // player receives armies for each card set depending on the number of previous traded sets
-    result += valueActuallyTradedIn;
-    this.valueActuallyTradedIn = 0;
     if (result < 3) {
       this.numberArmiesToDistribute = 3;
       return 3;

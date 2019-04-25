@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../ressources/gui/Background.jpg" />
+            <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
       <Button fx:id="startGame" disable="true" layoutX="850.0" layoutY="582.0" mnemonicParsing="false" onAction="#startGame" prefHeight="62.0" prefWidth="251.0" text="Start game" textAlignment="CENTER">
@@ -75,7 +75,7 @@
       </Label>
       <ImageView fx:id="imgAI" fitHeight="64.0" fitWidth="52.0" layoutX="625.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../ressources/gui/robot2.png" />
+            <Image url="@../resources/gui/robot2.png" />
          </image>
       </ImageView>
    </children>

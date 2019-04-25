@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-  public static Game g = new Game();
+  public static Game g = new TestGame();
   public static BoardController b;
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
@@ -47,7 +47,7 @@ public class Main extends Application {
       e.printStackTrace();
     }
 
-    final URL resource = getClass().getResource("/ressources/gui/Demoth.mp3");
+    final URL resource = getClass().getResource("/resources/gui/Demoth.mp3");
     final Media media = new Media(resource.toString());
     final MediaPlayer mediaPlayer = new MediaPlayer(media);
     // mediaPlayer.play();

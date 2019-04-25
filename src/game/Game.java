@@ -337,13 +337,6 @@ public class Game implements Serializable {
    * @author pcoberge
    */
   public synchronized void furtherInitialTerritoryDistribution() {
-//    Card c = this.cards.getLast();
-//    this.cards.removeLast();
-//    System.out.println("Karte: " + c.getIsWildcard());
-//    this.getCurrentPlayer().addCard(c);
-//    if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
-//      Main.b.insertCards(c);
-//    }
     this.nextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
@@ -419,6 +412,7 @@ public class Game implements Serializable {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
+    this.getCurrentPlayer().setStartedDistribution(false);
     System.out.println(this.getCurrentPlayer().getName());
     this.nextPlayer();
     System.out.println(this.getCurrentPlayer().getName());

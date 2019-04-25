@@ -54,7 +54,7 @@
 							<children>
 								<ImageView fitHeight="96.0" fitWidth="88.0" layoutX="722.0" layoutY="611.0" pickOnBounds="true" preserveRatio="true">
 									<image>
-										<Image url="@../ressources/gui/infantry.png" />
+										<Image url="@../resources/gui/infantry.png" />
 									</image>
 								</ImageView>
 								<Circle fx:id="circle" fill="SILVER" layoutX="787.0" layoutY="624.0" radius="13.0" stroke="SILVER" style="-fx-background: transparent;">
@@ -1021,7 +1021,7 @@
 											<graphic>
 												<ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@../ressources/gui/nextGameState.png" />
+														<Image url="@../resources/gui/nextGameState.png" />
 													</image>
 													<cursor>
 														<Cursor fx:constant="HAND" />
@@ -1090,9 +1090,9 @@
 																<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 														</GridPane>
-                                          <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="763.0" vbarPolicy="NEVER">
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="775.0">
                                              <content>
-      														<FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" vgap="10.0">
+      														<FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" prefHeight="200.0" prefWidth="759.0" prefWrapLength="200.0" vgap="10.0">
 														</FlowPane>
                                              </content>
                                           </ScrollPane>
@@ -1386,7 +1386,7 @@
 				</Circle>
 				<ImageView fx:id="imageLeave" fitHeight="44.0" fitWidth="38.0" layoutX="34.0" layoutY="31.0" onMousePressed="#pressLeave" pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="@../ressources/gui/exit.png" />
+						<Image url="@../resources/gui/exit.png" />
 					</image>
 					<cursor>
 						<Cursor fx:constant="HAND" />
@@ -1413,7 +1413,7 @@
 				</Circle>
 				<ImageView fitHeight="48.0" fitWidth="49.0" layoutX="153.0" layoutY="45.0" mouseTransparent="true" onMouseClicked="#handleCardPane" pickOnBounds="true" preserveRatio="true" x="-30.0" y="-20.0">
 					<image>
-						<Image url="@../ressources/cards/Karten.png" />
+						<Image url="@../resources/cards/Karten.png" />
 					</image>
 				</ImageView>
 			</children>

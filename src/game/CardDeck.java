@@ -31,8 +31,8 @@ public class CardDeck {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       this.cards.put(t.getId(), new Card(t, false));
     }
-    this.cards.put(43, new Card(true));
-    this.cards.put(44, new Card(true));
+    this.cards.put(43, new Card(43, true));
+    this.cards.put(44, new Card(44, true));
   }
 
   public LinkedList shuffle() {

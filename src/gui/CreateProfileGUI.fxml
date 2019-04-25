@@ -39,7 +39,7 @@
          <children>
             <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../ressources/gui/Background.jpg" />
+                  <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
             <Button fx:id="save" contentDisplay="CENTER" layoutX="519.0" layoutY="588.0" mnemonicParsing="false" onAction="#save" prefHeight="62.0" prefWidth="251.0" text="Save" textAlignment="CENTER">
@@ -62,7 +62,7 @@
             </Label>
             <ImageView fx:id="profileImage" fitHeight="192.0" fitWidth="277.0" layoutX="544.0" layoutY="218.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../ressources/avatar/0.jpg" />
+                  <Image url="@../resources/avatar/0.jpg" />
                </image>
             </ImageView>
          </children>

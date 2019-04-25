@@ -79,8 +79,8 @@ public class BoardController implements Initializable {
   /**
    * @author prto testing
    */
-  public HashMap<Integer, Card> topList;
-  public HashMap<Integer, Card> bottomList;
+  public HashMap<Integer, Card> topList = new HashMap<>();
+  public HashMap<Integer, Card> bottomList = new HashMap<>();
 
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
@@ -273,10 +273,10 @@ public class BoardController implements Initializable {
   /**
    * @author prto initialize card lists
    */
-  public void initializeCardLists() {
-    topList = new HashMap<Integer, Card>();
-    bottomList = new HashMap<Integer, Card>();
-  }
+  // public void initializeCardLists() {
+  // topList = new HashMap<Integer, Card>();
+  // bottomList = new HashMap<Integer, Card>();
+  // }
 
   // moves card from bottomList to topList
   public void selectCard(Card card) {
@@ -908,27 +908,27 @@ public class BoardController implements Initializable {
         System.out.println("attacker vector size: " + attacker.size());
         System.out.println("defender vector size: " + defender.size());
         attackDice1.setImage(new Image(getClass()
-            .getResource("/ressources/dices/dice_" + attacker.get(0) + "_RED.png").toString(),
+            .getResource("/resources/dices/dice_" + attacker.get(0) + "_RED.png").toString(),
             true));
         if (attacker.size() >= 2) {
           attackDice2.setImage(new Image(getClass()
-              .getResource("/ressources/dices/dice_" + attacker.get(1) + "_RED.png").toString(),
+              .getResource("/resources/dices/dice_" + attacker.get(1) + "_RED.png").toString(),
               true));
 
         }
         if (attacker.size() > 2) {
           attackDice3.setImage(new Image(getClass()
-              .getResource("/ressources/dices/dice_" + attacker.get(2) + "_RED.png").toString(),
+              .getResource("/resources/dices/dice_" + attacker.get(2) + "_RED.png").toString(),
               true));
 
         }
 
         defendDice1.setImage(new Image(getClass()
-            .getResource("/ressources/dices/dice_" + defender.get(0) + "_BLUE.png").toString(),
+            .getResource("/resources/dices/dice_" + defender.get(0) + "_BLUE.png").toString(),
             true));
         if (defender.size() == 2) {
           defendDice2.setImage(new Image(getClass()
-              .getResource("/ressources/dices/dice_" + defender.get(1) + "_BLUE.png").toString(),
+              .getResource("/resources/dices/dice_" + defender.get(1) + "_BLUE.png").toString(),
               true));
         }
 
@@ -1070,7 +1070,8 @@ public class BoardController implements Initializable {
     String[] split = file.split("\\.");
     int cardId = Integer.parseInt(split[0]);
     Card card = (Card) deck.getCards().get(cardId);
-    initializeCardLists();
+    bottomList.remove(card.getId());
+    // initializeCardLists();
 
     if (left.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
@@ -1078,6 +1079,8 @@ public class BoardController implements Initializable {
 
       StackPane pane = (StackPane) img.getParent();
       left.getChildren().add(pane);
+      topList.put(0, card);
+      System.out.println(topList.get(0).getId());
       pane.getStylesheets().clear();
     } else if (center.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
@@ -1086,6 +1089,8 @@ public class BoardController implements Initializable {
 
       StackPane pane = (StackPane) img.getParent();
       center.getChildren().add(pane);
+      topList.put(1, card);
+      System.out.println(topList.get(1).getId());
       pane.setStyle(null);
     } else if (right.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
@@ -1094,11 +1099,17 @@ public class BoardController implements Initializable {
 
       StackPane pane = (StackPane) img.getParent();
       right.getChildren().add(pane);
+      topList.put(2, card);
+      System.out.println(topList.get(2).getId());
       pane.setStyle(null);
     }
+
     if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
         && !right.getChildren().isEmpty()
-        && topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
+        && topList.get(0).canBeTraded(topList.get(1), topList.get(2))
+        && !Main.g.getCurrentPlayer().getStartedDistribution()) {
+      System.out.println(
+          topList.get(0).getId() + " " + topList.get(1).getId() + " " + topList.get(2).getId());
       tradeIn.setDisable(false);
     }
     //
@@ -1117,12 +1128,7 @@ public class BoardController implements Initializable {
   public void insertCards(Card c) {
     Platform.runLater(new Runnable() {
       public void run() {
-        String file = "";
-        if (c.getIsWildcard()) {
-          file = "Wildcard_Card.png";
-        } else {
-          file = c.getId() + ".png";
-        }
+        String file = c.getId() + ".png";
         String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
         StackPane pane = new StackPane();
 
@@ -1139,6 +1145,7 @@ public class BoardController implements Initializable {
               new Image(new File(Parameter.resourcesPath + file).toURI().toURL().toExternalForm()));
           pane.getChildren().add(img);
           ownCards.getChildren().add(pane);
+          bottomList.put(c.getId(), c);
           img.setMouseTransparent(false);
           img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
           pane.getStylesheets().add(css);
@@ -1169,6 +1176,7 @@ public class BoardController implements Initializable {
       this.deselectCard(card);
 
       ownCards.getChildren().add(pane);
+      bottomList.put(card.getId(), card);
       img.setMouseTransparent(false);
       left.getChildren().clear();
       pane.getStylesheets().add(css);
@@ -1184,6 +1192,7 @@ public class BoardController implements Initializable {
       this.deselectCard(card);
 
       ownCards.getChildren().add(pane);
+      bottomList.put(card.getId(), card);
       img.setMouseTransparent(false);
       center.getChildren().clear();
       pane.getStylesheets().add(css);
@@ -1198,10 +1207,12 @@ public class BoardController implements Initializable {
       this.deselectCard(card);
 
       ownCards.getChildren().add(pane);
+      bottomList.put(card.getId(), card);
       img.setMouseTransparent(false);
       right.getChildren().clear();// getChildren().remove(0);
       pane.getStylesheets().add(css);
     }
+    tradeIn.setDisable(true);
   }
 
 
@@ -1211,18 +1222,17 @@ public class BoardController implements Initializable {
    */
   @FXML
   public void handleTradeCards(ActionEvent e) {
-    Thread th = new Thread() {
+    Platform.runLater(new Runnable() {
       public void run() {
         if (e.getSource().equals(tradeIn)) {
-          if (topList.get(0).canBeTraded(topList.get(1), topList.get(2))) {
-            // add Cards to game carddeck
-            Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1), topList.get(2));
+          // re-add Cards to game carddeck
+          if (Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1),
+              topList.get(2))) {
             Main.g.setCard(topList.get(0));
             Main.g.setCard(topList.get(1));
             Main.g.setCard(topList.get(2));
 
-
-            String cards = Integer.toString(++tradedCards);
+            String cards = Integer.toString(Main.g.getCurrentPlayer().getTradedCardSets());
             tradedCardSets.setText(cards);
             topList.remove(0);
             topList.remove(1);
@@ -1232,14 +1242,14 @@ public class BoardController implements Initializable {
             center.getChildren().remove(0);
             right.getChildren().remove(0);
             tradeIn.setDisable(true);
+            armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
           } else {
             System.out.println("No trade");
             cantBeTraded.toFront();
           }
         }
       }
-    };
-    th.start();
+    });
   }
 
   /**
