@@ -120,7 +120,7 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public void sendMessage(Message m) {
-    System.out.println("test send message" + m.getContent());
+//    System.out.println("test send message" + m.getContent());
     try {
       toServer.writeObject(m);
     } catch (IOException e) {
@@ -335,10 +335,15 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
-    Main.g.furtherInitialArmyDistribution();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
+    Main.g.furtherInitialArmyDistribution();
   }
 
   /**
