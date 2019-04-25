@@ -19,7 +19,6 @@ import gui.BoardController;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
-import gui.NetworkController;
 import javafx.application.Platform;
 import main.Main;
 import network.Parameter;
@@ -53,7 +52,7 @@ public class Client extends Thread implements Serializable {
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
   public static boolean isHost;
-  private NetworkController networkController = new NetworkController();
+  private network.NetworkController networkController = new network.NetworkController();
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {

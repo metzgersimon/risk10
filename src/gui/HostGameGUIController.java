@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.Main;
+import network.NetworkController;
 import network.Parameter;
 import network.client.GameFinder;
 import network.server.ClientConnection;

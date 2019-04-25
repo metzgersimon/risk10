@@ -16,7 +16,6 @@ import gui.BoardController;
 import gui.Gui;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
-import gui.NetworkController;
 import main.Main;
 import network.client.Client;
 import network.messages.JoinGameMessage;

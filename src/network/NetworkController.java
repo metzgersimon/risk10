@@ -1,4 +1,4 @@
-package gui;
+package network;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

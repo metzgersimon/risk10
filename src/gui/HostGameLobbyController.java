@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
+import network.NetworkController;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
