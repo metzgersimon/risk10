@@ -1090,8 +1090,12 @@
 																<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 															</rowConstraints>
 														</GridPane>
-														<FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="775.0" vgap="10.0">
+                                          <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="763.0" vbarPolicy="NEVER">
+                                             <content>
+      														<FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" vgap="10.0">
 														</FlowPane>
+                                             </content>
+                                          </ScrollPane>
 													</children>
 													<padding>
 														<Insets bottom="25.0" />

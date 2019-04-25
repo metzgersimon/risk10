@@ -1098,36 +1098,44 @@ public class BoardController implements Initializable {
 
   }
 
-  @FXML
+
+  /**
+   * @author pcoberge
+   * @param c
+   */
   public void insertCards(Card c) {
-    String file = "";
-    if (c.getIsWildcard()) {
-      file = "Wildcard_Card.png";
-    } else {
-      file = c.getId() + ".png";
-    }
-    String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
-    StackPane pane = new StackPane();
+    Platform.runLater(new Runnable() {
+      public void run() {
+        String file = "";
+        if (c.getIsWildcard()) {
+          file = "Wildcard_Card.png";
+        } else {
+          file = c.getId() + ".png";
+        }
+        String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
+        StackPane pane = new StackPane();
 
-    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
-        handleCardDragAndDrop(e);
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            handleCardDragAndDrop(e);
+          }
+        };
+
+        ImageView img;
+        try {
+          img = new ImageView(
+              new Image(new File(Parameter.resourcesPath + file).toURI().toURL().toExternalForm()));
+          pane.getChildren().add(img);
+          ownCards.getChildren().add(pane);
+          img.setMouseTransparent(false);
+          img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+          pane.getStylesheets().add(css);
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+        }
       }
-    };
-
-    ImageView img;
-    try {
-      img = new ImageView(
-          new Image(new File(Parameter.resourcesPath + file).toURI().toURL().toExternalForm()));
-      pane.getChildren().add(img);
-      ownCards.getChildren().add(pane);
-      img.setMouseTransparent(false);
-      img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-      img.setStyle(":hover { -fx-translate-y: -5px;}");
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
+    });
   }
 
   /**
