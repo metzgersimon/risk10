@@ -401,6 +401,7 @@ public class World implements Serializable {
 
     // New-Guinea
     HashSet<Territory> a40 = new HashSet<>();
+    a40.add(territories.get(33));
     a40.add(territories.get(39));
     a40.add(territories.get(41));
     a40.add(territories.get(42));

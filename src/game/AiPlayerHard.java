@@ -10,7 +10,6 @@ import main.Main;
 public class AiPlayerHard extends Player implements AiPlayer {
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;
-  private HashMap<Territory, Integer> hostileNeighbors;
 
 
   public AiPlayerHard() {
@@ -112,9 +111,18 @@ public class AiPlayerHard extends Player implements AiPlayer {
     InitialArmyDistributionMedium();
   }
 
-
+  /**
+   * Strategy: Divide number of armies to distribute in attacking and defending armies
+   * 
+   * Attacking armies are placed on territories with the least number of hostile neighbors. These
+   * territories are a good opportunity to expand own territories.
+   * 
+   * Defending armies are placed on territories with the highest negative difference in number of
+   * armies.
+   * 
+   */
   public void armyDistribution() {
-    hostileNeighbors = new HashMap<Territory, Integer>();
+    HashMap<Territory, Integer> hostileNeighbors = new HashMap<Territory, Integer>();
 
 
     if (this.getCards().size() >= 3) {
@@ -143,9 +151,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
             i++;
           }
         }
-        if (i > 0) {
-          hostileNeighbors.put(t, i);
-        }
+        hostileNeighbors.put(t, i);
       }
       Territory tToDistribute = null;
       int min = 42;
@@ -175,7 +181,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
     for (Territory t : this.getTerritories()) {
       max = 0;
       for (Territory tE : t.getHostileNeighbor()) {
-        if (((t.getNumberOfArmies()) - (tE.getNumberOfArmies())) > max) {
+        if (((tE.getNumberOfArmies()) - (t.getNumberOfArmies())) >= max) {
           max = t.getNumberOfArmies() - tE.getNumberOfArmies();
           if (ownTerritories.containsKey(max)) {
             ownTerritories.get(max).add(t);
@@ -212,6 +218,13 @@ public class AiPlayerHard extends Player implements AiPlayer {
   }
 
 
+  /**
+   * Strategy: At first all hostile territories are sorted by their number of hostile neighbors. So,
+   * the player can evaluate whether this territory increases the number of hosts or not.
+   * 
+   * These territories with the least number of hosts (min + 1) are sorted by their difference in
+   * number of armies in compare with their neighbors.
+   */
   public void attack() {
     try {
       Thread.sleep(2000);
@@ -221,52 +234,93 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
 
     while (isCapableToAttack()) {
+      HashMap<Territory, Integer> hostileNeighbors = new HashMap<>();
+      // get all hostile neighbor territories
+      for (Territory t : this.getTerritories()) {
+        for (Territory opponent : t.getHostileNeighbor()) {
+          hostileNeighbors.put(opponent, 42);
+        }
+      }
+      // get number of (new) additional hostile neighbors, if you receive the defending territory
+      for (Territory t : hostileNeighbors.keySet()) {
+        int i = 0;
+        for (Territory opponent : t.getHostileNeighbor()) {
+          if (!(opponent.getOwner().equals(this))) {
+            i++;
+          }
+        }
+        hostileNeighbors.put(t, i);
+      }
+
+      // get minimum of hostile neighbors of territory that should be attacked
       int armiesToAttack = 0;
       Territory attacker = null;
       Territory defender = null;
       int min = 42;
       for (Territory t : hostileNeighbors.keySet()) {
-        for (Territory ownT : t.getNeighbor()) {
+        for (Territory ownT : t.getHostileNeighbor()) {
           if (ownT.getOwner().equals(this) && ownT.getNumberOfArmies() > t.getNumberOfArmies()
               && hostileNeighbors.get(t) < min) {
             min = hostileNeighbors.get(t);
-            attacker = ownT;
-            defender = t;
           }
         }
       }
-      System.out.println("Minimale Anzahl an neuen Gegnern durch Eroberung: " + min + " vs. "
-          + hostileNeighbors.get(defender));
-      int value = 0;
-      if (attacker.getNumberOfArmies() >= 5) {
-        value = 3;
-      } else {
-        value = (int) Math.ceil((attacker.getNumberOfArmies()) / 2);
-      }
-      armiesToAttack = value > 1 ? value : 1;
 
-      Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3 ? 3 : armiesToAttack);
-      Vector<Integer> defendDices =
-          Dice.rollDices(defender.getNumberOfArmies() >= 2 ? 2 : defender.getNumberOfArmies());
-      System.out.println(attacker.getNumberOfArmies() + " vs. " + defender.getNumberOfArmies());
-      // System.out.println("Max:" + max);
-      if (attackDices.size() > defendDices.size()) {
-        if (super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
-          System.out.println("Defending territory owner: " + defender.getOwner().getName());
-          Main.b.updateLabelTerritory(attacker);
-          Main.b.updateLabelTerritory(defender);
-          Main.b.updateColorTerritory(defender);
-        } else {
-          Main.b.updateLabelTerritory(attacker);
-          Main.b.updateLabelTerritory(defender);
-          try {
-            Thread.sleep(2000);
-          } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+      // get territories with minimum + 1 amount of hostile neighbors with least difference in
+      // number of armies in compare with their neighbors.
+      if (min < 42) {
+        int max = 0;
+        for (Territory t : hostileNeighbors.keySet()) {
+          if (hostileNeighbors.get(t) <= (min + 1)) {
+            for (Territory ownT : t.getHostileNeighbor()) {
+              if (ownT.getNumberOfArmies() - t.getNumberOfArmies() > max) {
+                max = ownT.getNumberOfArmies() - t.getNumberOfArmies();
+                attacker = ownT;
+                defender = t;
+              }
+            }
           }
         }
-        System.out.println(attacker + " -- " + defender);
+
+        System.out.println("Minimale Anzahl an neuen Gegnern durch Eroberung: " + min + " vs. "
+            + hostileNeighbors.get(defender));
+        int value = 0;
+        if (attacker.getHostileNeighbor().size() == 1) {
+          value = attacker.getNumberOfArmies() - 1;
+        } else {
+          if (attacker.getNumberOfArmies() >= 5) {
+            value = 3;
+          } else {
+            value = (int) Math.ceil((attacker.getNumberOfArmies()) / 2);
+          }
+        }
+        armiesToAttack = value > 1 ? value : 1;
+
+        Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3 ? 3 : armiesToAttack);
+        Vector<Integer> defendDices =
+            Dice.rollDices(defender.getNumberOfArmies() >= 2 ? 2 : defender.getNumberOfArmies());
+        System.out.println(attacker.getNumberOfArmies() + " vs. " + defender.getNumberOfArmies());
+        // System.out.println("Max:" + max);
+        if (attackDices.size() > defendDices.size()) {
+          if (super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
+            System.out.println("Defending territory owner: " + defender.getOwner().getName());
+            Main.b.updateLabelTerritory(attacker);
+            Main.b.updateLabelTerritory(defender);
+            Main.b.updateColorTerritory(defender);
+          } else {
+            Main.b.updateLabelTerritory(attacker);
+            Main.b.updateLabelTerritory(defender);
+            try {
+              Thread.sleep(2000);
+            } catch (InterruptedException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+          }
+          System.out.println(attacker + " -- " + defender);
+        } else {
+          break;
+        }
       } else {
         break;
       }
