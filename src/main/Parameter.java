@@ -7,5 +7,6 @@ public class Parameter {
 //project path
   public static final String projectdir = System.getProperty("user.dir");
   // resources in project path
-  public static final String resourcesPath = projectdir + sep + "src" + sep + "ressources" + sep + "cards" + sep;
+  public static final String resourcesPathCards = projectdir + sep + "src" + sep + "resources" + sep + "cards" + sep;
+  public static final String resourcesPathAvatars = projectdir + sep + "src" + sep + "resources" + sep + "avatar" + sep;
 }

@@ -1107,7 +1107,8 @@ public class BoardController implements Initializable {
     if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
         && !right.getChildren().isEmpty()
         && topList.get(0).canBeTraded(topList.get(1), topList.get(2))
-        && !Main.g.getCurrentPlayer().getStartedDistribution()) {
+        && !Main.g.getCurrentPlayer().getStartedDistribution()
+        && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
       System.out.println(
           topList.get(0).getId() + " " + topList.get(1).getId() + " " + topList.get(2).getId());
       tradeIn.setDisable(false);
@@ -1142,7 +1143,7 @@ public class BoardController implements Initializable {
         ImageView img;
         try {
           img = new ImageView(
-              new Image(new File(Parameter.resourcesPath + file).toURI().toURL().toExternalForm()));
+              new Image(new File(Parameter.resourcesPathCards + file).toURI().toURL().toExternalForm()));
           pane.getChildren().add(img);
           ownCards.getChildren().add(pane);
           bottomList.put(c.getId(), c);
@@ -1224,7 +1225,7 @@ public class BoardController implements Initializable {
   public void handleTradeCards(ActionEvent e) {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (e.getSource().equals(tradeIn)) {
+        if (e.getSource().equals(tradeIn) && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
           // re-add Cards to game carddeck
           if (Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1),
               topList.get(2))) {
