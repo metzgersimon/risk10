@@ -31,6 +31,7 @@ import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
+import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
@@ -206,6 +207,9 @@ public class Client extends Thread implements Serializable {
           case ATTACK:
             handleAttackMessage((AttackMessage) message);
             break;
+          case FORTIFY:
+            handleFortifyMessage((FortifyMessage) message);
+            break;
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -214,6 +218,7 @@ public class Client extends Thread implements Serializable {
       }
     }
   }
+
 
   /**
    * this method showcase the game board to the all the players
@@ -254,30 +259,28 @@ public class Client extends Thread implements Serializable {
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {
     // change the attributes of the aiPlayer after receiving the message
-//    if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
-//      Main.g.getWorld().getTerritories().get(message.getTerritoryID())
-//          .setOwner(Main.g.getCurrentPlayer());
-//      Main.g.getCurrentPlayer()
-//          .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-//      Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
-//      // System.out.println("Ai player : " + Main.g.getCurrentPlayer().getName());
-//    }
+    // if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+    // Main.g.getWorld().getTerritories().get(message.getTerritoryID())
+    // .setOwner(Main.g.getCurrentPlayer());
+    // Main.g.getCurrentPlayer()
+    // .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+    // Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
+    // // System.out.println("Ai player : " + Main.g.getCurrentPlayer().getName());
+    // }
     // Dont update the board if the message is sent the by the humanplayer himself
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       // update the information recieved from the message in game instance
-        Main.g.getWorld().getTerritories().get(message.getTerritoryID())
-            .setOwner(Main.g.getCurrentPlayer());
-        Main.g.getCurrentPlayer()
-            .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-        Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
-        Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
-        // update the label and the color of the territory selected by the other player
-        Main.b
-            .updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-        Main.b
-            .updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-        // System.out.println(this.player.getName() + " " + this.player.getTerritories
-      }
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID())
+          .setOwner(Main.g.getCurrentPlayer());
+      Main.g.getCurrentPlayer()
+          .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
+      // update the label and the color of the territory selected by the other player
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      // System.out.println(this.player.getName() + " " + this.player.getTerritories
+    }
     Thread t = new Thread() {
       public void run() {
         try {
@@ -311,31 +314,48 @@ public class Client extends Thread implements Serializable {
         System.out.println("client defendarmies " + defendarmies);
         Main.b.updateLabelTerritory(attack);
         Main.b.updateLabelTerritory(defend);
-        if(message.getIfConquered()) {
-          Player attacker=attack.getOwner();
+        if (message.getIfConquered()) {
+          Player attacker = attack.getOwner();
           defend.setOwner(attacker);
           Main.b.updateColorTerritory(defend);
         }
-//        System.out.println("attack owner " + attack.getOwner().getName());
-//        System.out.println("defend owner " + defend.getOwner().getName());
+        // System.out.println("attack owner " + attack.getOwner().getName());
+        // System.out.println("defend owner " + defend.getOwner().getName());
       }
     }
   }
-/**
- * @author skaur
- * @param message
- */
+
+  private void handleFortifyMessage(FortifyMessage message) {
+    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+      if (!(this.player instanceof AiPlayer)) {
+        Territory moveFrom =
+            Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
+        Territory moveTo = Main.g.getWorld().getTerritories().get(message.getMoveToTerritoryID());
+        moveFrom.setNumberOfArmies(-message.getAmount());
+        moveTo.setNumberOfArmies(message.getAmount());
+        Main.b.updateLabelTerritory(moveFrom);
+        Main.b.updateLabelTerritory(moveTo);
+      }
+    }
+  }
+
+
+
+  /**
+   * @author skaur
+   * @param message
+   */
   public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
     Main.g.furtherInitialArmyDistribution();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
   }
-  
-/**
- * @author skaur
- * @param message
- */
+
+  /**
+   * @author skaur
+   * @param message
+   */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       System.out.println("Further intial army !!!!! reached");

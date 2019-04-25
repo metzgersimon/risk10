@@ -64,6 +64,7 @@ import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
+import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
@@ -948,15 +949,16 @@ public class BoardController implements Initializable {
           defendDice2.setVisible(true);
           grayPane.setVisible(false);
 
-        //network game message 
-          if(Main.g.isNetworkGame()) {
-            AttackMessage message=new AttackMessage(selectedTerritory.getId(), selectedTerritory_attacked.getId(),true,
-                selectedTerritory.getNumberOfArmies(),selectedTerritory_attacked.getNumberOfArmies());
+          // network game message
+          if (Main.g.isNetworkGame()) {
+            AttackMessage message = new AttackMessage(selectedTerritory.getId(),
+                selectedTerritory_attacked.getId(), true, selectedTerritory.getNumberOfArmies(),
+                selectedTerritory_attacked.getNumberOfArmies());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(message);
             System.out.println("network message sent true");
           }
-          
+
           updateLabelTerritory(selectedTerritory);
           updateLabelTerritory(selectedTerritory_attacked);
 
@@ -973,10 +975,11 @@ public class BoardController implements Initializable {
           selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
           diceSlider.setValue(selectedTerritory.getNumberOfArmies() - 1);
-        //network game message 
-          if(Main.g.isNetworkGame()) {
-            AttackMessage message=new AttackMessage(selectedTerritory.getId(), selectedTerritory_attacked.getId(),false,
-                selectedTerritory.getNumberOfArmies(),selectedTerritory_attacked.getNumberOfArmies());     
+          // network game message
+          if (Main.g.isNetworkGame()) {
+            AttackMessage message = new AttackMessage(selectedTerritory.getId(),
+                selectedTerritory_attacked.getId(), false, selectedTerritory.getNumberOfArmies(),
+                selectedTerritory_attacked.getNumberOfArmies());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(message);
             System.out.println("network message sent false");
@@ -1002,6 +1005,14 @@ public class BoardController implements Initializable {
               .setText(selectedTerritory.getNumberOfArmies() + "");
           selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
               .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
+        }
+        // network game
+        if (Main.g.isNetworkGame()) {
+          FortifyMessage message = new FortifyMessage(selectedTerritory.getId(),
+              selectedTerritory_attacked.getId(), (int) fortifySlider.getValue());
+          message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+          NetworkController.gameFinder.getClient().sendMessage(message);
+          // System.out.println("value "+(int)fortifySlider.getValue());
         }
         // setArmyPane.toBack();
         System.out.println("Test3");

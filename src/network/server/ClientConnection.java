@@ -27,6 +27,7 @@ import network.messages.MessageType;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
+import network.messages.game.FortifyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
@@ -164,6 +165,8 @@ public class ClientConnection extends Thread {
           case ATTACK:
             receiveAttackTerritory((AttackMessage)message);
             break;
+          case FORTIFY:
+            receiveFortifyMessage((FortifyMessage)message);
           default:
             break;
         }
@@ -176,6 +179,8 @@ public class ClientConnection extends Thread {
       }
     }
   }
+
+
 
   /**
    * disconnect the connection
@@ -218,6 +223,10 @@ public class ClientConnection extends Thread {
   }
 
   private void receiveAttackTerritory(AttackMessage message) {
+    this.sendMessagesToallClients(message);
+    
+  }
+  private void receiveFortifyMessage(FortifyMessage message) {
     this.sendMessagesToallClients(message);
     
   }
