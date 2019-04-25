@@ -398,6 +398,7 @@ public class Game implements Serializable {
   public synchronized void furtherFortify() {
     if (this.getCurrentPlayer().getSuccessfullAttack()) {
       Card c = this.cards.getLast();
+      System.out.println("KartenDeck: " + this.cards.size());
       this.cards.removeLast();
       System.out.println("Karte: " + c.getIsWildcard());
       this.getCurrentPlayer().addCard(c);

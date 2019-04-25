@@ -146,7 +146,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       // get number of (new) additional hostile neighbors, if you receive the defending territory
       for (Territory t : hostileNeighbors.keySet()) {
         int i = 0;
-        for (Territory opponent : t.getHostileNeighbor()) {
+        for (Territory opponent : t.getNeighbor()) {
           if (!(opponent.getOwner().equals(this))) {
             i++;
           }
@@ -244,11 +244,12 @@ public class AiPlayerHard extends Player implements AiPlayer {
       // get number of (new) additional hostile neighbors, if you receive the defending territory
       for (Territory t : hostileNeighbors.keySet()) {
         int i = 0;
-        for (Territory opponent : t.getHostileNeighbor()) {
+        for (Territory opponent : t.getNeighbor()) {
           if (!(opponent.getOwner().equals(this))) {
             i++;
           }
         }
+        System.out.println("Anzahl i von " + t.getName() + ": " + i);
         hostileNeighbors.put(t, i);
       }
 
@@ -258,7 +259,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       Territory defender = null;
       int min = 42;
       for (Territory t : hostileNeighbors.keySet()) {
-        for (Territory ownT : t.getHostileNeighbor()) {
+        for (Territory ownT : t.getNeighbor()) {
           if (ownT.getOwner().equals(this) && ownT.getNumberOfArmies() > t.getNumberOfArmies()
               && hostileNeighbors.get(t) < min) {
             min = hostileNeighbors.get(t);
@@ -272,8 +273,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
         int max = 0;
         for (Territory t : hostileNeighbors.keySet()) {
           if (hostileNeighbors.get(t) <= (min + 1)) {
-            for (Territory ownT : t.getHostileNeighbor()) {
-              if (ownT.getNumberOfArmies() - t.getNumberOfArmies() > max) {
+            for (Territory ownT : t.getNeighbor()) {
+              if (ownT.getOwner().equals(this) && ownT.getNumberOfArmies() - t.getNumberOfArmies() > max) {
                 max = ownT.getNumberOfArmies() - t.getNumberOfArmies();
                 attacker = ownT;
                 defender = t;

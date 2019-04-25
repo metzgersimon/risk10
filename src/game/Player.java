@@ -320,6 +320,7 @@ public class Player implements Serializable {
       int armies = 0;
       int number = this.getTradedCardSets();
       if (c1.canBeTraded(c2, c3)) {
+        System.out.println(this.getName() + " Karten: " + this.getCards().size());
         switch (number) {
           case 0:
             armies = 4;
@@ -361,6 +362,9 @@ public class Player implements Serializable {
         this.getCards().remove(c1);
         this.getCards().remove(c2);
         this.getCards().remove(c3);
+        Main.g.setCard(c1);
+        Main.g.setCard(c2);
+        Main.g.setCard(c3);
         sb.append(this.getName() + " traded in one set and got " + armies + " armies.");
 
 

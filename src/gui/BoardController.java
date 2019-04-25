@@ -377,6 +377,10 @@ public class BoardController implements Initializable {
             if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
               t.getBoardRegion().getRegion().setEffect(null);
               t.getBoardRegion().getRegion().setDisable(false);
+              if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+                grayPane.setVisible(true);
+                cardPane.setVisible(true);
+              }
             } else {
               t.getBoardRegion().getRegion().setDisable(true);
               t.getBoardRegion().getRegion().setEffect(new Lighting());
@@ -1145,8 +1149,8 @@ public class BoardController implements Initializable {
 
         ImageView img;
         try {
-          img = new ImageView(
-              new Image(new File(Parameter.resourcesPathCards + file).toURI().toURL().toExternalForm()));
+          img = new ImageView(new Image(
+              new File(Parameter.resourcesPathCards + file).toURI().toURL().toExternalForm()));
           pane.getChildren().add(img);
           ownCards.getChildren().add(pane);
           bottomList.put(c.getId(), c);
@@ -1232,9 +1236,9 @@ public class BoardController implements Initializable {
           // re-add Cards to game carddeck
           if (Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1),
               topList.get(2))) {
-            Main.g.setCard(topList.get(0));
-            Main.g.setCard(topList.get(1));
-            Main.g.setCard(topList.get(2));
+            // Main.g.setCard(topList.get(0));
+            // Main.g.setCard(topList.get(1));
+            // Main.g.setCard(topList.get(2));
 
             String cards = Integer.toString(Main.g.getCurrentPlayer().getTradedCardSets());
             tradedCardSets.setText(cards);
@@ -1247,6 +1251,9 @@ public class BoardController implements Initializable {
             right.getChildren().remove(0);
             tradeIn.setDisable(true);
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+            if (Main.g.getCurrentPlayer().getCards().size() < 5) {
+              grayPane.setVisible(false);
+            }
           } else {
             System.out.println("No trade");
             cantBeTraded.toFront();
