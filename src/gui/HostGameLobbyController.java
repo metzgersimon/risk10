@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
-import network.NetworkController;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
@@ -227,24 +226,8 @@ public class HostGameLobbyController {
 
   @FXML
   public void handleStartGameButton(ActionEvent event) {
-//    FXMLLoader fxmlLoader = null;
-//    try {
-//      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
-//      Parent root = (Parent) fxmlLoader.load();
-//      Main.b = fxmlLoader.getController();
-//      Stage stage = main.Main.stage;
-//      stage.setScene(new Scene(root));
-//      stage.show();
-//      // ((Node) event.getSource()).getScene().getWindow().hide();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//    Server server = NetworkController.server;
     StartGameMessage startGameMessage = new StartGameMessage(Main.g.getPlayers());
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
-  //  server.setBoardController(fxmlLoader.getController());
-//    NetworkController.gameFinderHost.getClient().setBoardController(fxmlLoader.getController());
-//    NetworkController.ingame=true;
   }
 
 }

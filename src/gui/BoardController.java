@@ -58,7 +58,6 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import main.Main;
 import main.Parameter;
-import network.NetworkController;
 import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;

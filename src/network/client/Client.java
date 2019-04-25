@@ -1,24 +1,19 @@
 package network.client;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import game.AiPlayer;
-import game.Game;
-import game.GameState;
 import game.Player;
 import game.Territory;
 import gui.BoardController;
-import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
+import gui.NetworkController;
 import javafx.application.Platform;
 import main.Main;
 import network.Parameter;
@@ -52,7 +47,7 @@ public class Client extends Thread implements Serializable {
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
   public static boolean isHost;
-  private network.NetworkController networkController = new network.NetworkController();
+  private NetworkController networkController = new NetworkController();
   // private HostGameLobbyController hostUi;
 
   public Client(InetAddress address, int port) {
@@ -209,6 +204,8 @@ public class Client extends Thread implements Serializable {
           case FORTIFY:
             handleFortifyMessage((FortifyMessage) message);
             break;
+          default:
+            break;
         }
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -240,7 +237,6 @@ public class Client extends Thread implements Serializable {
       }
 
     });
-    // }
   }
 
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
@@ -280,17 +276,11 @@ public class Client extends Thread implements Serializable {
       Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
       // System.out.println(this.player.getName() + " " + this.player.getTerritories
     }
-    Thread t = new Thread() {
-      public void run() {
-        try {
-          Thread.sleep(5000);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      }
-    };
-    t.start();
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
     Main.g.furtherInitialTerritoryDistribution();
   }
 

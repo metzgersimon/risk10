@@ -444,13 +444,10 @@ public class Player implements Serializable {
           return true;
         } else {
           // If the current player is AI player, the host player sends the message to the server
-          if (NetworkController.server != null) {
             SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
             message.setColor(this.color.toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
+            gui.NetworkController.gameFinder.getClient().sendMessage(message);
             return true;
-          }
-          return true;
         }
       } else {
         return false;

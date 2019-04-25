@@ -6,23 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import game.GameState;
 import game.Player;
-import game.PlayerColor;
 import gui.BoardController;
-import gui.Gui;
 import gui.HostGameLobbyController;
-import gui.JoinGameLobbyController;
 import main.Main;
-import network.client.Client;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
 import network.messages.LeaveGameMessage;
 import network.messages.Message;
-import network.messages.MessageType;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
@@ -80,7 +71,6 @@ public class ClientConnection extends Thread {
   }
 
   public void run() {
-
     transact();
   }
 
@@ -108,8 +98,6 @@ public class ClientConnection extends Thread {
       c.sendMessage(m);
     }
   }
-
-
 
   public void setHostController(HostGameLobbyController controller) {
     this.hostLobbyController = controller;
@@ -162,10 +150,10 @@ public class ClientConnection extends Thread {
             this.sendMessagesToallClients(message);
             break;
           case ATTACK:
-            receiveAttackTerritory((AttackMessage)message);
+            receiveAttackTerritory((AttackMessage) message);
             break;
           case FORTIFY:
-            receiveFortifyMessage((FortifyMessage)message);
+            receiveFortifyMessage((FortifyMessage) message);
           default:
             break;
         }
@@ -178,8 +166,6 @@ public class ClientConnection extends Thread {
       }
     }
   }
-
-
 
   /**
    * disconnect the connection
@@ -217,18 +203,24 @@ public class ClientConnection extends Thread {
     this.sendMessage(response);
   }
 
+  public void handleStartGameMessage(StartGameMessage startMessage) {
+    this.sendMessagesToallClients(startMessage);
+  }
+
   public void recieveInitialTerritory(SelectInitialTerritoryMessage message) {
     this.sendMessagesToallClients(message);
   }
 
   private void receiveAttackTerritory(AttackMessage message) {
     this.sendMessagesToallClients(message);
-    
+
   }
+
   private void receiveFortifyMessage(FortifyMessage message) {
     this.sendMessagesToallClients(message);
-    
+
   }
+
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be
@@ -245,11 +237,7 @@ public class ClientConnection extends Thread {
     }
 
   }
-
-  public void handleStartGameMessage(StartGameMessage startMessage) {
-    this.sendMessagesToallClients(startMessage);
-  }
-
+  
   public void handleLeaveGameMessage(LeaveGameMessage message) {
     // TODO
     // remove the player from the list
@@ -269,5 +257,24 @@ public class ClientConnection extends Thread {
     return this.playerN;
   }
 
+  public InetAddress getAdress() {
+    return this.address;
+  }
+
+  public int getPort() {
+    return this.port;
+  }
+
+  public Player getPlaye() {
+    return this.player;
+  }
+
+  public HostGameLobbyController getHostLobbyController() {
+    return this.hostLobbyController;
+  }
+
+  public BoardController getBoardController() {
+    return this.boardController;
+  }
 }
 

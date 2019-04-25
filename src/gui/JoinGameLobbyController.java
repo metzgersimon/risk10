@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Main;
-import network.NetworkController;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
 
