@@ -15,6 +15,7 @@ import game.Game;
 import game.GameState;
 import game.Player;
 import game.Territory;
+import game.TutorialMessages;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -424,7 +425,6 @@ public class BoardController implements Initializable {
             // progress.setProgress(0.6);
             if (g.showTutorialMessages) {
               showMessage(game.TutorialMessages.attacking1);
-              showMessage(game.TutorialMessages.attackingTip);
             }
             break;
           case FORTIFY:
@@ -700,6 +700,10 @@ public class BoardController implements Initializable {
                         territory.getBoardRegion().getRegion().setEffect(new Lighting());
                       }
                     }
+                    if(g.showTutorialMessages) {
+                      showMessage(game.TutorialMessages.attacking2);
+                      showMessage(game.TutorialMessages.attackingTip);
+                    }
 
                   } else if (selectedTerritory != null
                       && selectedTerritory.getNeighbor().contains(t)) {
@@ -730,6 +734,9 @@ public class BoardController implements Initializable {
                     // open pop-up with Dices
                     grayPane.setVisible(true);
                     dicePane.setVisible(true);
+                    if(g.showTutorialMessages) {
+                      showMessage(game.TutorialMessages.dicing);
+                    }
                   }
                 }
               });
@@ -975,6 +982,14 @@ public class BoardController implements Initializable {
 
         } else {
           // Label updaten
+          if (g.showTutorialMessages) {
+          int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
+          if (armiesAttackerInt - defender.size() == selectedTerritory.getNumberOfArmies()) {
+            showMessage(TutorialMessages.attackFailed);
+          } else {
+            showMessage(TutorialMessages.attackSuccess);
+          }
+          }
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
           selectedTerritory.getBoardRegion().getNumberOfArmy()
@@ -1055,6 +1070,10 @@ public class BoardController implements Initializable {
           gridCardPane.setVisible(false);
         } else {
           gridCardPane.setVisible(true);
+          if(Main.g.showTutorialMessages) {
+            showMessage(TutorialMessages.tradeIn);
+            showMessage(TutorialMessages.tradeInTip);
+          }
         }
       }
     });

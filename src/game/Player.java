@@ -227,6 +227,9 @@ public class Player implements Serializable {
     if (this.getContinents().contains(t.getContinent())) {
       this.lostContinents(t.getContinent());
     }
+    if(Main.g.showTutorialMessages) {
+      Main.b.showMessage(TutorialMessages.lostTerritory);
+    }
   }
 
   public HashSet<Continent> getContinents() {
@@ -532,6 +535,9 @@ public class Player implements Serializable {
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
       successfullAttack = true;
+      if(Main.g.showTutorialMessages) {
+        Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
+      }
       // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
       // p.setCards(Main.g.getCards().get(randomCard));
       if (!Main.g.getPlayers().contains(p)) {
