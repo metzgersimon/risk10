@@ -9,7 +9,7 @@ package game;
 public class TutorialMessages {
 
   public static String welcome = "Welcome to Tutorial Mode";
-  public static String intro = "This is the game board. Interaction will be done through clicking on the territories. Attack and defeat opponent areas to obtain their territories and risk cards, which can be traded in for armies. At the beginning of each turn, you will be given a number of armies to distribute across your territories. You can then choose to attack, fortify or pass the round using the red arrow. \n\nTo see current statistics, click the panel on the top left \nTo see your cards, click on the card button \nTo leave the game, click on the leave button in the bottom left corner";
+  public static String intro = "This is the game board. Interaction will be done through clicking on the territories. Attack and defeat opponent areas to obtain their territories and risk cards, which can be traded in for armies. At the beginning of each turn, you will be given a number of armies to distribute across your territories. You can then choose to attack, fortify or pass the round using the red arrow. \n\n-To see current statistics, click the panel on the top left \n-To see your cards, click on the card button \n-To leave the game, click on the leave button in the bottom left corner";
   public static String distributing = "You are now in the distributing phase. Players take turns distributing their armies across the map";
   public static String distributingTip = "Tip: Isolated continents are easier to maintain, but are also more difficult to expand from";
   public static String newRound = "It is now your turn. First, place "; 

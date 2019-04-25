@@ -376,6 +376,7 @@ public class Player implements Serializable {
         for (Continent c : this.getContinents()) {
           originalReceivedNumber += c.getValue();
         }
+        Main.b.showMessage(this.getName() + " trades in cards and receives " + this.valueActuallyTradedIn + " number of armies");
         this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
         this.valueActuallyTradedIn = 0;
         return true;
@@ -502,6 +503,7 @@ public class Player implements Serializable {
    */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
+    Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName() + "\n\t-- " + attack.getName() + " attacks " + defend.getName() + " with " + numberOfAttackers + " armies --");
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
@@ -543,9 +545,11 @@ public class Player implements Serializable {
       if (!Main.g.getPlayers().contains(p)) {
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
+        Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
       }
       if (Main.g.getPlayers().size() == 1) {
         // attacker wins game
+        Main.b.showMessage("Game Over. " + attack.getOwner().getName() + " won the game!");
         Main.g.setGameState(GameState.END_GAME);
       }
       return true;
