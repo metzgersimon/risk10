@@ -336,10 +336,12 @@ public class Client extends Thread implements Serializable {
    */
   public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
+      Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
     try {
-      Thread.sleep(1500);
+      Thread.sleep(1000);
     } catch (InterruptedException e1) {
       e1.printStackTrace();
     }
@@ -352,9 +354,16 @@ public class Client extends Thread implements Serializable {
    */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-      System.out.println("Further intial army !!!!! reached");
+      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
+      Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
+    Main.g.furtherInitialArmyDistribution();
   }
 
   /**
