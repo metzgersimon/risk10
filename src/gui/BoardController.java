@@ -931,10 +931,10 @@ public class BoardController implements Initializable {
               .getResource("/resources/dices/dice_" + defender.get(1) + "_BLUE.png").toString(),
               true));
         }
-
-
-        if (Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory,
-            selectedTerritory_attacked, (int) diceSlider.getValue())
+        
+        boolean attackResult=Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory,
+            selectedTerritory_attacked, (int) diceSlider.getValue());
+        if (attackResult
             || (selectedTerritory.getNumberOfArmies() == 1)) {
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
@@ -952,11 +952,14 @@ public class BoardController implements Initializable {
           // network game message
           if (Main.g.isNetworkGame()) {
             AttackMessage message = new AttackMessage(selectedTerritory.getId(),
-                selectedTerritory_attacked.getId(), true, selectedTerritory.getNumberOfArmies(),
+                selectedTerritory_attacked.getId(), false, selectedTerritory.getNumberOfArmies(),
                 selectedTerritory_attacked.getNumberOfArmies());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            if(attackResult) {
+              message.setIfConquered(true);
+            }
             NetworkController.gameFinder.getClient().sendMessage(message);
-            System.out.println("network message sent true");
+        //    System.out.println("network message sent true");
           }
 
           updateLabelTerritory(selectedTerritory);

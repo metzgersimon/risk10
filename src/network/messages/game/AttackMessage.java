@@ -114,5 +114,11 @@ public class AttackMessage extends Message {
   }
 
 
+
+  public void setIfConquered(boolean ifConquered) {
+    this.ifConquered = ifConquered;
+  }
+
+
 }
 
