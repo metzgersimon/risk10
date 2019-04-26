@@ -213,7 +213,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     }
 
-    Main.b.handleSkipGameState();
+    //Main.b.handleSkipGameState();
+    Main.g.setGameState(GameState.ATTACK);
     this.attack();
   }
 
@@ -330,7 +331,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
 
 
-    Main.b.handleSkipGameState();
+    //Main.b.handleSkipGameState();
+    Main.g.setGameState(GameState.FORTIFY);
     try
 
     {
@@ -376,7 +378,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     }
 
-    Main.b.handleSkipGameState();
+    //Main.b.handleSkipGameState();
+    Main.g.furtherFortify();
   }
 
   public void InitialArmyDistributionMedium() {

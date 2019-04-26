@@ -252,6 +252,16 @@ public class BoardController implements Initializable {
   @FXML
   private ListView statistic;
 
+  /**
+   * handle end game
+   */
+  @FXML
+  private Pane endGamePane;
+  @FXML
+  private Label endGame;
+  @FXML
+  private Button endGameButton;
+
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -280,12 +290,12 @@ public class BoardController implements Initializable {
   // }
 
   // moves card from bottomList to topList
-  public void selectCard(Card card) {
+  public void selectCard(Card card, int i) {
     if (bottomList.containsKey(card.getId())) {
       if (topList.size() <= 3) {
         Card temp = bottomList.get(card.getId());
         bottomList.remove(card.getId());
-        topList.put(temp.getId(), temp);
+        topList.put(i, temp);
       } else {
         System.out.println("Error: TopList is > 3");
       }
@@ -295,11 +305,11 @@ public class BoardController implements Initializable {
   }
 
   // moves card from topList to bottomList
-  public void deselectCard(Card card) {
+  public void deselectCard(Card card, int i) {
     if (topList.containsKey(card.getId())) {
       if (bottomList.size() <= 5) {
         Card temp = topList.get(card.getId());
-        topList.remove(card.getId());
+        topList.remove(i);
         bottomList.put(temp.getId(), temp);
       } else {
         System.out.println("Error: bottomList is > 5");
@@ -334,7 +344,9 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        // chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n\n");
+        if (g.showTutorialMessages && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+
+        }
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -344,7 +356,6 @@ public class BoardController implements Initializable {
           }
         } else {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
-            // System.out.println(t);
             if (t.getOwner() == null) {
               t.getBoardRegion().getRegion().setDisable(false);
             }
@@ -366,85 +377,41 @@ public class BoardController implements Initializable {
   public synchronized void prepareArmyDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
-        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+        if (!gameState.getText().equals("Place your Armies!")) {
+          gameState.setText("Place your Armies!");
+          showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+          showMessage(game.TutorialMessages.distributing);
+          showMessage(game.TutorialMessages.distributingTip);
+        }
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
+        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             t.getBoardRegion().getRegion().setDisable(true);
           }
         } else {
+          changeGameState.setDisable(false);
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
               t.getBoardRegion().getRegion().setEffect(null);
               t.getBoardRegion().getRegion().setDisable(false);
-              if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
-                grayPane.setVisible(true);
-                cardPane.setVisible(true);
-                if(Main.g.showTutorialMessages) {
-                  showMessage(TutorialMessages.forcedTrade);
-                }
-              }
             } else {
               t.getBoardRegion().getRegion().setDisable(true);
               t.getBoardRegion().getRegion().setEffect(new Lighting());
+            }
+          }
+          if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+            gridCardPane.setVisible(true);
+            grayPane.setVisible(true);
+            if (Main.g.showTutorialMessages) {
+              showMessage(TutorialMessages.forcedTrade);
             }
           }
         }
       }
     });
   }
-
-  /**
-   * @author pcoberge
-   * @author smetzger
-   */
-  public synchronized void displayGameState() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        switch (Main.g.getGameState()) {
-          case INITIALIZING_TERRITORY:
-            // chat.appendText("Initial Territory Distribution phase: \n");
-            gameState.setText("Choose your Territory!");
-            if (g.showTutorialMessages) {
-              showMessage(game.TutorialMessages.distributing);
-              showMessage(game.TutorialMessages.distributingTip);
-            }
-            // progress = new ProgressBar(0.05);
-            break;
-          case INITIALIZING_ARMY:
-            // chat.appendText("Initial Army Distribution phase: \n");
-            gameState.setText("Place your Armies!1");
-            // progress.setProgress(0.1);
-            break;
-          case ARMY_DISTRIBUTION:
-            // chat.appendText("Army Distribution phase: \n");
-            gameState.setText("Place your Armies!2");
-            // progress.setProgress(0.3);
-            break;
-          case ATTACK:
-            // chat.appendText("Attack phase: \n");
-            gameState.setText("Attack!");
-            // progress.setProgress(0.6);
-            if (g.showTutorialMessages) {
-              showMessage(game.TutorialMessages.attacking1);
-            }
-            break;
-          case FORTIFY:
-            // chat.appendText("Fortify phase: \n");
-            gameState.setText("Move your Armies!");
-            // progress.setProgress(0.95);
-            if (g.showTutorialMessages) {
-              showMessage(game.TutorialMessages.fortify);
-              showMessage(game.TutorialMessages.fortifyTip);
-            }
-            break;
-        }
-      }
-    });
-
-  }
-
 
   public synchronized void updateLabelTerritory(Territory t) {
     Platform.runLater(new Runnable() {
@@ -477,7 +444,13 @@ public class BoardController implements Initializable {
    *         Method to prepare the BoardGUI for phase ATTACK
    */
   public synchronized void prepareAttack() {
-    chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+    if (!gameState.getText().equals("Attack!")) {
+      gameState.setText("Attack!");
+      if (g.showTutorialMessages) {
+        showMessage(game.TutorialMessages.attacking1);
+      }
+    }
+
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
         t.getBoardRegion().getRegion().setDisable(false);
@@ -496,7 +469,14 @@ public class BoardController implements Initializable {
    *         Method to prepare the BoradGUI for phase FORTIFY
    */
   public synchronized void prepareFortify() {
-    chat.appendText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+    if (!gameState.getText().equals("Move your Armies!")) {
+      gameState.setText("Move your Armies!");
+      if (g.showTutorialMessages) {
+        showMessage(game.TutorialMessages.fortify);
+        showMessage(game.TutorialMessages.fortifyTip);
+      }
+    }
+
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1
           && t.getHostileNeighbor().size() != t.getNeighbor().size()) {
@@ -703,7 +683,8 @@ public class BoardController implements Initializable {
                         territory.getBoardRegion().getRegion().setEffect(new Lighting());
                       }
                     }
-                    if(g.showTutorialMessages) {
+                    if (g.showTutorialMessages
+                        && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                       showMessage(game.TutorialMessages.attacking2);
                       showMessage(game.TutorialMessages.attackingTip);
                     }
@@ -737,7 +718,7 @@ public class BoardController implements Initializable {
                     // open pop-up with Dices
                     grayPane.setVisible(true);
                     dicePane.setVisible(true);
-                    if(g.showTutorialMessages) {
+                    if (g.showTutorialMessages) {
                       showMessage(game.TutorialMessages.dicing);
                     }
                   }
@@ -749,36 +730,31 @@ public class BoardController implements Initializable {
             case FORTIFY:
               Platform.runLater(new Runnable() {
                 public void run() {
-                  if (selectedTerritory == null) {
-                    selectedTerritory = t;
-                    // r.setEffect(new Lighting());
-                    for (Territory territory : t.getNeighbor()) {
-                      if (t.getOwner().equals(territory.getOwner())) {
-                        System.out.println("Test1");
-                        territory.getBoardRegion().getRegion().setEffect(null);
-                        territory.getBoardRegion().getRegion().setDisable(false);
+                  if (!Main.g.getCurrentPlayer().getFortify()) {
+                    if (selectedTerritory == null) {
+                      selectedTerritory = t;
+                      for (Territory territory : t.getNeighbor()) {
+                        if (t.getOwner().equals(territory.getOwner())) {
+                          System.out.println("Test1");
+                          territory.getBoardRegion().getRegion().setEffect(null);
+                          territory.getBoardRegion().getRegion().setDisable(false);
+                        }
                       }
-                    }
-                    for (Territory territory : g.getCurrentPlayer().getTerritories()) {
-                      if (!territory.equals(selectedTerritory)
-                          && (!selectedTerritory.getNeighbor().contains(territory))) {
-                        territory.getBoardRegion().getRegion().setDisable(true);
-                        territory.getBoardRegion().getRegion().setEffect(new Lighting());
+                      for (Territory territory : g.getCurrentPlayer().getTerritories()) {
+                        if (!territory.equals(selectedTerritory)
+                            && (!selectedTerritory.getNeighbor().contains(territory))) {
+                          territory.getBoardRegion().getRegion().setDisable(true);
+                          territory.getBoardRegion().getRegion().setEffect(new Lighting());
+                        }
                       }
+                    } else if (selectedTerritory != null) {
+                      selectedTerritory_attacked = t;
+                      fortifySlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
+                      fortifySlider.setMin(1.0);
+                      fortifySlider.setValue(1.0);
+                      grayPane.setVisible(true);
+                      fortifyPane.setVisible(true);
                     }
-                  } else if (selectedTerritory != null) {
-                    selectedTerritory_attacked = t;
-                    fortifySlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
-                    fortifySlider.setMin(1.0);
-                    fortifySlider.setValue(1.0);
-                    grayPane.setVisible(true);
-                    fortifyPane.setVisible(true);
-                    // if(Main.g.getCurrentPlayer().fortify(t, selectedTerritory,
-                    // (int)fortifySlider.getValue())){
-                    //
-                    // updateTerritoryFortify(t, selectedTerritory);
-                    //
-                    // }
                   }
                 }
               });
@@ -862,7 +838,6 @@ public class BoardController implements Initializable {
         if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
           Main.g.setGameState(GameState.ATTACK);
           prepareAttack();
-          displayGameState();
         } else {
           prepareArmyDistribution();
         }
@@ -945,11 +920,10 @@ public class BoardController implements Initializable {
               .getResource("/resources/dices/dice_" + defender.get(1) + "_BLUE.png").toString(),
               true));
         }
-        
-        boolean attackResult=Main.g.getCurrentPlayer().attack(attacker, defender, selectedTerritory,
-            selectedTerritory_attacked, (int) diceSlider.getValue());
-        if (attackResult
-            || (selectedTerritory.getNumberOfArmies() == 1)) {
+
+        boolean attackResult = Main.g.getCurrentPlayer().attack(attacker, defender,
+            selectedTerritory, selectedTerritory_attacked, (int) diceSlider.getValue());
+        if (attackResult || (selectedTerritory.getNumberOfArmies() == 1)) {
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
 
@@ -969,11 +943,11 @@ public class BoardController implements Initializable {
                 selectedTerritory_attacked.getId(), false, selectedTerritory.getNumberOfArmies(),
                 selectedTerritory_attacked.getNumberOfArmies());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            if(attackResult) {
+            if (attackResult) {
               message.setIfConquered(true);
             }
             NetworkController.gameFinder.getClient().sendMessage(message);
-        //    System.out.println("network message sent true");
+            // System.out.println("network message sent true");
           }
 
           updateLabelTerritory(selectedTerritory);
@@ -986,12 +960,15 @@ public class BoardController implements Initializable {
         } else {
           // Label updaten
           if (g.showTutorialMessages) {
-          int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
-          if (armiesAttackerInt - defender.size() == selectedTerritory.getNumberOfArmies()) {
-            showMessage(TutorialMessages.attackFailed);
-          } else {
-            showMessage(TutorialMessages.attackSuccess);
+            int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
+            if (armiesAttackerInt - defender.size() == selectedTerritory.getNumberOfArmies()) {
+              showMessage(TutorialMessages.attackFailed);
+            } else {
+              showMessage(TutorialMessages.attackSuccess);
+            }
           }
+          if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
+            defendDice2.setVisible(false);
           }
           armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
           armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
@@ -1045,6 +1022,7 @@ public class BoardController implements Initializable {
         selectedTerritory = null;
         selectedTerritory_attacked = null;
         fortifyPane.setVisible(false);
+        Main.g.getCurrentPlayer().setFortify(true);
         // selectedTerritory.getBoardRegion().getRegion().setEffect(null);
         // prepareArmyDistribution();
         // try {
@@ -1073,7 +1051,7 @@ public class BoardController implements Initializable {
           gridCardPane.setVisible(false);
         } else {
           gridCardPane.setVisible(true);
-          if(Main.g.showTutorialMessages) {
+          if (Main.g.showTutorialMessages) {
             showMessage(TutorialMessages.tradeIn);
             showMessage(TutorialMessages.tradeInTip);
           }
@@ -1099,12 +1077,12 @@ public class BoardController implements Initializable {
     String[] split = file.split("\\.");
     int cardId = Integer.parseInt(split[0]);
     Card card = (Card) deck.getCards().get(cardId);
-    bottomList.remove(card.getId());
+    // bottomList.remove(card.getId());
     // initializeCardLists();
 
     if (left.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
-      selectCard(card);
+      selectCard(card, 0);
 
       StackPane pane = (StackPane) img.getParent();
       left.getChildren().add(pane);
@@ -1114,7 +1092,7 @@ public class BoardController implements Initializable {
     } else if (center.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
 
-      selectCard(card);
+      selectCard(card, 1);
 
       StackPane pane = (StackPane) img.getParent();
       center.getChildren().add(pane);
@@ -1124,7 +1102,7 @@ public class BoardController implements Initializable {
     } else if (right.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
 
-      selectCard(card);
+      selectCard(card, 2);
 
       StackPane pane = (StackPane) img.getParent();
       right.getChildren().add(pane);
@@ -1176,6 +1154,7 @@ public class BoardController implements Initializable {
           pane.getChildren().add(img);
           ownCards.getChildren().add(pane);
           bottomList.put(c.getId(), c);
+          System.out.println("in BottomList: " + bottomList.containsKey(c.getId()));
           img.setMouseTransparent(false);
           img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
           pane.getStylesheets().add(css);
@@ -1203,7 +1182,7 @@ public class BoardController implements Initializable {
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
       Card card = (Card) deck.getCards().get(cardId);
-      this.deselectCard(card);
+      this.deselectCard(card, 0);
 
       ownCards.getChildren().add(pane);
       bottomList.put(card.getId(), card);
@@ -1219,7 +1198,7 @@ public class BoardController implements Initializable {
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
       Card card = (Card) deck.getCards().get(cardId);
-      this.deselectCard(card);
+      this.deselectCard(card, 1);
 
       ownCards.getChildren().add(pane);
       bottomList.put(card.getId(), card);
@@ -1234,7 +1213,7 @@ public class BoardController implements Initializable {
       String[] split = file.split("\\.");
       int cardId = Integer.parseInt(split[0]);
       Card card = (Card) deck.getCards().get(cardId);
-      this.deselectCard(card);
+      this.deselectCard(card, 2);
 
       ownCards.getChildren().add(pane);
       bottomList.put(card.getId(), card);
@@ -1271,8 +1250,13 @@ public class BoardController implements Initializable {
             left.getChildren().remove(0);
             center.getChildren().remove(0);
             right.getChildren().remove(0);
+            tradedCardSets.setText(Main.g.getCurrentPlayer().getTradedCardSets() + "");
             tradeIn.setDisable(true);
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+            for (int i = 0; i < Main.g.getCurrentPlayer().getCards().size(); i++) {
+              System.out.println(Main.g.getCurrentPlayer().getCards().get(i).getId());
+            }
+            System.out.println(Main.g.getCurrentPlayer().getCards().size());
             if (Main.g.getCurrentPlayer().getCards().size() < 5) {
               grayPane.setVisible(false);
             }
@@ -1336,8 +1320,7 @@ public class BoardController implements Initializable {
               // TODO Auto-generated catch block
               e1.printStackTrace();
             }
-            // Main.g.nextPlayer();
-            // prepareArmyDistribution();
+            changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
             // progress.setProgress(0);
@@ -1499,4 +1482,10 @@ public class BoardController implements Initializable {
     chat.appendText(message + " (private) " + "\n");
   }
 
+  public void endGame() {
+    if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      endGame.setText("You are the winner!");
+    }
+    endGamePane.setVisible(true);
+  }
 }

@@ -37,8 +37,9 @@ public class TestGame extends Game implements Serializable {
 
   public void initGame() {
     // Compute number of armies
-    initNumberOfArmies();
-    super.initCardDeck();
+    super.initGame();
+//    initNumberOfArmies();
+//    super.initCardDeck();
     System.out.println(super.getCards().size());
     System.out.println(super.getCards().getLast());
     this.setCurrentPlayer(this.getPlayers().get(0));
@@ -48,8 +49,29 @@ public class TestGame extends Game implements Serializable {
     distributeTerritories();
     distributeArmies();
     setGameState(GameState.ARMY_DISTRIBUTION);
+    super.getCurrentPlayer().setStartedDistribution(false);
+    Card c = super.getCards().getLast();
+    super.getCurrentPlayer().addCard(c);
+    super.getCards().removeLast();
+    Main.b.insertCards(c);
+    c = super.getCards().getLast();
+    super.getCurrentPlayer().addCard(c);
+    super.getCards().removeLast();
+    Main.b.insertCards(c);
+    c = super.getCards().getLast();
+    super.getCurrentPlayer().addCard(c);
+    super.getCards().removeLast();
+    Main.b.insertCards(c);
+    c = super.getCards().getLast();
+    super.getCurrentPlayer().addCard(c);
+    super.getCards().removeLast();
+    Main.b.insertCards(c);
+    c = super.getCards().getLast();
+    super.getCurrentPlayer().addCard(c);
+    super.getCards().removeLast();
+    Main.b.insertCards(c);
     // Main.b.displayGameState();
-    this.setCurrentPlayer(this.getPlayers().get(0));
+    //this.setCurrentPlayer(this.getPlayers().get(0));
     Main.b.prepareArmyDistribution();
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();
   }

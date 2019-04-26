@@ -104,7 +104,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
       }
-        Main.b.handleSkipGameState();
+        Main.g.setGameState(GameState.ATTACK);
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -178,7 +178,8 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       System.out.println("Random2: "+random);
     }
 
-    Main.b.handleSkipGameState();
+    //Main.b.handleSkipGameState();
+    Main.g.setGameState(GameState.FORTIFY);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -192,7 +193,8 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   public synchronized void fortify() {
     System.out.println("AI fortify: " + Main.g.getCurrentPlayer());
-    Main.b.handleSkipGameState();
+    //Main.b.handleSkipGameState();
+    Main.g.furtherFortify();
   }
 
   public boolean isCapableToAttack() {

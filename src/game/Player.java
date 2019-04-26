@@ -33,6 +33,7 @@ public class Player implements Serializable {
   private ArrayList<Player> eliminatedPlayers;
   private boolean successfullAttack;
   private boolean startedDistribution;
+  private boolean fortify;
 
   public int numberArmiesToDistribute;
   private int tradedCardSets;
@@ -190,6 +191,14 @@ public class Player implements Serializable {
     this.sessionWins = sw;
   }
 
+  public boolean getFortify() {
+    return fortify;
+  }
+
+  public void setFortify(boolean fortify) {
+    this.fortify = fortify;
+  }
+
   /**
    * 
    * @returnthe total number of territories owned by player
@@ -227,7 +236,7 @@ public class Player implements Serializable {
     if (this.getContinents().contains(t.getContinent())) {
       this.lostContinents(t.getContinent());
     }
-    if(Main.g.showTutorialMessages) {
+    if (Main.g.showTutorialMessages) {
       Main.b.showMessage(TutorialMessages.lostTerritory);
     }
   }
@@ -254,6 +263,10 @@ public class Player implements Serializable {
 
   public void addCard(Card c) {
     this.cards.add(c);
+  }
+
+  public void removeCard(Card c) {
+    this.cards.remove(c);
   }
 
   public PlayerColor getColor() {
@@ -362,9 +375,9 @@ public class Player implements Serializable {
 
         this.setTradedCardSets(number++);
         this.valueActuallyTradedIn = armies;
-        this.getCards().remove(c1);
-        this.getCards().remove(c2);
-        this.getCards().remove(c3);
+        this.removeCard(c1);
+        this.removeCard(c2);
+        this.removeCard(c3);
         Main.g.setCard(c1);
         Main.g.setCard(c2);
         Main.g.setCard(c3);
@@ -376,7 +389,8 @@ public class Player implements Serializable {
         for (Continent c : this.getContinents()) {
           originalReceivedNumber += c.getValue();
         }
-        Main.b.showMessage(this.getName() + " trades in cards and receives " + this.valueActuallyTradedIn + " number of armies");
+        Main.b.showMessage(this.getName() + " trades in cards and receives "
+            + this.valueActuallyTradedIn + " number of armies");
         this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
         this.valueActuallyTradedIn = 0;
         return true;
@@ -452,7 +466,7 @@ public class Player implements Serializable {
           return true;
         } else {
           // If the current player is AI player, the host player sends the message to the server
-          if(NetworkController.server != null ) {
+          if (NetworkController.server != null) {
             SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(message);
@@ -503,7 +517,9 @@ public class Player implements Serializable {
    */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
-    Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName() + "\n\t-- " + attack.getName() + " attacks " + defend.getName() + " with " + numberOfAttackers + " armies --");
+    Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
+        + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
+        + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
@@ -528,7 +544,7 @@ public class Player implements Serializable {
     if (defend.getNumberOfArmies() == 0) {
       System.out.println("defending territory is dead.");
       Player p = defend.getOwner();
-      p.getTerritories().remove(defend);
+      p.lostTerritories(defend);
       defend.setOwner(attack.getOwner());
       attack.getOwner().addTerritories(defend);
       Main.g.updateLiveStatistics();
@@ -537,7 +553,7 @@ public class Player implements Serializable {
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
       successfullAttack = true;
-      if(Main.g.showTutorialMessages) {
+      if (Main.g.showTutorialMessages) {
         Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
       }
       // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
@@ -551,6 +567,7 @@ public class Player implements Serializable {
         // attacker wins game
         Main.b.showMessage("Game Over. " + attack.getOwner().getName() + " won the game!");
         Main.g.setGameState(GameState.END_GAME);
+        Main.b.endGame();
       }
       return true;
     } else {

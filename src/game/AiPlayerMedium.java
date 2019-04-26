@@ -94,9 +94,10 @@ public class AiPlayerMedium extends Player implements AiPlayer {
   }
 
   /**
-   * 1. sort territories depending on number of armies on it - order them by highest values 
+   * 1. sort territories depending on number of armies on it - order them by highest values
    * 
-   * 2. sort territories to balance the difference of numbers of armies - order them by lowest values
+   * 2. sort territories to balance the difference of numbers of armies - order them by lowest
+   * values
    * 
    */
   public void armyDistribution() {
@@ -150,7 +151,8 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       }
     }
 
-    Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
+    Main.g.setGameState(GameState.ATTACK);
     this.attack();
   }
 
@@ -176,6 +178,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
             armiesToAttack = (int) Math.ceil((t.getNumberOfArmies()) / 2);
           }
         }
+      }
+      if (defender == null) {
+        break;
       }
       Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3 ? 3 : armiesToAttack);
       Vector<Integer> defendDices =
@@ -205,7 +210,8 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       round++;
     }
 
-    Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
+    Main.g.setGameState(GameState.FORTIFY);
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
@@ -242,7 +248,8 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       Main.b.updateLabelTerritory(own1);
       Main.b.updateLabelTerritory(own2);
     }
-    Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
+    Main.g.furtherFortify();
   }
 
   public boolean isCapableToAttack() {

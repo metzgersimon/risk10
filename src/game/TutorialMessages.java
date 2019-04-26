@@ -17,9 +17,9 @@ public class TutorialMessages {
   public static String attacking2 = "Now pick an adjacent territory which belongs to an opponent to attack";
   public static String dicing = "You now have to choose how many armies you want to attack with. You then roll dices against your chosen opponent";
   public static String attackingTip = "Tip: Your chances of winning an attack are higher if you attack a territory with fewer armies than your attacking territory";
-  public static String attackSuccess = "Your attack was a success! Your opponent lost armies. You can attack again or click the red arrow to pass";
+  public static String attackSuccess = "Your attack was a success! Your opponent lost armies. You can attack this opponent again or click in the background to choose another territory to attack";
   public static String conqueredTerritory = "You conquered your opponents territory! This territory is now yours and you get a risk card";
-  public static String attackFailed = "Your attack failed! You lost armies. You can attack again or pass";
+  public static String attackFailed = "Your attack failed! You lost armies. You can attack this opponent again or click in the background to choose another territory to attack";
   //public static String defending = "An opponent has chosen to attack your territory. Roll the dice to defend it.";
   //public static String defendSuccess = "You successfully defended your territory! The attacking territory is now weakened";
   //public static String defendFailed = "Your defending efforts failed! Your territory is now weakened";

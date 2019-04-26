@@ -136,11 +136,11 @@ public class Game implements Serializable {
     initCardDeck();
     System.out.println(this.cards.size());
     setCurrentPlayer(players.get(0));// currentPlayer = players.get(0);
+
     System.out.println("1" + getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
     // System.out.println(Main.b);
     Main.b.prepareInitTerritoryDistribution();
-    Main.b.displayGameState();
 
 
     // while next Player has army left
@@ -353,7 +353,6 @@ public class Game implements Serializable {
     } else {
       this.setGameState(GameState.INITIALIZING_ARMY);
       Main.b.prepareArmyDistribution();
-      Main.b.displayGameState();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
@@ -385,10 +384,8 @@ public class Game implements Serializable {
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
-      Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives " + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
-      // Main.b.prepareArmyDistribution();
-      // Main.b.displayArmyDistribution();
-      Main.b.displayGameState();
+      Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
+          + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
@@ -407,6 +404,7 @@ public class Game implements Serializable {
         Main.b.insertCards(c);
       }
       this.getCurrentPlayer().setSuccessfullAttack(false);
+      this.getCurrentPlayer().setFortify(false);
     }
     try {
       Thread.sleep(1000);
@@ -419,9 +417,10 @@ public class Game implements Serializable {
     this.nextPlayer();
     System.out.println(this.getCurrentPlayer().getName());
     this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+    Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
+        + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
     Main.b.prepareArmyDistribution();
     this.setGameState(GameState.ARMY_DISTRIBUTION);
-    Main.b.displayGameState();
     if (this.getCurrentPlayer() instanceof AiPlayer) {
       System.out.println("Test further fortify");
       // try {
