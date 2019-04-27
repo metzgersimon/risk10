@@ -415,13 +415,26 @@ public class Player implements Serializable {
     setStartedDistribution(true);
     // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
-      if ((Main.g.isNetworkGame()) && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-        this.armyDistributionNetwork(amount, t);
+      if (!Main.g.isNetworkGame()) {
+        t.setNumberOfArmies(amount);
+        this.numberArmiesToDistribute -= amount;
         return true;
+        
+      } else {
+        if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+          t.setNumberOfArmies(amount);
+          this.numberArmiesToDistribute -= amount;
+          return true;
+        } else {
+          if ((NetworkController.server != null)) {
+            DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
+            armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+            return true;
+          }
+          return true;
+        }
       }
-      t.setNumberOfArmies(amount);
-      this.numberArmiesToDistribute -= amount;
-      return true;
     } else {
       return false;
     }

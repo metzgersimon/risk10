@@ -273,7 +273,7 @@ public class Client extends Thread implements Serializable {
       // System.out.println(this.player.getName() + " " + this.player.getTerritories
     }
     try {
-      Thread.sleep(1500);
+      Thread.sleep(100);
     } catch (InterruptedException e1) {
       e1.printStackTrace();
     }
@@ -337,7 +337,7 @@ public class Client extends Thread implements Serializable {
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
     try {
-      Thread.sleep(1000);
+      Thread.sleep(200);
     } catch (InterruptedException e1) {
       e1.printStackTrace();
     }
@@ -355,7 +355,7 @@ public class Client extends Thread implements Serializable {
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
     try {
-      Thread.sleep(1000);
+      Thread.sleep(500);
     } catch (InterruptedException e1) {
       e1.printStackTrace();
     }
