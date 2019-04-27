@@ -255,9 +255,11 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {
-    
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
     // Dont update the board if the message is sent the by the humanplayer himself
-    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+    if (!(player.getColor().toString().equals(message.getColor()))) {
       
       // update the information recieved from the message in game instance
       Main.g.getWorld().getTerritories().get(message.getTerritoryID())
@@ -278,6 +280,8 @@ public class Client extends Thread implements Serializable {
       e1.printStackTrace();
     }
     Main.g.furtherInitialTerritoryDistribution();
+      }
+    });
   }
 
   /**
@@ -331,7 +335,10 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
-    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+    if (!(player.getColor().toString().equals(message.getColor()))) {
       Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
@@ -342,6 +349,8 @@ public class Client extends Thread implements Serializable {
       e1.printStackTrace();
     }
     Main.g.furtherInitialArmyDistribution();
+      }
+    });
   }
 
   /**
@@ -349,17 +358,16 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
-    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+    if (!(player.getColor().toString().equals(message.getColor()))) {
       Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
     }
-    try {
-      Thread.sleep(500);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
-    Main.g.furtherInitialArmyDistribution();
+      }
+      });
   }
 
   /**
