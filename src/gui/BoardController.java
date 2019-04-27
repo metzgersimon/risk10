@@ -272,7 +272,7 @@ public class BoardController implements Initializable {
    * Attributes for network game
    */
   
-  private Client client = NetworkController.gameFinder.getClient();
+
 
 
   // public BoardGUI_Main boardGui;
@@ -661,7 +661,7 @@ public class BoardController implements Initializable {
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
                   armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                  client.sendMessage(armyMessage);
+                  NetworkController.gameFinder.getClient().sendMessage(armyMessage);
                   return;
                 }
                 r.setEffect(new Lighting());
@@ -1555,6 +1555,6 @@ public class BoardController implements Initializable {
       }
     });
     // disconnect the client from server
-    client.disconnect();
+    NetworkController.gameFinder.getClient().disconnect();
   }
 }
