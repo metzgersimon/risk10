@@ -124,7 +124,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
   public void armyDistribution() {
     HashMap<Territory, Integer> hostileNeighbors = new HashMap<Territory, Integer>();
 
-
+    // trade-in cards
     if (this.getCards().size() >= 3) {
       for (int i = 0; i < this.getCards().size(); i++) {
         for (int j = i + 1; j < this.getCards().size() - 1; j++) {
@@ -213,7 +213,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     }
 
-    //Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
     Main.g.setGameState(GameState.ATTACK);
     this.attack();
   }
@@ -275,7 +275,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
         for (Territory t : hostileNeighbors.keySet()) {
           if (hostileNeighbors.get(t) <= (min + 1)) {
             for (Territory ownT : t.getNeighbor()) {
-              if (ownT.getOwner().equals(this) && ownT.getNumberOfArmies() - t.getNumberOfArmies() > max) {
+              if (ownT.getOwner().equals(this)
+                  && ownT.getNumberOfArmies() - t.getNumberOfArmies() > max) {
                 max = ownT.getNumberOfArmies() - t.getNumberOfArmies();
                 attacker = ownT;
                 defender = t;
@@ -331,7 +332,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
 
 
-    //Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
     Main.g.setGameState(GameState.FORTIFY);
     try
 
@@ -378,7 +379,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     }
 
-    //Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
     Main.g.furtherFortify();
   }
 

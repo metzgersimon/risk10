@@ -47,9 +47,9 @@ public class Main extends Application {
       e.printStackTrace();
     }
 
-    //final URL resource = getClass().getResource("/resources/gui/Demoth.mp3");
-    //final Media media = new Media(resource.toString());
-    //final MediaPlayer mediaPlayer = new MediaPlayer(media);
+    // final URL resource = getClass().getResource("/resources/gui/Demoth.mp3");
+    // final Media media = new Media(resource.toString());
+    // final MediaPlayer mediaPlayer = new MediaPlayer(media);
     // mediaPlayer.play();
   }
 

@@ -139,4 +139,10 @@ public class Card {
     boolean result = same1 || same2 || same3 || different || different2;
     return result;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    Card c = (Card) o;
+    return (this.getId() == c.getId());
+  }
 }

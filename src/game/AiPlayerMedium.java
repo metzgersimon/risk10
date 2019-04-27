@@ -106,6 +106,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
 
+    // trade-in cards
     if (this.getCards().size() >= 3) {
       for (int i = 0; i < this.getCards().size(); i++) {
         for (int j = i + 1; j < this.getCards().size() - 1; j++) {
@@ -115,6 +116,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       }
     }
+
 
     for (Territory t : this.getTerritories()) {
       max = 0;

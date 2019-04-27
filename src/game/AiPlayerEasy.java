@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Vector;
 import main.Main;
 
@@ -25,22 +26,22 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
       System.out.print(random + " ");
     } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
-    if(!Main.g.isNetworkGame()) {
-    Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
+    if (!Main.g.isNetworkGame()) {
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
 
-    Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-    System.out
-        .println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()
-            + "--" + Main.g.getWorld().getTerritories().get(random));
-    // System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
-    // System.out.println(Main.g.getWorld().getTerritories().get(random));
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    Main.g.furtherInitialTerritoryDistribution();
+      Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
+      System.out
+          .println(Main.g.getCurrentPlayer().getName() + "--" + Main.g.getCurrentPlayer().getColor()
+              + "--" + Main.g.getWorld().getTerritories().get(random));
+      // System.out.println(Main.g.getCurrentPlayer().getColor() + " method");
+      // System.out.println(Main.g.getWorld().getTerritories().get(random));
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      Main.g.furtherInitialTerritoryDistribution();
     }
   }
 
@@ -60,16 +61,15 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         }
       }
     } while (!super.armyDistribution(1, territory));
-    if(!Main.g.isNetworkGame()) {
-    Main.b.updateLabelTerritory(territory);
-    Main.g.furtherInitialArmyDistribution();
+    if (!Main.g.isNetworkGame()) {
+      Main.b.updateLabelTerritory(territory);
+      Main.g.furtherInitialArmyDistribution();
     }
 
   }
 
   public synchronized void armyDistribution() {
     System.out.println("AI army distribution: " + Main.g.getCurrentPlayer().getName());
-
     // trade-in cards
     if (this.getCards().size() >= 3) {
       for (int i = 0; i < this.getCards().size(); i++) {
@@ -86,7 +86,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     Territory territory = null;
     // choose territory
     while (this.getNumberArmiesToDistibute() != 0) {
-//      System.out.println(this.getNumberArmiesToDistibute());
+      // System.out.println(this.getNumberArmiesToDistibute());
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
         randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
@@ -104,16 +104,16 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
       }
-        Main.g.setGameState(GameState.ATTACK);
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        this.attack();
+      Main.g.setGameState(GameState.ATTACK);
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
-    
+      this.attack();
+    }
+
   }
 
   public synchronized void attack() {
@@ -129,14 +129,14 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     double attackProbability = 0;
 
     double random = Math.random();
-   
+
     while (this.isCapableToAttack() && random > attackProbability) {
       // choose own territory that is able to attack
-      System.out.println("Random1: "+random);
+      System.out.println("Random1: " + random);
       do {
         randomTerritoryOwn = (int) (Math.random() * this.getTerritories().size());
         territoryOwn = this.getTerritoriesArrayList().get(randomTerritoryOwn);
-            randomNumberOfArmies = (int) (Math.random() * territoryOwn.getNumberOfArmies()-1) + 1;
+        randomNumberOfArmies = (int) (Math.random() * territoryOwn.getNumberOfArmies() - 1) + 1;
       } while (territoryOwn.getNumberOfArmies() == 1
           || territoryOwn.getHostileNeighbor().size() == 0);
 
@@ -175,10 +175,10 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       }
       attackProbability = 0.66;
       random = Math.random();
-      System.out.println("Random2: "+random);
+      System.out.println("Random2: " + random);
     }
 
-    //Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
     Main.g.setGameState(GameState.FORTIFY);
     try {
       Thread.sleep(1000);
@@ -193,7 +193,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   public synchronized void fortify() {
     System.out.println("AI fortify: " + Main.g.getCurrentPlayer());
-    //Main.b.handleSkipGameState();
+    // Main.b.handleSkipGameState();
     Main.g.furtherFortify();
   }
 

@@ -373,7 +373,8 @@ public class Player implements Serializable {
           Main.b.updateLabelTerritory(c3.getTerritory());
         }
 
-        this.setTradedCardSets(number++);
+        this.setTradedCardSets(++number);
+        System.out.println("Traded Cardsets: " + number);
         this.valueActuallyTradedIn = armies;
         this.removeCard(c1);
         this.removeCard(c2);

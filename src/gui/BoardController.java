@@ -1253,10 +1253,7 @@ public class BoardController implements Initializable {
             tradedCardSets.setText(Main.g.getCurrentPlayer().getTradedCardSets() + "");
             tradeIn.setDisable(true);
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-            for (int i = 0; i < Main.g.getCurrentPlayer().getCards().size(); i++) {
-              System.out.println(Main.g.getCurrentPlayer().getCards().get(i).getId());
-            }
-            System.out.println(Main.g.getCurrentPlayer().getCards().size());
+
             if (Main.g.getCurrentPlayer().getCards().size() < 5) {
               grayPane.setVisible(false);
             }
