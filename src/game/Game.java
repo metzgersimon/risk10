@@ -368,7 +368,7 @@ public class Game implements Serializable {
     this.nextPlayer();
     Main.b.prepareArmyDistribution();
     // if (this.getLastPlayer().getNumberArmiesToDistibute() != 0) {
-    System.out.println("Armies left " + this.getRemainingInitialArmies());
+//    System.out.println("Armies left " + this.getRemainingInitialArmies());
     if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         try {

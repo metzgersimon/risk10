@@ -72,20 +72,20 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
     System.out.println(selection);
     this.initialTerritoryDistribution(selection);
-    
-    if(!Main.g.isNetworkGame()) {
-    Main.b.updateLabelTerritory(selection);
 
-    Main.b.updateColorTerritory(selection);
-    System.out.println(Main.g.getCurrentPlayer().getName() + "--"
-        + Main.g.getCurrentPlayer().getColor() + "--" + selection);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    Main.g.furtherInitialTerritoryDistribution();
+    if (!Main.g.isNetworkGame()) {
+      Main.b.updateLabelTerritory(selection);
+
+      Main.b.updateColorTerritory(selection);
+      System.out.println(Main.g.getCurrentPlayer().getName() + "--"
+          + Main.g.getCurrentPlayer().getColor() + "--" + selection);
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      Main.g.furtherInitialTerritoryDistribution();
     }
   }
 
@@ -103,8 +103,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
         if (averageArmies > t.getNumberOfArmies()) {
           maxNeighbors = t.getHostileNeighbor().size();
           if (super.armyDistribution(1, t)) {
-            Main.b.updateLabelTerritory(t);
-            Main.g.furtherInitialArmyDistribution();
+            if (!Main.g.isNetworkGame()) {
+              Main.b.updateLabelTerritory(t);
+              Main.g.furtherInitialArmyDistribution();
+              return;
+            }
             return;
           }
         }
@@ -204,7 +207,9 @@ public class AiPlayerHard extends Player implements AiPlayer {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
             armiesDefend--;
-            Main.b.updateLabelTerritory(t);
+            if (!Main.g.isNetworkGame()) {
+              Main.b.updateLabelTerritory(t);
+            }
           }
         }
       }
@@ -415,8 +420,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
       } while (!super.armyDistribution(1, own));
     }
-    Main.b.updateLabelTerritory(own);
-    Main.g.furtherInitialArmyDistribution();
+    if (!Main.g.isNetworkGame()) {
+      Main.b.updateLabelTerritory(own);
+      Main.g.furtherInitialArmyDistribution();
+    }
   }
 
   public void randomArmyDistribution() {
@@ -441,8 +448,9 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
-
-      Main.b.updateLabelTerritory(territory);
+      if (!Main.g.isNetworkGame()) {
+        Main.b.updateLabelTerritory(territory);
+      }
     }
   }
 
@@ -475,7 +483,9 @@ public class AiPlayerHard extends Player implements AiPlayer {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
             System.out.println("Army distribution: " + t.getName());
-            Main.b.updateLabelTerritory(t);
+            if (!Main.g.isNetworkGame()) {
+              Main.b.updateLabelTerritory(t);
+            }
           }
         }
       }

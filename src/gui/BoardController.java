@@ -395,6 +395,7 @@ public class BoardController implements Initializable {
           showMessage(game.TutorialMessages.distributing);
           showMessage(game.TutorialMessages.distributingTip);
         }
+        showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
 

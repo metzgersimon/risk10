@@ -415,23 +415,35 @@ public class Player implements Serializable {
     setStartedDistribution(true);
     // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
-      t.setNumberOfArmies(amount);
-      this.numberArmiesToDistribute -= amount;
-      if (Main.g.isNetworkGame()) {
-        if (NetworkController.server != null && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-          DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
-          armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-          NetworkController.gameFinder.getClient().sendMessage(armyMessage);
-          return true;
-        }
+      if ((Main.g.isNetworkGame()) && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        this.armyDistributionNetwork(amount, t);
         return true;
       }
+      t.setNumberOfArmies(amount);
+      this.numberArmiesToDistribute -= amount;
       return true;
     } else {
       return false;
     }
   }
 
+  /**
+   * @author skaur
+   * 
+   * @param amount of armies that shall be set at territory t
+   * @param t is the territory that should receive the amount of armies
+   * 
+   *        This method is for the network game. The host player sends the message to the server on
+   *        the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
+   *        receiving the message in client class
+   */
+  public void armyDistributionNetwork(int amount, Territory t) {
+    if (NetworkController.server != null) {
+      DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
+      armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+      NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+    }
+  }
 
 
   /**
