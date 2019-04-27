@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import org.jdom2.Text;
@@ -29,7 +30,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -38,6 +41,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Lighting;
@@ -54,6 +58,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -67,6 +72,7 @@ import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
+import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
@@ -261,6 +267,12 @@ public class BoardController implements Initializable {
   private Label endGame;
   @FXML
   private Button endGameButton;
+
+  /**
+   * Attributes for network game
+   */
+  
+  private Client client = NetworkController.gameFinder.getClient();
 
 
   // public BoardGUI_Main boardGui;
@@ -523,6 +535,12 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
+          if(Main.g.isNetworkGame()) {
+            LeaveGameMessage leaveMessage = new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
+            leaveMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
+          }
+          
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
@@ -535,8 +553,10 @@ public class BoardController implements Initializable {
         }
       }
     });
+   
   }
 
+  
   /**
    * @author smetzger
    * @author pcoberge
@@ -577,6 +597,7 @@ public class BoardController implements Initializable {
         }
         Region r = (Region) e.getSource();
         Territory t = Main.g.getWorld().getTerritoriesRegion().get(r);
+
         Platform.runLater(new Runnable() {
           public void run() {
             r.setEffect(null);
@@ -612,7 +633,7 @@ public class BoardController implements Initializable {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                  NetworkController.gameFinder.getClient().sendMessage(message);
+                  client.sendMessage(message);
                   return;
                 }
                 r.setEffect(new Lighting());
@@ -639,7 +660,7 @@ public class BoardController implements Initializable {
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
                   armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                  NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+                  client.sendMessage(armyMessage);
                   return;
                 }
                 r.setEffect(new Lighting());
@@ -1484,5 +1505,55 @@ public class BoardController implements Initializable {
       endGame.setText("You are the winner!");
     }
     endGamePane.setVisible(true);
+  }
+  
+  /**
+   * @author skaur
+   * 
+   *         This method is called in the client class, when a client receives the leave game by the
+   *         host player message. After being called, this method shows an alert to every player
+   *         connected to the game. The alert informs the players that the game is cancelled and
+   *         asks them to leave the game by giving them to options.
+   */
+  public void gameCancelAlert() {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Game Cancelled");
+    alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
+        + "Please leave the Game Board");
+    alert.setContentText("Leave Game");
+    Optional<ButtonType> option = alert.showAndWait();
+    if (option.get() == null) {
+      // do nothing
+      alert.close();
+    } else if (option.get() == ButtonType.OK) {
+      // this method shows the end game staticstics and disconnect the client
+      this.clientLeaveGame();
+    } else if (option.get() == ButtonType.CANCEL) {
+      // do nothing
+      alert.close();
+    }
+  }
+
+  /**
+   * @skaur
+   * 
+   *        After the player choose to leave the game, this shows the game statistics to each player
+   */
+  public void clientLeaveGame() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          stage.setScene(new Scene(root));
+          stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+    // disconnect the client from server
+    client.disconnect();
   }
 }

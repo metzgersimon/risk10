@@ -12,12 +12,12 @@ import gui.HostGameLobbyController;
 import main.Main;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
-import network.messages.LeaveGameMessage;
 import network.messages.Message;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
 import network.messages.game.FortifyMessage;
+import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
@@ -129,7 +129,7 @@ public class ClientConnection extends Thread {
             handleStartGameMessage((StartGameMessage) message);
             break;
           case LEAVE:
-            handleLeaveGameMessage((LeaveGameMessage) message);
+            recieveLeaveMessage((LeaveGameMessage) message);
             break;
           case JOIN:
             handleJoinGame((JoinGameMessage) message);
@@ -192,7 +192,7 @@ public class ClientConnection extends Thread {
    */
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
-    Player player = new Player(message.getName(),
+    this.player = new Player(message.getName(),
         game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addPlayer(player);
     this.players.add(player);
@@ -221,6 +221,12 @@ public class ClientConnection extends Thread {
 
   }
 
+ private void recieveLeaveMessage(LeaveGameMessage message) {
+   this.sendMessagesToallClients(message);
+   if(this.player.getColor().toString().equals(message.getColor())) {
+     this.disconnect();
+   }
+ }
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be
@@ -236,13 +242,6 @@ public class ClientConnection extends Thread {
       }
     }
 
-  }
-  
-  public void handleLeaveGameMessage(LeaveGameMessage message) {
-    // TODO
-    // remove the player from the list
-    // send message to all the client to leave the game lobby
-    // if in the gamelobby then only remove the person from list
   }
 
   public ArrayList<Player> getPlayer() {

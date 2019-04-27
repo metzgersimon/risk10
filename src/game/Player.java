@@ -46,7 +46,6 @@ public class Player implements Serializable {
   public int sessionWins;
 
   private static StringBuffer sb = new StringBuffer();
-
   /**
    * create a new player
    * 

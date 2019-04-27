@@ -27,6 +27,7 @@ import network.messages.game.AttackMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
+import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
@@ -176,8 +177,6 @@ public class Client extends Thread implements Serializable {
             break;
           case START_GAME:
             handleStartGameMessage((StartGameMessage) message);
-          case LEAVE:
-            break;
           case DISPLAY:
             break;
           case ALLIANCE:
@@ -203,6 +202,9 @@ public class Client extends Thread implements Serializable {
             break;
           case FORTIFY:
             handleFortifyMessage((FortifyMessage) message);
+            break;
+           case LEAVE:
+            handleLeaveGame((LeaveGameMessage) message);
             break;
           default:
             break;
@@ -253,17 +255,10 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {
-    // change the attributes of the aiPlayer after receiving the message
-    // if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
-    // Main.g.getWorld().getTerritories().get(message.getTerritoryID())
-    // .setOwner(Main.g.getCurrentPlayer());
-    // Main.g.getCurrentPlayer()
-    // .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-    // Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
-    // // System.out.println("Ai player : " + Main.g.getCurrentPlayer().getName());
-    // }
+    
     // Dont update the board if the message is sent the by the humanplayer himself
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
+      
       // update the information recieved from the message in game instance
       Main.g.getWorld().getTerritories().get(message.getTerritoryID())
           .setOwner(Main.g.getCurrentPlayer());
@@ -271,6 +266,7 @@ public class Client extends Thread implements Serializable {
           .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
       Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
+      
       // update the label and the color of the territory selected by the other player
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
       Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
@@ -385,6 +381,20 @@ public class Client extends Thread implements Serializable {
     String messageContent = message.getMessage();
     Main.b.showMessage(username.toUpperCase() + " : " + messageContent);
 
+  }
+  
+  public void handleLeaveGame(LeaveGameMessage message) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if(message.getColor().equals(player.getColor().toString())){
+          disconnect();
+        } else {
+          Main.b.gameCancelAlert();
+        }
+      }
+    });
+    
   }
 
   public Player getPlayer() {
