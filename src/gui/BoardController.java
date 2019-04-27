@@ -633,7 +633,7 @@ public class BoardController implements Initializable {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                  client.sendMessage(message);
+                  NetworkController.gameFinder.getClient().sendMessage(message);
                   return;
                 }
                 r.setEffect(new Lighting());

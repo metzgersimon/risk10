@@ -443,43 +443,39 @@ public class Player implements Serializable {
    *         Precondition: only free territories can be chosen
    */
   public boolean initialTerritoryDistribution(Territory t) {
-    if (!Main.g.isNetworkGame()) {
-      if (t.getOwner() == null) {
-        t.setOwner(this);
-        this.addTerritories(t);
-        this.numberArmiesToDistribute -= 1;
-        t.setNumberOfArmies(1);
+    if (t.getOwner() == null) {
+      if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        this.initialArmyDistributionNetwork(t);
         return true;
-      } else {
-        return false;
       }
+      t.setOwner(this);
+      this.addTerritories(t);
+      this.numberArmiesToDistribute -= 1;
+      t.setNumberOfArmies(1);
+      return true;
     } else {
-      // This part of the method is for the network game
-      // Change the attributes if the current player is human player
-      // The attributes of the AiPlayer will be changed after receiving the message in client class
-      if (t.getOwner() == null) {
-        if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-          t.setOwner(this);
-          this.addTerritories(t);
-          this.numberArmiesToDistribute -= 1;
-          t.setNumberOfArmies(1);
-          return true;
-        } else {
-          // If the current player is AI player, the host player sends the message to the server
-          if (NetworkController.server != null) {
-            SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-            return true;
-          }
-          return true;
-        }
-      } else {
-        return false;
-      }
+      return false;
     }
+
   }
 
+  /**
+   * @skaur
+   * @param t is the territory which is selected
+   * 
+   *        This method is for the network game. The host player sends the message to the server on
+   *        the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
+   *        receiving the message in client class
+   */
+  public boolean initialArmyDistributionNetwork(Territory t) {
+    if (NetworkController.server != null) {
+      SelectInitialTerritoryMessage message = new SelectInitialTerritoryMessage(t.getId());
+      message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+      NetworkController.gameFinder.getClient().sendMessage(message);
+      return true;
+    }
+    return true;
+  }
 
 
   /**

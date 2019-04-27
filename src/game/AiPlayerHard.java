@@ -72,7 +72,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
     System.out.println(selection);
     this.initialTerritoryDistribution(selection);
-
+    
+    if(!Main.g.isNetworkGame()) {
     Main.b.updateLabelTerritory(selection);
 
     Main.b.updateColorTerritory(selection);
@@ -85,6 +86,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       e.printStackTrace();
     }
     Main.g.furtherInitialTerritoryDistribution();
+    }
   }
 
   public void initialArmyDistribution() {
