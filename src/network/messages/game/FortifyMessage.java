@@ -3,6 +3,11 @@ package network.messages.game;
 import network.messages.Message;
 import network.messages.MessageType;
 
+/**
+ * 
+ * @author qiychen
+ *
+ */
 public class FortifyMessage extends Message {
   private int moveFromTerritoryID;
   private int moveToTerritoryID;
@@ -14,7 +19,7 @@ public class FortifyMessage extends Message {
     super(MessageType.FORTIFY);
     this.moveFromTerritoryID = moveFromTerritoryID;
     this.moveToTerritoryID = moveToTerritoryID;
-    this.amount=amount;
+    this.amount = amount;
   }
 
   public int getMoveFromTerritoryID() {
@@ -24,6 +29,7 @@ public class FortifyMessage extends Message {
   public int getMoveToTerritoryID() {
     return moveToTerritoryID;
   }
+
   public int getAmount() {
     return this.amount;
   }
