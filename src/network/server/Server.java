@@ -100,12 +100,15 @@ public class Server extends Thread implements Serializable {
             String message = new String(getPacket.getData()).trim();
             // If the message includes the String GAME_REQUEST, send a response back
 
-            if (message.equals("GAME_REQUEST")) {
-              // sending a response back
-              byte[] sendResponse = "Game_RESPONSE".getBytes();
-              DatagramPacket responsePacket = new DatagramPacket(sendResponse, sendResponse.length,
-                  getPacket.getAddress(), getPacket.getPort());
-              datagramSocket.send(responsePacket);
+            // Don't send the response if enough clients have joined the game
+            if (Main.g.getPlayers().size() < noOfPlayer) {
+              if (message.equals("GAME_REQUEST")) {
+                // sending a response back
+                byte[] sendResponse = "Game_RESPONSE".getBytes();
+                DatagramPacket responsePacket = new DatagramPacket(sendResponse,
+                    sendResponse.length, getPacket.getAddress(), getPacket.getPort());
+                datagramSocket.send(responsePacket);
+              }
             }
           }
         } catch (SocketException | UnknownHostException e) {

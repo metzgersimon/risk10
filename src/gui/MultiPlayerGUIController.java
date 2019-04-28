@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
@@ -88,6 +90,7 @@ public class MultiPlayerGUIController {
     String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
     networkController.joinGameonDiscovery();
+    if(NetworkController.gameFinder.getClient() != null) {
     try {
      fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -117,6 +120,13 @@ public class MultiPlayerGUIController {
     client.setControllerHost(hostLobbyController);
     // send join game message to the server
     client.register(name);
+    } else {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error alert");
+      alert.setHeaderText("You cannot join the game lobby ");
+      alert.setContentText("Player Lobby is already full." + "\n");
+      alert.showAndWait();
+    }
   }
 
   /**
@@ -139,6 +149,7 @@ public class MultiPlayerGUIController {
         System.out.println(getClass() + " : Port number is not in correct format ");
         e.printStackTrace();
       }
+      if(NetworkController.gameFinder.getClient() != null) {
       fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -146,15 +157,26 @@ public class MultiPlayerGUIController {
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      e.printStackTrace();
+      } else {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error alert");
+        alert.setHeaderText("You cannot join the game lobby ");
+        alert.setContentText("Player Lobby is already full." + "\n");
+        alert.showAndWait();
+      }
+      } catch (IOException e1) {
+      System.out.println("Can't connect to the server ");
+      e1.printStackTrace();
+    } catch (Exception e2) {
+      System.out.println(getClass() + ":  Can't open the JoinGameLobby.fxml");
     }
+    if(NetworkController.gameFinder.getClient() != null) {
     JoinGameLobbyController controller = fxmlLoader.getController();
     Client client = NetworkController.gameFinder.getClient();
     client.setController(controller);
     client.setControllerHost(hostLobbyController);
     // send join game message to the server
     client.register(name);
+    } 
   }
-  
 }
