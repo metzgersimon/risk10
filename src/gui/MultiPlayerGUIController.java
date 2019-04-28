@@ -37,6 +37,13 @@ public class MultiPlayerGUIController {
 
   @FXML
   private Button connect;
+  
+  private Alert alert = null;
+  
+  private String ipAddressRegex =
+      "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+          + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+
 
   /** List of players who have joined the game */
   public static List<Player> playersList = new ArrayList<Player>();
@@ -84,99 +91,130 @@ public class MultiPlayerGUIController {
     this.hostLobbyController = c;
   }
 
+  /**
+   * @author skaur
+   * @param event clicked to discover the server
+   * 
+   *        This method joins the server on discovery and if successfully connected, it opens the
+   *        game lobby for the client/player. After joining the lobby the client register to the
+   *        server with the player name
+   */
   @FXML
   void joinGame(ActionEvent event) {
-    // create an instance of the Player, add it to the Player list and link it to profile
+    // get the name of the player
     String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
+
+    // call the method to connect to the server
     networkController.joinGameonDiscovery();
-    if(NetworkController.gameFinder.getClient() != null) {
-    try {
-     fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Main.j = fxmlLoader.getController();
-      Stage stage = main.Main.stage;
-      stage.setTitle("Game Lobby");
-      stage.setScene(new Scene(root));
-      stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
-    } catch (Exception e) {
-      System.out.println("Can't load JoinGameLobbyGUI.fxml");
-      e.printStackTrace();
-    }
-    Thread t = new Thread() {
-      public void run() {
-        try {
-          Thread.sleep(2000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+
+    // if client is succesfully created open the game lobby for the client
+    if (NetworkController.gameFinder.getClient() != null) {
+      try {
+        fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Main.j = fxmlLoader.getController();
+        Stage stage = main.Main.stage;
+        stage.setTitle("Game Lobby");
+        stage.setScene(new Scene(root));
+        stage.show();
+        // ((Node) event.getSource()).getScene().getWindow().hide();
+      } catch (Exception e) {
+        System.out.println("Can't load JoinGameLobbyGUI.fxml");
+        e.printStackTrace();
       }
-    };
-    t.start();
-    JoinGameLobbyController controller = fxmlLoader.getController();
-    Client client = NetworkController.gameFinder.getClient();
-    client.setController(controller);
-    client.setControllerHost(hostLobbyController);
-    // send join game message to the server
-    client.register(name);
+      Thread t = new Thread() {
+        public void run() {
+          try {
+            Thread.sleep(2000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      };
+      t.start();
+      JoinGameLobbyController controller = fxmlLoader.getController();
+      Client client = NetworkController.gameFinder.getClient();
+      client.setController(controller);
+      client.setControllerHost(hostLobbyController);
+      // send join game message to the server
+      client.register(name);
     } else {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
-      alert.setHeaderText("You cannot join the game lobby ");
-      alert.setContentText("Player Lobby is already full." + "\n");
+      alert.setHeaderText("Error in joining the server.");
+      alert.setContentText("Possible Errors : " + "\n" + "1.Server is not available." + "\n" + "2.Game Lobby is full.");
       alert.showAndWait();
     }
   }
 
   /**
-   * join game lobby with ip address and port
+   * @author skaur
+   * @param event clicked to join the server over IP and port address
    * 
-   * @param event
+   *        This method joins the server with IP and port address if successfully connected, it
+   *        opens the game lobby for the client/player. After joining the lobby the client register
+   *        to the server with the player name
    */
   @FXML
   void joinGameWithAddress(ActionEvent event) {
+    
     String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
-    try {
-      String ip_port = address.getText();
-      String[] tokens = ip_port.split("_");
+    String ip_port = address.getText();
+    String[] tokens = ip_port.split("_");
+    
+    if(!tokens[0].matches(ipAddressRegex)) {
+      alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error alert");
+      alert.setHeaderText("Error in IP Address format !");
+      alert.setContentText("Give the IP Address again in the right format followed by _ and the port number " + "\n");
+      alert.showAndWait();
+    }
+    try {    
       int port;
       try {
         port = Integer.parseInt(tokens[1]);
         networkController.joinGame(tokens[0], port);
       } catch (NumberFormatException e) {
+        alert.setTitle("Error alert");
+        alert.setHeaderText("Error in the port format ");
+        alert.setContentText("Port number is not in correct format." + "\n");
+        alert.showAndWait();
         System.out.println(getClass() + " : Port number is not in correct format ");
         e.printStackTrace();
       }
-      if(NetworkController.gameFinder.getClient() != null) {
-      fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Stage stage = main.Main.stage;
-      stage.setTitle("Game Lobby");
-      stage.setScene(new Scene(root));
-      stage.show();
-      // ((Node) event.getSource()).getScene().getWindow().hide();
+      if (NetworkController.gameFinder.getClient() != null) {
+        fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = main.Main.stage;
+        stage.setTitle("Game Lobby");
+        stage.setScene(new Scene(root));
+        stage.show();
+       
       } else {
-        Alert alert = new Alert(AlertType.ERROR);
+        alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error alert");
         alert.setHeaderText("You cannot join the game lobby ");
         alert.setContentText("Player Lobby is already full." + "\n");
         alert.showAndWait();
       }
-      } catch (IOException e1) {
+      
+    } catch (IOException e1) {
       System.out.println("Can't connect to the server ");
       e1.printStackTrace();
     } catch (Exception e2) {
       System.out.println(getClass() + ":  Can't open the JoinGameLobby.fxml");
     }
-    if(NetworkController.gameFinder.getClient() != null) {
-    JoinGameLobbyController controller = fxmlLoader.getController();
-    Client client = NetworkController.gameFinder.getClient();
-    client.setController(controller);
-    client.setControllerHost(hostLobbyController);
-    // send join game message to the server
-    client.register(name);
-    } 
+    
+    if (NetworkController.gameFinder.getClient() != null) {
+      JoinGameLobbyController controller = fxmlLoader.getController();
+      Client client = NetworkController.gameFinder.getClient();
+      client.setController(controller);
+      client.setControllerHost(hostLobbyController);
+      // send join game message to the server
+      client.register(name);
+    }
   }
+  
 }

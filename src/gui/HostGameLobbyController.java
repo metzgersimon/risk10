@@ -1,9 +1,6 @@
 package gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
@@ -12,7 +9,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,18 +18,16 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
-import network.server.Server;
 
 public class HostGameLobbyController {
 
 
-  /** textfield in which a player writes his/her message to send to chatbox */
+  /** Text field in which a player writes his/her message to send to chatbox */
   @FXML
   TextField textField;
 
@@ -70,19 +64,20 @@ public class HostGameLobbyController {
   CheckBox box4;
   @FXML
   CheckBox box5;
-  
+
   /** number of players the host want to play game with */
   public static ArrayList<CheckBox> playerNames;
   public ArrayList<Player> clients = new ArrayList<Player>();
 
-  
+
   /** to handle the event when the button "send" is clicked */
   @FXML
   void handleSendMessage(ActionEvent event) {
-     String message = textField.getText();
-     SendChatMessageMessage m = new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
-     Client client = NetworkController.gameFinder.getClient();
-     client.sendMessage(m);
+    String message = textField.getText();
+    SendChatMessageMessage m =
+        new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
+    Client client = NetworkController.gameFinder.getClient();
+    client.sendMessage(m);
   }
 
   /**
@@ -93,7 +88,7 @@ public class HostGameLobbyController {
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
     try {
-//      Main.g.getServer().stopServer();
+      // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -130,19 +125,11 @@ public class HostGameLobbyController {
     }
   }
 
-  // public void addPlayerInList(String name) {
-  //// for (int i = 0; i < playerNames.size(); i++) {
-  //// if (playerNames.get(i).isDisabled()) {
-  //// playerNames.get(i).setDisable(false);
-  //// playerNames.get(i).setText(name);
-  //// }
-  //// }
-  // }
-
-/**
- * enable the check boxes according to the selected number of players by the host player
- * @skaur
- */
+  /**
+   * @skaur
+   * 
+   *        enable the check boxes according to the selected number of players by the host player
+   */
   public void initialize() {
     playerNames = new ArrayList<CheckBox>();
     playerNames.add(hostBox);
@@ -159,9 +146,11 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @author skaur this method is called from the server class whenever a new player has joined and
-   *         whenever a new bot is added to the game lobby update the list of players who are
-   *         joining the lobby
+   * @author skaur
+   * 
+   *         this method is called from the server class whenever a new player has joined and
+   *         whenever a new bot is added to the game lobby to update the list of players in the
+   *         lobby
    */
   public void updateList(Player p) {
     this.clients.add(p);
@@ -215,18 +204,26 @@ public class HostGameLobbyController {
   }
 
   /**
-   * enable the start button, ones the all the clients have joined the lobby
    * @skaur
+   * 
+   *        enable the start button, ones the all the clients have joined the lobby
    */
   public void enableStartButton() {
-    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {  
+    if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
       startGame.setDisable(false);
     }
   }
 
+  /**
+   * @author skaur
+   * @param event clicked by the host player to start the game
+   * 
+   *        Send message to the server that game has started with the list of players as parameter
+   */
   @FXML
   public void handleStartGameButton(ActionEvent event) {
     StartGameMessage startGameMessage = new StartGameMessage(Main.g.getPlayers());
+    // host player/client sends the message to the server
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   }
 

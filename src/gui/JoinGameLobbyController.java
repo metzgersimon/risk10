@@ -32,9 +32,9 @@ public class JoinGameLobbyController {
   @FXML
   private TextArea button;
   
-  @FXML private Button leaveGame;
-
-  private Game g;  
+  @FXML 
+  private Button leaveGame;
+  
   @FXML CheckBox clientPlayer;
   @FXML CheckBox hostBox;
   @FXML CheckBox client2;
@@ -68,11 +68,6 @@ public class JoinGameLobbyController {
       e.printStackTrace();
     }
   }
-//
-//  public void setMain(Client client2, Game g) {
-//    this.client = client2;
-//    this.g = g;
-//  }
 
   public void showMessage(String content) {
     button.setStyle("-fx-text-fill:black; -fx-font-size: 15px;");
@@ -94,21 +89,4 @@ public class JoinGameLobbyController {
     hostBox.setSelected(true);
     clientPlayer.setSelected(true);
   }
- 
- public void viewBoardGame() {
-   FXMLLoader fxmlLoader = null; 
-   try {
-     fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
-     Parent root = (Parent) fxmlLoader.load();
-     Stage stage = main.Main.stage;
-     Main.b = fxmlLoader.getController();
-     System.out.println(Main.b);
-     stage.setScene(new Scene(root));
-     stage.show();
-     // ((Node) event.getSource()).getScene().getWindow().hide();
-   } catch (Exception e) {
-     e.printStackTrace();
-   }
-   NetworkController.gameFinder.getClient().setBoardController(fxmlLoader.getController());
- }
 }

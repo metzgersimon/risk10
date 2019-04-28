@@ -1,7 +1,5 @@
 package gui;
 
-import game.Player;
-import game.PlayerColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,10 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.Main;
-import network.Parameter;
-import network.client.GameFinder;
-import network.server.ClientConnection;
-import network.server.Server;
 
 public class HostGameGUIController {
 
@@ -33,15 +27,22 @@ public class HostGameGUIController {
   private Button confirm;
   private HostGameLobbyController hostLobController = null;
   private NetworkController networkController = new NetworkController();
-  
+
+  /**
+   * @author skaur
+   * @param event to host the game with selected number of players
+   * 
+   *        Starts the server and client for the host game player Host Player/ client registers with
+   *        the name of the player
+   */
   @FXML
   void confirm(ActionEvent event) {
     // create an instance of the Player, add it to the Player list and link it to profile
     String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
-     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
-     networkController.hostGame(numberofPlayers);
-    
+    numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
+    networkController.hostGame(numberofPlayers);
+
     try {
       fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();

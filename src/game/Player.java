@@ -450,13 +450,13 @@ public class Player implements Serializable {
    *        the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
    *        receiving the message in client class
    */
-  public void armyDistributionNetwork(int amount, Territory t) {
-    if (NetworkController.server != null) {
-      DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
-      armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-      NetworkController.gameFinder.getClient().sendMessage(armyMessage);
-    }
-  }
+//  public void armyDistributionNetwork(int amount, Territory t) {
+//    if (NetworkController.server != null) {
+//      DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
+//      armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+//      NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+//    }
+//  }
 
 
   /**
@@ -485,7 +485,7 @@ public class Player implements Serializable {
   }
 
   /**
-   * @skaur
+   * @author skaur
    * @param t is the territory which is selected
    * 
    *        This method is for the network game. The host player sends the message to the server on
