@@ -38,9 +38,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
@@ -256,7 +259,17 @@ public class BoardController implements Initializable {
   @FXML
   private TitledPane statisticPane;
   @FXML
-  private ListView statistic;
+  private TableView<Player> statistic;
+  
+  @FXML
+  private TableColumn<Player, Integer> c1;
+  
+  @FXML
+  private TableColumn<Player, Integer> c2;
+  
+  @FXML
+  private TableColumn<Player, Integer> c3;
+  
 
   /**
    * handle end game
@@ -285,8 +298,20 @@ public class BoardController implements Initializable {
       public void changed(ObservableValue<? extends Number> observable, Number oldValue,
           Number newValue) {
         handleNumberOfDices();
-
+        
+        //Test live statistics
+        c1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
+        c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
+        
+        c1.setSortType(TableColumn.SortType.ASCENDING);
+        
+        ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
+        // end
+        
         System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+        statistic.setItems(playerList);
+        statistic.getSortOrder().add(c1);
       }
 
     });
@@ -1467,8 +1492,9 @@ public class BoardController implements Initializable {
     }
 
     items = FXCollections.observableArrayList(sb.toString());
-    statistic = new ListView(items);
-    return statistic;
+    //statistic = new ListView(items);
+    //return statistic;
+    return null;
   }
 
   /**
