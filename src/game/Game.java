@@ -271,6 +271,7 @@ public class Game implements Serializable {
     for (int i = 0; i < this.players.size(); i++) {
       if (this.players.get(i).getTerritories().size() == 0) {
         lostPlayers.add(this.players.get(i));
+        allPlayers.add(this.players.get(i));
         this.players.remove(this.players.get(i));
       }
     }

@@ -994,24 +994,21 @@
 								<RowConstraints valignment="TOP" vgrow="ALWAYS" />
 							</rowConstraints>
 							<children>
-								<TitledPane contentDisplay="CENTER" expanded="false" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefWidth="150.0" text="Statistics">
-									<content>
-										<AnchorPane opacity="0.6">
-											<children>
-                                    <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TitledPane fx:id="statisticPane" expanded="false" text="Statistics">
+                           <content>
+      										<AnchorPane opacity="0.6" prefHeight="217.0" prefWidth="201.0">
+      											<children>
+                                    <TableView fx:id="statistic" prefHeight="192.0" prefWidth="191.0">
                                       <columns>
-                                        <TableColumn fx:id="c1" prefWidth="75.0" text="Player" />
-                                        <TableColumn fx:id="c2" prefWidth="75.0" text="Cards" />
-                                          <TableColumn fx:id="c3" prefWidth="75.0" text="Territories" />
+                                        <TableColumn fx:id="c1" prefWidth="97.0" text="Player" />
+                                        <TableColumn fx:id="c2" prefWidth="54.0" text="Cards" />
+                                          <TableColumn fx:id="c3" prefWidth="46.0" text="Ts" />
                                       </columns>
                                     </TableView>
-											</children>
-										</AnchorPane>
-									</content>
-									<GridPane.margin>
-										<Insets left="40.0" top="20.0" />
-									</GridPane.margin>
-								</TitledPane>
+      											</children>
+      										</AnchorPane>
+                           </content>
+                        </TitledPane>
 								<AnchorPane prefHeight="81.0" prefWidth="500.0" GridPane.columnIndex="1">
 									<children>
 										<VBox alignment="CENTER" layoutX="176.0" layoutY="6.0" spacing="5.0" AnchorPane.topAnchor="10.0">

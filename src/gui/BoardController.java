@@ -567,7 +567,10 @@ public class BoardController implements Initializable {
             leaveMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
           }
-          Main.g.setAllPlayers(Main.g.getPlayers());
+          Main.g.setAllPlayers(Main.g.getAllPlayers());
+          for(Player p : Main.g.getPlayers()) {
+            Main.g.addToAllPlayers(p);
+          }
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
@@ -1531,8 +1534,7 @@ public class BoardController implements Initializable {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       endGame.setText("You are the winner!");
     }
-    Main.g.setAllPlayers(Main.g.getCurrentPlayer().getEliminatedPlayers());
-    Main.g.addToAllPlayers(Main.g.getCurrentPlayer());
+    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     endGamePane.setVisible(true);
   }
   
