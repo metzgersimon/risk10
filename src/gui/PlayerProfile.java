@@ -125,37 +125,37 @@ public class PlayerProfile {
     try {
       switch (this.imageId) {
         case 0:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "0.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/0.jpg"));
           break;
         case 1:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "1.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/1.jpg"));
           break;
         case 2:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "2.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/2.jpg"));
           break;
         case 3:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "3.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/3.jpg"));
           break;
         case 4:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "4.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/4.jpg"));
           break;
         case 5:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "5.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/5.jpg"));
           break;
         case 6:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "6.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/6.jpg"));
           break;
         case 7:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "7.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/7.jpg"));
           break;
         case 8:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "8.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/8.jpg"));
           break;
         case 9:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "9.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/9.jpg"));
           break;
         case 10:
-          image = ImageIO.read(new File(Parameter.resourcesPathAvatars + "10.jpg"));
+          image = ImageIO.read(getClass().getResource("/resources/avatar/10.jpg"));
           break;
       }
     } catch (IOException e) {
