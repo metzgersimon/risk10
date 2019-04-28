@@ -1000,9 +1000,9 @@
 											<children>
                                     <TableView prefHeight="200.0" prefWidth="200.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Player" />
-                                        <TableColumn prefWidth="75.0" text="Cards" />
-                                          <TableColumn prefWidth="75.0" text="Territories" />
+                                        <TableColumn fx:id="c1" prefWidth="75.0" text="Player" />
+                                        <TableColumn fx:id="c2" prefWidth="75.0" text="Cards" />
+                                          <TableColumn fx:id="c3" prefWidth="75.0" text="Territories" />
                                       </columns>
                                     </TableView>
 											</children>

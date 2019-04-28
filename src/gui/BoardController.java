@@ -307,11 +307,12 @@ public class BoardController implements Initializable {
         c1.setSortType(TableColumn.SortType.ASCENDING);
         
         ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
-        // end
-        
-        System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
         statistic.setItems(playerList);
         statistic.getSortOrder().add(c1);
+        //end
+        
+        System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+        
       }
 
     });
@@ -570,7 +571,6 @@ public class BoardController implements Initializable {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
-          // stage.setTitle("Board");
           stage.setScene(new Scene(root));
           stage.show();
           // ((Node) event.getSource()).getScene().getWindow().hide();

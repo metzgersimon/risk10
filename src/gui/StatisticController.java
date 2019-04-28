@@ -67,7 +67,7 @@ public class StatisticController implements Initializable{
     
     c1.setSortType(TableColumn.SortType.ASCENDING);
     
-    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());   
+    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getEndStatPlayers());   
     table.setItems(playerList);
     table.getSortOrder().add(c1);
     

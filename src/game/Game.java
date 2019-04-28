@@ -25,6 +25,7 @@ public class Game implements Serializable {
   private World w;
 
   private ArrayList<Player> players;
+  private ArrayList<Player> endStatPlayers;
   private LinkedList<Card> cards;
   private ArrayList<Continent> continents;
   private ArrayList<Territory> territories;
@@ -44,6 +45,7 @@ public class Game implements Serializable {
    */
   public Game() {
     players = new ArrayList<>();
+    endStatPlayers = new ArrayList<Player>();
     this.w = new World();
 
     currentPlayer = null;
@@ -202,6 +204,14 @@ public class Game implements Serializable {
 
   public void setPlayers(ArrayList<Player> players) {
     this.players = players;
+  }
+  
+  public ArrayList<Player> getEndStatPlayers(){
+    return endStatPlayers;
+  }
+  
+  public void setEndStatPlayers(ArrayList<Player> players){
+    this.endStatPlayers = players;
   }
 
   public Player getLastPlayer() {
