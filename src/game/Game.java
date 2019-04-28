@@ -213,6 +213,10 @@ public class Game implements Serializable {
   public void setEndStatPlayers(ArrayList<Player> players){
     this.endStatPlayers = players;
   }
+  
+  public void addEndStatPlayer(Player player) {
+    this.endStatPlayers.add(player);
+  }
 
   public Player getLastPlayer() {
     return players.get(players.size() - 1);

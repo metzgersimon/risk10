@@ -1531,6 +1531,8 @@ public class BoardController implements Initializable {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       endGame.setText("You are the winner!");
     }
+    Main.g.setEndStatPlayers(Main.g.getCurrentPlayer().getEliminatedPlayers());
+    Main.g.addEndStatPlayer(Main.g.getCurrentPlayer());
     endGamePane.setVisible(true);
   }
   
