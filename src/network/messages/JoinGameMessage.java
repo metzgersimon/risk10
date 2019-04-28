@@ -1,13 +1,16 @@
 package network.messages;
+
 /**
  * 
- * @author sandeepkaur
+ * @author skaur
  *
+ *         This message class represents the join game request of client
  */
 public class JoinGameMessage extends Message {
 
   private static final long serialVersionUID = 1L;
-  private String name;
+
+  private String name; //name of the client/player who wants to join the game
 
   public JoinGameMessage(String name) {
     super(MessageType.JOIN);

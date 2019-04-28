@@ -1,7 +1,8 @@
 package network.messages;
 
-import java.io.Serializable;
 import game.Player;
+import java.io.Serializable;
+
 
 
 public abstract class Message implements Serializable {

@@ -6,16 +6,18 @@ import network.messages.Message;
 import network.messages.MessageType;
 
 /**
- * Message which says the game has started and sends player list every client
+ * Message class which says the game has started and sends player list of every client/player who
+ * has joined the game.
  * 
  * @skaur
  **/
+
 public class StartGameMessage extends Message {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
-   * List of players who have joined the game lobby
+   * List of players who have joined the game lobby.
    */
   private ArrayList<Player> playerList;
 

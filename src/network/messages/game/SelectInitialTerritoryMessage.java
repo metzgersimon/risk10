@@ -1,12 +1,11 @@
 package network.messages.game;
 
-import game.Territory;
 import network.messages.Message;
 import network.messages.MessageType;
 
 /**
- * send message about the selected territory by the current player and send the color of the player
- * which is a identifier of the player
+ * This message class sends message about the selected territory by the current player and send the
+ * color of the player which is a identifier of the player.
  * 
  * @author skaur
  */
@@ -14,16 +13,16 @@ public class SelectInitialTerritoryMessage extends Message {
 
   private static final long serialVersionUID = 1L;
 
-  private int territoryID;
+  private int territoryId;
   private String color;
 
-  public SelectInitialTerritoryMessage(int territoryID) {
+  public SelectInitialTerritoryMessage(int territoryId) {
     super(MessageType.INITIAL_TERRITORY);
-    this.territoryID = territoryID;
+    this.territoryId = territoryId;
   }
 
-  public int getTerritoryID() {
-    return this.territoryID;
+  public int getTerritoryId() {
+    return this.territoryId;
   }
 
   public void setColor(String color) {
@@ -33,4 +32,5 @@ public class SelectInitialTerritoryMessage extends Message {
   public String getColor() {
     return this.color;
   }
+  
 }

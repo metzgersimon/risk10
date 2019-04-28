@@ -5,10 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
 import game.Player;
 import gui.BoardController;
 import gui.HostGameLobbyController;
+import java.util.ArrayList;
 import main.Main;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
@@ -21,18 +21,22 @@ import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
+/**
+ *This class represents the connection between the server and the client
+ */
+
 public class ClientConnection extends Thread {
 
-  private InetAddress address;
-  private int port;
+  private InetAddress address; //address of the server
+  private int port; //port of the server
   private Socket socket;
   private ObjectInputStream fromClient;
   private ObjectOutputStream toClient;
   private boolean active;
-  private Player player;
+  private Player player; //player who represents this client connection
   private Server server;
   private HostGameLobbyController hostLobbyController;
-  private ArrayList<Player> players = new ArrayList<Player>();
+  private ArrayList<Player> players = new ArrayList<Player>(); //list of players joined 
   private BoardController boardController;
   private String playerN;
 
@@ -184,11 +188,14 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * This methods is called whenever client is connected to the server This method update the list
-   * of players in the gamelobby
    * 
    * @author skaur
-   * @param message
+   * @param message sent from client after he joins the game lobby
+   * 
+   *        This methods is called whenever a client is connected to the server. It creates the
+   *        Player instance for each player which joins the game lobby, add it to the list and send
+   *        the game instance as a response message back. This method update the list of players in
+   *        the host game lobby
    */
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
@@ -196,11 +203,17 @@ public class ClientConnection extends Thread {
         game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addPlayer(player);
     this.players.add(player);
+
+    // update the list in the host game lobby
     if (this.server.getHostLobbyController() != null) {
       this.server.getHostLobbyController().updateList(player);
     }
+
+    // send a response back to the client who has sent the
+    // join game message with the player instance as parameter
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
+    
   }
 
   public void handleStartGameMessage(StartGameMessage startMessage) {
@@ -221,12 +234,20 @@ public class ClientConnection extends Thread {
 
   }
 
- private void recieveLeaveMessage(LeaveGameMessage message) {
-   this.sendMessagesToallClients(message);
-   if(this.player.getColor().toString().equals(message.getColor())) {
-     this.disconnect();
-   }
- }
+  /**
+   * @author skaur
+   * @param message
+   * 
+   *        send the leave message to the clients and disconnect the client who has sent the message
+   * 
+   */
+  private void recieveLeaveMessage(LeaveGameMessage message) {
+    this.sendMessagesToallClients(message);
+    if (this.player.getColor().toString().equals(message.getColor())) {
+      this.disconnect();
+    }
+  }
+  
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be

@@ -5,28 +5,29 @@ import network.messages.MessageType;
 
 public class DistributeArmyMessage extends Message {
   /**
-   * This message class sends and receive the amount of army and the territory to place
+   * This message class sends and receive the amount of army and the territory to place.
    * 
    * @skaur
    */
   private static final long serialVersionUID = 1L;
 
-  private int amount;
-  private int territoryID;
-  private String color;
+  private int amount;// amount of army
+  private int territoryId; // id of the territory
+  private String color; // color of the player
 
-  public DistributeArmyMessage(int amount, int territoryID) {
+  // initialize the amount of the army and the territory id.
+  public DistributeArmyMessage(int amount, int territoryId) {
     super(MessageType.DISTRIBUTE_ARMY);
     this.amount = amount;
-    this.territoryID = territoryID;
+    this.territoryId = territoryId;
   }
 
   public int getAmount() {
     return this.amount;
   }
 
-  public int getTerritoryID() {
-    return this.territoryID;
+  public int getTerritoryId() {
+    return this.territoryId;
   }
 
   public void setColor(String color) {

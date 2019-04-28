@@ -4,6 +4,7 @@ import network.messages.Message;
 import network.messages.MessageType;
 
 /**
+ * This message class sends the leave message from a client to every client connected to the game.
  * 
  * @author skaur
  *

@@ -262,16 +262,16 @@ public class Client extends Thread implements Serializable {
     if (!(player.getColor().toString().equals(message.getColor()))) {
       
       // update the information recieved from the message in game instance
-      Main.g.getWorld().getTerritories().get(message.getTerritoryID())
+      Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setOwner(Main.g.getCurrentPlayer());
       Main.g.getCurrentPlayer()
-          .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+          .addTerritories(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= 1;
-      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(1);
+      Main.g.getWorld().getTerritories().get(message.getTerritoryId()).setNumberOfArmies(1);
       
       // update the label and the color of the territory selected by the other player
-      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
-      Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
+      Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
       // System.out.println(this.player.getName() + " " + this.player.getTerritories
     }
     try {
@@ -339,9 +339,9 @@ public class Client extends Thread implements Serializable {
       @Override
       public void run() {
     if (!(player.getColor().toString().equals(message.getColor()))) {
-      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
+      Main.g.getWorld().getTerritories().get(message.getTerritoryId()).setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
-      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
     }
     try {
       Thread.sleep(200);
@@ -362,9 +362,9 @@ public class Client extends Thread implements Serializable {
       @Override
       public void run() {
     if (!(player.getColor().toString().equals(message.getColor()))) {
-      Main.g.getWorld().getTerritories().get(message.getTerritoryID()).setNumberOfArmies(message.getAmount());
+      Main.g.getWorld().getTerritories().get(message.getTerritoryId()).setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
-      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryID()));
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
     }
       }
       });
