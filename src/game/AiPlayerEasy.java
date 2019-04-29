@@ -111,8 +111,8 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-      this.attack();
     }
+    this.attack();
 
   }
 
