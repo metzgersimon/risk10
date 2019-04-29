@@ -143,6 +143,7 @@ public class Player implements Serializable {
   }
 
   public int getNumberOfTerritories() {
+    numberOfTerritories = territories.size();
     return numberOfTerritories;
   }
 
@@ -151,6 +152,7 @@ public class Player implements Serializable {
   }
 
   public int getNumberOfCards() {
+    numberOfCards = cards.size();
     return numberOfCards;
   }
 

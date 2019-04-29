@@ -1001,8 +1001,8 @@
                                     <TableView fx:id="statistic" maxHeight="221.0" maxWidth="349.0" prefHeight="219.0" prefWidth="349.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="c1" prefWidth="142.0000057220459" text="Player" />
-                                        <TableColumn fx:id="c2" prefWidth="41.0" text="C" />
-                                          <TableColumn fx:id="c3" prefWidth="32.000030517578125" text="T" />
+                                        <TableColumn fx:id="c2" prefWidth="41.0" text="T" />
+                                          <TableColumn fx:id="c3" prefWidth="32.000030517578125" text="C" />
                                       </columns>
                                        <padding>
                                           <Insets bottom="-10.0" left="-10.0" right="-20.0" top="-10.0" />
