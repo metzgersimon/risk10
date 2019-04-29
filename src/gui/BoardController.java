@@ -1220,19 +1220,15 @@ public class BoardController implements Initializable {
         };
 
         ImageView img;
-        try {
-          img = new ImageView(new Image(
-              new File(Parameter.resourcesPathCards + file).toURI().toURL().toExternalForm()));
-          pane.getChildren().add(img);
-          ownCards.getChildren().add(pane);
-          bottomList.put(c.getId(), c);
-          System.out.println("in BottomList: " + bottomList.containsKey(c.getId()));
-          img.setMouseTransparent(false);
-          img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-          pane.getStylesheets().add(css);
-        } catch (MalformedURLException e) {
-          e.printStackTrace();
-        }
+        img = new ImageView(new Image(
+            getClass().getResource("/resources/cards/" + file).toString(),true));
+        pane.getChildren().add(img);
+        ownCards.getChildren().add(pane);
+        bottomList.put(c.getId(), c);
+        System.out.println("in BottomList: " + bottomList.containsKey(c.getId()));
+        img.setMouseTransparent(false);
+        img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
+        pane.getStylesheets().add(css);
       }
     });
   }
