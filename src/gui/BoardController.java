@@ -394,7 +394,7 @@ public class BoardController implements Initializable {
     connectRegionTerritory();
     // sb.append("Game started");
     // chat.appendText("Game started!\n");
-    if (g.showTutorialMessages) {
+    if (g.isShowTutorialMessages()) {
       showMessage(game.TutorialMessages.welcome);
       showMessage(game.TutorialMessages.intro);
     }
@@ -411,7 +411,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (g.showTutorialMessages && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        if (g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
 
         }
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
@@ -472,7 +472,7 @@ public class BoardController implements Initializable {
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
             gridCardPane.setVisible(true);
             grayPane.setVisible(true);
-            if (Main.g.showTutorialMessages) {
+            if (Main.g.isShowTutorialMessages()) {
               showMessage(TutorialMessages.forcedTrade);
             }
           }
@@ -514,7 +514,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareAttack() {
     if (!gameState.getText().equals("Attack!")) {
       gameState.setText("Attack!");
-      if (g.showTutorialMessages) {
+      if (g.isShowTutorialMessages()) {
         showMessage(game.TutorialMessages.attacking1);
       }
     }
@@ -539,7 +539,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareFortify() {
     if (!gameState.getText().equals("Move your Armies!")) {
       gameState.setText("Move your Armies!");
-      if (g.showTutorialMessages) {
+      if (g.isShowTutorialMessages()) {
         showMessage(game.TutorialMessages.fortify);
         showMessage(game.TutorialMessages.fortifyTip);
       }
@@ -761,7 +761,7 @@ public class BoardController implements Initializable {
                         territory.getBoardRegion().getRegion().setEffect(new Lighting());
                       }
                     }
-                    if (g.showTutorialMessages
+                    if (g.isShowTutorialMessages()
                         && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                       showMessage(game.TutorialMessages.attacking2);
                       showMessage(game.TutorialMessages.attackingTip);
@@ -796,7 +796,7 @@ public class BoardController implements Initializable {
                     // open pop-up with Dices
                     grayPane.setVisible(true);
                     dicePane.setVisible(true);
-                    if (g.showTutorialMessages) {
+                    if (g.isShowTutorialMessages()) {
                       showMessage(game.TutorialMessages.dicing);
                     }
                   }
@@ -1037,7 +1037,7 @@ public class BoardController implements Initializable {
 
         } else {
           // Label updaten
-          if (g.showTutorialMessages) {
+          if (g.isShowTutorialMessages()) {
             int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
             if (armiesAttackerInt - defender.size() == selectedTerritory.getNumberOfArmies()) {
               showMessage(TutorialMessages.attackFailed);
@@ -1129,7 +1129,7 @@ public class BoardController implements Initializable {
           gridCardPane.setVisible(false);
         } else {
           gridCardPane.setVisible(true);
-          if (Main.g.showTutorialMessages) {
+          if (Main.g.isShowTutorialMessages()) {
             showMessage(TutorialMessages.tradeIn);
             showMessage(TutorialMessages.tradeInTip);
           }

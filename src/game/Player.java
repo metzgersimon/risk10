@@ -240,7 +240,7 @@ public class Player implements Serializable {
     if (this.getContinents().contains(t.getContinent())) {
       this.lostContinents(t.getContinent());
     }
-    if (Main.g.showTutorialMessages) {
+    if (Main.g.isShowTutorialMessages()) {
       Main.b.showMessage(TutorialMessages.lostTerritory);
     }
   }
@@ -580,7 +580,7 @@ public class Player implements Serializable {
       Main.b.updateColorTerritory(defend);
       successfullAttack = true;
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered()+1);
-      if (Main.g.showTutorialMessages) {
+      if (Main.g.isShowTutorialMessages()) {
         Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
       }
       // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
