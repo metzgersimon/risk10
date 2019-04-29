@@ -278,8 +278,12 @@ public class Game implements Serializable {
     return lostPlayers;
   }
 
-  // get amount of territories and cards owned for each player
+  /**
+   * @author prto 
+   * update amount of territories and cards owned for each player
+   */ 
   public void updateLiveStatistics() {
+    /*
     territoryStats = new HashMap<String, Integer>();
     for (Player x : this.players) {
       territoryStats.put(x.getName(), x.getNumberOfTerritories());
@@ -289,14 +293,20 @@ public class Game implements Serializable {
     for (Player x : this.players) {
       cardStats.put(x.getName(), x.getNumberOfCards());
     }
+    **/
+    
+    for(Player p : players) {
+      p.setNumberOfCards(p.getCards().size());
+      p.setNumberOfTerritories(p.getTerritories().size());
+    }
   }
 
 
 
   /**
-   * Shows statistics when the game is over
    * 
    * @author prto
+   * Shows statistics when the game is over
    */
   public void endGame() {
     String name;

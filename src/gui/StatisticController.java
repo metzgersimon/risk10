@@ -53,6 +53,8 @@ public class StatisticController implements Initializable{
   
    
   /**
+   * @author prto
+   * 
    * creates a table with the end game statistics
    * 
    */

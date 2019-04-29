@@ -322,9 +322,12 @@ public class BoardController implements Initializable {
     });
   }
   
+  /**
+   * @author prto opens live statistics panel
+   */
   @FXML
-  public void testClick() {
-    System.out.println("KLICK");
+  public void openLiveStats() {
+    g.updateLiveStatistics();
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
@@ -332,10 +335,7 @@ public class BoardController implements Initializable {
     c1.setSortType(TableColumn.SortType.ASCENDING);
 
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
-    System.out.println("SIZE: "+Main.g.getPlayers().size());
-    for(Player p : Main.g.getPlayers()) {
-      System.out.println("test" + p.toString() + p.getName());
-    }
+
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
   }

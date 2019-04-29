@@ -538,6 +538,7 @@ public class Player implements Serializable {
    */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
+    attack.getOwner().setNumberOfAttacks(attack.getOwner().getNumberOfAttacks()+1);
     Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
         + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
         + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
@@ -574,6 +575,7 @@ public class Player implements Serializable {
       defend.setNumberOfArmies(numberOfAttackers);
       Main.b.updateColorTerritory(defend);
       successfullAttack = true;
+      attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered()+1);
       if (Main.g.showTutorialMessages) {
         Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
       }
