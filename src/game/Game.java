@@ -50,7 +50,20 @@ public class Game implements Serializable {
 
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
-    showTutorialMessages = true; // set to true for testing purposes
+  }
+
+  /*
+   * 
+   * Getter and Settter of class Game
+   * 
+   */
+
+  public boolean isShowTutorialMessages() {
+    return showTutorialMessages;
+  }
+
+  public void setShowTutorialMessages(boolean showTutorialMessages) {
+    this.showTutorialMessages = showTutorialMessages;
   }
 
   /**

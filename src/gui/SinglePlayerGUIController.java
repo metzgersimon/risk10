@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -52,6 +53,9 @@ public class SinglePlayerGUIController {
   private String numberOfAiString;
   private int numberOfAi;
 
+  @FXML
+  private CheckBox checkTips;
+
   // @FXML
   // public void initialize() {
   // ObservableList<String> numberOfAis = FXCollections.observableArrayList("1", "2", "3", "4",
@@ -62,7 +66,7 @@ public class SinglePlayerGUIController {
 
   @FXML
   void back(ActionEvent event) {
-   // Main.g.removePlayer();
+    // Main.g.removePlayer();
 
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
@@ -161,6 +165,13 @@ public class SinglePlayerGUIController {
     }
   }
 
+  public void handleTips(ActionEvent e) {
+    if (this.checkTips.isSelected()) {
+      Main.g.setShowTutorialMessages(true);
+    } else {
+      Main.g.setShowTutorialMessages(false);
+    }
+  }
 
   /**
    * Method removes all Ai icons of the vbox and the added players if a new amount of ai players is
