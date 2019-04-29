@@ -355,11 +355,6 @@ public class Client extends Thread implements Serializable {
           Main.b.updateLabelTerritory(
               Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
         }
-        try {
-          Thread.sleep(200);
-        } catch (InterruptedException e1) {
-          e1.printStackTrace();
-        }
         Main.g.furtherInitialArmyDistribution();
       }
     });
@@ -435,6 +430,7 @@ public class Client extends Thread implements Serializable {
    * @author qiychen disconnect the connection
    */
   public void disconnect() {
+    this.interrupt();
     try {
       active = false;
       this.fromServer.close();

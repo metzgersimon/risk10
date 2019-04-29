@@ -690,17 +690,16 @@ public class BoardController implements Initializable {
                     t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
                   }
                 });
-                try {
-                  Thread.sleep(1500);
-                } catch (InterruptedException e1) {
-                  // TODO Auto-generated catch block
-                  e1.printStackTrace();
-                }
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
                   armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(armyMessage);
                   return;
+                }
+                try {
+                  Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                  e1.printStackTrace();
                 }
                 r.setEffect(new Lighting());
                 Main.g.furtherInitialArmyDistribution();
@@ -1578,6 +1577,7 @@ public class BoardController implements Initializable {
    *        After the player choose to leave the game, this shows the game statistics to each player
    */
   public void clientLeaveGame() {
+    NetworkController.gameFinder.getClient().disconnect();
     Platform.runLater(new Runnable() {
       public void run() {
         try {
@@ -1591,7 +1591,5 @@ public class BoardController implements Initializable {
         }
       }
     });
-    // disconnect the client from server
-    NetworkController.gameFinder.getClient().disconnect();
   }
 }
