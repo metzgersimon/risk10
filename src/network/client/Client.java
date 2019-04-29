@@ -294,27 +294,27 @@ public class Client extends Thread implements Serializable {
    */
   private synchronized void handleAttackMessage(AttackMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-      if (!(this.player instanceof AiPlayer)) {
-        Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
-        Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
-        int attackarmies = message.getAttackerArmies();
-        int defendarmies = message.getDefendArmies();
-        attack.setNumberOfArmies2(attackarmies);
-        defend.setNumberOfArmies2(defendarmies);
-        System.out.println("client attackarmies " + attackarmies);
-        System.out.println("client defendarmies " + defendarmies);
-        Main.b.updateLabelTerritory(attack);
-        Main.b.updateLabelTerritory(defend);
-        if (message.getIfConquered()) {
-          defend.getOwner().lostTerritories(defend);
-          Player attacker = attack.getOwner();
-          defend.setOwner(attacker);
-          Main.b.updateColorTerritory(defend);
-          Main.g.getCurrentPlayer().addTerritories(defend);
-        }
-        // System.out.println("attack owner " + attack.getOwner().getName());
-        // System.out.println("defend owner " + defend.getOwner().getName());
+      // if (!(this.player instanceof AiPlayer)) {
+      Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
+      Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
+      int attackarmies = message.getAttackerArmies();
+      int defendarmies = message.getDefendArmies();
+      attack.setNumberOfArmies2(attackarmies);
+      defend.setNumberOfArmies2(defendarmies);
+      System.out.println("client attackarmies " + attackarmies);
+      System.out.println("client defendarmies " + defendarmies);
+      Main.b.updateLabelTerritory(attack);
+      Main.b.updateLabelTerritory(defend);
+      if (message.getIfConquered()) {
+        defend.getOwner().lostTerritories(defend);
+        Player attacker = attack.getOwner();
+        defend.setOwner(attacker);
+        Main.b.updateColorTerritory(defend);
+        Main.g.getCurrentPlayer().addTerritories(defend);
       }
+      // System.out.println("attack owner " + attack.getOwner().getName());
+      // System.out.println("defend owner " + defend.getOwner().getName());
+      // }
     }
   }
 
@@ -326,15 +326,14 @@ public class Client extends Thread implements Serializable {
    */
   private void handleFortifyMessage(FortifyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-      if (!(this.player instanceof AiPlayer)) {
-        Territory moveFrom =
-            Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
-        Territory moveTo = Main.g.getWorld().getTerritories().get(message.getMoveToTerritoryID());
-        moveFrom.setNumberOfArmies(-message.getAmount());
-        moveTo.setNumberOfArmies(message.getAmount());
-        Main.b.updateLabelTerritory(moveFrom);
-        Main.b.updateLabelTerritory(moveTo);
-      }
+      // if (!(this.player instanceof AiPlayer)) {
+      Territory moveFrom = Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
+      Territory moveTo = Main.g.getWorld().getTerritories().get(message.getMoveToTerritoryID());
+      moveFrom.setNumberOfArmies(-message.getAmount());
+      moveTo.setNumberOfArmies(message.getAmount());
+      Main.b.updateLabelTerritory(moveFrom);
+      Main.b.updateLabelTerritory(moveTo);
+      // }
     }
     Main.g.furtherFortify();
 
