@@ -323,13 +323,16 @@ public class BoardController implements Initializable {
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
     
+    /*
     statistic.getColumns().get(0).setVisible(false);
     statistic.getColumns().get(0).setVisible(true);
     statistic.getColumns().get(1).setVisible(false);
     statistic.getColumns().get(1).setVisible(true);
     statistic.getColumns().get(2).setVisible(false);
     statistic.getColumns().get(2).setVisible(true);
+    */
     
+    statistic.refresh();
     statisticPane.setExpanded(true);
 
   }

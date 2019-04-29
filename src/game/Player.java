@@ -85,7 +85,7 @@ public class Player implements Serializable {
     this.numberOfCards = 0;
     this.territoriesConquered = 0;
     this.numberOfAttacks = 0;
-    this.rank = (int) (Math.random() * 6);
+    this.rank = 0;
     this.sessionWins = 0;
   }
 
