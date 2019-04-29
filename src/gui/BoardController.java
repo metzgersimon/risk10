@@ -313,7 +313,6 @@ public class BoardController implements Initializable {
   public void openLiveStats() {
     
     g.updateLiveStatistics();
-    
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
@@ -321,11 +320,23 @@ public class BoardController implements Initializable {
     c1.setSortType(TableColumn.SortType.ASCENDING);
 
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
-
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
     
-    g.updateLiveStatistics();
+    statistic.getColumns().get(0).setVisible(false);
+    statistic.getColumns().get(0).setVisible(true);
+    statistic.getColumns().get(1).setVisible(false);
+    statistic.getColumns().get(1).setVisible(true);
+    statistic.getColumns().get(2).setVisible(false);
+    statistic.getColumns().get(2).setVisible(true);
+    
+    statisticPane.setExpanded(true);
+
+  }
+  
+  @FXML
+  public void exitLiveStat() {
+    statisticPane.setExpanded(false);
   }
 
 
@@ -828,7 +839,6 @@ public class BoardController implements Initializable {
         }
       }
     };
-    g.updateLiveStatistics();
     th.start();
   }
 
@@ -1491,7 +1501,6 @@ public class BoardController implements Initializable {
    */
   @FXML
   public ListView<String> getLiveStatString() {
-    g.updateLiveStatistics();
     ObservableList<String> items;
     StringBuffer sb = new StringBuffer();
     sb.append("Player Name\t\t#Territories\t\t#Cards\n");

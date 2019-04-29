@@ -994,7 +994,7 @@
 								<RowConstraints valignment="TOP" vgrow="ALWAYS" />
 							</rowConstraints>
 							<children>
-                        <TitledPane fx:id="statisticPane" expanded="false" onMouseClicked="#openLiveStats" text="Statistics">
+                        <TitledPane fx:id="statisticPane" animated="false" onMouseEntered="#openLiveStats" onMouseExited="#exitLiveStat" text="Statistics">
                            <content>
       										<AnchorPane maxHeight="221.0" maxWidth="347.0" opacity="0.6" prefHeight="217.0" prefWidth="201.0">
       											<children>

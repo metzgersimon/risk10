@@ -1,10 +1,13 @@
 package game;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
+
+import game.Game;
 import gui.NetworkController;
 import main.Main;
 import network.messages.game.DistributeArmyMessage;
@@ -571,7 +574,6 @@ public class Player implements Serializable {
       p.lostTerritories(defend);
       defend.setOwner(attack.getOwner());
       attack.getOwner().addTerritories(defend);
-      Main.g.updateLiveStatistics();
       Main.g.checkAllPlayers();
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
@@ -604,7 +606,6 @@ public class Player implements Serializable {
       if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
         Main.b.updateDiceSlider(attack);
       }
-      Main.g.updateLiveStatistics();
       return false;
     }
   }
