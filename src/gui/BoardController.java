@@ -334,6 +334,11 @@ public class BoardController implements Initializable {
 
   }
   
+  /**
+   * @author prto
+   * 
+   * collapses the live statistics pane when mouse pointer exits 
+   */
   @FXML
   public void exitLiveStat() {
     statisticPane.setExpanded(false);

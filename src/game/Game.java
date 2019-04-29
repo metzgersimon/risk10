@@ -308,7 +308,6 @@ public class Game implements Serializable {
     }
     **/
     
-    //update stats
     for(Player p : players) {
       p.setNumberOfTerritories(p.getNumberOfTerritories());
       p.setNumberOfCards(p.getNumberOfCards());
