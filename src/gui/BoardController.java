@@ -324,6 +324,8 @@ public class BoardController implements Initializable {
 
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
+    
+    g.updateLiveStatistics();
   }
 
 

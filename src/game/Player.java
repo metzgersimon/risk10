@@ -584,8 +584,13 @@ public class Player implements Serializable {
       // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
       // p.setCards(Main.g.getCards().get(randomCard));
       if (!Main.g.getPlayers().contains(p)) {
+        
+        //set loser rank
+        p.setRank(Main.g.getPlayers().size());
+        
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
+       
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
       }
       if (Main.g.getPlayers().size() == 1) {
