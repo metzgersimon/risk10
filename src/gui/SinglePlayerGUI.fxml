@@ -53,7 +53,7 @@
          </font>
       </Button>
       <HBox fx:id="iconPane" layoutX="976.0" layoutY="291.0" prefHeight="100.0" prefWidth="200.0" />
-      <CheckBox layoutX="101.0" layoutY="416.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Game instructions / Tips     " textFill="#f5f3f3">
+      <CheckBox fx:id="checkTips" layoutX="101.0" layoutY="416.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" text="Game instructions / Tips     " textFill="#f5f3f3">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
