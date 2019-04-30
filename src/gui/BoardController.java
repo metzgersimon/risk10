@@ -373,9 +373,9 @@ public class BoardController implements Initializable {
 
   // moves card from topList to bottomList
   public void deselectCard(Card card, int i) {
-    if (topList.containsKey(card.getId())) {
+    if (topList.containsKey(i)) {
       if (bottomList.size() <= 5) {
-        Card temp = topList.get(card.getId());
+        Card temp = topList.get(i);
         topList.remove(i);
         bottomList.put(temp.getId(), temp);
       } else {
@@ -1146,17 +1146,11 @@ public class BoardController implements Initializable {
    * @return
    */
   @FXML
-  public ImageView handleCardDragAndDrop(MouseEvent e) {
+  public void handleCardDragAndDrop(MouseEvent e) {
     // Platform.runLater(new Runnable() {
     // public void run() {
     ImageView img = (ImageView) e.getSource();
-    String url = img.getImage().impl_getUrl();
-    String file = url.substring(url.lastIndexOf('/') + 1, url.length());
-    String[] split = file.split("\\.");
-    int cardId = Integer.parseInt(split[0]);
-    Card card = (Card) deck.getCards().get(cardId);
-    // bottomList.remove(card.getId());
-    // initializeCardLists();
+    Card card = (Card) img.getUserData();
 
     if (left.getChildren().isEmpty()) {
       img.setMouseTransparent(true);
@@ -1202,7 +1196,7 @@ public class BoardController implements Initializable {
     // }
     //
     // });
-    return img;
+   // return img;
 
   }
 
@@ -1226,8 +1220,9 @@ public class BoardController implements Initializable {
         };
 
         ImageView img;
-        img = new ImageView(new Image(
-            getClass().getResource("/resources/cards/" + file).toString(),true));
+        img = new ImageView(
+            new Image(getClass().getResource("/resources/cards/" + file).toString(), true));
+        img.setUserData(c);
         pane.getChildren().add(img);
         ownCards.getChildren().add(pane);
         bottomList.put(c.getId(), c);
@@ -1251,11 +1246,7 @@ public class BoardController implements Initializable {
     if (b.equals(left)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().impl_getUrl();
-      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
-      String[] split = file.split("\\.");
-      int cardId = Integer.parseInt(split[0]);
-      Card card = (Card) deck.getCards().get(cardId);
+      Card card = (Card) img.getUserData();
       this.deselectCard(card, 0);
 
       ownCards.getChildren().add(pane);
@@ -1267,11 +1258,7 @@ public class BoardController implements Initializable {
     } else if (b.equals(center)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().impl_getUrl();
-      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
-      String[] split = file.split("\\.");
-      int cardId = Integer.parseInt(split[0]);
-      Card card = (Card) deck.getCards().get(cardId);
+      Card card = (Card) img.getUserData();
       this.deselectCard(card, 1);
 
       ownCards.getChildren().add(pane);
@@ -1282,11 +1269,7 @@ public class BoardController implements Initializable {
     } else if (b.equals(right)) {
       StackPane pane = (StackPane) b.getChildren().get(0);
       ImageView img = (ImageView) pane.getChildren().get(0);
-      String url = img.getImage().impl_getUrl();
-      String file = url.substring(url.lastIndexOf('/') + 1, url.length());
-      String[] split = file.split("\\.");
-      int cardId = Integer.parseInt(split[0]);
-      Card card = (Card) deck.getCards().get(cardId);
+      Card card = (Card) img.getUserData();
       this.deselectCard(card, 2);
 
       ownCards.getChildren().add(pane);

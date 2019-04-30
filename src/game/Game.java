@@ -219,7 +219,8 @@ public class Game implements Serializable {
   }  
   
   /**
-   * 
+   * @author pcoberge
+   * @author smetzger
    * compute the initial number of armies 2 players - 40 3 players - 35 4 players - 30 5 players -
    * 25 6 players - 20
    */
@@ -352,8 +353,8 @@ public class Game implements Serializable {
   /**
    * @author prto, @author smetzger
    * @param players
-   * @return returns ArrayList of players who have 0 territories left and thus lost
-   * checks if all players still have armies left, otherwise return losing players
+   * @return returns ArrayList of players who have 0 territories left and thus lost checks if all
+   *         players still have armies left, otherwise return losing players
    */
   public ArrayList<Player> checkAllPlayers() {
     ArrayList<Player> lostPlayers = new ArrayList<Player>();
@@ -376,10 +377,10 @@ public class Game implements Serializable {
   
   /**
    * @author prto 
-   * update amount of territories and cards owned for each player
-   */ 
-  public void updateLiveStatistics() {    
-    for(Player p : players) {
+   *         update amount of territories and cards owned for each player
+   */
+  public void updateLiveStatistics() {
+    for (Player p : players) {
       p.setNumberOfTerritories(p.getNumberOfTerritories());
       p.setNumberOfCards(p.getNumberOfCards());
     }
