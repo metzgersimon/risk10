@@ -612,7 +612,7 @@ public class Player implements Serializable {
       return true;
     } else {
       if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-        Main.b.updateDiceSlider(attack);
+        Main.attack.updateDiceSlider(attack);
       }
       return false;
     }

@@ -30,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -62,9 +63,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.Main;
 import main.Parameter;
 import network.client.Client;
@@ -84,7 +87,6 @@ import network.messages.game.SelectInitialTerritoryMessage;
  *
  */
 public class BoardController implements Initializable {
-  private Game g = Main.g;
 
   /**
    * @author prto testing
@@ -94,10 +96,18 @@ public class BoardController implements Initializable {
 
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
-  private int numberOfDices = 1;
   private static int tradedCards = 0;
-  private CardDeck deck = new CardDeck();
+  // private CardDeck deck = new CardDeck();
   // Views
+
+  @FXML
+  private AnchorPane rootAnchor;
+  @FXML
+  private SubScene subScene;
+
+  @FXML
+  private Pane grayPane;
+
 
   /**
    * Elements for the chat
@@ -160,45 +170,22 @@ public class BoardController implements Initializable {
   private Shape circleLeave;
   @FXML
   private ImageView imageLeave;
-  @FXML
-  private Pane quitPane, grayPane;
-  @FXML
-  private Button yesLeave, noLeave;
+
 
   /**
    * Elements that handle dicePane
    */
-  @FXML
-  private Pane dicePane;
-  @FXML
-  private ImageView attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
-  @FXML
-  private Button throwDices;
-  @FXML
-  private Slider diceSlider;
-  @FXML
-  private Label nameAttacker, nameDefender, armiesAttacker, armiesDefender;
+
 
 
   /**
    * Elements that handle setArmyPane
    */
-  @FXML
-  private Pane setArmyPane;
-  @FXML
-  private Slider setArmySlider;
-  @FXML
-  private Button setArmyButton;
 
   /**
    * Elements that handle fortifyPane
    */
-  @FXML
-  private Pane fortifyPane;
-  @FXML
-  private Slider fortifySlider;
-  @FXML
-  private Button fortifyButton;
+
 
   /**
    * Elements that show the current game state and illustrate who is the current player
@@ -260,32 +247,45 @@ public class BoardController implements Initializable {
   private TitledPane statisticPane;
   @FXML
   private TableView<Player> statistic;
-  
+
   @FXML
   private TableColumn<Player, Integer> c1;
-  
+
   @FXML
   private TableColumn<Player, Integer> c2;
-  
+
   @FXML
   private TableColumn<Player, Integer> c3;
-  
 
-  /**
-   * handle end game
-   */
-  @FXML
-  private Pane endGamePane;
+
+
   @FXML
   private Label endGame;
-  @FXML
-  private Button endGameButton;
 
   /**
    * Attributes for network game
    */
-  
 
+
+  public Territory getSelectedTerritory() {
+    return this.selectedTerritory;
+  }
+
+  public void setSelectedTerritory(Territory t) {
+    this.selectedTerritory = t;
+  }
+
+  public Territory getSelectedTerritory_attacked() {
+    return this.selectedTerritory_attacked;
+  }
+
+  public void setSelectedTerritory_attacked(Territory t) {
+    this.selectedTerritory_attacked = t;
+  }
+
+  public Label getArmiesToDistributeLabel() {
+    return armiesToDistribute;
+  }
 
 
   // public BoardGUI_Main boardGui;
@@ -294,53 +294,44 @@ public class BoardController implements Initializable {
 
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
-    diceSlider.valueProperty().addListener(new ChangeListener<Number>() {
-      public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-          Number newValue) {
-        handleNumberOfDices();
-        
-        System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-        
-      }
 
-    });
   }
-  
+
   /**
    * @author prto opens live statistics panel
    */
   @FXML
   public void openLiveStats() {
-    
-    g.updateLiveStatistics();
+
+    Main.g.updateLiveStatistics();
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
-    
+
     c1.setSortType(TableColumn.SortType.ASCENDING);
 
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
-    
+
     /*
-    statistic.getColumns().get(0).setVisible(false);
-    statistic.getColumns().get(0).setVisible(true);
-    statistic.getColumns().get(1).setVisible(false);
-    statistic.getColumns().get(1).setVisible(true);
-    statistic.getColumns().get(2).setVisible(false);
-    statistic.getColumns().get(2).setVisible(true);
-    */
-    
+     * statistic.getColumns().get(0).setVisible(false);
+     * statistic.getColumns().get(0).setVisible(true);
+     * statistic.getColumns().get(1).setVisible(false);
+     * statistic.getColumns().get(1).setVisible(true);
+     * statistic.getColumns().get(2).setVisible(false);
+     * statistic.getColumns().get(2).setVisible(true);
+     */
+
     statistic.refresh();
     statisticPane.setExpanded(true);
 
   }
-  
+
   /**
    * @author prto
    * 
-   * collapses the live statistics pane when mouse pointer exits 
+   *         collapses the live statistics pane when mouse pointer exits
    */
   @FXML
   public void exitLiveStat() {
@@ -388,13 +379,12 @@ public class BoardController implements Initializable {
 
 
   // public void setMain(BoardGUI_Main boardGUI, Game g) {
-  public void setMain(SinglePlayerGUIController boardGui, Game g) {
+  public void setMain(SinglePlayerGUIController boardGui) {
     this.boardGui = boardGui;
-    this.g = g;
     connectRegionTerritory();
     // sb.append("Game started");
     // chat.appendText("Game started!\n");
-    if (g.isShowTutorialMessages()) {
+    if (Main.g.isShowTutorialMessages()) {
       showMessage(game.TutorialMessages.welcome);
       showMessage(game.TutorialMessages.intro);
     }
@@ -411,7 +401,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        if (Main.g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
 
         }
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
@@ -501,9 +491,6 @@ public class BoardController implements Initializable {
     });
   }
 
-  public void updateDiceSlider(Territory t) {
-    this.diceSlider.setMax(t.getNumberOfArmies() - 1);
-  }
 
   /**
    * @author smetzger
@@ -514,7 +501,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareAttack() {
     if (!gameState.getText().equals("Attack!")) {
       gameState.setText("Attack!");
-      if (g.isShowTutorialMessages()) {
+      if (Main.g.isShowTutorialMessages()) {
         showMessage(game.TutorialMessages.attacking1);
       }
     }
@@ -539,7 +526,7 @@ public class BoardController implements Initializable {
   public synchronized void prepareFortify() {
     if (!gameState.getText().equals("Move your Armies!")) {
       gameState.setText("Move your Armies!");
-      if (g.isShowTutorialMessages()) {
+      if (Main.g.isShowTutorialMessages()) {
         showMessage(game.TutorialMessages.fortify);
         showMessage(game.TutorialMessages.fortifyTip);
       }
@@ -564,57 +551,25 @@ public class BoardController implements Initializable {
   public synchronized void pressLeave() {
     Platform.runLater(new Runnable() {
       public void run() {
-        grayPane.setVisible(true);
-        quitPane.setVisible(true);
-      }
-    });
-  }
-
-  /**
-   * @author pcoberge This method cancels the exit-handling.
-   */
-  public synchronized void handleNoLeave() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        grayPane.setVisible(false);
-        quitPane.setVisible(false);
-      }
-    });
-  }
-
-  /**
-   * @author pcoberge
-   * @param event : ActionEvent This parameter represents the element that invokes this method. This
-   *        action method changes the current stage to the statistic stage.
-   */
-  public synchronized void handleLeave(ActionEvent event) {
-    Platform.runLater(new Runnable() {
-      public void run() {
         try {
-          if(Main.g.isNetworkGame()) {
-            LeaveGameMessage leaveMessage = new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
-            leaveMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
-          }
-          Main.g.setAllPlayers(Main.g.getAllPlayers());
-          for(Player p : Main.g.getPlayers()) {
-            Main.g.addToAllPlayers(p);
-          }
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("QuitGameSubScene.fxml"));
           Parent root = (Parent) fxmlLoader.load();
-          Stage stage = main.Main.stage;
-          stage.setScene(new Scene(root));
-          stage.show();
-          // ((Node) event.getSource()).getScene().getWindow().hide();
+          Main.quit = fxmlLoader.getController();
+          // SubScene sub = new SubScene(root, 1024, 720);
+          // rootAnchor.getChildren().add(sub);
+
+          Main.stage.setScene(new Scene(root));
+          Main.stage.show();
+
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     });
-   
   }
 
-  
+
+
   /**
    * @author smetzger
    * @author pcoberge
@@ -726,17 +681,39 @@ public class BoardController implements Initializable {
               break;
 
             case ARMY_DISTRIBUTION:
-
-              System.out.println(
-                  "Armies to distribute: " + g.getCurrentPlayer().getNumberArmiesToDistibute());
               Platform.runLater(new Runnable() {
                 public void run() {
-                  setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
-                  setArmySlider.setValue(1);
+                  // setArmySlider.setMax(g.getCurrentPlayer().getNumberArmiesToDistibute());
+                  // setArmySlider.setValue(1);
                   selectedTerritory = t;
-                  grayPane.setVisible(true);
+                  // grayPane.setVisible(true);
                   // handleGrayPane();
-                  setArmyPane.setVisible(true);
+                  // setArmyPane.setVisible(true);
+                  Main.boardScene = Main.stage.getScene();
+                  Platform.runLater(new Runnable() {
+                    public void run() {
+                      try {
+                        FXMLLoader fxmlLoader =
+                            new FXMLLoader(getClass().getResource("ArmyDistributionSubScene.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        Main.army = fxmlLoader.getController();
+                        Main.army.setMain(Main.b);
+                        SubScene subScene = new SubScene(root, 1024, 720);
+
+                        // subScene.setRoot(root);
+                        rootAnchor.getChildren().add(subScene);
+                        // subScene.setOpacity(1.0);
+                        // subScene.setMouseTransparent(false);
+
+                        // Main.stage.setScene(new Scene(root));
+                        // Main.stage.show();
+
+                      } catch (Exception e) {
+                        e.printStackTrace();
+                      }
+                    }
+                  });
+
                 }
               });
               break;
@@ -755,13 +732,13 @@ public class BoardController implements Initializable {
                       territory.getBoardRegion().getRegion().setDisable(false);
                     }
 
-                    for (Territory territory : g.getCurrentPlayer().getTerritories()) {
+                    for (Territory territory : Main.g.getCurrentPlayer().getTerritories()) {
                       if (!(territory.equals(t))) {
                         territory.getBoardRegion().getRegion().setDisable(true);
                         territory.getBoardRegion().getRegion().setEffect(new Lighting());
                       }
                     }
-                    if (g.isShowTutorialMessages()
+                    if (Main.g.isShowTutorialMessages()
                         && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                       showMessage(game.TutorialMessages.attacking2);
                       showMessage(game.TutorialMessages.attackingTip);
@@ -771,34 +748,29 @@ public class BoardController implements Initializable {
                       && selectedTerritory.getNeighbor().contains(t)) {
                     System.out.println("Territory ist ungleich null");
                     selectedTerritory_attacked = t;
-                    diceSlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
-                    diceSlider.setMin(1.0);
-                    diceSlider.setValue(1.0);
 
-                    nameAttacker.setText(selectedTerritory.getName().replaceAll("_", " "));
-                    nameDefender.setText(selectedTerritory_attacked.getName().replaceAll("_", " "));
-                    armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
-                    armiesDefender
-                        .setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
-                    int numberOfDicesOpponent =
-                        selectedTerritory_attacked.getNumberOfArmies() >= 2 ? 2 : 1;
-                    switch (numberOfDicesOpponent) {
-                      case (1):
-                        defendDice1.setVisible(true);
-                        defendDice2.setVisible(false);
-                        break;
-                      case (2):
-                        defendDice1.setVisible(true);
-                        defendDice2.setVisible(true);
-                        break;
-
-                    }
                     // open pop-up with Dices
-                    grayPane.setVisible(true);
-                    dicePane.setVisible(true);
-                    if (g.isShowTutorialMessages()) {
+                    // grayPane.setVisible(true);
+                    // dicePane.setVisible(true);
+                    if (Main.g.isShowTutorialMessages()) {
                       showMessage(game.TutorialMessages.dicing);
                     }
+                    // Platform.runLater(new Runnable() {
+                    // public void run() {
+                    Main.boardScene = Main.stage.getScene();
+                    try {
+                      FXMLLoader fxmlLoader =
+                          new FXMLLoader(getClass().getResource("AttackSubScene.fxml"));
+                      Parent root = (Parent) fxmlLoader.load();
+                      Main.attack = fxmlLoader.getController();
+                      SubScene sub = new SubScene(root, 1024, 720);
+                      rootAnchor.getChildren().add(sub);
+                    } catch (Exception e) {
+                      e.printStackTrace();
+                    }
+                    // }
+                    // });
+
                   }
                 }
               });
@@ -818,7 +790,7 @@ public class BoardController implements Initializable {
                           territory.getBoardRegion().getRegion().setDisable(false);
                         }
                       }
-                      for (Territory territory : g.getCurrentPlayer().getTerritories()) {
+                      for (Territory territory : Main.g.getCurrentPlayer().getTerritories()) {
                         if (!territory.equals(selectedTerritory)
                             && (!selectedTerritory.getNeighbor().contains(territory))) {
                           territory.getBoardRegion().getRegion().setDisable(true);
@@ -827,11 +799,24 @@ public class BoardController implements Initializable {
                       }
                     } else if (selectedTerritory != null) {
                       selectedTerritory_attacked = t;
-                      fortifySlider.setMax(selectedTerritory.getNumberOfArmies() - 1);
-                      fortifySlider.setMin(1.0);
-                      fortifySlider.setValue(1.0);
-                      grayPane.setVisible(true);
-                      fortifyPane.setVisible(true);
+
+                      // Platform.runLater(new Runnable() {
+                      // public void run() {
+                      try {
+                        FXMLLoader fxmlLoader =
+                            new FXMLLoader(getClass().getResource("FortifySubScene.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        Main.fortify = fxmlLoader.getController();
+                        SubScene sub = new SubScene(root, 1024, 720);
+                        rootAnchor.getChildren().add(sub);
+                      } catch (Exception e) {
+                        e.printStackTrace();
+                      }
+                      // }
+                      // });
+
+                      // grayPane.setVisible(true);
+                      // fortifyPane.setVisible(true);
                     }
                   }
                 }
@@ -849,276 +834,6 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
-
-  public synchronized void updateTerritoryFortify(Territory moveFrom, Territory moveTo) {
-    moveFrom.getBoardRegion().getNumberOfArmy().setText(moveFrom.getNumberOfArmies() + "");
-    moveTo.getBoardRegion().getNumberOfArmy().setText(moveTo.getNumberOfArmies() + "");
-    fortifySlider.setValue(moveFrom.getNumberOfArmies() - 1);
-  }
-
-  public synchronized void handleGrayPane() {
-    grayPane.setVisible(true);
-  }
-
-  public synchronized void clickBack() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        switch (Main.g.getGameState()) {
-          case ARMY_DISTRIBUTION:
-            setArmyPane.setVisible(false);
-            prepareArmyDistribution();
-            break;
-          case ATTACK:
-            System.out.println("selected attacked null CLICKBACK");
-            selectedTerritory_attacked = null;
-            dicePane.setVisible(false);
-            attackDice1.setVisible(false);
-            attackDice2.setVisible(false);
-            attackDice3.setVisible(false);
-            defendDice1.setVisible(false);
-            defendDice2.setVisible(false);
-            prepareAttack();
-            break;
-          case FORTIFY:
-            fortifyPane.setVisible(false);
-            prepareFortify();
-            break;
-
-        }
-
-        selectedTerritory = null;
-        quitPane.setVisible(false);
-        grayPane.setVisible(false);
-      }
-    });
-  }
-
-  public synchronized void confirmArmyDistribution() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        int amount = (int) setArmySlider.getValue();
-        if (g.getCurrentPlayer().armyDistribution(amount, selectedTerritory)) {
-          selectedTerritory.getBoardRegion().getNumberOfArmy()
-              .setText(selectedTerritory.getNumberOfArmies() + "");
-          armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-          if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-            FurtherDistributeArmyMessage message =
-                new FurtherDistributeArmyMessage(amount, selectedTerritory.getId());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-          }
-        }
-        setArmyPane.setVisible(false);
-        grayPane.setVisible(false);
-        selectedTerritory = null;
-        // fortifyPane.toBack();
-        // selectedTerritory.getBoardRegion().getRegion().setEffect(null);
-        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
-          Main.g.setGameState(GameState.ATTACK);
-          prepareAttack();
-        } else {
-          prepareArmyDistribution();
-        }
-      }
-    });
-  }
-
-  public synchronized void handleNumberOfDices() {
-    // int numberDices = 1;
-    Platform.runLater(new Runnable() {
-
-      public void run() {
-        System.out.println("Value Dice Slider: " + (int) diceSlider.getValue());
-        switch ((int) diceSlider.getValue()) {
-          case (1):
-            attackDice1.setVisible(true);
-            attackDice2.setVisible(false);
-            attackDice3.setVisible(false);
-            numberOfDices = 1;
-            break;
-          case (2):
-            attackDice1.setVisible(true);
-            attackDice2.setVisible(true);
-            attackDice3.setVisible(false);
-            numberOfDices = 2;
-            break;
-          case (3):
-          default:
-            numberOfDices = 3;
-            attackDice1.setVisible(true);
-            attackDice2.setVisible(true);
-            attackDice3.setVisible(true);
-            break;
-        }
-      }
-    });
-    // return numberDices;
-  }
-
-  public synchronized void throwDices() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        nameAttacker.setText(selectedTerritory.getName().replaceAll("_", " "));
-        nameDefender.setText(selectedTerritory_attacked.getName().replaceAll("_", " "));
-
-        // update opponent number of dices
-        if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
-          defendDice2.setVisible(false);
-        }
-        // int numberDicesSelf = handleNumberOfDices();
-        System.out.println("number of Dices : " + numberOfDices);
-        System.out.println("Selected Territory attacked: " + selectedTerritory_attacked);
-        int numberDicesOpponent = selectedTerritory_attacked.getNumberOfArmies() > 1 ? 2 : 1;
-        // Vector<Integer> attacker = Dice.rollDices(this.numberOfDices);
-        Vector<Integer> attacker = Dice.rollDices(numberOfDices);
-        Vector<Integer> defender = Dice.rollDices(numberDicesOpponent);
-        System.out.println("attacker vector size: " + attacker.size());
-        System.out.println("defender vector size: " + defender.size());
-        attackDice1.setImage(new Image(getClass()
-            .getResource("/resources/dices/dice_" + attacker.get(0) + "_RED.png").toString(),
-            true));
-        if (attacker.size() >= 2) {
-          attackDice2.setImage(new Image(getClass()
-              .getResource("/resources/dices/dice_" + attacker.get(1) + "_RED.png").toString(),
-              true));
-
-        }
-        if (attacker.size() > 2) {
-          attackDice3.setImage(new Image(getClass()
-              .getResource("/resources/dices/dice_" + attacker.get(2) + "_RED.png").toString(),
-              true));
-
-        }
-
-        defendDice1.setImage(new Image(getClass()
-            .getResource("/resources/dices/dice_" + defender.get(0) + "_BLUE.png").toString(),
-            true));
-        if (defender.size() == 2) {
-          defendDice2.setImage(new Image(getClass()
-              .getResource("/resources/dices/dice_" + defender.get(1) + "_BLUE.png").toString(),
-              true));
-        }
-
-        boolean attackResult = Main.g.getCurrentPlayer().attack(attacker, defender,
-            selectedTerritory, selectedTerritory_attacked, (int) diceSlider.getValue());
-        if (attackResult || (selectedTerritory.getNumberOfArmies() == 1)) {
-          armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
-          armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
-
-          // back to map
-
-          dicePane.setVisible(false);
-          attackDice1.setVisible(true);
-          attackDice2.setVisible(false);
-          attackDice3.setVisible(false);
-          defendDice1.setVisible(true);
-          defendDice2.setVisible(true);
-          grayPane.setVisible(false);
-
-          // network game message
-          if (Main.g.isNetworkGame()) {
-            AttackMessage message = new AttackMessage(selectedTerritory.getId(),
-                selectedTerritory_attacked.getId(), false, selectedTerritory.getNumberOfArmies(),
-                selectedTerritory_attacked.getNumberOfArmies());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            if (attackResult) {
-              message.setIfConquered(true);
-            }
-            NetworkController.gameFinder.getClient().sendMessage(message);
-            // System.out.println("network message sent true");
-          }
-
-          updateLabelTerritory(selectedTerritory);
-          updateLabelTerritory(selectedTerritory_attacked);
-
-          selectedTerritory_attacked = null;
-          selectedTerritory = null;
-          prepareAttack();
-
-        } else {
-          // Label updaten
-          if (g.isShowTutorialMessages()) {
-            int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
-            if (armiesAttackerInt - defender.size() == selectedTerritory.getNumberOfArmies()) {
-              showMessage(TutorialMessages.attackFailed);
-            } else {
-              showMessage(TutorialMessages.attackSuccess);
-            }
-          }
-          if (selectedTerritory_attacked.getNumberOfArmies() == 1) {
-            defendDice2.setVisible(false);
-          }
-          armiesAttacker.setText(String.valueOf(selectedTerritory.getNumberOfArmies()));
-          armiesDefender.setText(String.valueOf(selectedTerritory_attacked.getNumberOfArmies()));
-          selectedTerritory.getBoardRegion().getNumberOfArmy()
-              .setText(selectedTerritory.getNumberOfArmies() + "");
-          selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
-              .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
-          diceSlider.setValue(selectedTerritory.getNumberOfArmies() - 1);
-          // network game message
-          if (Main.g.isNetworkGame()) {
-            AttackMessage message = new AttackMessage(selectedTerritory.getId(),
-                selectedTerritory_attacked.getId(), false, selectedTerritory.getNumberOfArmies(),
-                selectedTerritory_attacked.getNumberOfArmies());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-            System.out.println("network message sent false");
-          }
-        }
-
-
-        // selectedTerritory_attacked = null;
-        // selectedTerritory = null;
-      }
-    });
-  }
-
-
-  public synchronized void confirmFortify() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        int amount = (int) fortifySlider.getValue();
-        System.out.println("Test1");
-        if (g.getCurrentPlayer().fortify(selectedTerritory, selectedTerritory_attacked, amount)) {
-          System.out.println("Test2");
-          selectedTerritory.getBoardRegion().getNumberOfArmy()
-              .setText(selectedTerritory.getNumberOfArmies() + "");
-          selectedTerritory_attacked.getBoardRegion().getNumberOfArmy()
-              .setText(selectedTerritory_attacked.getNumberOfArmies() + "");
-        }
-        // network game
-        if (Main.g.isNetworkGame()) {
-          FortifyMessage message = new FortifyMessage(selectedTerritory.getId(),
-              selectedTerritory_attacked.getId(), (int) fortifySlider.getValue());
-          message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-          NetworkController.gameFinder.getClient().sendMessage(message);
-          // System.out.println("value "+(int)fortifySlider.getValue());
-        }
-        // setArmyPane.toBack();
-        System.out.println("Test3");
-        grayPane.setVisible(false);
-        selectedTerritory = null;
-        selectedTerritory_attacked = null;
-        fortifyPane.setVisible(false);
-        Main.g.getCurrentPlayer().setFortify(true);
-        // selectedTerritory.getBoardRegion().getRegion().setEffect(null);
-        // prepareArmyDistribution();
-        // try {
-        // Thread.sleep(10000);
-        // } catch (InterruptedException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-
-        // Main.g.setGameState(GameState.ATTACK);
-        // prepareAttack();
-        // displayGameState();
-        // Main.g.furtherFortify();
-
-      }
-    });
-  }
-
 
 
   @FXML
@@ -1196,7 +911,7 @@ public class BoardController implements Initializable {
     // }
     //
     // });
-   // return img;
+    // return img;
 
   }
 
@@ -1394,91 +1109,91 @@ public class BoardController implements Initializable {
   public void connectRegionTerritory() {
     Thread th = new Thread() {
       public void run() {
-        g.getWorld().getTerritories().get(1)
+        Main.g.getWorld().getTerritories().get(1)
             .setBoardRegion(new BoardRegion(alaska, alaskaHeadline, alaskaNoA));
-        g.getWorld().getTerritories().get(2).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(2).setBoardRegion(
             new BoardRegion(northwestTerritory, northwestTerritoryHeadline, northwestTerritoryNoA));
-        g.getWorld().getTerritories().get(3)
+        Main.g.getWorld().getTerritories().get(3)
             .setBoardRegion(new BoardRegion(alberta, albertaHeadline, albertaNoA));
-        g.getWorld().getTerritories().get(4).setBoardRegion(new BoardRegion(westernUnitedStates,
+        Main.g.getWorld().getTerritories().get(4).setBoardRegion(new BoardRegion(westernUnitedStates,
             westernUnitedStatesHeadline, westernUnitedStatesNoA));
-        g.getWorld().getTerritories().get(5).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(5).setBoardRegion(
             new BoardRegion(centralAmerica, centralAmericaHeadline, centralAmericaNoA));
-        g.getWorld().getTerritories().get(6)
+        Main.g.getWorld().getTerritories().get(6)
             .setBoardRegion(new BoardRegion(greenland, greenlandHeadline, greenlandNoA));
-        g.getWorld().getTerritories().get(7)
+        Main.g.getWorld().getTerritories().get(7)
             .setBoardRegion(new BoardRegion(ontario, ontarioHeadline, ontarioNoA));
-        g.getWorld().getTerritories().get(8)
+        Main.g.getWorld().getTerritories().get(8)
             .setBoardRegion(new BoardRegion(quebec, quebecHeadline, quebecNoA));
-        g.getWorld().getTerritories().get(9).setBoardRegion(new BoardRegion(easternUnitedStates,
+        Main.g.getWorld().getTerritories().get(9).setBoardRegion(new BoardRegion(easternUnitedStates,
             easternUnitedStatesHeadline, easternUnitedStatesNoA));
-        g.getWorld().getTerritories().get(10)
+        Main.g.getWorld().getTerritories().get(10)
             .setBoardRegion(new BoardRegion(venezuela, venezuelaHeadline, venezuelaNoA));
-        g.getWorld().getTerritories().get(11)
+        Main.g.getWorld().getTerritories().get(11)
             .setBoardRegion(new BoardRegion(peru, peruHeadline, peruNoA));
-        g.getWorld().getTerritories().get(12)
+        Main.g.getWorld().getTerritories().get(12)
             .setBoardRegion(new BoardRegion(brazil, brazilHeadline, brazilNoA));
-        g.getWorld().getTerritories().get(13)
+        Main.g.getWorld().getTerritories().get(13)
             .setBoardRegion(new BoardRegion(argentina, argentinaHeadline, argentinaNoA));
-        g.getWorld().getTerritories().get(14)
+        Main.g.getWorld().getTerritories().get(14)
             .setBoardRegion(new BoardRegion(iceland, icelandHeadline, icelandNoA));
-        g.getWorld().getTerritories().get(15)
+        Main.g.getWorld().getTerritories().get(15)
             .setBoardRegion(new BoardRegion(scandinavia, scandinaviaHeadline, scandinaviaNoA));
-        g.getWorld().getTerritories().get(16)
+        Main.g.getWorld().getTerritories().get(16)
             .setBoardRegion(new BoardRegion(ukraine, ukraineHeadline, ukraineNoA));
-        g.getWorld().getTerritories().get(17)
+        Main.g.getWorld().getTerritories().get(17)
             .setBoardRegion(new BoardRegion(greatBritain, greatBritainHeadline, greatBritainNoA));
-        g.getWorld().getTerritories().get(18).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(18).setBoardRegion(
             new BoardRegion(northernEurope, northernEuropeHeadline, northernEuropeNoA));
-        g.getWorld().getTerritories().get(19).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(19).setBoardRegion(
             new BoardRegion(westernEurope, westernEuropeHeadline, westernEuropeNoA));
-        g.getWorld().getTerritories().get(20).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(20).setBoardRegion(
             new BoardRegion(southernEurope, southernEuropeHeadline, southernEuropeNoA));
-        g.getWorld().getTerritories().get(21)
+        Main.g.getWorld().getTerritories().get(21)
             .setBoardRegion(new BoardRegion(northAfrica, northAfricaHeadline, northAfricaNoA));
-        g.getWorld().getTerritories().get(22)
+        Main.g.getWorld().getTerritories().get(22)
             .setBoardRegion(new BoardRegion(egypt, egyptHeadline, egyptNoA));
-        g.getWorld().getTerritories().get(23)
+        Main.g.getWorld().getTerritories().get(23)
             .setBoardRegion(new BoardRegion(congo, congoHeadline, congoNoA));
-        g.getWorld().getTerritories().get(24)
+        Main.g.getWorld().getTerritories().get(24)
             .setBoardRegion(new BoardRegion(eastAfrica, eastAfricaHeadline, eastAfricaNoA));
-        g.getWorld().getTerritories().get(25)
+        Main.g.getWorld().getTerritories().get(25)
             .setBoardRegion(new BoardRegion(southAfrica, southAfricaHeadline, southAfricaNoA));
-        g.getWorld().getTerritories().get(26)
+        Main.g.getWorld().getTerritories().get(26)
             .setBoardRegion(new BoardRegion(madagascar, madagascarHeadline, madagascarNoA));
-        g.getWorld().getTerritories().get(27)
+        Main.g.getWorld().getTerritories().get(27)
             .setBoardRegion(new BoardRegion(siberia, siberiaHeadline, siberiaNoA));
-        g.getWorld().getTerritories().get(28)
+        Main.g.getWorld().getTerritories().get(28)
             .setBoardRegion(new BoardRegion(ural, uralHeadline, uralNoA));
-        g.getWorld().getTerritories().get(29)
+        Main.g.getWorld().getTerritories().get(29)
             .setBoardRegion(new BoardRegion(china, chinaHeadline, chinaNoA));
-        g.getWorld().getTerritories().get(30)
+        Main.g.getWorld().getTerritories().get(30)
             .setBoardRegion(new BoardRegion(afghanistan, afghanistanHeadline, afghanistanNoA));
-        g.getWorld().getTerritories().get(31)
+        Main.g.getWorld().getTerritories().get(31)
             .setBoardRegion(new BoardRegion(middleEast, middleEastHeadline, middleEastNoA));
-        g.getWorld().getTerritories().get(32)
+        Main.g.getWorld().getTerritories().get(32)
             .setBoardRegion(new BoardRegion(india, indiaHeadline, indiaNoA));
-        g.getWorld().getTerritories().get(33)
+        Main.g.getWorld().getTerritories().get(33)
             .setBoardRegion(new BoardRegion(siam, siamHeadline, siamNoA));
-        g.getWorld().getTerritories().get(34)
+        Main.g.getWorld().getTerritories().get(34)
             .setBoardRegion(new BoardRegion(yakutsk, yakutskHeadline, yakutskNoA));
-        g.getWorld().getTerritories().get(35)
+        Main.g.getWorld().getTerritories().get(35)
             .setBoardRegion(new BoardRegion(irkutsk, irkutskHeadline, irkutskNoA));
-        g.getWorld().getTerritories().get(36)
+        Main.g.getWorld().getTerritories().get(36)
             .setBoardRegion(new BoardRegion(mongolia, mongoliaHeadline, mongoliaNoA));
-        g.getWorld().getTerritories().get(37)
+        Main.g.getWorld().getTerritories().get(37)
             .setBoardRegion(new BoardRegion(japan, japanHeadline, japanNoA));
-        g.getWorld().getTerritories().get(38)
+        Main.g.getWorld().getTerritories().get(38)
             .setBoardRegion(new BoardRegion(kamchatka, kamchatkaHeadline, kamchatkaNoA));
-        g.getWorld().getTerritories().get(39)
+        Main.g.getWorld().getTerritories().get(39)
             .setBoardRegion(new BoardRegion(indonesia, indonesiaHeadline, indonesiaNoA));
-        g.getWorld().getTerritories().get(40)
+        Main.g.getWorld().getTerritories().get(40)
             .setBoardRegion(new BoardRegion(newGuinea, newGuineaHeadline, newGuineaNoA));
-        g.getWorld().getTerritories().get(41).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(41).setBoardRegion(
             new BoardRegion(westernAustralia, westernAustraliaHeadline, westernAustraliaNoA));
-        g.getWorld().getTerritories().get(42).setBoardRegion(
+        Main.g.getWorld().getTerritories().get(42).setBoardRegion(
             new BoardRegion(easternAustralia, easternAustraliaHeadline, easternAustraliaNoA));
-        g.getWorld().createTerritoriesBoardRegion();
+        Main.g.getWorld().createTerritoriesBoardRegion();
       }
     };
     th.start();
@@ -1495,14 +1210,14 @@ public class BoardController implements Initializable {
     ObservableList<String> items;
     StringBuffer sb = new StringBuffer();
     sb.append("Player Name\t\t#Territories\t\t#Cards\n");
-    for (Player x : g.getPlayers()) {
+    for (Player x : Main.g.getPlayers()) {
       sb.append(
           x.getName() + "\t\t" + x.getNumberOfTerritories() + "\t\t" + x.getNumberOfCards() + "\n");
     }
 
     items = FXCollections.observableArrayList(sb.toString());
-    //statistic = new ListView(items);
-    //return statistic;
+    // statistic = new ListView(items);
+    // return statistic;
     return null;
   }
 
@@ -1536,14 +1251,7 @@ public class BoardController implements Initializable {
     chat.appendText(message + " (private) " + "\n");
   }
 
-  public void endGame() {
-    if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-      endGame.setText("You are the winner!");
-    }
-    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
-    endGamePane.setVisible(true);
-  }
-  
+
   /**
    * @author skaur
    * 
@@ -1592,4 +1300,25 @@ public class BoardController implements Initializable {
       }
     });
   }
+
+  public void endGame() {
+    if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      endGame.setText("You are the winner!");
+    }
+    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EndGameSubScene.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          stage.setScene(new Scene(root));
+          stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+
 }

@@ -1,7 +1,9 @@
 package gui;
 
+import game.Game;
 import game.Player;
 import game.PlayerColor;
+import game.TestGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -164,6 +166,8 @@ public class ProfileSelectionGUIController {
         break;
     }
 
+    Main.g = new Game();
+    System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "SinglePlayerGUI.fxml";

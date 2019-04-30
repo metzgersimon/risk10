@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -23,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HostGameLobbyController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HostGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
     <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="800.0" prefWidth="1280.0">
@@ -50,7 +44,7 @@
                         <DropShadow color="#ff3d00" />
                       </effect>
                     </Slider>
-                    <Label layoutX="103.0" layoutY="401.0" prefWidth="210.0" styleClass="subHeadlines, headlines" text="Choose bot level" textFill="BLACK">
+                    <Label layoutX="103.0" layoutY="401.0" prefWidth="210.0" styleClass="subHeadlines, headlines" text="Choose AI level" textFill="BLACK">
                       <effect>
                         <Glow />
                       </effect>
@@ -58,7 +52,7 @@
                     <Label layoutX="85.0" layoutY="506.0" styleClass="subHeadlines" text="Easy" textFill="BLACK" />
                     <Label layoutX="181.0" layoutY="503.0" styleClass="subHeadlines" text="Medium" textFill="BLACK" />
                     <Label layoutX="289.0" layoutY="506.0" styleClass="subHeadlines" text="Hard" textFill="$x1" />
-                    <Button fx:id="addBots" layoutX="113.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleAddBot" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text=" ADD BOT">
+                    <Button fx:id="addBots" alignment="CENTER" layoutX="113.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleAddBot" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text="ADD AI">
                       <effect>
                         <DropShadow />
                       </effect>

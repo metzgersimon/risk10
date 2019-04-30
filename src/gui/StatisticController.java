@@ -2,8 +2,6 @@ package gui;
 
 
 
-
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -12,14 +10,19 @@ import game.Player;
 import game.PlayerColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -31,7 +34,9 @@ import main.Main;
  *
  */
 
-public class StatisticController implements Initializable{
+public class StatisticController implements Initializable {
+  @FXML
+  private Button back;
 
   @FXML
   private TableView<Player> table;
@@ -50,12 +55,12 @@ public class StatisticController implements Initializable{
 
   @FXML
   private TableColumn<Player, Integer> c5;
-  
-   
+
+
   /**
    * @author prto
    * 
-   * creates a table with the end game statistics
+   *         creates a table with the end game statistics
    * 
    */
   @Override
@@ -66,13 +71,32 @@ public class StatisticController implements Initializable{
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfAttacks"));
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
-    
+
     c1.setSortType(TableColumn.SortType.ASCENDING);
-    
-    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getAllPlayers());   
+
+    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getAllPlayers());
     table.setItems(playerList);
     table.getSortOrder().add(c1);
-    
+
   }
+
+  public void backToMenu(ActionEvent e) {
+    try {
+      BorderPane root =
+          (BorderPane) FXMLLoader.load(getClass().getResource("/gui/MainMenuGUI.fxml"));
+      Main.stage.setScene(new Scene(root));
+      Main.stage.show();
+
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
+      AnchorPane board = (AnchorPane) fxmlLoader.load();
+      Main.b = fxmlLoader.getController();
+      Main.boardScene = new Scene(board);
+
+    } catch (Exception e1) {
+      e1.printStackTrace();
+    }
+  }
+
+
 
 }

@@ -73,7 +73,8 @@ public class SinglePlayerGUIController {
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
-      stage.setScene(new Scene(root));
+      Main.sceneMain.setRoot(root);
+      stage.setScene(Main.sceneMain);
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
@@ -86,13 +87,13 @@ public class SinglePlayerGUIController {
   @FXML
   void startGame(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
+      // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+      // Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       // stage.setTitle("Board");
-      Main.b = fxmlLoader.getController();
-      Main.b.setMain(this, Main.g);
-      stage.setScene(new Scene(root));
+      // Main.b = fxmlLoader.getController();
+      Main.b.setMain(this);
+      stage.setScene(Main.boardScene);
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {

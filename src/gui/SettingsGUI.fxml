@@ -19,12 +19,12 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="back" layoutX="140.0" layoutY="578.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="72.0" prefWidth="156.0" text="Back" textAlignment="CENTER">
+            <Button fx:id="back" layoutX="66.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="83.0" prefWidth="262.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.leftAnchor="72.666">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button fx:id="conform" layoutX="950.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="71.0" prefWidth="197.0" text="Save" textAlignment="CENTER">
+            <Button fx:id="conform" layoutX="942.0" layoutY="574.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="82.0" prefWidth="265.0" stylesheets="@FontStyle.css" text="Save" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.rightAnchor="72.66666666666669">
                <font>
                   <Font size="30.0" />
                </font>
@@ -34,17 +34,13 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <CheckBox fx:id="sound" layoutX="440.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSoundCheckBox" prefHeight="160.0" prefWidth="391.0" text="        Sound" textAlignment="CENTER" textFill="#fdf9f9">
+            <CheckBox fx:id="sound" layoutX="440.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSoundCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Sound" textAlignment="CENTER" textFill="#fdf9f9">
                <font>
-                  <Font name="System Bold" size="51.0" />
+                  <Font name="Calibri Bold" size="51.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="music" layoutX="441.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleMusicCheckBox" prefHeight="160.0" prefWidth="391.0" text="        Music" textFill="#faf7f7">
-               <font>
-                  <Font name="System Bold" size="51.0" />
-               </font>
-            </CheckBox>
-            <Label ellipsisString="" layoutX="497.0" layoutY="76.0" prefHeight="113.0" prefWidth="445.0" text="Settings" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <CheckBox fx:id="music" layoutX="441.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleMusicCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Music" textFill="#faf7f7" />
+            <Label ellipsisString="" layoutX="497.0" layoutY="76.0" prefHeight="113.0" prefWidth="445.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Settings" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Bernard MT Condensed" size="96.0" />
                </font>

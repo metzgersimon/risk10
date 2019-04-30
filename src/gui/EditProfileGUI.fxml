@@ -21,17 +21,17 @@
             <Image url="@../../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="save" contentDisplay="CENTER" layoutX="756.0" layoutY="583.0" mnemonicParsing="false" onAction="#save" prefHeight="62.0" prefWidth="251.0" text="Save" textAlignment="CENTER">
+      <Button fx:id="save" contentDisplay="CENTER" layoutX="743.0" layoutY="583.0" mnemonicParsing="false" onAction="#save" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Save" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <TextField fx:id="name" layoutX="412.0" layoutY="459.0" prefHeight="71.0" prefWidth="457.0" promptText="Enter user name">
+      <TextField fx:id="name" layoutX="412.0" layoutY="459.0" prefHeight="71.0" prefWidth="457.0" promptText="Enter user name" styleClass="playerNames" stylesheets="@FontStyle.css">
          <font>
             <Font size="33.0" />
          </font>
       </TextField>
-      <Label ellipsisString="" layoutX="411.0" layoutY="37.0" prefHeight="118.0" prefWidth="521.0" text="Edit profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="411.0" layoutY="37.0" prefHeight="118.0" prefWidth="521.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Edit profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
@@ -44,12 +44,12 @@
             <Image url="@../../resources/avatars/1.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="delete" contentDisplay="CENTER" layoutX="327.0" layoutY="583.0" mnemonicParsing="false" onAction="#delete" prefHeight="62.0" prefWidth="251.0" text="Delete" textAlignment="CENTER">
+      <Button fx:id="delete" contentDisplay="CENTER" layoutX="292.0" layoutY="583.0" mnemonicParsing="false" onAction="#delete" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Delete" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Label layoutX="511.0" layoutY="187.0" text="Click image to change" textFill="#f7f3f3">
+      <Label layoutX="470.0" layoutY="181.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Click image to change" textFill="#f7f3f3">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
