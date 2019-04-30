@@ -49,9 +49,9 @@ public class TutorialMessages {
       "control armies of playing pieces with which they attempt to capture territories from other\n" + 
       "players, with results determined by dice rolls. Players may form and dissolve alliances during\n" + 
       "the course of the game. The goal of the game is to occupy every territory on the board and\n" +    
-      "in doing so, eliminate the other players.\n\n" +
+      "in doing so, eliminate the other players.\n\n\n" +
       
-      "2 The Parts\n" +
+      "2 The Parts\n\n" +
       "Every Risk game has a map that has a similar shape to the original map of the world. Every\n" + 
       "Player can place armies on unclaimed or hers/his countries. These armies can fight at each\n" + 
       "other for bordering countries. These fights are decided by dice/die that are rolled at every\n" + 
@@ -60,9 +60,9 @@ public class TutorialMessages {
       "  Asia, and the Australian Archipelago — and 42 countries.\n" + 
       "● The ​Risk​ armies come in different colors, each assigned to a player\n" + 
       "● There are 44 risk cards. 42 cards are marked with countries as\n" + 
-      "  well as an infantry, cavalry, or artillery symbol and there are two \"Wild\" cards.\n\n" + 
+      "  well as an infantry, cavalry, or artillery symbol and there are two \"Wild\" cards.\n\n\n" + 
       
-      "3 Beginning of the Game\n" +
+      "3 Beginning of the Game\n\n" +
       "Depending on how many players starting the game the amount of armies to place for every player varies:\n\n" +
       "● 2 Players -> 40 armies for each\n" +
       "● 3 Players -> 35 armies for each\n" +
@@ -100,8 +100,8 @@ public class TutorialMessages {
       "● If, during the beginning of your turn, you turned in a set of cards with a territory that\n" + 
       "  you owned, you receive two extra infantrymen.\n" + 
       "  You must place those infantrymen on\n" + 
-      "  the territory specified by the card.\n\n" +
-      "4 Attacking\n" +
+      "  the territory specified by the card.\n\n\n" +
+      "4 Attacking\n\n" +
       "You may only attack other territories that are adjacent to a territory you own or that are\n" + 
       "connected to a territory you own by a sea-lane. For example, you cannot attack India from\n" + 
       "the Eastern United States because the territories are not adjacent.\n" + 

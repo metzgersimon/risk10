@@ -1374,8 +1374,8 @@
 					<bottom>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
-								<TextField fx:id="playername" prefHeight="25.0" prefWidth="56.0" />
-								<TextField fx:id="messages" HBox.hgrow="ALWAYS" />
+								<TextField fx:id="playername" prefHeight="26.0" prefWidth="77.0" promptText="\@Name" />
+								<TextField fx:id="messages" onAction="#handleSendMessage" prefHeight="26.0" prefWidth="120.0" promptText="Message..." HBox.hgrow="ALWAYS" />
 								<Button fx:id="send" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleSendMessage" text="Send" HBox.hgrow="ALWAYS" />
 							</children>
 						</HBox>
