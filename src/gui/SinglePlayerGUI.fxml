@@ -38,7 +38,7 @@
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
       </Label>
-      <Label ellipsisString="" layoutX="292.0" layoutY="46.0" prefHeight="113.0" prefWidth="718.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label alignment="CENTER" ellipsisString="" layoutX="292.0" layoutY="46.0" prefHeight="113.0" prefWidth="718.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>

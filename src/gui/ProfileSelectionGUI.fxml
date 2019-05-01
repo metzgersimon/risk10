@@ -28,7 +28,7 @@
                   <Font name="Ubuntu Light" size="21.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="208.0" layoutY="48.0" prefHeight="142.0" prefWidth="864.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label alignment="CENTER" ellipsisString="" layoutX="208.0" layoutY="48.0" prefHeight="142.0" prefWidth="864.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font size="76.0" />
                </font>

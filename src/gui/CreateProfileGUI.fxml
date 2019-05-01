@@ -52,7 +52,7 @@
                   <Font size="33.0" />
                </font>
             </TextField>
-            <Label ellipsisString="" layoutX="317.0" layoutY="59.0" prefHeight="141.0" prefWidth="656.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Create Profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label alignment="CENTER" ellipsisString="" layoutX="317.0" layoutY="59.0" prefHeight="141.0" prefWidth="656.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Create Profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Ubuntu" size="100.0" />
                </font>

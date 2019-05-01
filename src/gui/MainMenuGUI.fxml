@@ -33,7 +33,7 @@
                   <Font size="31.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="450.0" layoutY="60.0" prefHeight="235.0" prefWidth="380.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label alignment="CENTER" ellipsisString="" layoutX="450.0" layoutY="60.0" prefHeight="235.0" prefWidth="380.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Ubuntu" size="200.0" />
                </font>
