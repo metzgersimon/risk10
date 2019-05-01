@@ -14,7 +14,7 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Label ellipsisString="" layoutX="176.0" layoutY="48.0" prefHeight="131.0" prefWidth="990.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile image" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="195.0" layoutY="49.0" prefHeight="131.0" prefWidth="945.0" stylesheets="@FontStyle.css" text="Select your profile image" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font size="74.0" />
          </font>

@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import network.messages.game.AttackMessage;
@@ -52,6 +53,10 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    Font ubuntuFontLight = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+    Font ubuntuFontRegular = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+    Font ubuntuFontMedium = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+    
     try {
       FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
       board = (AnchorPane) fxmlLoader1.load();
@@ -62,6 +67,8 @@ public class Main extends Application {
       cardPane = (AnchorPane) fxmlLoader2.load();
       Main.cardC = fxmlLoader2.getController();
 
+
+      
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
       // scenePanes = new Scene(new Pane(), 1024, 720);
       scene = new Scene(root, 1280, 720);

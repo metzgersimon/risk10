@@ -16,12 +16,12 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="back" layoutX="129.0" layoutY="591.0" mnemonicParsing="false" onAction="#back" prefHeight="71.0" prefWidth="166.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER">
+      <Button fx:id="back" layoutX="129.0" layoutY="588.0" mnemonicParsing="false" onAction="#back" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Label ellipsisString="" layoutX="426.0" layoutY="58.0" prefHeight="167.0" prefWidth="855.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Host Game" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="386.0" layoutY="61.0" prefHeight="167.0" prefWidth="510.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Host Game" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
@@ -29,16 +29,16 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <Button fx:id="confirm" layoutX="912.0" layoutY="588.0" mnemonicParsing="false" onAction="#confirm" prefHeight="71.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Confirm" textAlignment="CENTER">
+      <Button fx:id="confirm" layoutX="920.0" layoutY="588.0" mnemonicParsing="false" onAction="#confirm" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Confirm" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Label layoutX="310.0" layoutY="245.0" styleClass="subHeadlines" stylesheets="@FontStyle.css" text="Please choose the number of players" textFill="#faf7f7">
+      <Label layoutX="257.0" layoutY="264.0" styleClass="subHeadlines" stylesheets="@FontStyle.css" text="Please choose the number of players" textFill="#faf7f7">
          <font>
             <Font name="System Bold" size="39.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choiceBox" layoutX="547.0" layoutY="341.0" prefHeight="43.0" prefWidth="184.0" styleClass="choiceBox" stylesheets="@FontStyle.css" />
+      <ChoiceBox fx:id="choiceBox" layoutX="549.0" layoutY="343.0" prefHeight="43.0" prefWidth="184.0" styleClass="choiceBox" stylesheets="@FontStyle.css" />
    </children>
 </AnchorPane>

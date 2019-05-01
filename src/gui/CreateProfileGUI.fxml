@@ -47,20 +47,20 @@
                   <Font size="33.0" />
                </font>
             </Button>
-            <TextField fx:id="name" layoutX="399.0" layoutY="457.0" prefHeight="71.0" prefWidth="457.0" promptText="Enter username" styleClass="playerNames" stylesheets="@FontStyle.css">
+            <TextField fx:id="name" layoutX="412.0" layoutY="462.0" prefHeight="71.0" prefWidth="457.0" promptText="Enter username" styleClass="playerNames" stylesheets="@FontStyle.css">
                <font>
                   <Font size="33.0" />
                </font>
             </TextField>
-            <Label ellipsisString="" layoutX="356.0" layoutY="61.0" prefHeight="141.0" prefWidth="577.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Create Profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label ellipsisString="" layoutX="317.0" layoutY="59.0" prefHeight="141.0" prefWidth="656.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Create Profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
-                  <Font name="Bernard MT Condensed" size="96.0" />
+                  <Font name="Ubuntu" size="100.0" />
                </font>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </Label>
-            <ImageView fx:id="profileImage" fitHeight="192.0" fitWidth="277.0" layoutX="544.0" layoutY="218.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileImage" fitHeight="192.0" fitWidth="277.0" layoutX="544.0" layoutY="234.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/avatar/0.jpg" />
                </image>

@@ -107,7 +107,12 @@ public class MultiPlayerGUIController {
 
     // call the method to connect to the server
     networkController.joinGameonDiscovery();
-
+     try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     // if client is succesfully created open the game lobby for the client
     if (NetworkController.gameFinder.getClient() != null) {
       try {

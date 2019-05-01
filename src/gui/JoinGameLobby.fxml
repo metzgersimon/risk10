@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -31,11 +32,11 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="426.0">
           <children>
-            <SplitPane dividerPositions="0.4074074074074074" focusTraversable="true" layoutX="1.0" layoutY="40.0" prefHeight="756.0" prefWidth="839.0">
+            <SplitPane focusTraversable="true" layoutX="1.0" layoutY="40.0" prefHeight="756.0" prefWidth="839.0">
               <items>
                 <AnchorPane maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="347.0" styleClass="backgraound-color">
                   <children>
-                    <Button fx:id="leaveGame" layoutX="65.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveGame" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                    <Button fx:id="leaveGame" layoutX="345.0" layoutY="647.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveGame" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -43,59 +44,17 @@
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Button>
-                    <Label layoutX="8.0" layoutY="31.0" prefHeight="38.0" prefWidth="322.0" styleClass="subHeadlines, headlines" text="Game lobby joined successfully" textFill="BLACK">
+                    <Label layoutX="240.0" layoutY="32.0" prefHeight="73.0" prefWidth="361.0" styleClass="subHeadlines, headlines" text="Game lobby joined successfully" textFill="BLACK">
                       <effect>
                         <Glow />
                       </effect>
                     </Label>
-                    <Label layoutX="19.0" layoutY="277.0" prefHeight="84.0" prefWidth="300.0" styleClass="headlines" text="Waiting for host to start" />
-                    <Label layoutX="8.0" layoutY="342.0" prefHeight="83.99990000000253" prefWidth="300.0" styleClass="headlines" text=" the game" />
-                    <CheckBox fx:id="clientPlayer" alignment="CENTER" disable="false" layoutX="19.0" layoutY="214.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                Client 1">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
+                    <Label layoutX="16.0" layoutY="209.0" prefHeight="149.0" prefWidth="805.0" styleClass="headlines" text="Waiting for host to start the game" />
+                              <ImageView fitHeight="754.0" fitWidth="837.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
                   </children>
                   <stylesheets>
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
-                </AnchorPane>
-                <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="557.0" styleClass="backgraound-color">
-                  <children>
-                    <CheckBox fx:id="hostBox" alignment="CENTER" contentDisplay="TOP" graphicTextGap="6.0" layoutX="40.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                                   Host">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
-                    <Label layoutX="90.0" layoutY="23.0" prefHeight="100.0" prefWidth="200.0" styleClass="leftPanelLabel, headlines" text="  List of players">
-                      <effect>
-                        <Glow />
-                      </effect>
-                      <stylesheets>
-                        <URL value="@HostGameLobby.css" />
-                      </stylesheets>
-                    </Label>
-                    <CheckBox fx:id="client2" alignment="CENTER" graphicTextGap="6.0" layoutX="40.0" layoutY="190.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 2">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
-                    <CheckBox fx:id="client3" alignment="CENTER" layoutX="40.0" layoutY="250.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 3">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
-                    <CheckBox fx:id="client4" alignment="CENTER" layoutX="40.0" layoutY="310.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 4">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
-                    <CheckBox fx:id="client5" alignment="CENTER" layoutX="40.0" layoutY="370.0" minHeight="3.0" mnemonicParsing="false" onAction="#initialize" prefHeight="45.0" prefWidth="300.0" styleClass="check-box-text" text="                               Client 5">
-                      <effect>
-                        <SepiaTone level="0.3" />
-                      </effect>
-                    </CheckBox>
-                  </children>
                 </AnchorPane>
               </items>
             </SplitPane>

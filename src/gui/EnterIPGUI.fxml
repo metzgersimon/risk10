@@ -16,22 +16,22 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="back" layoutX="172.0" layoutY="595.0" mnemonicParsing="false" onAction="#back" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.67">
+      <Button fx:id="back" layoutX="172.0" layoutY="595.0" mnemonicParsing="false" onAction="#back" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.67">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Button fx:id="connect" layoutX="259.0" layoutY="483.0" mnemonicParsing="false" onAction="#connect" prefHeight="62.0" prefWidth="295.0" stylesheets="@FontStyle.css" text="Connect" textAlignment="CENTER">
+      <Button fx:id="connect" layoutX="840.0" layoutY="494.0" mnemonicParsing="false" onAction="#connect" prefHeight="62.0" prefWidth="295.0" stylesheets="@FontStyle.css" text="Connect" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <TextField fx:id="ip" layoutX="222.0" layoutY="249.0" prefHeight="85.0" prefWidth="370.0" promptText="Enter host IP" styleClass="playerNames" stylesheets="@FontStyle.css">
+      <TextField fx:id="ip" layoutX="802.0" layoutY="256.0" prefHeight="85.0" prefWidth="370.0" promptText="Enter host IP" styleClass="playerNames" stylesheets="@FontStyle.css">
          <font>
             <Font size="31.0" />
          </font>
       </TextField>
-      <Label ellipsisString="" layoutX="398.0" layoutY="44.0" prefHeight="141.0" prefWidth="484.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Join server" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="398.0" layoutY="44.0" prefHeight="141.0" prefWidth="524.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Join server" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
@@ -39,15 +39,20 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <TextField fx:id="ip1" layoutX="222.0" layoutY="371.0" prefHeight="85.0" prefWidth="370.0" promptText="Enter Host Port" styleClass="playerNames" stylesheets="@FontStyle.css">
+      <TextField fx:id="ip1" layoutX="802.0" layoutY="369.0" prefHeight="85.0" prefWidth="370.0" promptText="Enter Host Port" styleClass="playerNames" stylesheets="@FontStyle.css">
          <font>
             <Font size="31.0" />
          </font>
       </TextField>
-      <Button fx:id="connect1" layoutX="738.0" layoutY="483.0" mnemonicParsing="false" onAction="#connect" prefHeight="62.0" prefWidth="295.0" stylesheets="@FontStyle.css" text=" Discover Server" textAlignment="CENTER">
+      <Button fx:id="connect1" layoutX="151.0" layoutY="330.0" mnemonicParsing="false" onAction="#connect" prefHeight="62.0" prefWidth="295.0" stylesheets="@FontStyle.css" text=" Discover Server" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
+      <Label layoutX="610.0" layoutY="325.0" text="or" textFill="WHITE">
+         <font>
+            <Font size="58.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

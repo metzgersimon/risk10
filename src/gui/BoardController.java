@@ -1035,14 +1035,17 @@ public class BoardController implements Initializable {
     String message = messages.getText();
     String player = playername.getText();
     String author = ProfileSelectionGUIController.selectedPlayerName;
-    Client client = NetworkController.gameFinder.getClient();
-    if (player.equals("") || player.isEmpty() || playername == null) {
-      GameMessageMessage chatmessage = new GameMessageMessage(author, message);
-      client.sendMessage(chatmessage);
-    } else {
-      SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
-      client.sendMessage(privatemessage);
+    if(Main.g.isNetworkGame()) {
+      Client client = NetworkController.gameFinder.getClient();
+      if (player.equals("") || player.isEmpty() || playername == null) {
+        GameMessageMessage chatmessage = new GameMessageMessage(author, message);
+        client.sendMessage(chatmessage);
+      } else {
+        SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
+        client.sendMessage(privatemessage);
+      }
     }
+
 
     // chat.appendText(message+"\n");
   }
