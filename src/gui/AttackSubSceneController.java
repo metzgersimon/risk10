@@ -114,6 +114,10 @@ public class AttackSubSceneController implements Initializable {
   }
 
   public synchronized void throwDices() {
+    int numberDicesOpponent =
+        Main.b.getSelectedTerritory_attacked().getNumberOfArmies() > 1 ? 2 : 1;
+    attacker = Dice.rollDices(numberOfDices);
+    defender = Dice.rollDices(numberDicesOpponent);
     Platform.runLater(new Runnable() {
       public void run() {
         nameAttacker.setText(Main.b.getSelectedTerritory().getName().replaceAll("_", " "));
@@ -124,10 +128,6 @@ public class AttackSubSceneController implements Initializable {
           defendDice2.setVisible(false);
         }
 
-        int numberDicesOpponent =
-            Main.b.getSelectedTerritory_attacked().getNumberOfArmies() > 1 ? 2 : 1;
-        attacker = Dice.rollDices(numberOfDices);
-        defender = Dice.rollDices(numberDicesOpponent);
         attackDice1.setImage(new Image(getClass()
             .getResource("/resources/dices/dice_" + attacker.get(0) + "_RED.png").toString(),
             true));
@@ -151,91 +151,87 @@ public class AttackSubSceneController implements Initializable {
         }
       }
     });
-    if (attacker != null && defender != null) {
-      boolean attackResult =
-          Main.g.getCurrentPlayer().attack(attacker, defender, Main.b.getSelectedTerritory(),
-              Main.b.getSelectedTerritory_attacked(), (int) diceSlider.getValue());
-      Platform.runLater(new Runnable() {
-        public void run() {
-          if (attackResult || (Main.b.getSelectedTerritory().getNumberOfArmies() == 1)) {
-            armiesAttacker
-                .setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
-            armiesDefender.setText(
-                String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
+    boolean attackResult =
+        Main.g.getCurrentPlayer().attack(attacker, defender, Main.b.getSelectedTerritory(),
+            Main.b.getSelectedTerritory_attacked(), (int) diceSlider.getValue());
+    Platform.runLater(new Runnable() {
+      public void run() {
+        if (attackResult || (Main.b.getSelectedTerritory().getNumberOfArmies() == 1)) {
+          armiesAttacker.setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
+          armiesDefender
+              .setText(String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
 
-            // back to map
-            Main.stagePanes.close();
+          // back to map
+          Main.stagePanes.close();
 
-            attackDice1.setVisible(true);
-            attackDice2.setVisible(false);
-            attackDice3.setVisible(false);
-            defendDice1.setVisible(true);
-            defendDice2.setVisible(true);
+          attackDice1.setVisible(true);
+          attackDice2.setVisible(false);
+          attackDice3.setVisible(false);
+          defendDice1.setVisible(true);
+          defendDice2.setVisible(true);
 
 
 
-            // network game message
-            if (Main.g.isNetworkGame()) {
-              AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
-                  Main.b.getSelectedTerritory_attacked().getId(), false,
-                  Main.b.getSelectedTerritory().getNumberOfArmies(),
-                  Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
-              message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-              if (attackResult) {
-                message.setIfConquered(true);
-              }
-              NetworkController.gameFinder.getClient().sendMessage(message);
-              // System.out.println("network message sent true");
+          // network game message
+          if (Main.g.isNetworkGame()) {
+            AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
+                Main.b.getSelectedTerritory_attacked().getId(), false,
+                Main.b.getSelectedTerritory().getNumberOfArmies(),
+                Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            if (attackResult) {
+              message.setIfConquered(true);
             }
-
-            Main.b.updateLabelTerritory(Main.b.getSelectedTerritory());
-            Main.b.updateLabelTerritory(Main.b.getSelectedTerritory_attacked());
-
-            Main.b.setSelectedTerritory(null);
-            Main.b.setSelectedTerritory(null);
-            Main.b.prepareAttack();
-
-          } else {
-            // Label updaten
-            if (Main.g.isShowTutorialMessages()) {
-              int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
-              if (armiesAttackerInt - defender.size() == Main.b.getSelectedTerritory()
-                  .getNumberOfArmies()) {
-                Main.b.showMessage(TutorialMessages.attackFailed);
-              } else {
-                Main.b.showMessage(TutorialMessages.attackSuccess);
-              }
-            }
-            if (Main.b.getSelectedTerritory_attacked().getNumberOfArmies() == 1) {
-              defendDice2.setVisible(false);
-            }
-            armiesAttacker
-                .setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
-            armiesDefender.setText(
-                String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
-            Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
-                .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
-            Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
-            diceSlider.setValue(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
-            // network game message
-            if (Main.g.isNetworkGame()) {
-              AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
-                  Main.b.getSelectedTerritory_attacked().getId(), false,
-                  Main.b.getSelectedTerritory().getNumberOfArmies(),
-                  Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
-              message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-              NetworkController.gameFinder.getClient().sendMessage(message);
-              System.out.println("network message sent false");
-            }
+            NetworkController.gameFinder.getClient().sendMessage(message);
+            // System.out.println("network message sent true");
           }
 
+          Main.b.updateLabelTerritory(Main.b.getSelectedTerritory());
+          Main.b.updateLabelTerritory(Main.b.getSelectedTerritory_attacked());
 
-          // selectedTerritory_attacked = null;
-          // selectedTerritory = null;
+          Main.b.setSelectedTerritory(null);
+          Main.b.setSelectedTerritory(null);
+          Main.b.prepareAttack();
+
+        } else {
+          // Label updaten
+          if (Main.g.isShowTutorialMessages()) {
+            int armiesAttackerInt = Integer.parseInt(armiesAttacker.getText());
+            if (armiesAttackerInt - defender.size() == Main.b.getSelectedTerritory()
+                .getNumberOfArmies()) {
+              Main.b.showMessage(TutorialMessages.attackFailed);
+            } else {
+              Main.b.showMessage(TutorialMessages.attackSuccess);
+            }
+          }
+          if (Main.b.getSelectedTerritory_attacked().getNumberOfArmies() == 1) {
+            defendDice2.setVisible(false);
+          }
+          armiesAttacker.setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
+          armiesDefender
+              .setText(String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
+          Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
+              .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
+          Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
+              .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+          diceSlider.setValue(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
+          // network game message
+          if (Main.g.isNetworkGame()) {
+            AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
+                Main.b.getSelectedTerritory_attacked().getId(), false,
+                Main.b.getSelectedTerritory().getNumberOfArmies(),
+                Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+            System.out.println("network message sent false");
+          }
         }
-      });
-    }
+
+
+        // selectedTerritory_attacked = null;
+        // selectedTerritory = null;
+      }
+    });
   }
 
   public void updateDiceSlider(Territory t) {
