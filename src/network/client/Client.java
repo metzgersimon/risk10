@@ -333,6 +333,10 @@ public class Client extends Thread implements Serializable {
       moveTo.setNumberOfArmies(message.getAmount());
       Main.b.updateLabelTerritory(moveFrom);
       Main.b.updateLabelTerritory(moveTo);
+      System.out.println("move from " + moveFrom.getName());
+      System.out.println("move to " + moveTo.getName());
+      System.out.println("move " + message.getAmount());
+
       // }
     }
     Main.g.furtherFortify();

@@ -101,17 +101,20 @@ public class AiPlayerEasy extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
+
       if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
       }
-      Main.g.setGameState(GameState.ATTACK);
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
+      System.out.println(this.getNumberArmiesToDistibute());
     }
+    System.out.println("not in schleife");
+    Main.g.setGameState(GameState.ATTACK);
     this.attack();
 
   }
@@ -194,7 +197,9 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   public synchronized void fortify() {
     System.out.println("AI fortify: " + Main.g.getCurrentPlayer());
     // Main.b.handleSkipGameState();
+    // if (!Main.g.isNetworkGame()) {
     Main.g.furtherFortify();
+    // }
   }
 
   public boolean isCapableToAttack() {

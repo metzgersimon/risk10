@@ -11,6 +11,7 @@ import gui.NetworkController;
 import main.Main;
 import network.messages.game.AttackMessage;
 import network.messages.game.FortifyMessage;
+import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
@@ -433,10 +434,22 @@ public class Player implements Serializable {
           return true;
         } else {
           if ((NetworkController.server != null)) {
-            DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
-            armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(armyMessage);
-            return true;
+            if (Main.g.getGameState().equals(GameState.INITIALIZING_ARMY)) {
+              DistributeArmyMessage armyMessage = new DistributeArmyMessage(amount, t.getId());
+              armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+              NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+              System.out.println("nachricht initial army AI geschickt mit " + amount);
+              return true;
+            } else if (Main.g.getGameState().equals(GameState.ARMY_DISTRIBUTION)) {
+              t.setNumberOfArmies(amount);
+              this.numberArmiesToDistribute -= amount;
+              FurtherDistributeArmyMessage armyMessage =
+                  new FurtherDistributeArmyMessage(amount, t.getId());
+              armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
+              NetworkController.gameFinder.getClient().sendMessage(armyMessage);
+              System.out.println("nachricht further army AI geschickt mit " + amount);
+              return true;
+            }
           }
           return true;
         }
