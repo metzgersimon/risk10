@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import game.AiPlayer;
 import game.Game;
 import game.GameState;
+import game.Territory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,44 +41,37 @@ public class ArmyDistributionSubSceneController implements Initializable {
   }
 
   public synchronized void confirmArmyDistribution() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        int amount = (int) setArmySlider.getValue();
-        if (Main.g.getCurrentPlayer().armyDistribution(amount, board.getSelectedTerritory())) {
-          board.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
-              .setText(board.getSelectedTerritory().getNumberOfArmies() + "");
-          board.getArmiesToDistributeLabel()
-              .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-          if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-            FurtherDistributeArmyMessage message =
-                new FurtherDistributeArmyMessage(amount, board.getSelectedTerritory().getId());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-          }
-        }
-        Main.stage.setScene(Main.boardScene);
-        Main.stage.show();
-        board.setSelectedTerritory(null);
-        // fortifyPane.toBack();
-        // selectedTerritory.getBoardRegion().getRegion().setEffect(null);
-        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
-          Main.g.setGameState(GameState.ATTACK);
-          Main.b.prepareAttack();
-        } else {
-          Main.b.prepareArmyDistribution();
-        }
+    Territory t = Main.b.getSelectedTerritory();
+    int amount = (int) setArmySlider.getValue();
+    if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
+      Main.b.setTerritoryText(t);
+      Main.b.setCircleArmiesToDistributeLable();
+      if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        FurtherDistributeArmyMessage message =
+            new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
+        message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+        NetworkController.gameFinder.getClient().sendMessage(message);
       }
-    });
+    }
+    if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
+      Main.g.setGameState(GameState.ATTACK);
+      Main.b.prepareAttack();
+    }
+//    else {
+//      Main.b.prepareArmyDistribution();
+//    }
+    Main.stagePanes.close();
+    Main.b.setSelectedTerritory(null);
+
   }
 
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {
         // Main.stage.setScene(new Scene(Ma));
-        board.prepareArmyDistribution();
-        Main.stage.setScene(Main.boardScene);
-        Main.stage.show();
-
+        //Main.b.prepareArmyDistribution();
+        Main.stagePanes.close();
+        Main.b.setSelectedTerritory(null);
       }
     });
   }

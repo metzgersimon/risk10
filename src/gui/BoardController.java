@@ -88,11 +88,7 @@ import network.messages.game.SelectInitialTerritoryMessage;
  */
 public class BoardController implements Initializable {
 
-  /**
-   * @author prto testing
-   */
-  public HashMap<Integer, Card> topList = new HashMap<>();
-  public HashMap<Integer, Card> bottomList = new HashMap<>();
+
 
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
@@ -195,33 +191,6 @@ public class BoardController implements Initializable {
   @FXML
   private static ProgressBar progress;
 
-  /**
-   * Elements to handle the card split-pane
-   */
-  @FXML
-  private GridPane gridCardPane;
-  @FXML
-  private SplitPane cardPane;
-  @FXML
-  private AnchorPane upAndDown, upperPane, bottomPane;
-  @FXML
-  private FlowPane ownCards;
-  @FXML
-  private Circle cardButton;
-
-  /**
-   * Elements to handle trade-in button
-   */
-  @FXML
-  private Button tradeIn;
-  @FXML
-  private Label tradedCardSets;
-  @FXML
-  private Pane cantBeTraded;
-  @FXML
-  private Button exitPopup;
-  @FXML
-  private Label label;
 
   /**
    * Element which handles the function to skip a game state
@@ -234,13 +203,6 @@ public class BoardController implements Initializable {
   @FXML
   private Label gameState;
 
-  /**
-   * Elements to handle the card selection the player wants to trade in
-   */
-  @FXML
-  private GridPane paneXY;
-  @FXML
-  private HBox left, center, right;
 
   /**
    * Elements for statistic pane
@@ -299,6 +261,7 @@ public class BoardController implements Initializable {
 
   }
 
+
   /**
    * @author prto opens live statistics panel
    */
@@ -341,44 +304,6 @@ public class BoardController implements Initializable {
   }
 
 
-  /**
-   * @author prto initialize card lists
-   */
-  // public void initializeCardLists() {
-  // topList = new HashMap<Integer, Card>();
-  // bottomList = new HashMap<Integer, Card>();
-  // }
-
-  // moves card from bottomList to topList
-  public void selectCard(Card card, int i) {
-    if (bottomList.containsKey(card.getId())) {
-      if (topList.size() <= 3) {
-        Card temp = bottomList.get(card.getId());
-        bottomList.remove(card.getId());
-        topList.put(i, temp);
-      } else {
-        System.out.println("Error: TopList is > 3");
-      }
-    } else {
-      System.out.println("Error: Card is not in bottomList");
-    }
-  }
-
-  // moves card from topList to bottomList
-  public void deselectCard(Card card, int i) {
-    if (topList.containsKey(i)) {
-      if (bottomList.size() <= 5) {
-        Card temp = topList.get(i);
-        topList.remove(i);
-        bottomList.put(temp.getId(), temp);
-      } else {
-        System.out.println("Error: bottomList is > 5");
-      }
-    } else {
-      System.out.println("Error: Card is not in topList");
-    }
-  }
-
 
   // public void setMain(BoardGUI_Main boardGUI, Game g) {
   public void setMain(SinglePlayerGUIController boardGui) {
@@ -394,6 +319,23 @@ public class BoardController implements Initializable {
 
   public void startBoard() {
     connectRegionTerritory();
+  }
+
+  public void setTerritoryText(Territory t) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+
+      }
+    });
+  }
+
+  public void setCircleArmiesToDistributeLable() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+      }
+    });
   }
 
   /**
@@ -462,8 +404,28 @@ public class BoardController implements Initializable {
             }
           }
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
-            gridCardPane.setVisible(true);
-            grayPane.setVisible(true);
+            try {
+              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CardSubScene.fxml"));
+              Parent root = (Parent) fxmlLoader.load();
+              Main.cardC = fxmlLoader.getController();
+//              Main.ca.setMain(Main.b);
+              // SubScene subScene = new SubScene(root, 1024, 720);
+
+              // subScene.setRoot(root);
+              // rootAnchor.getChildren().add(subScene);
+              // subScene.setOpacity(1.0);
+              // subScene.setMouseTransparent(false);
+
+              // Main.stage.setScene(new Scene(root));
+              // Main.stage.show();
+              Main.stagePanes.setScene(new Scene(root));
+              Main.stagePanes.show();
+
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+            // gridCardPane.setVisible(true);
+            // grayPane.setVisible(true);
             if (Main.g.isShowTutorialMessages()) {
               showMessage(TutorialMessages.forcedTrade);
             }
@@ -501,22 +463,26 @@ public class BoardController implements Initializable {
    *         Method to prepare the BoardGUI for phase ATTACK
    */
   public synchronized void prepareAttack() {
-    if (!gameState.getText().equals("Attack!")) {
-      gameState.setText("Attack!");
-      if (Main.g.isShowTutorialMessages()) {
-        showMessage(game.TutorialMessages.attacking1);
-      }
-    }
+    Platform.runLater(new Runnable() {
+      public void run() {
+        if (!gameState.getText().equals("Attack!")) {
+          gameState.setText("Attack!");
+          if (Main.g.isShowTutorialMessages()) {
+            showMessage(game.TutorialMessages.attacking1);
+          }
+        }
 
-    for (Territory t : Main.g.getWorld().getTerritories().values()) {
-      if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
-        t.getBoardRegion().getRegion().setDisable(false);
-        t.getBoardRegion().getRegion().setEffect(null);
-      } else {
-        t.getBoardRegion().getRegion().setDisable(true);
-        t.getBoardRegion().getRegion().setEffect(new Lighting());
+        for (Territory t : Main.g.getWorld().getTerritories().values()) {
+          if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
+            t.getBoardRegion().getRegion().setDisable(false);
+            t.getBoardRegion().getRegion().setEffect(null);
+          } else {
+            t.getBoardRegion().getRegion().setDisable(true);
+            t.getBoardRegion().getRegion().setEffect(new Lighting());
+          }
+        }
       }
-    }
+    });
   }
 
   /**
@@ -691,30 +657,31 @@ public class BoardController implements Initializable {
                   // grayPane.setVisible(true);
                   // handleGrayPane();
                   // setArmyPane.setVisible(true);
-                  Main.boardScene = Main.stage.getScene();
-                  Platform.runLater(new Runnable() {
-                    public void run() {
-                      try {
-                        FXMLLoader fxmlLoader =
-                            new FXMLLoader(getClass().getResource("ArmyDistributionSubScene.fxml"));
-                        Parent root = (Parent) fxmlLoader.load();
-                        Main.army = fxmlLoader.getController();
-                        Main.army.setMain(Main.b);
-                        SubScene subScene = new SubScene(root, 1024, 720);
+                  // Platform.runLater(new Runnable() {
+                  // public void run() {
+                  try {
+                    FXMLLoader fxmlLoader =
+                        new FXMLLoader(getClass().getResource("ArmyDistributionSubScene.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    Main.army = fxmlLoader.getController();
+                    Main.army.setMain(Main.b);
+                    // SubScene subScene = new SubScene(root, 1024, 720);
 
-                        // subScene.setRoot(root);
-                        rootAnchor.getChildren().add(subScene);
-                        // subScene.setOpacity(1.0);
-                        // subScene.setMouseTransparent(false);
+                    // subScene.setRoot(root);
+                    // rootAnchor.getChildren().add(subScene);
+                    // subScene.setOpacity(1.0);
+                    // subScene.setMouseTransparent(false);
 
-                        // Main.stage.setScene(new Scene(root));
-                        // Main.stage.show();
+                    // Main.stage.setScene(new Scene(root));
+                    // Main.stage.show();
+                    Main.stagePanes.setScene(new Scene(root));
+                    Main.stagePanes.show();
 
-                      } catch (Exception e) {
-                        e.printStackTrace();
-                      }
-                    }
-                  });
+                  } catch (Exception e) {
+                    e.printStackTrace();
+                  }
+                  // }
+                  // });
 
                 }
               });
@@ -759,14 +726,16 @@ public class BoardController implements Initializable {
                     }
                     // Platform.runLater(new Runnable() {
                     // public void run() {
-                    Main.boardScene = Main.stage.getScene();
+
                     try {
                       FXMLLoader fxmlLoader =
                           new FXMLLoader(getClass().getResource("AttackSubScene.fxml"));
                       Parent root = (Parent) fxmlLoader.load();
                       Main.attack = fxmlLoader.getController();
-                      SubScene sub = new SubScene(root, 1024, 720);
-                      rootAnchor.getChildren().add(sub);
+                      // SubScene sub = new SubScene(root, 1024, 720);
+                      // rootAnchor.getChildren().add(sub);
+                      Main.stagePanes.setScene(new Scene(root));
+                      Main.stagePanes.show();
                     } catch (Exception e) {
                       e.printStackTrace();
                     }
@@ -809,16 +778,11 @@ public class BoardController implements Initializable {
                             new FXMLLoader(getClass().getResource("FortifySubScene.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Main.fortify = fxmlLoader.getController();
-                        SubScene sub = new SubScene(root, 1024, 720);
-                        rootAnchor.getChildren().add(sub);
+                        Main.stagePanes.setScene(new Scene(root));
+                        Main.stagePanes.show();
                       } catch (Exception e) {
                         e.printStackTrace();
                       }
-                      // }
-                      // });
-
-                      // grayPane.setVisible(true);
-                      // fortifyPane.setVisible(true);
                     }
                   }
                 }
@@ -842,10 +806,31 @@ public class BoardController implements Initializable {
   public synchronized void handleCardPane() {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (gridCardPane.isVisible()) {
-          gridCardPane.setVisible(false);
+        if (Main.stagePanes.isShowing()) {
+          try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CardSubScene.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Main.cardC = fxmlLoader.getController();
+            // SubScene subScene = new SubScene(root, 1024, 720);
+
+            // subScene.setRoot(root);
+            // rootAnchor.getChildren().add(subScene);
+            // subScene.setOpacity(1.0);
+            // subScene.setMouseTransparent(false);
+
+            // Main.stage.setScene(new Scene(root));
+            // Main.stage.show();
+            if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+              Main.cardC.handleGrayPane(true);
+            }
+            Main.stagePanes.setScene(new Scene(root));
+            Main.stagePanes.show();
+
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         } else {
-          gridCardPane.setVisible(true);
+          Main.stagePanes.close();
           if (Main.g.isShowTutorialMessages()) {
             showMessage(TutorialMessages.tradeIn);
             showMessage(TutorialMessages.tradeInTip);
@@ -857,200 +842,17 @@ public class BoardController implements Initializable {
 
 
 
-  /**
-   * @author smetzger
-   * @param e
-   * @return
-   */
-  @FXML
-  public void handleCardDragAndDrop(MouseEvent e) {
-    // Platform.runLater(new Runnable() {
-    // public void run() {
-    ImageView img = (ImageView) e.getSource();
-    Card card = (Card) img.getUserData();
-
-    if (left.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
-      selectCard(card, 0);
-
-      StackPane pane = (StackPane) img.getParent();
-      left.getChildren().add(pane);
-      topList.put(0, card);
-      System.out.println(topList.get(0).getId());
-      pane.getStylesheets().clear();
-    } else if (center.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
-
-      selectCard(card, 1);
-
-      StackPane pane = (StackPane) img.getParent();
-      center.getChildren().add(pane);
-      topList.put(1, card);
-      System.out.println(topList.get(1).getId());
-      pane.setStyle(null);
-    } else if (right.getChildren().isEmpty()) {
-      img.setMouseTransparent(true);
-
-      selectCard(card, 2);
-
-      StackPane pane = (StackPane) img.getParent();
-      right.getChildren().add(pane);
-      topList.put(2, card);
-      System.out.println(topList.get(2).getId());
-      pane.setStyle(null);
-    }
-
-    if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
-        && !right.getChildren().isEmpty()
-        && topList.get(0).canBeTraded(topList.get(1), topList.get(2))
-        && !Main.g.getCurrentPlayer().getStartedDistribution()
-        && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-      System.out.println(
-          topList.get(0).getId() + " " + topList.get(1).getId() + " " + topList.get(2).getId());
-      tradeIn.setDisable(false);
-    }
-    //
-    // }
-    //
-    // });
-    // return img;
-
-  }
-
-
-  /**
-   * @author pcoberge
-   * @param c
-   */
-  public void insertCards(Card c) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        String file = c.getId() + ".png";
-        String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
-        StackPane pane = new StackPane();
-
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent e) {
-            handleCardDragAndDrop(e);
-          }
-        };
-
-        ImageView img;
-        img = new ImageView(
-            new Image(getClass().getResource("/resources/cards/" + file).toString(), true));
-        img.setUserData(c);
-        pane.getChildren().add(img);
-        ownCards.getChildren().add(pane);
-        bottomList.put(c.getId(), c);
-        System.out.println("in BottomList: " + bottomList.containsKey(c.getId()));
-        img.setMouseTransparent(false);
-        img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-        pane.getStylesheets().add(css);
-      }
-    });
-  }
-
-  /**
-   * @author smetzger
-   * @param e
-   */
-  @FXML
-  public void handleRemoveCard(MouseEvent e) {
-    String css = this.getClass().getResource("BoardGUI_additional.css").toExternalForm();
-    HBox b = (HBox) e.getSource();
-
-    if (b.equals(left)) {
-      StackPane pane = (StackPane) b.getChildren().get(0);
-      ImageView img = (ImageView) pane.getChildren().get(0);
-      Card card = (Card) img.getUserData();
-      this.deselectCard(card, 0);
-
-      ownCards.getChildren().add(pane);
-      bottomList.put(card.getId(), card);
-      img.setMouseTransparent(false);
-      left.getChildren().clear();
-      pane.getStylesheets().add(css);
-
-    } else if (b.equals(center)) {
-      StackPane pane = (StackPane) b.getChildren().get(0);
-      ImageView img = (ImageView) pane.getChildren().get(0);
-      Card card = (Card) img.getUserData();
-      this.deselectCard(card, 1);
-
-      ownCards.getChildren().add(pane);
-      bottomList.put(card.getId(), card);
-      img.setMouseTransparent(false);
-      center.getChildren().clear();
-      pane.getStylesheets().add(css);
-    } else if (b.equals(right)) {
-      StackPane pane = (StackPane) b.getChildren().get(0);
-      ImageView img = (ImageView) pane.getChildren().get(0);
-      Card card = (Card) img.getUserData();
-      this.deselectCard(card, 2);
-
-      ownCards.getChildren().add(pane);
-      bottomList.put(card.getId(), card);
-      img.setMouseTransparent(false);
-      right.getChildren().clear();// getChildren().remove(0);
-      pane.getStylesheets().add(css);
-    }
-    tradeIn.setDisable(true);
-  }
-
-
-  /**
-   * @author smetzger
-   * @param e
-   */
-  @FXML
-  public void handleTradeCards(ActionEvent e) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        if (e.getSource().equals(tradeIn) && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-          // re-add Cards to game carddeck
-          if (Main.g.getCurrentPlayer().tradeCards(topList.get(0), topList.get(1),
-              topList.get(2))) {
-            // Main.g.setCard(topList.get(0));
-            // Main.g.setCard(topList.get(1));
-            // Main.g.setCard(topList.get(2));
-
-            String cards = Integer.toString(Main.g.getCurrentPlayer().getTradedCardSets());
-            tradedCardSets.setText(cards);
-            topList.remove(0);
-            topList.remove(1);
-            topList.remove(2);
-
-            left.getChildren().remove(0);
-            center.getChildren().remove(0);
-            right.getChildren().remove(0);
-            tradedCardSets.setText(Main.g.getCurrentPlayer().getTradedCardSets() + "");
-            tradeIn.setDisable(true);
-            armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-
-            if (Main.g.getCurrentPlayer().getCards().size() < 5) {
-              grayPane.setVisible(false);
-            }
-          } else {
-            System.out.println("No trade");
-            cantBeTraded.toFront();
-          }
-        }
-      }
-    });
-  }
-
-  /**
-   * @author smetzger
-   * @param e
-   */
-  @FXML
-  public void exitPopup(ActionEvent e) {
-    Button b = (Button) e.getSource();
-    if (b.equals(exitPopup)) {
-      cantBeTraded.toBack();
-    }
-  }
+  // /**
+  // * @author smetzger
+  // * @param e
+  // */
+  // @FXML
+  // public void exitPopup(ActionEvent e) {
+  // Button b = (Button) e.getSource();
+  // if (b.equals(exitPopup)) {
+  // cantBeTraded.toBack();
+  // }
+  // }
 
   /**
    * @author smetzger
@@ -1117,8 +919,8 @@ public class BoardController implements Initializable {
             new BoardRegion(northwestTerritory, northwestTerritoryHeadline, northwestTerritoryNoA));
         Main.g.getWorld().getTerritories().get(3)
             .setBoardRegion(new BoardRegion(alberta, albertaHeadline, albertaNoA));
-        Main.g.getWorld().getTerritories().get(4).setBoardRegion(new BoardRegion(westernUnitedStates,
-            westernUnitedStatesHeadline, westernUnitedStatesNoA));
+        Main.g.getWorld().getTerritories().get(4).setBoardRegion(new BoardRegion(
+            westernUnitedStates, westernUnitedStatesHeadline, westernUnitedStatesNoA));
         Main.g.getWorld().getTerritories().get(5).setBoardRegion(
             new BoardRegion(centralAmerica, centralAmericaHeadline, centralAmericaNoA));
         Main.g.getWorld().getTerritories().get(6)
@@ -1127,8 +929,8 @@ public class BoardController implements Initializable {
             .setBoardRegion(new BoardRegion(ontario, ontarioHeadline, ontarioNoA));
         Main.g.getWorld().getTerritories().get(8)
             .setBoardRegion(new BoardRegion(quebec, quebecHeadline, quebecNoA));
-        Main.g.getWorld().getTerritories().get(9).setBoardRegion(new BoardRegion(easternUnitedStates,
-            easternUnitedStatesHeadline, easternUnitedStatesNoA));
+        Main.g.getWorld().getTerritories().get(9).setBoardRegion(new BoardRegion(
+            easternUnitedStates, easternUnitedStatesHeadline, easternUnitedStatesNoA));
         Main.g.getWorld().getTerritories().get(10)
             .setBoardRegion(new BoardRegion(venezuela, venezuelaHeadline, venezuelaNoA));
         Main.g.getWorld().getTerritories().get(11)
@@ -1307,7 +1109,7 @@ public class BoardController implements Initializable {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       endGame.setText("You are the winner!");
       winnerCrown.setVisible(true);
-      
+
     }
     Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     Platform.runLater(new Runnable() {

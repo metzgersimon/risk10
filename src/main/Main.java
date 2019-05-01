@@ -6,6 +6,7 @@ import game.TestGame;
 import gui.ArmyDistributionSubSceneController;
 import gui.AttackSubSceneController;
 import gui.BoardController;
+import gui.CardSubSceneController;
 import gui.FortifySubSceneController;
 import gui.HostGameGUIController;
 import gui.HostGameLobbyController;
@@ -21,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import network.messages.game.AttackMessage;
 
 
@@ -38,30 +40,41 @@ public class Main extends Application {
   public static AttackSubSceneController attack;
   public static FortifySubSceneController fortify;
   public static QuitGameSubSceneController quit;
+  public static CardSubSceneController cardC;
 
   public static Stage stage;
-  public static Scene sceneMain;
-  public static Scene scenePanes;
-  public static Scene boardScene;
+  public static Scene scene;
+  public static Stage stagePanes;
+  public static AnchorPane board;
+  public static AnchorPane cardPane;
+
   // public static Game g;
 
   @Override
   public void start(Stage primaryStage) {
     try {
+      FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
+      board = (AnchorPane) fxmlLoader1.load();
+      Main.b = fxmlLoader1.getController();
+      // boardScene = new Scene(board);
+
+      FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
+      cardPane = (AnchorPane) fxmlLoader2.load();
+      Main.cardC = fxmlLoader2.getController();
+
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
-      scenePanes = new Scene(new Pane(), 1024, 720);
-      sceneMain = new Scene(root, 1280, 720);
+      // scenePanes = new Scene(new Pane(), 1024, 720);
+      scene = new Scene(root, 1280, 720);
       stage = primaryStage;
-      primaryStage.setScene(sceneMain);
+      stagePanes = new Stage(StageStyle.TRANSPARENT);
+      stagePanes.setOpacity(0.9);
+      primaryStage.setScene(scene);
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
       primaryStage.setTitle("Login");
       primaryStage.show();
 
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
-      AnchorPane board = (AnchorPane) fxmlLoader.load();
-      this.b = fxmlLoader.getController();
-      boardScene = new Scene(board);
+
 
     } catch (Exception e) {
       e.printStackTrace();

@@ -12,13 +12,10 @@ public class Game implements Serializable {
   private World w;
   private ArrayList<Player> allPlayers;
   private ArrayList<Player> players;
-  private ArrayList<Territory> territories;
   private boolean isNetworkGame;
   private boolean showTutorialMessages;
   private GameState gameState;
   private HashSet<String> aiNames = new HashSet<String>();
-  private HashMap<String, Integer> cardStats;
-  private HashMap<String, Integer> territoryStats;
   private LinkedList<Card> cards;
   private Player currentPlayer;
 
@@ -300,7 +297,7 @@ public class Game implements Serializable {
       this.cards.removeLast();
       this.getCurrentPlayer().addCard(c);
       if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
-        Main.b.insertCards(c);
+        Main.cardC.insertCards(c);
       }
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);

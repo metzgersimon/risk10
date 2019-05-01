@@ -90,7 +90,6 @@ public class StatisticController implements Initializable {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
       AnchorPane board = (AnchorPane) fxmlLoader.load();
       Main.b = fxmlLoader.getController();
-      Main.boardScene = new Scene(board);
 
     } catch (Exception e1) {
       e1.printStackTrace();

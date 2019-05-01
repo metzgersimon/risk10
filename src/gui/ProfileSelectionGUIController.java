@@ -166,7 +166,7 @@ public class ProfileSelectionGUIController {
         break;
     }
 
-    Main.g = new Game();
+    Main.g = new TestGame();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {

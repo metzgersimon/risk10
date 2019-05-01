@@ -9,11 +9,13 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CardSubSceneController">
    <children>
+      <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" visible="false" />
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="775.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="124.5">
          <children>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="166.0" prefWidth="775.0" style="-fx-border-color: gray;">

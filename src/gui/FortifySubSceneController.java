@@ -42,8 +42,9 @@ public class FortifySubSceneController implements Initializable {
       public void run() {
         Main.b.prepareFortify();
         Main.b.setSelectedTerritory(null);
-        Main.stage.setScene(Main.boardScene);
-        Main.stage.show();
+        // Main.stage.setScene(Main.boardScene);
+        // Main.stage.show();
+        Main.stagePanes.close();
       }
     });
   }
@@ -52,10 +53,8 @@ public class FortifySubSceneController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         int amount = (int) fortifySlider.getValue();
-        System.out.println("Test1");
         if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
             Main.b.getSelectedTerritory_attacked(), amount)) {
-          System.out.println("Test2");
           Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
               .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
           Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
@@ -70,11 +69,11 @@ public class FortifySubSceneController implements Initializable {
           // System.out.println("value "+(int)fortifySlider.getValue());
         }
         // setArmyPane.toBack();
-        System.out.println("Test3");
-        grayPane.setVisible(false);
+        // grayPane.setVisible(false);
         Main.b.setSelectedTerritory(null);
         Main.b.setSelectedTerritory_attacked(null);
-        fortifyPane.setVisible(false);
+        Main.stagePanes.close();
+        // fortifyPane.setVisible(false);
         Main.g.getCurrentPlayer().setFortify(true);
       }
     });

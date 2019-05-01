@@ -73,8 +73,8 @@ public class SinglePlayerGUIController {
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
-      Main.sceneMain.setRoot(root);
-      stage.setScene(Main.sceneMain);
+      Main.scene.setRoot(root);
+      stage.setScene(Main.scene);
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
@@ -93,7 +93,7 @@ public class SinglePlayerGUIController {
       // stage.setTitle("Board");
       // Main.b = fxmlLoader.getController();
       Main.b.setMain(this);
-      stage.setScene(Main.boardScene);
+      stage.setScene(new Scene(Main.board));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {

@@ -23,7 +23,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -940,8 +939,8 @@
 								<Label fx:id="northAfricaHeadline" layoutX="417.0" layoutY="393.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="North Africa" />
 								<Label fx:id="venezuelaHeadline" layoutX="248.0" layoutY="439.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Venezuela" />
 								<Label fx:id="centralAmericaHeadline" layoutX="159.0" layoutY="360.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="43.0" prefWidth="46.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Central America" wrapText="true" />
-								<Label fx:id="westernUnitedStatesHeadline" layoutX="128.0" layoutY="259.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="54.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western United States" wrapText="true" />
-								<Label fx:id="easternUnitedStatesHeadline" layoutX="196.0" layoutY="259.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="46.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern United States" wrapText="true" />
+								<Label fx:id="westernUnitedStatesHeadline" layoutX="116.0" layoutY="259.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="66.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western United States" wrapText="true" />
+								<Label fx:id="easternUnitedStatesHeadline" layoutX="196.0" layoutY="259.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="66.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern United States" wrapText="true" />
 								<Label fx:id="albertaHeadline" layoutX="108.0" layoutY="206.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Alberta" />
 								<Label fx:id="ontarioHeadline" layoutX="176.0" layoutY="198.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ontario" />
 								<Label fx:id="quebecHeadline" layoutX="282.0" layoutY="217.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Quebec" />
@@ -1034,77 +1033,6 @@
 										</Button>
 									</children>
 								</AnchorPane>
-							</children>
-						</GridPane>
-						<Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<GridPane fx:id="gridCardPane" layoutX="197.0" prefHeight="720.0" prefWidth="827.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-							<columnConstraints>
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="816.0" minWidth="0.0" prefWidth="772.0" />
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="816.0" minWidth="10.0" prefWidth="55.0" />
-							</columnConstraints>
-							<rowConstraints>
-								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-							</rowConstraints>
-							<children>
-								<SplitPane fx:id="cardPane" dividerPositions="0.7" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: transparent;">
-									<items>
-										<AnchorPane fx:id="upperPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="350.0" prefWidth="500.0" visible="false" SplitPane.resizableWithParent="false" />
-										<AnchorPane fx:id="bottomPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
-											<children>
-												<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="775.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-													<children>
-														<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="166.0" prefWidth="775.0" style="-fx-border-color: gray;">
-															<children>
-																<GridPane fx:id="paneXY">
-																	<columnConstraints>
-																		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-																	</columnConstraints>
-																	<rowConstraints>
-																		<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-																	</rowConstraints>
-																	<children>
-																		<HBox fx:id="left" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" />
-																		<HBox fx:id="center" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" />
-																		<HBox fx:id="right" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2" />
-																	</children>
-																</GridPane>
-																<VBox alignment="CENTER" prefHeight="146.0" prefWidth="359.0" spacing="15.0" GridPane.columnIndex="1">
-																	<children>
-																		<HBox alignment="TOP_CENTER">
-																			<children>
-																				<Label text="traded card sets: " />
-																				<Label fx:id="tradedCardSets" text="0" textAlignment="RIGHT" />
-																			</children>
-																		</HBox>
-																		<Button fx:id="tradeIn" disable="true" mnemonicParsing="false" onAction="#handleTradeCards" text="Trade-in" />
-																	</children>
-																</VBox>
-															</children>
-															<columnConstraints>
-																<ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="444.0" />
-																<ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="247.0" />
-															</columnConstraints>
-															<rowConstraints>
-																<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-															</rowConstraints>
-														</GridPane>
-                                          <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="775.0">
-                                             <content>
-      														<FlowPane fx:id="ownCards" alignment="CENTER" hgap="20.0" prefHeight="200.0" prefWidth="759.0" prefWrapLength="200.0" vgap="10.0">
-														</FlowPane>
-                                             </content>
-                                          </ScrollPane>
-													</children>
-													<padding>
-														<Insets bottom="25.0" />
-													</padding>
-												</VBox>
-											</children>
-										</AnchorPane>
-									</items>
-								</SplitPane>
 							</children>
 						</GridPane>
                   <SubScene fx:id="subScene" fill="TRANSPARENT" height="720.0" mouseTransparent="true" opacity="0.0" width="1024.0">

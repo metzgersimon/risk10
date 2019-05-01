@@ -420,7 +420,6 @@ public class Player implements Serializable {
    */
   public boolean armyDistribution(int amount, Territory t) {
     setStartedDistribution(true);
-    // this.numberArmiesToDistribute = computeAdditionalNumberOfArmies();
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);

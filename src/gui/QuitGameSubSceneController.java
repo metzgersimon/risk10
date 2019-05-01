@@ -58,8 +58,7 @@ public class QuitGameSubSceneController {
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {
-        Main.stage.setScene(Main.boardScene);
-        Main.stage.show();
+        Main.stagePanes.close();
       }
     });
   }
