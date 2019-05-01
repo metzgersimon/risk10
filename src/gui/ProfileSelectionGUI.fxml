@@ -28,7 +28,7 @@
                   <Font size="27.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="111.0" layoutY="39.0" prefHeight="141.0" prefWidth="1058.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label ellipsisString="" layoutX="182.0" layoutY="37.0" prefHeight="142.0" prefWidth="714.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font size="76.0" />
                </font>

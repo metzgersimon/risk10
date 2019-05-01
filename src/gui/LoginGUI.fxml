@@ -20,7 +20,7 @@
             <Font size="30.0" />
          </font>
       </Button>
-      <Label ellipsisString="" layoutX="446.0" layoutY="158.0" prefHeight="217.0" prefWidth="389.0" styleClass="headlinesA" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="484.0" layoutY="164.0" prefHeight="220.0" prefWidth="310.0" styleClass="headlinesA" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="180.0" />
          </font>
