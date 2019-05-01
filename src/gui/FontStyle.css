@@ -1,19 +1,19 @@
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("Ubuntu-L.ttf");
+	src: url("/resources/fonts/Ubuntu-L.ttf");
 }
 
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("Ubuntu-M.ttf");
+	src: url("resources/fonts/Ubuntu-M.ttf");
 }
 
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("Ubuntu-R.ttf");
+	src: url("resources/fonts/Ubuntu-R.ttf");
 }
 
 .headlinesA {
