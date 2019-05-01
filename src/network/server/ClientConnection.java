@@ -258,7 +258,7 @@ public class ClientConnection extends Thread {
     System.out.println("Clientconnection playername " + playername);
     for (int i = 0; i < server.getConnections().size(); i++) {
       ClientConnection c = server.getConnections().get(i);
-      if (playername.equals(c.getPlayerName())) {
+      if(playername.equalsIgnoreCase(c.getPlayerName())) {
         c.sendMessage(message);
       }
     }
