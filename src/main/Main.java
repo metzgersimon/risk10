@@ -13,6 +13,7 @@ import gui.HostGameLobbyController;
 import gui.JoinGameLobbyController;
 import gui.MultiPlayerGUIController;
 import gui.QuitGameSubSceneController;
+import gui.StatisticsPopUpController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,6 +43,7 @@ public class Main extends Application {
   public static FortifySubSceneController fortify;
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
+  public static StatisticsPopUpController liveStats;
 
   public static Stage stage;
   public static Scene scene;

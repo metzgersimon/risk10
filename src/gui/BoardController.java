@@ -220,6 +220,9 @@ public class BoardController implements Initializable {
 
   @FXML
   private TableColumn<Player, Integer> c3;
+  
+  @FXML
+  private Button liveStats;
 
 
 
@@ -802,6 +805,21 @@ public class BoardController implements Initializable {
       }
     };
     th.start();
+  }
+  
+  public void handleLiveStats() {
+    try {
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("StatisticsPopUp.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Main.liveStats = fxmlLoader.getController();
+      Main.stagePanes.setX(Main.stage.getX()+1);
+      Main.stagePanes.setY(Main.stage.getY()+23);
+      Main.stagePanes.setScene(new Scene(root));
+      Main.stagePanes.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 

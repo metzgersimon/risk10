@@ -1040,6 +1040,7 @@
                         <Region />
                      </root>
                   </SubScene>
+                  <Button fx:id="liveStats" layoutX="48.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleLiveStats" prefHeight="26.0" prefWidth="102.0" text="Statistics" />
 					</children>
 				</AnchorPane>
 				<BorderPane minWidth="256.0">
