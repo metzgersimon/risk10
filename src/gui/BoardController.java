@@ -170,6 +170,8 @@ public class BoardController implements Initializable {
   private Shape circleLeave;
   @FXML
   private ImageView imageLeave;
+  @FXML
+  private ImageView winnerCrown;
 
 
   /**
@@ -1304,6 +1306,8 @@ public class BoardController implements Initializable {
   public void endGame() {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       endGame.setText("You are the winner!");
+      winnerCrown.setVisible(true);
+      
     }
     Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     Platform.runLater(new Runnable() {

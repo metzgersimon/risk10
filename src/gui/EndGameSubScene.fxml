@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -8,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="375.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EndGameSubSceneController">
+<AnchorPane prefHeight="375.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EndGameSubSceneController">
 	<children>
 		<Pane fx:id="endGamePane" layoutX="158.0" layoutY="114.0" opacity="0.8" prefHeight="375.0" prefWidth="499.0" style="-fx-background-color: rgb(20,20,20);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
@@ -28,6 +35,11 @@
 						<Cursor fx:constant="HAND" />
 					</cursor>
 				</Button>
+            <ImageView fx:id="winnerCrown" fitHeight="70.0" fitWidth="161.0" layoutX="215.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../resources/gui/iconfinder_My%20computer_43368.png" />
+               </image>
+            </ImageView>
 			</children>
 		</Pane>
 	</children>

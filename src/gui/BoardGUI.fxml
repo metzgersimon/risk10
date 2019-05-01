@@ -900,6 +900,7 @@
 								<Line endX="355.0" endY="454.8360290527344" fill="#220000" layoutX="163.0" layoutY="-279.0" startX="355.0" startY="474.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
 								<Line endX="387.0" endY="457.0" fill="#220000" layoutX="628.0" layoutY="-334.0" startX="352.5" startY="457.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
 								<Line endX="366.0" endY="457.5" fill="#220000" layoutX="-324.0" layoutY="-333.0" startX="325.0" startY="457.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
+								<Line endX="340.0" endY="438.0" fill="#220000" layoutX="250.0" layoutY="-180.0" rotate="-40.0" startX="349.0" startY="474.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
 							</children>
 						</Pane>
 						<Pane mouseTransparent="true" prefHeight="720.0" prefWidth="1280.0">
