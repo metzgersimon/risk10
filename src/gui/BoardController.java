@@ -98,8 +98,6 @@ public class BoardController implements Initializable {
 
   @FXML
   private AnchorPane rootAnchor;
-  @FXML
-  private SubScene subScene;
 
   @FXML
   private Pane grayPane;
