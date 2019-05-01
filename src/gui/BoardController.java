@@ -274,11 +274,10 @@ public class BoardController implements Initializable {
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
     c1.setSortType(TableColumn.SortType.ASCENDING);
-
+    System.out.println(Main.g.getPlayers().size());
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
-
     /*
      * statistic.getColumns().get(0).setVisible(false);
      * statistic.getColumns().get(0).setVisible(true);

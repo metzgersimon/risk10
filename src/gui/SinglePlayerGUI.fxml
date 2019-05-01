@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SinglePlayerGUIController">
@@ -52,7 +51,6 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <HBox fx:id="iconPane" layoutX="976.0" layoutY="291.0" prefHeight="100.0" prefWidth="200.0" />
       <CheckBox fx:id="checkTips" layoutX="153.0" layoutY="364.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" prefHeight="54.0" prefWidth="641.0" text="Game instructions / Tips          " textFill="#f5f3f3">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
@@ -73,7 +71,7 @@
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgAI" fitHeight="64.0" fitWidth="52.0" layoutX="625.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="imgAI" fitHeight="64.0" fitWidth="52.0" layoutX="794.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../resources/gui/robot2.png" />
          </image>
