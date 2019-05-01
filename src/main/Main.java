@@ -74,16 +74,17 @@ public class Main extends Application {
       // scenePanes = new Scene(new Pane(), 1024, 720);
       scene = new Scene(root, 1280, 720);
       stage = primaryStage;
-      stagePanes = new Stage(StageStyle.TRANSPARENT);
-      stagePanes.setOpacity(0.9);
-      stagePanes.setX(stage.getX());
-      stagePanes.setY(stage.getY());
+      stage.centerOnScreen();
       primaryStage.setScene(scene);
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
       primaryStage.setTitle("Login");
       primaryStage.show();
 
+      stagePanes = new Stage(StageStyle.TRANSPARENT);
+      stagePanes.setOpacity(0.9);
+      stagePanes.setX(stage.getX()+1);
+      stagePanes.setY(stage.getY()+23);
 
 
     } catch (Exception e) {

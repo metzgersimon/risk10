@@ -673,6 +673,8 @@ public class BoardController implements Initializable {
 
                     // Main.stage.setScene(new Scene(root));
                     // Main.stage.show();
+                    Main.stagePanes.setX(Main.stage.getX()+1);
+                    Main.stagePanes.setY(Main.stage.getY()+23);
                     Main.stagePanes.setScene(new Scene(root));
                     Main.stagePanes.show();
 
@@ -733,6 +735,8 @@ public class BoardController implements Initializable {
                       Main.attack = fxmlLoader.getController();
                       // SubScene sub = new SubScene(root, 1024, 720);
                       // rootAnchor.getChildren().add(sub);
+                      Main.stagePanes.setX(Main.stage.getX()+1);
+                      Main.stagePanes.setY(Main.stage.getY()+23);
                       Main.stagePanes.setScene(new Scene(root));
                       Main.stagePanes.show();
                     } catch (Exception e) {
@@ -777,6 +781,8 @@ public class BoardController implements Initializable {
                             new FXMLLoader(getClass().getResource("FortifySubScene.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Main.fortify = fxmlLoader.getController();
+                        Main.stagePanes.setX(Main.stage.getX()+1);
+                        Main.stagePanes.setY(Main.stage.getY()+23);
                         Main.stagePanes.setScene(new Scene(root));
                         Main.stagePanes.show();
                       } catch (Exception e) {
@@ -822,6 +828,8 @@ public class BoardController implements Initializable {
             if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
               Main.cardC.handleGrayPane(true);
             }
+            Main.stagePanes.setX(Main.stage.getX()+1);
+            Main.stagePanes.setY(Main.stage.getY()+23);
             Main.stagePanes.setScene(new Scene(root));
             Main.stagePanes.show();
 
