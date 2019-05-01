@@ -19,12 +19,12 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="back" layoutX="66.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="83.0" prefWidth="262.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.leftAnchor="72.666">
+            <Button fx:id="back" layoutX="66.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.leftAnchor="72.666">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button fx:id="conform" layoutX="942.0" layoutY="574.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="82.0" prefWidth="265.0" stylesheets="@FontStyle.css" text="Save" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.rightAnchor="72.66666666666669">
+            <Button fx:id="conform" layoutX="942.0" layoutY="574.0" mnemonicParsing="false" onAction="#handleConformButton" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Save" textAlignment="CENTER" AnchorPane.bottomAnchor="63.66666666666667" AnchorPane.rightAnchor="72.66666666666669">
                <font>
                   <Font size="30.0" />
                </font>
@@ -34,13 +34,13 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <CheckBox fx:id="sound" layoutX="440.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleSoundCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Sound" textAlignment="CENTER" textFill="#fdf9f9">
+            <CheckBox fx:id="sound" layoutX="441.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleSoundCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Sound" textAlignment="CENTER" textFill="#fdf9f9">
                <font>
                   <Font name="Calibri Bold" size="51.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="music" layoutX="441.0" layoutY="351.0" mnemonicParsing="false" onAction="#handleMusicCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Music" textFill="#faf7f7" />
-            <Label ellipsisString="" layoutX="497.0" layoutY="76.0" prefHeight="113.0" prefWidth="445.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Settings" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <CheckBox fx:id="music" layoutX="441.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleMusicCheckBox" prefHeight="160.0" prefWidth="391.0" styleClass="checkBoxSetting" stylesheets="@FontStyle.css" text="        Music" textFill="#faf7f7" />
+            <Label ellipsisString="" layoutX="445.0" layoutY="78.0" prefHeight="116.0" prefWidth="391.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Settings" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Bernard MT Condensed" size="96.0" />
                </font>

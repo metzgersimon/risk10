@@ -18,18 +18,18 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="startGame" disable="true" layoutX="850.0" layoutY="582.0" mnemonicParsing="false" onAction="#startGame" prefHeight="71.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Start game" textAlignment="CENTER">
+      <Button fx:id="startGame" disable="true" layoutX="850.0" layoutY="582.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Start game" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Button fx:id="back" layoutX="169.0" layoutY="580.0" mnemonicParsing="false" onAction="#back" prefHeight="71.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER">
+      <Button fx:id="back" layoutX="169.0" layoutY="580.0" mnemonicParsing="false" onAction="#back" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
       <Slider fx:id="difficulty" blockIncrement="1.0" layoutX="502.0" layoutY="322.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="64.0" prefWidth="540.0" snapToTicks="true" value="1.0" />
-      <Label layoutX="503.0" layoutY="235.0" prefHeight="113.0" prefWidth="574.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Easy                 Medium             Hard" textFill="#f7f7f7">
+      <Label layoutX="503.0" layoutY="235.0" prefHeight="113.0" prefWidth="605.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Easy              Medium            Hard" textFill="#f7f7f7">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
@@ -39,7 +39,7 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label ellipsisString="" layoutX="306.0" layoutY="70.0" prefHeight="142.0" prefWidth="598.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="315.0" layoutY="77.0" prefHeight="142.0" prefWidth="673.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
@@ -58,19 +58,19 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </CheckBox>
-      <Button fx:id="addAI" layoutX="688.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleAddAi" prefHeight="71.0" prefWidth="73.0" stylesheets="@FontStyle.css" text="+" textAlignment="CENTER">
+      <Button fx:id="addAI" layoutX="688.0" layoutY="580.0" mnemonicParsing="false" onAction="#handleAddAi" prefHeight="60.0" prefWidth="70.0" stylesheets="@FontStyle.css" text="+" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Button fx:id="reduceAI" disable="true" layoutX="519.0" layoutY="580.0" mnemonicParsing="false" onAction="#reduceAi" prefHeight="71.0" prefWidth="73.0" stylesheets="@FontStyle.css" text="-" textAlignment="CENTER">
+      <Button fx:id="reduceAI" disable="true" layoutX="519.0" layoutY="580.0" mnemonicParsing="false" onAction="#reduceAi" prefHeight="60.0" prefWidth="70.0" stylesheets="@FontStyle.css" text="-" textAlignment="CENTER">
          <font>
             <Font size="33.0" />
          </font>
       </Button>
-      <Label fx:id="numberAI" layoutX="605.0" layoutY="595.0" styleClass="playerNames" stylesheets="@FontStyle.css" text="0">
+      <Label fx:id="numberAI" layoutX="605.0" layoutY="595.0" text="0" textFill="WHITE">
          <font>
-            <Font size="33.0" />
+            <Font name="Ubuntu Medium" size="35.0" />
          </font>
       </Label>
       <ImageView fx:id="imgAI" fitHeight="64.0" fitWidth="52.0" layoutX="625.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" visible="false">

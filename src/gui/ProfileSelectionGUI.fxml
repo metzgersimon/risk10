@@ -18,17 +18,17 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="back" layoutX="79.0" layoutY="595.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="82.0" prefWidth="264.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.66">
+            <Button fx:id="back" layoutX="79.0" layoutY="595.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="60.0" prefWidth="210.0" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.66">
                <font>
-                  <Font size="23.0" />
+                  <Font name="Ubuntu Light" size="27.0" />
                </font>
             </Button>
-            <Button fx:id="createNewProfile" layoutX="901.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="81.0" prefWidth="303.0" stylesheets="@FontStyle.css" text="Create new profile" AnchorPane.bottomAnchor="63.66999999999996" AnchorPane.rightAnchor="72.67">
+            <Button fx:id="createNewProfile" layoutX="901.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="60.0" prefWidth="210.0" text="Create new profile" AnchorPane.bottomAnchor="63.66999999999996" AnchorPane.rightAnchor="72.67">
                <font>
-                  <Font size="27.0" />
+                  <Font name="Ubuntu Light" size="21.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="182.0" layoutY="37.0" prefHeight="142.0" prefWidth="714.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label ellipsisString="" layoutX="208.0" layoutY="48.0" prefHeight="142.0" prefWidth="864.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Select your profile" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font size="76.0" />
                </font>

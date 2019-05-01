@@ -17,8 +17,8 @@
 }
 
 .headlinesA {
-	-fx-font-size:	33px;
-	-fx-font-family:	'Ubuntu Light';
+	-fx-font-size:	200px;
+	-fx-font-family:	'Ubuntu Medium';
 	-fx-font-weight: 400;
 	-fx-font-style:	normal;
 }

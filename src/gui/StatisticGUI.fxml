@@ -17,7 +17,7 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Label ellipsisString="" layoutX="391.0" layoutY="6.0" prefHeight="262.0" prefWidth="498.0" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="357.0" layoutY="7.0" prefHeight="262.0" prefWidth="566.0" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font size="96.0" />
          </font>
@@ -25,7 +25,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <TableView fx:id="table" layoutX="275.0" layoutY="237.0" prefHeight="260.0" prefWidth="730.0">
+      <TableView fx:id="table" layoutX="275.0" layoutY="238.0" prefHeight="260.0" prefWidth="730.0">
          <columns>
             <TableColumn fx:id="c1" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Rank" />
             <TableColumn fx:id="c2" prefWidth="221.0" style="-fx-alignment: CENTER;" text="Player" />
@@ -36,12 +36,12 @@
       </TableView>
       <Button fx:id="back" layoutX="880.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="62.0" prefWidth="251.0" text="Main Menu" textAlignment="CENTER">
          <font>
-            <Font size="33.0" />
+            <Font name="Ubuntu Light" size="32.0" />
          </font>
       </Button>
       <Button layoutX="150.0" layoutY="585.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="251.0" text="Leave Game">
          <font>
-            <Font size="32.0" />
+            <Font name="Ubuntu Light" size="32.0" />
          </font>
       </Button>
    </children>
