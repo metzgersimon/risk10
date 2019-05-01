@@ -16,15 +16,12 @@ public class JoinGameLobbyController {
 
   @FXML
   private TextField textField;
-
   @FXML
   private Button sendButton1;
-
-  @FXML
-  private TextArea button;
-
   @FXML
   private Button leaveGame;
+  @FXML
+  private TextArea chat;
 
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -53,8 +50,8 @@ public class JoinGameLobbyController {
   }
 
   public void showMessage(String content) {
-    button.setStyle("-fx-text-fill:black; -fx-font-size: 15px;");
-    button.appendText(content + "\n");
+    chat.setStyle("-fx-font-size:15px;");   
+    chat.appendText(content + "\n");
 
   }
 }

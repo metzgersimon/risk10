@@ -36,8 +36,7 @@ public class HostGameLobbyController {
   Button sendButton;
 
   /** text area in which all the players can see the message */
-  @FXML
-  TextArea chatBox;
+
 
   @FXML
   Button leaveGame;
@@ -64,6 +63,8 @@ public class HostGameLobbyController {
   CheckBox box4;
   @FXML
   CheckBox box5;
+  @FXML
+  TextArea chat;
 
   /** number of players the host want to play game with */
   public static ArrayList<CheckBox> playerNames;
@@ -200,7 +201,9 @@ public class HostGameLobbyController {
    * @param content: text message
    */
   public void showMessage(String content) {
-    chatBox.appendText(content + "\n");
+    chat.setStyle("-fx-font-size:15px;");
+    chat.appendText(content+ "\n");
+
   }
 
   /**
