@@ -258,7 +258,11 @@ public class BoardController implements Initializable {
 
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
+    c1.setCellValueFactory(new PropertyValueFactory<>("name"));
+    c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
+    c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
+    c1.setSortType(TableColumn.SortType.ASCENDING);
   }
 
 
@@ -269,12 +273,6 @@ public class BoardController implements Initializable {
   public void openLiveStats() {
 
     Main.g.updateLiveStatistics();
-    c1.setCellValueFactory(new PropertyValueFactory<>("name"));
-    c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
-    c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
-
-    c1.setSortType(TableColumn.SortType.ASCENDING);
-    System.out.println(Main.g.getPlayers().size());
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
