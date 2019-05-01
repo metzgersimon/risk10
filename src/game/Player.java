@@ -618,6 +618,20 @@ public class Player implements Serializable {
     }
   }
 
+
+  /**
+   * @author liwang
+   * @param attackerID
+   * @param defenderID
+   * @param ifConquered
+   * @param attackerArmies
+   * @param defendArmies
+   * @return true if the message is successfully sent
+   * 
+   *         This method is for the network game. The host player sends the message to the server on
+   *         the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
+   *         receiving the message in client class
+   */
   public boolean attackNetwork(int attackerID, int defenderID, boolean ifConquered,
       int attackerArmies, int defendArmies) {
     if (NetworkController.server != null) {
@@ -640,9 +654,6 @@ public class Player implements Serializable {
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
 
-    if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-      this.fortifyNetwork(moveFrom.getId(), moveTo.getId(), armyToMove);
-    }
     // if (Main.g.getGameState() == GameState.FORTIFY) {
     // check if both territories belong to the current player
     if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
@@ -659,6 +670,9 @@ public class Player implements Serializable {
           moveTo.setNumberOfArmies(armyToMove);
           sb.append(this.getName() + " moved " + armyToMove + " from " + moveFrom.getName() + " to "
               + moveTo.getName() + ".");
+          if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+            this.fortifyNetwork(moveFrom.getId(), moveTo.getId(), armyToMove);
+          }
           return true;
         } else {
           // error messages which may be implemented in the boardgui later
@@ -685,6 +699,17 @@ public class Player implements Serializable {
     // return false;
   }
 
+  /**
+   * @author liwang
+   * @param moveFromTerritoryID
+   * @param moveToTerritoryID
+   * @param amount
+   * @return true if the message is successfully sent
+   * 
+   *         This method is for the network game. The host player sends the message to the server on
+   *         the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
+   *         receiving the message in client class
+   */
   public boolean fortifyNetwork(int moveFromTerritoryID, int moveToTerritoryID, int amount) {
     if (NetworkController.server != null) {
       FortifyMessage message = new FortifyMessage(moveFromTerritoryID, moveToTerritoryID, amount);
