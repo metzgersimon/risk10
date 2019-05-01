@@ -18,7 +18,7 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="singlePlayer" layoutX="510.0" layoutY="303.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="82.0" prefWidth="264.0" stylesheets="@FontStyle.css" text="Single Player" AnchorPane.rightAnchor="506.0">
+            <Button fx:id="singlePlayer" layoutX="510.0" layoutY="304.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="82.0" prefWidth="264.0" stylesheets="@FontStyle.css" text="Single Player" AnchorPane.rightAnchor="506.0">
                <font>
                   <Font size="31.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font size="31.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="489.0" layoutY="60.0" prefHeight="113.0" prefWidth="445.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label ellipsisString="" layoutX="451.0" layoutY="57.0" prefHeight="217.0" prefWidth="383.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
                   <Font name="Bernard MT Condensed" size="180.0" />
                </font>

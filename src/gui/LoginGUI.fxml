@@ -15,12 +15,12 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="klickToStart" layoutX="509.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleKlickToStastButton" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Press to start" textAlignment="CENTER">
+      <Button fx:id="klickToStart" layoutX="506.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleKlickToStastButton" prefHeight="57.0" prefWidth="268.0" stylesheets="@FontStyle.css" text="Press to start" textAlignment="CENTER">
          <font>
-            <Font name="Calibri" size="33.0" />
+            <Font size="30.0" />
          </font>
       </Button>
-      <Label ellipsisString="" layoutX="479.0" layoutY="158.0" prefHeight="113.0" prefWidth="445.0" styleClass="headlinesA" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="446.0" layoutY="158.0" prefHeight="217.0" prefWidth="389.0" styleClass="headlinesA" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="180.0" />
          </font>

@@ -28,8 +28,8 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Slider fx:id="difficulty" blockIncrement="1.0" layoutX="502.0" layoutY="322.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="64.0" prefWidth="386.0" snapToTicks="true" value="1.0" />
-      <Label layoutX="503.0" layoutY="235.0" prefHeight="113.0" prefWidth="386.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Easy      Medium      Hard" textFill="#f7f7f7">
+      <Slider fx:id="difficulty" blockIncrement="1.0" layoutX="502.0" layoutY="322.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="64.0" prefWidth="540.0" snapToTicks="true" value="1.0" />
+      <Label layoutX="503.0" layoutY="235.0" prefHeight="113.0" prefWidth="574.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Easy      Medium      Hard" textFill="#f7f7f7">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
@@ -39,7 +39,7 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label ellipsisString="" layoutX="376.0" layoutY="69.0" prefHeight="141.0" prefWidth="639.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label ellipsisString="" layoutX="258.0" layoutY="68.0" prefHeight="141.0" prefWidth="838.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Training mode" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
