@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import network.messages.game.AttackMessage;
 
@@ -48,6 +49,9 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
+      Font ubuntuFontLight = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+      Font ubuntuFontRegular = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+      Font ubuntuFontMedium = Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
       scenePanes = new Scene(new Pane(), 1024, 720);
       sceneMain = new Scene(root, 1280, 720);
@@ -76,6 +80,7 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     launch(args);
+    
 
     // Testing of xml reader and writer
     // ProfileManager.readXml();

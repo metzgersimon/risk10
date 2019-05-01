@@ -1,101 +1,120 @@
+@font-face {
+	font-style: normal;
+	font-weight: 400;
+	src: url("Ubuntu-L.ttf");
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 400;
+	src: url("Ubuntu-M.ttf");
+}
+
+@font-face {
+	font-style: normal;
+	font-weight: 400;
+	src: url("Ubuntu-R.ttf");
+}
+
 .headlinesA {
-	-fx-font-size:	180.0;
-	-fx-font-family:	'Bernard MT Condensed';
+	-fx-font-size:	33px;
+	-fx-font-family:	'Ubuntu Light';
+	-fx-font-weight: 400;
 	-fx-font-style:	normal;
 }
 
 .headlinesB {
 	-fx-font-size:	100.0;
-	-fx-font-family:	'Bernard MT Condensed';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .headlinesC {
 	-fx-font-size:	65.0;
-	-fx-font-family:	'Bernard MT Condensed';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .button {
 	-fx-font-size:	33.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
 
 .buttonMultiPlayer {
 	-fx-font-size:	50.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
 
 .checkBoxSetting {
 	-fx-font-size:	50.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .playerNames {
 	-fx-font-size:	32.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
 
 .aiLevel {
 	-fx-font-size:	38.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .singlePlayerLabels {
 	-fx-font-size:	55.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;	
 }
 
 .addLabels {
 	-fx-font-size:	17.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .hostLobbyLabels {
 	-fx-font-size:	14.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .subHeadlines {
 	-fx-font-size:	45.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .choiceBox {
 	-fx-font-size:	25.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .territoryLabels {
 	-fx-font-size:	13.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
 
 .nOaLabels {
 	-fx-font-size:	13.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-weight:	bold;
 }
 
 .statistic {
 	-fx-font-size:	20.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
 
 .quit {
 	 -fx-font-size:	25.0;
-	-fx-font-family:	'Calibri';
+	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }

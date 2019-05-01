@@ -18,24 +18,24 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="singlePlayer" layoutX="510.0" layoutY="304.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="82.0" prefWidth="264.0" stylesheets="@FontStyle.css" text="Single Player" AnchorPane.rightAnchor="506.0">
+            <Button fx:id="singlePlayer" layoutX="509.0" layoutY="378.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="65.0" prefWidth="264.0" stylesheets="@FontStyle.css" text="Single Player" AnchorPane.rightAnchor="507.0">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <Button fx:id="multiPlayer" layoutX="509.0" layoutY="445.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="82.0" prefWidth="264.0" styleClass="Button" stylesheets="@FontStyle.css" text="Multiplayer" AnchorPane.topAnchor="445.0">
+            <Button fx:id="multiPlayer" layoutX="509.0" layoutY="478.0" mnemonicParsing="false" onAction="#openProfile" prefHeight="64.0" prefWidth="264.0" styleClass="Button" stylesheets="@FontStyle.css" text="Multiplayer" AnchorPane.topAnchor="478.0">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <Button fx:id="settings" layoutX="509.0" layoutY="581.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="82.0" prefWidth="264.0" styleClass="Button" stylesheets="@FontStyle.css" text="Settings">
+            <Button fx:id="settings" layoutX="509.0" layoutY="581.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="65.0" prefWidth="264.0" styleClass="Button" stylesheets="@FontStyle.css" text="Settings">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <Label ellipsisString="" layoutX="486.0" layoutY="59.0" prefHeight="220.0" prefWidth="306.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+            <Label ellipsisString="" layoutX="450.0" layoutY="60.0" prefHeight="235.0" prefWidth="380.0" styleClass="Headlines" stylesheets="@FontStyle.css" text="Risk" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
                <font>
-                  <Font name="Bernard MT Condensed" size="180.0" />
+                  <Font name="Ubuntu" size="200.0" />
                </font>
                <opaqueInsets>
                   <Insets />
