@@ -222,6 +222,8 @@ public class BoardController implements Initializable {
   @FXML
   private Button liveStats;
 
+  @FXML
+  private Circle openRuleBook;
 
 
   @FXML
@@ -820,6 +822,20 @@ public class BoardController implements Initializable {
     }
   }
 
+  public void handleRuleBook() {
+    try {
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/RuleBookPopUp.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Main.liveStats = fxmlLoader.getController();
+      Main.stagePanes.setX(Main.stage.getX()+1);
+      Main.stagePanes.setY(Main.stage.getY()+23);
+      Main.stagePanes.setScene(new Scene(root));
+      Main.stagePanes.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
   @FXML
   public synchronized void handleCardPane() {

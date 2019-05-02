@@ -13,6 +13,7 @@ import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.MultiPlayerGUIController;
 import gui.controller.QuitGameSubSceneController;
+import gui.controller.RuleBookPopUp;
 import gui.controller.StatisticsPopUpController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +45,7 @@ public class Main extends Application {
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
   public static StatisticsPopUpController liveStats;
+  public static RuleBookPopUp ruleBook;
 
   public static Stage stage;
   public static Scene scene;
