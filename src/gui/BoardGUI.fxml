@@ -970,6 +970,22 @@
 										<Font name="System Bold" size="12.0" />
 									</font>
 								</Label>
+                        <Circle fx:id="openRuleBook" fill="#1e1d1d" layoutX="224.0" layoutY="678.0" onMouseClicked="#handleRuleBook" radius="28.0" stroke="BLACK" strokeType="INSIDE">
+                           <effect>
+                              <SepiaTone level="0.26">
+                                 <input>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant />
+                                       </light>
+                                    </Lighting>
+                                 </input>
+                              </SepiaTone>
+                           </effect>
+                        </Circle>
 							</children>
 						</Pane>
 						<GridPane alignment="CENTER">
