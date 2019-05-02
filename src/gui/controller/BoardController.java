@@ -807,6 +807,9 @@ public class BoardController implements Initializable {
     th.start();
   }
   
+  /**
+   * @author prto handle press on live stats button
+   */
   public void handleLiveStats() {
     try {
       FXMLLoader fxmlLoader =
@@ -822,12 +825,16 @@ public class BoardController implements Initializable {
     }
   }
 
+  
+  /**
+   * @author prto handle press on rule book button
+   */
   public void handleRuleBook() {
     try {
       FXMLLoader fxmlLoader =
           new FXMLLoader(getClass().getResource("/gui/RuleBookPopUp.fxml"));
       Parent root = (Parent) fxmlLoader.load();
-      Main.liveStats = fxmlLoader.getController();
+      Main.ruleBook = fxmlLoader.getController();
       Main.stagePanes.setX(Main.stage.getX()+1);
       Main.stagePanes.setY(Main.stage.getY()+23);
       Main.stagePanes.setScene(new Scene(root));

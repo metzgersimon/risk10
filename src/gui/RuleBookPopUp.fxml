@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RuleBookPopUp">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.RuleBookPopUp">
    <children>
-      <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;">
+      <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;">
          <children>
-            <Pane layoutX="162.0" layoutY="114.0" prefHeight="600.0" prefWidth="700.0">
+            <Pane layoutX="162.0" layoutY="60.0" prefHeight="600.0" prefWidth="700.0">
                <children>
-                  <TextArea fx:id="ruleBook" layoutY="-6.0" prefHeight="610.0" prefWidth="700.0" />
+                  <TextArea fx:id="ruleBook" editable="false" layoutY="-6.0" prefHeight="610.0" prefWidth="700.0" />
                </children>
             </Pane>
          </children>

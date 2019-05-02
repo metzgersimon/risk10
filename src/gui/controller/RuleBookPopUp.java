@@ -17,11 +17,16 @@ public class RuleBookPopUp implements Initializable{
   @FXML
   private Pane grayPane;
 
-  
+  /**
+   * @author prto updates content
+   */
   public void initialize(URL location, ResourceBundle resources) {
     ruleBook.setText(game.TutorialMessages.ruleBook);
   }
   
+  /**
+   * @author prto handle press on background to close
+   */
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {

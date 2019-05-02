@@ -970,22 +970,6 @@
 										<Font name="System Bold" size="12.0" />
 									</font>
 								</Label>
-                        <Circle fx:id="openRuleBook" fill="#1e1d1d" layoutX="224.0" layoutY="678.0" onMouseClicked="#handleRuleBook" radius="28.0" stroke="BLACK" strokeType="INSIDE">
-                           <effect>
-                              <SepiaTone level="0.26">
-                                 <input>
-                                    <Lighting>
-                                       <bumpInput>
-                                          <Shadow />
-                                       </bumpInput>
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </input>
-                              </SepiaTone>
-                           </effect>
-                        </Circle>
 							</children>
 						</Pane>
 						<GridPane alignment="CENTER">
@@ -1076,7 +1060,7 @@
 				</BorderPane>
 			</items>
 		</SplitPane>
-		<AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="181.0">
+		<AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="269.0">
 			<children>
 				<Circle fx:id="circleLeave" fill="#1e1d1d" layoutX="53.0" layoutY="51.0" onMousePressed="#pressLeave" radius="28.0" stroke="BLACK" strokeType="INSIDE">
 					<effect>
@@ -1126,6 +1110,25 @@
 						<Image url="@../resources/cards/Karten.png" />
 					</image>
 				</ImageView>
+            <Circle fx:id="openRuleBook" fill="#1e1d1d" layoutX="227.0" layoutY="51.0" onMouseClicked="#handleRuleBook" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5">
+               <effect>
+                  <SepiaTone level="0.26">
+                     <input>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </input>
+                  </SepiaTone>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
 			</children>
 		</AnchorPane>
 	</children>
