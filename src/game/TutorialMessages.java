@@ -57,13 +57,13 @@ public class TutorialMessages {
       "other for bordering countries. These fights are decided by dice/die that are rolled at every\n" + 
       "round in the fight.\n\n" +
       "● The ​Risk​ board has 6 continents — North America, South America, Europe, Africa,\n" + 
-      "  Asia, and the Australian Archipelago — and 42 countries.\n" + 
+      "   Asia, and the Australian Archipelago — and 42 countries.\n" + 
       "● The ​Risk​ armies come in different colors, each assigned to a player\n" + 
       "● There are 44 risk cards. 42 cards are marked with countries as\n" + 
       "  well as an infantry, cavalry, or artillery symbol and there are two \"Wild\" cards.\n\n\n" + 
       
       "3 Beginning of the Game\n\n" +
-      "Depending on how many players starting the game the amount of armies to place for every player varies:\n\n" +
+      "Depending on how many players starting the game the amount of armies \nto place for every player varies:\n\n" +
       "● 2 Players -> 40 armies for each\n" +
       "● 3 Players -> 35 armies for each\n" +
       "● 4 Players -> 30 armies for each\n" +
@@ -78,29 +78,29 @@ public class TutorialMessages {
       "At the beginning of each turn, players receive more armies. The number of armies is\n" + 
       "determined by:\n\n" +
       "● The number of territories you own. For every three countries, the player gets one\n" + 
-      "  army. For example, if you had 11 countries, you would receive 3 armies; if you had\n" + 
-      "  22 countries, you would receive 7 armies.\n" + 
+      "   army. For example, if you had 11 countries, you would receive 3 armies; if you had\n" + 
+      "   22 countries, you would receive 7 armies.\n" + 
       "● Turning in cards. Cards can be turned in when you have a three of a kind (e.g. all\n" + 
-      "  three cards have artillery pictures) or all three types of armies (soldier, cavalry,\n" + 
-      "  artillery). For the first set of cards you turn in, you receive 4 armies; 6 for the\n" + 
-      "  second; 8 for the third; 10 for the fourth; 12 for the fifth; 15 for the sixth; and for\n" + 
-      "  every additional set thereafter, 5 more armies than the previous set turned in. If you\n" + 
-      "  have 5 or more ​Risk​ cards at the beginning of a turn, you must turn at least one set\n" + 
-      "  of them in.\n" + 
+      "   three cards have artillery pictures) or all three types of armies (soldier, cavalry,\n" + 
+      "   artillery). For the first set of cards you turn in, you receive 4 armies; 6 for the\n" + 
+      "   second; 8 for the third; 10 for the fourth; 12 for the fifth; 15 for the sixth; and for\n" + 
+      "   every additional set thereafter, 5 more armies than the previous set turned in. If you\n" + 
+      "   have 5 or more ​Risk​ cards at the beginning of a turn, you must turn at least one set\n" + 
+      "   of them in.\n" + 
       "● Owning all the territories of a continent. For each continent that you completely\n" + 
-      "  dominate (no other enemy armies are present), you receive reinforcements. You\n" + 
-      "  receive 3 armies for Africa, 7 armies for Asia, 2 armies for Australia, 5 armies for\n" + 
-      "  Europe, 5 armies for North America and 2 armies for South America. To see all continents\n" +
-      "  , open the Continent map\n" +
+      "   dominate (no other enemy armies are present), you receive reinforcements. You\n" + 
+      "   receive 3 armies for Africa, 7 armies for Asia, 2 armies for Australia, 5 armies for\n" + 
+      "   Europe, 5 armies for North America and 2 armies for South America. To see all continents\n" +
+      "   , open the Continent map\n" +
       "● Note​: if the amount of armies you would receive at the beginning of your turn is less\n" + 
-      "  than three, you will receive three armies.\n\n" +
+      "   than three, you will receive three armies.\n\n" +
       "You may place the armies you received at the beginning of your turn wherever you have an\n" + 
       "army presence, in whatever proportion. If you wish, you can place one army in each of your\n" + 
       "territories; or you can place all of your armies in one territory. The choice is up to you.\n\n" +
       "● If, during the beginning of your turn, you turned in a set of cards with a territory that\n" + 
-      "  you owned, you receive two extra infantrymen.\n" + 
-      "  You must place those infantrymen on\n" + 
-      "  the territory specified by the card.\n\n\n" +
+      "   you owned, you receive two extra infantrymen.\n" + 
+      "   You must place those infantrymen on\n" + 
+      "   the territory specified by the card.\n\n\n" +
       "4 Attacking\n\n" +
       "You may only attack other territories that are adjacent to a territory you own or that are\n" + 
       "connected to a territory you own by a sea-lane. For example, you cannot attack India from\n" + 
@@ -109,8 +109,8 @@ public class TutorialMessages {
       "You can attack the same territory from the same adjacent position, or you can attack it from\n" + 
       "different adjacent positions.\n\n" +
       "● Understand that attacking is optional. A player may decide not to attack at all during\n" + 
-      "  a turn, only deploying armies.\n\n" +
-      "When you want to attack another territory, decide how many armies you are going to use in your attack.​\n"+
+      "   a turn, only deploying armies.\n\n" +
+      "When you want to attack another territory, decide how many armies \nyou are going to use in your attack.​\n"+
       "Because your territory must be occupied at all times,\n" + 
       "you must leave at least one army behind. The number of armies you attack with will\n" + 
       "determine how many dice you get to roll when you square off the\n" + 
@@ -122,12 +122,12 @@ public class TutorialMessages {
       "same number of blue dice as the number of troops in their defending territory, with a\n" + 
       "maximum of two.\n\n" +
       "● Match up the highest red die with the highest blue die, and match the second\n" + 
-      "  highest red die with the second highest blue die. If there is only one blue die, only\n" + 
-      "  match up the highest red die with the blue die.\n" + 
+      "   highest red die with the second highest blue die. If there is only one blue die, only\n" + 
+      "   match up the highest red die with the blue die.\n" + 
       "● Remove one of your pieces from the attacking territory if the blue die is higher or\n" + 
-      "  equal to its corresponding red die.\n" + 
+      "   equal to its corresponding red die.\n" + 
       "● Remove one of your opponent’s pieces from the defending territory if the red die is\n" + 
-      "  higher to its corresponding blue die.\n\n" +
+      "   higher to its corresponding blue die.\n\n" +
       "If you successfully wipe out all of the defending armies in the area you are attacking, then you\n" + 
       "will occupy the territory with the amount of attacking armies as used in the attack.\n" + 
       "If you attack with three dice (or three armies), you will colonize the newly-acquired territory\n" + 
@@ -136,5 +136,5 @@ public class TutorialMessages {
       "earned a Risk​ card. You cannot earn more than one ​ Risk ​ card for this. The goal is to collect\n" + 
       "sets of three “Risk” cards to exchange them for new armies.\n\n" +
       "● If you manage to wipe out an opponent by destroying his or her last army, you gain\n" + 
-      "  possession of all the ​ Risk ​ cards he or she may have had in their hands.";
+      "   possession of all the ​ Risk ​ cards he or she may have had in their hands.";
 }

@@ -901,7 +901,7 @@
 								<Line endX="340.0" endY="438.0" fill="#220000" layoutX="250.0" layoutY="-180.0" rotate="-40.0" startX="349.0" startY="474.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
 							</children>
 						</Pane>
-						<Pane mouseTransparent="true" prefHeight="720.0" prefWidth="1280.0">
+						<Pane fx:id="imageRuleBook" mouseTransparent="true" prefHeight="720.0" prefWidth="1280.0">
 							<children>
 								<Label fx:id="easternAustraliaHeadline" layoutX="930.0" layoutY="583.0" mouseTransparent="true" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="34.0" prefWidth="58.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern Australia" wrapText="true" />
 								<Label fx:id="easternAustraliaNoA" alignment="CENTER" layoutX="943.0" layoutY="620.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="21.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
@@ -1129,6 +1129,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Circle>
+            <ImageView fitHeight="41.0" fitWidth="40.0" layoutX="207.0" layoutY="31.0" mouseTransparent="true" pickOnBounds="true">
+               <image>
+                  <Image url="@../resources/gui/rulebook.png" />
+               </image>
+            </ImageView>
 			</children>
 		</AnchorPane>
 	</children>
