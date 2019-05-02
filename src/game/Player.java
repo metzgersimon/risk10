@@ -620,6 +620,10 @@ public class Player implements Serializable {
         Main.b.showMessage("Game Over. " + attack.getOwner().getName() + " won the game!");
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
+      } else if (Main.g.onlyAiPlayersLeft()) {
+        Main.b.showMessage("You lost the Game!");
+        Main.g.setGameState(GameState.END_GAME);
+        Main.b.endGame();
       }
       return true;
     } else {

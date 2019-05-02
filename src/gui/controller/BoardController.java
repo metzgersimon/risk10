@@ -218,7 +218,7 @@ public class BoardController implements Initializable {
 
   @FXML
   private TableColumn<Player, Integer> c3;
-  
+
   @FXML
   private Button liveStats;
 
@@ -321,22 +321,9 @@ public class BoardController implements Initializable {
     connectRegionTerritory();
   }
 
-  public void setTerritoryText(Territory t) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-
-      }
-    });
-  }
-
-  public void setCircleArmiesToDistributeLable() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-      }
-    });
-  }
+  /**************************************************
+   * * Methods to prepare Board * *
+   *************************************************/
 
   /**
    * @author smetzger
@@ -351,23 +338,30 @@ public class BoardController implements Initializable {
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
-        if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
-          for (Territory t : Main.g.getWorld().getTerritories().values()) {
-            t.getBoardRegion().getRegion().setDisable(true);
-          }
-        } else {
-          for (Territory t : Main.g.getWorld().getTerritories().values()) {
-            if (t.getOwner() == null) {
-              t.getBoardRegion().getRegion().setDisable(false);
-            }
-          }
-        }
       }
     });
+    if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            t.getBoardRegion().getRegion().setDisable(true);
+          }
+        });
+
+      }
+    } else {
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        if (t.getOwner() == null) {
+          Platform.runLater(new Runnable() {
+            public void run() {
+              t.getBoardRegion().getRegion().setDisable(false);
+            }
+          });
+        }
+      }
+    }
 
   }
-
-
 
   /**
    * @author smetzger
@@ -387,74 +381,67 @@ public class BoardController implements Initializable {
         showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
         circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
         armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+      }
+    });
 
-        if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
-          for (Territory t : Main.g.getWorld().getTerritories().values()) {
+    if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        Platform.runLater(new Runnable() {
+          public void run() {
             t.getBoardRegion().getRegion().setDisable(true);
           }
-        } else {
+        });
+      }
+    } else {
+      Platform.runLater(new Runnable() {
+        public void run() {
           changeGameState.setDisable(false);
-          for (Territory t : Main.g.getWorld().getTerritories().values()) {
-            if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
+        }
+      });
+
+      for (Territory t : Main.g.getWorld().getTerritories().values()) {
+        if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
+          Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
               t.getBoardRegion().getRegion().setEffect(null);
               t.getBoardRegion().getRegion().setDisable(false);
-            } else {
+            }
+          });
+
+        } else {
+          Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
               t.getBoardRegion().getRegion().setDisable(true);
               t.getBoardRegion().getRegion().setEffect(new Lighting());
             }
-          }
-          if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
-            try {
-              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
-              Parent root = (Parent) fxmlLoader.load();
-              Main.cardC = fxmlLoader.getController();
-//              Main.ca.setMain(Main.b);
-              // SubScene subScene = new SubScene(root, 1024, 720);
-
-              // subScene.setRoot(root);
-              // rootAnchor.getChildren().add(subScene);
-              // subScene.setOpacity(1.0);
-              // subScene.setMouseTransparent(false);
-
-              // Main.stage.setScene(new Scene(root));
-              // Main.stage.show();
-              Main.stagePanes.setScene(new Scene(root));
-              Main.stagePanes.show();
-
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-            // gridCardPane.setVisible(true);
-            // grayPane.setVisible(true);
-            if (Main.g.isShowTutorialMessages()) {
-              showMessage(TutorialMessages.forcedTrade);
-            }
-          }
+          });
         }
       }
-    });
-  }
+      if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+        try {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Main.cardC = fxmlLoader.getController();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.show();
 
-  public synchronized void updateLabelTerritory(Territory t) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        t.getBoardRegion().getRegion().setEffect(new Glow(0.5));
-        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-        t.getBoardRegion().getRegion().setEffect(new Lighting());
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        if (Main.g.isShowTutorialMessages()) {
+          Platform.runLater(new Runnable() {
+            public void run() {
+              showMessage(TutorialMessages.forcedTrade);
+            }
+          });
+        }
       }
-    });
+    }
   }
-
-  public synchronized void updateColorTerritory(Territory t) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        t.getBoardRegion().getRegion()
-            .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
-                CornerRadii.EMPTY, Insets.EMPTY)));
-      }
-    });
-  }
-
 
   /**
    * @author smetzger
@@ -471,18 +458,26 @@ public class BoardController implements Initializable {
             showMessage(game.TutorialMessages.attacking1);
           }
         }
-
-        for (Territory t : Main.g.getWorld().getTerritories().values()) {
-          if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
+      }
+    });
+    for (Territory t : Main.g.getWorld().getTerritories().values()) {
+      if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1) {
+        Platform.runLater(new Runnable() {
+          public void run() {
             t.getBoardRegion().getRegion().setDisable(false);
             t.getBoardRegion().getRegion().setEffect(null);
-          } else {
+          }
+        });
+      } else {
+        Platform.runLater(new Runnable() {
+          public void run() {
             t.getBoardRegion().getRegion().setDisable(true);
             t.getBoardRegion().getRegion().setEffect(new Lighting());
           }
-        }
+        });
       }
-    });
+    }
+
   }
 
   /**
@@ -503,35 +498,60 @@ public class BoardController implements Initializable {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
       if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1
           && t.getHostileNeighbor().size() != t.getNeighbor().size()) {
-        t.getBoardRegion().getRegion().setEffect(null);
-        t.getBoardRegion().getRegion().setDisable(false);
+        Platform.runLater(new Runnable() {
+          public void run() {
+            t.getBoardRegion().getRegion().setEffect(null);
+            t.getBoardRegion().getRegion().setDisable(false);
+          }
+        });
       } else {
-        t.getBoardRegion().getRegion().setDisable(true);
-        t.getBoardRegion().getRegion().setEffect(new Lighting());
+        Platform.runLater(new Runnable() {
+          public void run() {
+            t.getBoardRegion().getRegion().setDisable(true);
+            t.getBoardRegion().getRegion().setEffect(new Lighting());
+          }
+        });
       }
     }
   }
 
-  /**
-   * @author pcoberge This method handles the exit Button. When the user presses the exit-Button, a
-   *         pop-up window appears and stops the game.
-   */
-  public synchronized void pressLeave() {
+
+
+  public void setTerritoryText(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
-        try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuitGameSubScene.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Main.quit = fxmlLoader.getController();
-          // SubScene sub = new SubScene(root, 1024, 720);
-          // rootAnchor.getChildren().add(sub);
+        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
 
-          Main.stage.setScene(new Scene(root));
-          Main.stage.show();
+      }
+    });
+  }
 
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+  public void setCircleArmiesToDistributeLable() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+      }
+    });
+  }
+
+
+
+  public synchronized void updateLabelTerritory(Territory t) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        t.getBoardRegion().getRegion().setEffect(new Glow(0.5));
+        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+        t.getBoardRegion().getRegion().setEffect(new Lighting());
+      }
+    });
+  }
+
+  public synchronized void updateColorTerritory(Territory t) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        t.getBoardRegion().getRegion()
+            .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
+                CornerRadii.EMPTY, Insets.EMPTY)));
       }
     });
   }
@@ -660,8 +680,8 @@ public class BoardController implements Initializable {
                   // Platform.runLater(new Runnable() {
                   // public void run() {
                   try {
-                    FXMLLoader fxmlLoader =
-                        new FXMLLoader(getClass().getResource("/gui/ArmyDistributionSubScene.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(
+                        getClass().getResource("/gui/ArmyDistributionSubScene.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     Main.army = fxmlLoader.getController();
                     Main.army.setMain(Main.b);
@@ -674,8 +694,8 @@ public class BoardController implements Initializable {
 
                     // Main.stage.setScene(new Scene(root));
                     // Main.stage.show();
-                    Main.stagePanes.setX(Main.stage.getX()+1);
-                    Main.stagePanes.setY(Main.stage.getY()+23);
+                    Main.stagePanes.setX(Main.stage.getX() + 1);
+                    Main.stagePanes.setY(Main.stage.getY() + 23);
                     Main.stagePanes.setScene(new Scene(root));
                     Main.stagePanes.show();
 
@@ -690,44 +710,54 @@ public class BoardController implements Initializable {
               break;
 
             case ATTACK:
-              Platform.runLater(new Runnable() {
-                public void run() {
-                  System.out.println(t);
-                  // Erster Klick
-                  if (selectedTerritory == null) {
-                    System.out.println("Territory ist null");
-                    selectedTerritory = t;
+              System.out.println(t);
+
+              // Erster Klick
+              if (selectedTerritory == null) {
+                System.out.println("Territory ist null");
+                selectedTerritory = t;
+                Platform.runLater(new Runnable() {
+                  public void run() {
                     r.setEffect(new Lighting());
-                    for (Territory territory : t.getHostileNeighbor()) {
+                  }
+                });
+                for (Territory territory : t.getHostileNeighbor()) {
+                  Platform.runLater(new Runnable() {
+                    public void run() {
                       territory.getBoardRegion().getRegion().setEffect(null);
                       territory.getBoardRegion().getRegion().setDisable(false);
                     }
+                  });
+                }
 
-                    for (Territory territory : Main.g.getCurrentPlayer().getTerritories()) {
-                      if (!(territory.equals(t))) {
+                for (Territory territory : Main.g.getCurrentPlayer().getTerritories()) {
+                  if (!(territory.equals(t))) {
+                    Platform.runLater(new Runnable() {
+                      public void run() {
                         territory.getBoardRegion().getRegion().setDisable(true);
                         territory.getBoardRegion().getRegion().setEffect(new Lighting());
                       }
-                    }
-                    if (Main.g.isShowTutorialMessages()
-                        && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-                      showMessage(game.TutorialMessages.attacking2);
-                      showMessage(game.TutorialMessages.attackingTip);
-                    }
+                    });
+                  }
+                }
+                if (Main.g.isShowTutorialMessages()
+                    && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+                  showMessage(game.TutorialMessages.attacking2);
+                  showMessage(game.TutorialMessages.attackingTip);
+                }
 
-                  } else if (selectedTerritory != null
-                      && selectedTerritory.getNeighbor().contains(t)) {
-                    System.out.println("Territory ist ungleich null");
-                    selectedTerritory_attacked = t;
+              } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
+                System.out.println("Territory ist ungleich null");
+                selectedTerritory_attacked = t;
 
-                    // open pop-up with Dices
-                    // grayPane.setVisible(true);
-                    // dicePane.setVisible(true);
-                    if (Main.g.isShowTutorialMessages()) {
-                      showMessage(game.TutorialMessages.dicing);
-                    }
-                    // Platform.runLater(new Runnable() {
-                    // public void run() {
+                // open pop-up with Dices
+                // grayPane.setVisible(true);
+                // dicePane.setVisible(true);
+                if (Main.g.isShowTutorialMessages()) {
+                  showMessage(game.TutorialMessages.dicing);
+                }
+                Platform.runLater(new Runnable() {
+                  public void run() {
 
                     try {
                       FXMLLoader fxmlLoader =
@@ -736,19 +766,17 @@ public class BoardController implements Initializable {
                       Main.attack = fxmlLoader.getController();
                       // SubScene sub = new SubScene(root, 1024, 720);
                       // rootAnchor.getChildren().add(sub);
-                      Main.stagePanes.setX(Main.stage.getX()+1);
-                      Main.stagePanes.setY(Main.stage.getY()+23);
+                      Main.stagePanes.setX(Main.stage.getX() + 1);
+                      Main.stagePanes.setY(Main.stage.getY() + 23);
                       Main.stagePanes.setScene(new Scene(root));
                       Main.stagePanes.show();
                     } catch (Exception e) {
                       e.printStackTrace();
                     }
-                    // }
-                    // });
-
                   }
-                }
-              });
+                });
+
+              }
 
               break;
 
@@ -782,8 +810,8 @@ public class BoardController implements Initializable {
                             new FXMLLoader(getClass().getResource("/gui/FortifySubScene.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Main.fortify = fxmlLoader.getController();
-                        Main.stagePanes.setX(Main.stage.getX()+1);
-                        Main.stagePanes.setY(Main.stage.getY()+23);
+                        Main.stagePanes.setX(Main.stage.getX() + 1);
+                        Main.stagePanes.setY(Main.stage.getY() + 23);
                         Main.stagePanes.setScene(new Scene(root));
                         Main.stagePanes.show();
                       } catch (Exception e) {
@@ -844,13 +872,16 @@ public class BoardController implements Initializable {
     }
   }
 
+
   @FXML
   public synchronized void handleCardPane() {
     Platform.runLater(new Runnable() {
       public void run() {
-        if (Main.stagePanes.isShowing()) {
+        if (!Main.stagePanes.isShowing()) {
+          Main.stagePanes.setOpacity(0.95);
           try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
+            FXMLLoader fxmlLoader =
+                new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Main.cardC = fxmlLoader.getController();
             // SubScene subScene = new SubScene(root, 1024, 720);
@@ -865,8 +896,6 @@ public class BoardController implements Initializable {
             if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
               Main.cardC.handleGrayPane(true);
             }
-            Main.stagePanes.setX(Main.stage.getX()+1);
-            Main.stagePanes.setY(Main.stage.getY()+23);
             Main.stagePanes.setScene(new Scene(root));
             Main.stagePanes.show();
 
@@ -1079,7 +1108,7 @@ public class BoardController implements Initializable {
     String message = messages.getText();
     String player = playername.getText();
     String author = ProfileSelectionGUIController.selectedPlayerName;
-    if(Main.g.isNetworkGame()) {
+    if (Main.g.isNetworkGame()) {
       Client client = NetworkController.gameFinder.getClient();
       if (player.equals("") || player.isEmpty() || playername == null) {
         GameMessageMessage chatmessage = new GameMessageMessage(author, message);
@@ -1095,7 +1124,11 @@ public class BoardController implements Initializable {
   }
 
   public void showMessage(String message) {
-    chat.appendText(message + "\n_____________\n");
+    Platform.runLater(new Runnable() {
+      public void run() {
+        chat.appendText(message + "\n_____________\n");
+      }
+    });
   }
 
   public void showAllianceMessage(String message) {
@@ -1162,11 +1195,41 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));
           stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+
+  /**************************************************
+   * * Methods to handle quit game * *
+   *************************************************/
+
+  /**
+   * @author pcoberge This method handles the exit Button. When the user presses the exit-Button, a
+   *         pop-up window appears and stops the game.
+   */
+  public synchronized void pressLeave() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/QuitGameSubScene.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Main.quit = fxmlLoader.getController();
+          // SubScene sub = new SubScene(root, 1024, 720);
+          // rootAnchor.getChildren().add(sub);
+
+          Main.stage.setScene(new Scene(root));
+          Main.stage.show();
+
         } catch (Exception e) {
           e.printStackTrace();
         }

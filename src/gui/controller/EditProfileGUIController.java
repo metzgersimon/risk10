@@ -158,7 +158,7 @@ public class EditProfileGUIController {
        */
       ProfileManager.editProfile(ProfileSelectionGUIController.names[nr], profileName, imageId);
       try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
         stage.setTitle("Profile Selection");

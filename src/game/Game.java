@@ -186,6 +186,20 @@ public class Game implements Serializable {
     return (this.currentPlayer = players.get(0));
   }
   
+  /**
+   * @author pcoberge
+   * 
+   *         get to know if game should be closed, if only Ai-players are in-game
+   */
+  public boolean onlyAiPlayersLeft() {
+    for (Player p : players) {
+      if (p instanceof AiPlayer) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
 
   /**************************************************
    *                                                *
