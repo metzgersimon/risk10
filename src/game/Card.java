@@ -1,28 +1,10 @@
 package game;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-
 
 
 /**
+ * Class represents a risk card which is given to each player after a successfull attack
+ * 
  * @author smetzger
  *
  */
@@ -30,24 +12,24 @@ public class Card {
   private Territory territory;
   private boolean isWildcard;
   private int id;
-  private BufferedImage image;
 
-
-  // nur territory und wildcard
+  // constructor for cards which are covered with a territory
   public Card(Territory territory, boolean isWildcard) {
     this.territory = territory;
     this.isWildcard = isWildcard;
     this.id = territory.getId();
   }
 
+  // constructor for cards that are wildcards
   public Card(int id, boolean isWildcard) {
     this.isWildcard = isWildcard;
     this.id = id;
   }
 
 
-
-  // getters
+  /**
+   * getters
+   */
   public Territory getTerritory() {
     return territory;
   }
@@ -60,11 +42,10 @@ public class Card {
     return this.id;
   }
 
-  public javafx.scene.image.Image getFxImage() {
-    return SwingFXUtils.toFXImage(this.image, null);
-  }
 
-  // setters
+  /**
+   * setters
+   */
   public void setTerritory(Territory territory) {
     this.territory = territory;
   }
@@ -74,46 +55,15 @@ public class Card {
   }
 
 
+
   /**
+   * Methods checks if a set of three cards is a valid card set. That happens through checking if
+   * those cards pass one of those combinations.
    * 
-   * @param id
-   */
-  public void drawCard(int id) {
-    VBox b = new VBox();
-    VBox box = new VBox();
-    box.setMinWidth(90);
-
-
-    Text label = new Text(this.territory.getName());
-    StackPane stPane = new StackPane();
-    ImageView territoryImg = new ImageView(new Image(this.territory.getName() + ".png"));
-    stPane.getChildren().add(territoryImg);
-    stPane.getChildren().add(label);
-
-
-    ImageView armyImg = new ImageView(new Image(this.territory.getSym() + ".gif"));
-    box.getChildren().add(armyImg);
-    box.getChildren().add(stPane);
-    box.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-        CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    b.getChildren().add(box);
-    WritableImage image = b.snapshot(new SnapshotParameters(), null);
-    File file = new File(this.territory.getId() + ".png");
-
-    try {
-      ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-    } catch (IOException e) {
-    }
-  }
-
-
-  /**
    * @author qiychen
-   * @param c1 card1
    * @param c2 card2
    * @param c3 card3
-   * @return whether 3 cards can be traded or not
+   * @return boolean, whether three cards can be traded or not
    */
   public boolean canBeTraded(Card c2, Card c3) {
     CardSymbol sym1 = this.isWildcard ? CardSymbol.WILDCARD : this.getTerritory().getSym();
@@ -140,6 +90,10 @@ public class Card {
     return result;
   }
 
+  /**
+   * Method checks if two cards are equal by comparing their ids. If so, it returns true, otherwise
+   * false
+   */
   @Override
   public boolean equals(Object o) {
     Card c = (Card) o;

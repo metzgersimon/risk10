@@ -1,31 +1,29 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import main.Main;
 
 
 /**
+ * CardDeck represents the full risiko card set with 42 territory cards and two wildcards
  * 
- * @author smetzger CardDeck represents the full risiko card set with 42 territory cards and 2
- *         wildcards
+ * @author smetzger
  */
 
 public class CardDeck {
   private HashMap<Integer, Card> cards = new HashMap<Integer, Card>();
 
+  /**
+   * getter for the cards attribute
+   */
   public HashMap getCards() {
     return cards;
   }
 
   /**
-   * Constructor fills the attribute cards with 42 territory cards and 2 wildcards
-   * 
-   * @param w is an instance of a World
+   * Constructor fills the HashMap cards with 42 territory cards and two wildcards
    */
   public CardDeck() {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
@@ -35,14 +33,23 @@ public class CardDeck {
     this.cards.put(44, new Card(44, true));
   }
 
-  public LinkedList shuffle() {
-    // ArrayList keys = new ArrayList(cards.keySet());
-    LinkedList<Card> list = new LinkedList(cards.values());
+  /**
+   * Method shuffles the card deck
+   * 
+   * @return LinkedList with all risk cards in a shuffled order
+   */
+  public LinkedList<Card> shuffle() {
+    LinkedList<Card> list = new LinkedList<Card>(cards.values());
     Collections.shuffle(list);
-    // Collections.shuffle(keys);
     return list;
   }
 
+  /**
+   * Method calculates a random number in the range of zero to 44 and selecting a card regarding to
+   * this number
+   * 
+   * @return a card specified by the computed random number
+   */
   public Card getRandomCard() {
     int random = (int) (Math.random() * 44 + 1);
     return this.cards.get(random);
