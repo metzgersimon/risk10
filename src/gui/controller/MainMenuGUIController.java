@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class MainMenuGUIController {
   void openProfile(ActionEvent event) {
     mode = (String) ((Node) event.getSource()).getId();
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
@@ -59,7 +59,7 @@ public class MainMenuGUIController {
   @FXML
   void openSettings(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SettingsGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/SettingsGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Settings");

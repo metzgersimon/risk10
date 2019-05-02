@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class JoinGameLobbyController {
   void handleLeaveGame(ActionEvent event) {
     try {
       // Main.g.getGameFinder().closeConnection();
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));

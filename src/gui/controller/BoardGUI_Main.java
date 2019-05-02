@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.io.IOException;
 import game.Game;
@@ -30,7 +30,7 @@ public class BoardGUI_Main extends Application {
 
   public void mainWindow() {
     try {
-      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("BoardGUI.fxml"));
+      FXMLLoader loader = new FXMLLoader(BoardGUI_Main.class.getResource("/gui/BoardGUI.fxml"));
       AnchorPane pane = loader.load();
 
       BoardController boardController = loader.getController();

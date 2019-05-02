@@ -3,7 +3,7 @@ package game;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import gui.BoardRegion;
+import gui.controller.BoardRegion;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 

@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +44,7 @@ public class HostGameGUIController {
     networkController.hostGame(numberofPlayers);
 
     try {
-      fxmlLoader = new FXMLLoader(getClass().getResource("HostGameLobby.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("/gui/HostGameLobby.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Main.h = fxmlLoader.getController();
       Stage stage = main.Main.stage;
@@ -70,7 +70,7 @@ public class HostGameGUIController {
   @FXML
   void back(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiPlayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiPlayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Multi Player");

@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,7 +54,7 @@ public class CreateProfileGUIController {
     toInizialied = true; // gui need to be initialized if user comes back to this
     username = name.getText();
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
       stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));

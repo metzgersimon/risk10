@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +32,7 @@ public class ProfileImagePickerGUIController {
       EditProfileGUIController.image = ((ImageView) event.getSource()).getImage();
       EditProfileGUIController.imageId = getId(id);
       try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EditProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
         stage.setTitle("Edit Profile");
@@ -46,7 +46,7 @@ public class ProfileImagePickerGUIController {
         CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
         CreateProfileGUIController.id = getId(id);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
         stage.setTitle("Create Profile");

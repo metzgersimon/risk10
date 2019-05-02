@@ -3,7 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.ArrayBlockingQueue;
-import gui.BoardRegion;
+import gui.controller.BoardRegion;
 import main.Main;
 
 /**

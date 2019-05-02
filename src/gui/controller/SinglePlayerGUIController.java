@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.util.ArrayList;
 import game.AiPlayerEasy;
@@ -69,7 +69,7 @@ public class SinglePlayerGUIController {
     // Main.g.removePlayer();
 
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");

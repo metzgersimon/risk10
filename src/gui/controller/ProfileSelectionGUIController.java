@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import game.Game;
 import game.Player;
@@ -71,7 +71,7 @@ public class ProfileSelectionGUIController {
   @FXML
   void handleBackButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Main Menu");
@@ -92,7 +92,7 @@ public class ProfileSelectionGUIController {
   void handleCreateNewProfileButton(ActionEvent event) {
     CreateProfileGUIController.image = null;
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfileGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Create Profile");
@@ -129,7 +129,7 @@ public class ProfileSelectionGUIController {
         break;
     }
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditProfileGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EditProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Edit Profile");
@@ -170,10 +170,10 @@ public class ProfileSelectionGUIController {
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
-      toOpen = "SinglePlayerGUI.fxml";
+      toOpen = "/gui/SinglePlayerGUI.fxml";
       Main.g.addPlayer(new Player(selectedPlayerName, PlayerColor.YELLOW, Main.g));
     } else {
-      toOpen = "MultiPlayerGUI.fxml";
+      toOpen = "/gui/MultiPlayerGUI.fxml";
     }
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));

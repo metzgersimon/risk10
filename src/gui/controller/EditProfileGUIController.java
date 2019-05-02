@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,7 +61,7 @@ public class EditProfileGUIController {
     imageChanged = true;
 
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileImagePickerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Image Selection");

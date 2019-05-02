@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class LoginGUIController {
   @FXML
   void handleKlickToStastButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Main Menu");

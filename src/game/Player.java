@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
 import game.Game;
-import gui.NetworkController;
+import gui.controller.NetworkController;
 import main.Main;
 import network.messages.game.AttackMessage;
 import network.messages.game.FortifyMessage;

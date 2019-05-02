@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.util.ArrayList;
 import game.AiPlayerEasy;
@@ -90,7 +90,7 @@ public class HostGameLobbyController {
   public void handleLeaveLobby(ActionEvent event) {
     try {
       // Main.g.getServer().stopServer();
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MultiplayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));

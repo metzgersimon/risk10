@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class MultiPlayerGUIController {
      Main.g.removePlayer();
   }
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
@@ -73,7 +73,7 @@ public class MultiPlayerGUIController {
   void hostGame(ActionEvent event) {
     FXMLLoader fxmlLoader = null;
     try {
-      fxmlLoader = new FXMLLoader(getClass().getResource("HostGameGUI.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("/gui/HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Host Game");
@@ -116,7 +116,7 @@ public class MultiPlayerGUIController {
     // if client is succesfully created open the game lobby for the client
     if (NetworkController.gameFinder.getClient() != null) {
       try {
-        fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/gui/JoinGameLobby.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Main.j = fxmlLoader.getController();
         Stage stage = main.Main.stage;

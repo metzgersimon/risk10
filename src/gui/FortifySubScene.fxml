@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FortifySubSceneController">
+<AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.FortifySubSceneController">
    <children>
       <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" />
       <Pane fx:id="fortifyPane" layoutX="315.0" layoutY="281.0" opacity="0.8" prefHeight="158.0" prefWidth="394.0">

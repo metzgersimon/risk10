@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -403,7 +403,7 @@ public class BoardController implements Initializable {
           }
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
             try {
-              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CardSubScene.fxml"));
+              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
               Parent root = (Parent) fxmlLoader.load();
               Main.cardC = fxmlLoader.getController();
 //              Main.ca.setMain(Main.b);
@@ -518,7 +518,7 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("QuitGameSubScene.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuitGameSubScene.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Main.quit = fxmlLoader.getController();
           // SubScene sub = new SubScene(root, 1024, 720);
@@ -659,7 +659,7 @@ public class BoardController implements Initializable {
                   // public void run() {
                   try {
                     FXMLLoader fxmlLoader =
-                        new FXMLLoader(getClass().getResource("ArmyDistributionSubScene.fxml"));
+                        new FXMLLoader(getClass().getResource("/gui/ArmyDistributionSubScene.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     Main.army = fxmlLoader.getController();
                     Main.army.setMain(Main.b);
@@ -729,7 +729,7 @@ public class BoardController implements Initializable {
 
                     try {
                       FXMLLoader fxmlLoader =
-                          new FXMLLoader(getClass().getResource("AttackSubScene.fxml"));
+                          new FXMLLoader(getClass().getResource("/gui/AttackSubScene.fxml"));
                       Parent root = (Parent) fxmlLoader.load();
                       Main.attack = fxmlLoader.getController();
                       // SubScene sub = new SubScene(root, 1024, 720);
@@ -777,7 +777,7 @@ public class BoardController implements Initializable {
                       // public void run() {
                       try {
                         FXMLLoader fxmlLoader =
-                            new FXMLLoader(getClass().getResource("FortifySubScene.fxml"));
+                            new FXMLLoader(getClass().getResource("/gui/FortifySubScene.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Main.fortify = fxmlLoader.getController();
                         Main.stagePanes.setX(Main.stage.getX()+1);
@@ -808,7 +808,7 @@ public class BoardController implements Initializable {
   public void handleLiveStats() {
     try {
       FXMLLoader fxmlLoader =
-          new FXMLLoader(getClass().getResource("StatisticsPopUp.fxml"));
+          new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Main.liveStats = fxmlLoader.getController();
       Main.stagePanes.setX(Main.stage.getX()+1);
@@ -827,7 +827,7 @@ public class BoardController implements Initializable {
       public void run() {
         if (Main.stagePanes.isShowing()) {
           try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CardSubScene.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Main.cardC = fxmlLoader.getController();
             // SubScene subScene = new SubScene(root, 1024, 720);
@@ -1117,7 +1117,7 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));
@@ -1139,7 +1139,7 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EndGameSubScene.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));

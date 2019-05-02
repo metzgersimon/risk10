@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -85,7 +85,7 @@ public class NetworkController {
   public void viewBoardGame() {
     FXMLLoader fxmlLoader = null;
     try {
-      fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
+      fxmlLoader = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       // set the controller

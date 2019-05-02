@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import game.Player;
 import javafx.application.Platform;
@@ -39,7 +39,7 @@ public class QuitGameSubSceneController {
           for (Player p : Main.g.getPlayers()) {
             Main.g.addToAllPlayers(p);
           }
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StatisticGUI.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));

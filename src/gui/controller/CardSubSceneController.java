@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.util.HashMap;
 import game.Card;

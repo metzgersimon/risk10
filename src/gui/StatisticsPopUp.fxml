@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StatisticsPopUpController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.StatisticsPopUpController">
    <children>
       <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" />
       <Pane layoutX="250.0" layoutY="208.0" prefHeight="278.0" prefWidth="550.0">
