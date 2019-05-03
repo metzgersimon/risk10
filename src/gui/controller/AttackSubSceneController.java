@@ -241,7 +241,7 @@ public class AttackSubSceneController implements Initializable {
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {
-        Main.b.setSelectedTerritory_attacked(null);
+//        Main.b.setSelectedTerritory_attacked(null);
         // Main.b.setSelectedTerritory(null);
         attackDice1.setVisible(false);
         attackDice2.setVisible(false);

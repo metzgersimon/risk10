@@ -34,46 +34,60 @@ public class ArmyDistributionSubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // TODO Auto-generated method stub
     setArmySlider.setMax(Main.g.getCurrentPlayer().getNumberArmiesToDistibute());
     setArmySlider.setValue(1);
 
   }
 
   public synchronized void confirmArmyDistribution() {
-    Territory t = Main.b.getSelectedTerritory();
-    int amount = (int) setArmySlider.getValue();
-    if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
-      Main.b.setTerritoryText(t);
-      Main.b.setCircleArmiesToDistributeLable();
-      if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-        FurtherDistributeArmyMessage message =
-            new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
-        message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-        NetworkController.gameFinder.getClient().sendMessage(message);
+    Thread th = new Thread() {
+      public void run() {
+        Territory t = Main.b.getSelectedTerritory();
+        int amount = (int) setArmySlider.getValue();
+        if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
+          Platform.runLater(new Runnable() {
+            public void run() {
+              Main.b.setTerritoryText(t);
+              Main.b.setCircleArmiesToDistributeLable();
+            }
+          });
+        }
+        if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+          FurtherDistributeArmyMessage message =
+              new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
+          message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+          NetworkController.gameFinder.getClient().sendMessage(message);
+        }
+        try {
+          this.sleep(50);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+
+        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
+          Main.g.setGameState(GameState.ATTACK);
+          Main.b.prepareAttack();
+        }
       }
-    }
-    if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
-      Main.g.setGameState(GameState.ATTACK);
-      Main.b.prepareAttack();
-    }
-//    else {
-//      Main.b.prepareArmyDistribution();
-//    }
+    };
+    th.start();
     Main.stagePanes.close();
-    Main.b.setSelectedTerritory(null);
+    Main.b.neutralizeGUI();
+
+
 
   }
 
   public synchronized void clickBack() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        // Main.stage.setScene(new Scene(Ma));
-        //Main.b.prepareArmyDistribution();
-        Main.stagePanes.close();
-        Main.b.setSelectedTerritory(null);
-      }
-    });
+    // Platform.runLater(new Runnable() {
+    // public void run() {
+    // Main.stage.setScene(new Scene(Ma));
+    // Main.b.prepareArmyDistribution();
+    Main.stagePanes.close();
+    Main.b.neutralizeGUI();
+    // }
+    // });
   }
 
 
