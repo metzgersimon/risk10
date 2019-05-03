@@ -233,7 +233,7 @@ public class HostGameLobbyController {
   public void showMessage(String content) {
     chat.setStyle("-fx-font-size:15px;");
     chat.appendText(content+ "\n");
-
+    this.textField.clear();
   }
 
   /**
