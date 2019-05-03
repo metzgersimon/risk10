@@ -103,7 +103,7 @@ public class EditProfileGUIController {
         dialogStage.close();
         try {
           FXMLLoader fxmlLoader =
-              new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+              new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
           BorderPane root = (BorderPane) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setTitle("Profile Selection");

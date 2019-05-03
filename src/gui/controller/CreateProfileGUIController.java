@@ -115,7 +115,7 @@ public class CreateProfileGUIController {
       ProfileManager.addNewProfile(username, id);
 
       try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelectionGUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
