@@ -18,60 +18,78 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
+import network.messages.GameCancelMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
 
 public class HostGameLobbyController {
 
 
-  /** Text field in which a player writes his/her message to send to chatbox */
-  @FXML
-  TextField textField;
+  /** 
+   * Text field in which a player writes his/her message to send to chatbox 
+   */
+  @FXML TextField textField;
 
-  /** to send a message in the chat box this button should be clicked */
-  @FXML
-  Button sendButton;
+  /**
+   *  to send a message in the chat box this button should be clicke
+   */
+  @FXML Button sendButton;
 
-  /** text area in which all the players can see the message */
+  /**
+   *  text area in which all the players can see the message 
+   */
+  @FXML TextArea chat;
 
+  /**
+   * Button to leave the game
+   */
+ @FXML  Button leaveGame;
 
-  @FXML
-  Button leaveGame;
+ /**
+  * Button to start the game
+  */
+  @FXML  Button startGame;
 
-  @FXML
-  Button startGame;
+  /**
+   * Button to add AI players
+   */
+  @FXML Button addBots;
 
-  @FXML
-  Button addBots;
+  /**
+   * slider to set the level of AI Player
+   */
+  @FXML Slider botLevel;
 
-  @FXML
-  Slider botLevel;
+  /** 
+   * check boxes shows the status of the joined player 
+   */
+  @FXML CheckBox hostBox;
+  @FXML CheckBox box1;
+  @FXML CheckBox box2;
+  @FXML CheckBox box3;
+  @FXML CheckBox box4;
+  @FXML CheckBox box5;
 
-  /** check boxes shows the status of the joined player */
-  @FXML
-  CheckBox hostBox;
-  @FXML
-  CheckBox box1;
-  @FXML
-  CheckBox box2;
-  @FXML
-  CheckBox box3;
-  @FXML
-  CheckBox box4;
-  @FXML
-  CheckBox box5;
-  @FXML
-  TextArea chat;
+  @FXML ImageView image1;
 
-  /** number of players the host want to play game with */
+  /** 
+   * Check boxes lists for players joining the game
+   */
   public static ArrayList<CheckBox> playerNames;
+  
+  /**
+   * A list of players added to the game lobby
+   */
   public ArrayList<Player> clients = new ArrayList<Player>();
 
 
-  /** to handle the event when the button "send" is clicked */
+  /**
+   * to handle the event when the button "send" is clicked
+   */
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
@@ -83,11 +101,16 @@ public class HostGameLobbyController {
 
   /**
    * @author skaur
-   * @param event : ActionEvent This parameter represents the element that invokes this method. This
-   *        action method changes the current stage back to Multiplayer GUI.
+   * @param event parameter represents the element that invokes method by clicking leave button
+   * 
+   *        . This action method changes the current stage back to Multiplayer GUI.
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
+    if(Main.g.getPlayers().size() > 1) {
+      GameCancelMessage cancelMessage = new GameCancelMessage();
+      NetworkController.gameFinder.getClient().sendMessage(cancelMessage);
+    }
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
@@ -112,11 +135,16 @@ public class HostGameLobbyController {
       } else {
         p = new AiPlayerHard();
       }
+      // add the player to the palyer list in the game class
       Main.g.addPlayer(p);
+
+      // update the list in the game lobby for host player
       updateList(p);
-      // addPlayerInList(p.getName());
       System.out.println("An AI player " + p.getName() + " has joined the game ");
+
+      // enable the start button if possible
       this.enableStartButton();
+
     } else {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
@@ -143,15 +171,14 @@ public class HostGameLobbyController {
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
       playerNames.get(i).setDisable(false);
     }
-
   }
 
   /**
    * @author skaur
    * 
-   *         this method is called from the server class whenever a new player has joined and
-   *         whenever a new bot is added to the game lobby to update the list of players in the
-   *         lobby
+   *         this method is called from the server class whenever a new player has joined the lobby
+   *         and whenever a new AI player is added to the game lobby,to update the list of players
+   *         in the lobby
    */
   public void updateList(Player p) {
     this.clients.add(p);
@@ -163,28 +190,30 @@ public class HostGameLobbyController {
         String name = clients.get(size - 1).getName();
         switch (size) {
           case 1:
+            // select the box
             playerNames.get(0).setSelected(true);
-            playerNames.get(0).setText(name);
+            // show the name of the player who joined the game
+            playerNames.get(0).setText(name.toUpperCase() + " (Host Player) ");
             break;
           case 2:
             playerNames.get(1).setSelected(true);
-            playerNames.get(1).setText(name);
+            playerNames.get(1).setText(name.toUpperCase());
             break;
           case 3:
             playerNames.get(2).setSelected(true);
-            playerNames.get(2).setText(name);
+            playerNames.get(2).setText(name.toUpperCase());
             break;
           case 4:
             playerNames.get(3).setSelected(true);
-            playerNames.get(3).setText(name);
+            playerNames.get(3).setText(name.toUpperCase());
             break;
           case 5:
             playerNames.get(4).setSelected(true);
-            playerNames.get(4).setText(name);
+            playerNames.get(4).setText(name.toUpperCase());
             break;
           case 6:
             playerNames.get(5).setSelected(true);
-            playerNames.get(5).setText(name);
+            playerNames.get(5).setText(name.toUpperCase());
             break;
           default:
             break;
@@ -193,6 +222,7 @@ public class HostGameLobbyController {
       }
 
     });
+    //enable the  start button
     this.enableStartButton();
 
   }
