@@ -3,42 +3,42 @@ package gui.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import game.AiPlayer;
-import game.Game;
 import game.GameState;
 import game.Territory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import main.Main;
 import network.messages.game.FurtherDistributeArmyMessage;
 
+/**
+ * @author pcoberge
+ * @author smetzger
+ *
+ *         This class organises gui aspects of army distribution phase
+ */
 public class ArmyDistributionSubSceneController implements Initializable {
-  BoardController board;
 
   @FXML
-  private Pane setArmyPane;
+  private Pane setArmyPane, grayPane;
   @FXML
   private Slider setArmySlider;
   @FXML
   private Button setArmyButton;
-  @FXML
-  private Pane grayPane;
-
-  public void setMain(BoardController board) {
-    this.board = board;
-  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     setArmySlider.setMax(Main.g.getCurrentPlayer().getNumberArmiesToDistibute());
     setArmySlider.setValue(1);
-
   }
 
+  /**
+   * This method is the actionlistener-method to the button to set armies on a chosen territory. At
+   * the end it turns back to the primaryStage.
+   */
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
       public void run() {
@@ -59,7 +59,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
           NetworkController.gameFinder.getClient().sendMessage(message);
         }
         try {
-          this.sleep(50);
+          Thread.sleep(100);
         } catch (InterruptedException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
@@ -74,22 +74,13 @@ public class ArmyDistributionSubSceneController implements Initializable {
     th.start();
     Main.stagePanes.close();
     Main.b.neutralizeGUI();
-
-
-
   }
 
+  /**
+   * This method is used when a player wants to cancel the army distirubtion on a chosen territory
+   */
   public synchronized void clickBack() {
-    // Platform.runLater(new Runnable() {
-    // public void run() {
-    // Main.stage.setScene(new Scene(Ma));
-    // Main.b.prepareArmyDistribution();
     Main.stagePanes.close();
     Main.b.neutralizeGUI();
-    // }
-    // });
   }
-
-
-
 }

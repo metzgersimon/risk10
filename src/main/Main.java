@@ -41,7 +41,6 @@ public class Main extends Application {
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
   public static MultiPlayerGUIController m;
-  public static ArmyDistributionSubSceneController army;
   public static AttackSubSceneController attack;
   public static FortifySubSceneController fortify;
   public static QuitGameSubSceneController quit;

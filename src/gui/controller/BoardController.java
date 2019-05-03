@@ -687,8 +687,6 @@ public class BoardController implements Initializable {
                 FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getResource("/gui/ArmyDistributionSubScene.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
-                Main.army = fxmlLoader.getController();
-                Main.army.setMain(Main.b);
                 // SubScene subScene = new SubScene(root, 1024, 720);
 
                 // subScene.setRoot(root);
