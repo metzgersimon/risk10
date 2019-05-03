@@ -37,19 +37,36 @@ public class Client extends Thread implements Serializable {
    * 
    */
   private static final long serialVersionUID = 1L;
+
+  /**
+   * Elements needed for the communication with the server
+   */
   private InetAddress address;
   private Socket s;
-  private Player player;
   private ObjectInputStream fromServer;
   private ObjectOutputStream toServer;
-  private boolean active;
   private int port;
+
+  /**
+   * Controllers
+   */
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
-  public static boolean isHost;
   private NetworkController networkController = new NetworkController();
-  // private HostGameLobbyController hostUi;
+
+  /**
+   * other elements
+   */
+  public static boolean isHost;
+  private boolean active;
+  private Player player; // player of this client
+
+  /**************************************************
+   *                                                *
+   *                 Constructors                   *
+   *                                                *
+   *************************************************/
 
   public Client(InetAddress address, int port) {
     this.address = address;
@@ -74,12 +91,13 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * Second Constructor to join the game by giving the ip and port address and starts the client
-   * thread
    * 
    * @skaur
-   * @param ip
-   * @param port
+   * @param ip address of the server
+   * @param port listening to the server
+   * 
+   *        Second Constructor to join the game by giving the ip and port address and starts the
+   *        client thread
    */
   public Client(String ip, int port) {
     try {
@@ -92,6 +110,12 @@ public class Client extends Thread implements Serializable {
     Main.g.setNetworkGame(true);
   }
 
+  /**************************************************
+   *                                                *
+   *   Connection and disconnection of clients      *
+   *                                                *
+   *************************************************/
+  
   /**
    * @author qiychen
    * @return whether the connection is established
@@ -110,10 +134,29 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-  public void run() {
-    transact();
+  /**
+   * @author qiychen disconnect the connection
+   */
+  public void disconnect() {
+    this.interrupt();
+    try {
+      active = false;
+      this.fromServer.close();
+      this.toServer.close();
+      s.close();
+      System.out.println("Protocol ended");
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
+  /**************************************************
+   *                                                *
+   *     Send and receive messages from client      *
+   *                                                *
+   *************************************************/
+  
   /**
    * send message to server
    * 
@@ -130,18 +173,8 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-  public void register(String name) {
-    JoinGameMessage join = new JoinGameMessage(name);
-    this.sendMessage(join);
-    // To get response
-  }
-
-  public void setController(JoinGameLobbyController controller) {
-    this.controller = controller;
-  }
-
-  public void setControllerHost(HostGameLobbyController hostcontroller) {
-    this.hostcontroller = hostcontroller;
+  public void run() {
+    transact();
   }
 
 
@@ -149,12 +182,6 @@ public class Client extends Thread implements Serializable {
    * handle incoming messages from server
    */
   public void transact() {
-    // clientUi = new JoinGameLobbyController();
-    // hostUi = new HostGameLobbyController();
-
-    // FXMLLoader loader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-    // Main.j = loader.getController();
-    // Main.j.setMain(this, Main.g);
 
     while (active) {
       try {
@@ -169,11 +196,6 @@ public class Client extends Thread implements Serializable {
             if (!isHost) {
               controller.showMessage(name.toUpperCase() + " : " + content);
             }
-            // Parent root = FXMLLoader.load(getClass().getResource("JoinGameLobby.fxml"));
-            // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
-            // Parent root = (Parent) fxmlLoader.load();
-            // TextArea chat = (TextArea) root.lookup("#lblData");
-            // chat.appendText(content);
             break;
           case START_GAME:
             handleStartGameMessage((StartGameMessage) message);
@@ -217,30 +239,67 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-
-  /**
-   * this method showcase the game board to the all the players
-   * 
-   * @author skaur
-   * @param message
-   */
-  public void handleStartGameMessage(StartGameMessage message) {
-    Main.g.setPlayers(message.getPlayerList());
-    // if(!(player instanceof AiPlayer)) {
-    // for (Player p : Main.g.getPlayers()) {
-    // System.out.println(p.getName());
-    // }
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        networkController.viewBoardGame();
-        Main.b.connectRegionTerritory();
-        Main.g.initGame();
-      }
-
-    });
+  /**************************************************
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
+   *************************************************/
+  
+  public Player getPlayer() {
+    return this.player;
   }
 
+  public void setBoardController(BoardController boardController) {
+    this.boardController = boardController;
+  }
+
+  public int getPort() {
+    return this.port;
+  }
+
+  public void setController(JoinGameLobbyController controller) {
+    this.controller = controller;
+  }
+
+  public void setControllerHost(HostGameLobbyController hostcontroller) {
+    this.hostcontroller = hostcontroller;
+  }
+
+  public HostGameLobbyController getHostController() {
+    return this.hostcontroller;
+  }
+
+  public BoardController getBoardController() {
+    return this.boardController;
+  }
+
+  /**************************************************
+   *                                                *
+   * Process the messages received from the server  *
+   *                                                *
+   *************************************************/
+  
+  /**
+   * @author skaur
+   * @param name of the player who has requested to join the game
+   * 
+   *        After connecting to the server, the client sends a message to the server with the player
+   *        name to register for the game and to get response from the server
+   */
+  public void register(String name) {
+    JoinGameMessage join = new JoinGameMessage(name);
+    // To get response
+    this.sendMessage(join);
+  }
+
+  /**
+   * @author skaur
+   * @param responseMessage containing the player instance for the client
+   * 
+   *        After registering the name of the client, server sends back a response message
+   *        containing the player instance. This methods initialize the player instance for the
+   *        client.
+   */
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     if (!(responseMessage.getPlayer() instanceof AiPlayer)) {
       this.player = responseMessage.getPlayer();
@@ -248,11 +307,35 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * After receiving the Initial Territory information, every client updates the information in
-   * their game instance and game board
+   * @author skaur
+   * @param message containing the list of players who will be playing the game
    * 
+   *        After receiving the start game message from the host player, this method update the
+   *        player list to match up the player list of the host player .After that it opens the game
+   *        board for the client player
+   */
+  public void handleStartGameMessage(StartGameMessage message) {
+    // update the player list
+    Main.g.setPlayers(message.getPlayerList());
+
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        // open the game board
+        networkController.viewBoardGame();
+        Main.b.connectRegionTerritory();
+        Main.g.initGame();
+      }
+    });
+  }
+
+  /**
    * @author skaur
    * @param message
+   * 
+   *        After receiving the Initial Territory information, every client updates the information
+   *        in their game instance and game board
+   * 
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {
     Platform.runLater(new Runnable() {
@@ -282,6 +365,45 @@ public class Client extends Thread implements Serializable {
           e1.printStackTrace();
         }
         Main.g.furtherInitialTerritoryDistribution();
+      }
+    });
+  }
+
+  /**
+   * @author skaur
+   * @param message
+   */
+  public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (!(player.getColor().toString().equals(message.getColor()))) {
+          Main.g.getWorld().getTerritories().get(message.getTerritoryId())
+              .setNumberOfArmies(message.getAmount());
+          Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
+          Main.b.updateLabelTerritory(
+              Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
+        }
+        Main.g.furtherInitialArmyDistribution();
+      }
+    });
+  }
+
+  /**
+   * @author skaur
+   * @param message
+   */
+  public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        if (!(player.getColor().toString().equals(message.getColor()))) {
+          Main.g.getWorld().getTerritories().get(message.getTerritoryId())
+              .setNumberOfArmies(message.getAmount());
+          Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
+          Main.b.updateLabelTerritory(
+              Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
+        }
       }
     });
   }
@@ -343,47 +465,6 @@ public class Client extends Thread implements Serializable {
 
   }
 
-
-
-  /**
-   * @author skaur
-   * @param message
-   */
-  public synchronized void handleDistributeArmy(DistributeArmyMessage message) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {
-          Main.g.getWorld().getTerritories().get(message.getTerritoryId())
-              .setNumberOfArmies(message.getAmount());
-          Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
-          Main.b.updateLabelTerritory(
-              Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
-        }
-        Main.g.furtherInitialArmyDistribution();
-      }
-    });
-  }
-
-  /**
-   * @author skaur
-   * @param message
-   */
-  public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {
-          Main.g.getWorld().getTerritories().get(message.getTerritoryId())
-              .setNumberOfArmies(message.getAmount());
-          Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
-          Main.b.updateLabelTerritory(
-              Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
-        }
-      }
-    });
-  }
-
   /**
    * @author qiychen
    * @param show private message in board gui
@@ -405,6 +486,10 @@ public class Client extends Thread implements Serializable {
 
   }
 
+  /**
+   * @author skaur
+   * @param message
+   */
   public void handleLeaveGame(LeaveGameMessage message) {
     Platform.runLater(new Runnable() {
       @Override
@@ -416,35 +501,5 @@ public class Client extends Thread implements Serializable {
         }
       }
     });
-
-  }
-
-  public Player getPlayer() {
-    return this.player;
-  }
-
-  public void setBoardController(BoardController boardController) {
-    this.boardController = boardController;
-  }
-
-  public int getPort() {
-    return this.port;
-  }
-
-  /**
-   * @author qiychen disconnect the connection
-   */
-  public void disconnect() {
-    this.interrupt();
-    try {
-      active = false;
-      this.fromServer.close();
-      this.toServer.close();
-      s.close();
-      System.out.println("Protocol ended");
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 }
