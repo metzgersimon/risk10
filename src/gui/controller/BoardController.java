@@ -699,6 +699,8 @@ public class BoardController implements Initializable {
                 // Main.stage.setScene(new Scene(root));
                 // Main.stage.show();
                 Main.stagePanes.setScene(new Scene(root));
+                Main.stagePanes.setX(Main.stage.getX() + 2);
+                Main.stagePanes.setY(Main.stage.getY() + 24);
                 Main.stagePanes.show();
 
               } catch (Exception e) {
@@ -788,6 +790,8 @@ public class BoardController implements Initializable {
                       // SubScene sub = new SubScene(root, 1024, 720);
                       // rootAnchor.getChildren().add(sub);
                       Main.stagePanes.setScene(new Scene(root));
+                      Main.stagePanes.setX(Main.stage.getX() + 2);
+                      Main.stagePanes.setY(Main.stage.getY() + 24);
                       Main.stagePanes.show();
                     } catch (Exception e) {
                       e.printStackTrace();
@@ -840,6 +844,8 @@ public class BoardController implements Initializable {
                 Parent root = (Parent) fxmlLoader.load();
                 Main.fortify = fxmlLoader.getController();
                 Main.stagePanes.setScene(new Scene(root));
+                Main.stagePanes.setX(Main.stage.getX() + 2);
+                Main.stagePanes.setY(Main.stage.getY() + 24);
                 Main.stagePanes.show();
               } catch (Exception e1) {
                 e1.printStackTrace();
@@ -886,8 +892,8 @@ public class BoardController implements Initializable {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Main.liveStats = fxmlLoader.getController();
-      Main.stagePanes.setX(Main.stage.getX() + 1);
-      Main.stagePanes.setY(Main.stage.getY() + 23);
+      Main.stagePanes.setX(Main.stage.getX() + 2);
+      Main.stagePanes.setY(Main.stage.getY() + 24);
       Main.stagePanes.setScene(new Scene(root));
       Main.stagePanes.show();
     } catch (Exception e) {

@@ -16,6 +16,7 @@ import gui.controller.QuitGameSubSceneController;
 import gui.controller.RuleBookPopUp;
 import gui.controller.StatisticsPopUpController;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import network.messages.game.AttackMessage;
 
 
@@ -85,11 +87,19 @@ public class Main extends Application {
       primaryStage.setTitle("Login");
       primaryStage.show();
 
+      primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+        @Override
+        public void handle(WindowEvent event) {
+          // TODO Auto-generated method stub
+          stagePanes.close();
+          primaryStage.close();
+        }
+      });
+
       stagePanes = new Stage(StageStyle.TRANSPARENT);
       stagePanes.setOpacity(0.9);
-      stagePanes.setX(stage.getX()+1);
-      stagePanes.setY(stage.getY()+23);
-
+      stagePanes.setAlwaysOnTop(true);
 
     } catch (Exception e) {
       e.printStackTrace();
