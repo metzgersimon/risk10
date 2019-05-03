@@ -1153,12 +1153,21 @@ public class BoardController implements Initializable {
     String author = ProfileSelectionGUIController.selectedPlayerName;
     if (Main.g.isNetworkGame()) {
       Client client = NetworkController.gameFinder.getClient();
+      
+      //don't send empty string
+      if (message.equals("")) {
+        return;
+      }
+      
       if (player.equals("") || player.isEmpty() || playername == null) {
         GameMessageMessage chatmessage = new GameMessageMessage(author, message);
         client.sendMessage(chatmessage);
       } else {
+        this.showMessage(author.toUpperCase() + " (private) : " + message);
         SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
         client.sendMessage(privatemessage);
+        this.messages.clear();
+        this.playername.clear();
       }
     }
 
@@ -1175,7 +1184,8 @@ public class BoardController implements Initializable {
   }
 
   public void showAllianceMessage(String message) {
-    chat.appendText(message + " (private) " + "\n");
+    chat.appendText(message + " (private) ");
+    chat.appendText("\n_____________\n");
   }
 
 
