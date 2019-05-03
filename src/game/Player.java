@@ -22,11 +22,6 @@ import network.messages.game.SelectInitialTerritoryMessage;
  */
 public class Player implements Serializable {
 
-  public static int PLAYER_HUMAN = 0;
-  public static int PLAYER_AI_EASY = 1;
-  public static int PLAYER_AI_MITT = 2;
-  public static int PLAYER_AI_HARD = 3;
-
   private Game g;
   private String name;
   private int armies;

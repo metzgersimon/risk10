@@ -73,7 +73,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
     };
     th.start();
     Main.stagePanes.close();
-    Main.b.neutralizeGUI();
+    Main.b.neutralizeGUIarmyDistribution();
   }
 
   /**
@@ -81,6 +81,6 @@ public class ArmyDistributionSubSceneController implements Initializable {
    */
   public synchronized void clickBack() {
     Main.stagePanes.close();
-    Main.b.neutralizeGUI();
+    Main.b.neutralizeGUIarmyDistribution();
   }
 }
