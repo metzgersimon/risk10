@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import network.Parameter;
 
 public class GameFinder extends Thread {
  
@@ -17,7 +16,7 @@ public class GameFinder extends Thread {
    * @author skaur
    */
   public GameFinder() {
-    this.port = Parameter.PORT;
+    this.port = main.Parameter.PORT;
     this.start();
   }
   
@@ -42,7 +41,7 @@ public class GameFinder extends Thread {
       try {
         // firstly broadcast to the default broadcast address
         DatagramPacket sendPacket = new DatagramPacket(sendRequest, sendRequest.length,
-            InetAddress.getByName("255.255.255.255"), Parameter.PORT);
+            InetAddress.getByName("255.255.255.255"), main.Parameter.PORT);
         this.datagramSocket.send(sendPacket);
         System.out.println("A Game Request has been send to 255.255.255.255");
       } catch (SocketException e) {

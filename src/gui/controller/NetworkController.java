@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Main;
-import network.Parameter;
 import network.client.Client;
 import network.client.GameFinder;
 import network.server.Server;
@@ -42,7 +41,7 @@ public class NetworkController {
    *        port.
    */
   public void hostGame(int noOfPlayer) {
-    server = new Server(Parameter.PORT, noOfPlayer);
+    server = new Server(main.Parameter.PORT, noOfPlayer);
     String[] token = server.getIpAddress().toString().split("/");
     joinGame(token[1], server.getPort());
     gameFinder.getClient().isHost = true;

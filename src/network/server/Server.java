@@ -14,7 +14,6 @@ import java.util.List;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import main.Main;
-import network.Parameter;
 
 /**
  * 
@@ -23,39 +22,57 @@ import network.Parameter;
 
 public class Server extends Thread implements Serializable {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = 1L;
 
-  /** the port where server connects to the clients */
+  /**
+   * the port where server connects to the clients
+   */
   private int port;
 
-  /** server socket which accepts the client connections */
+  /**
+   * server socket which accepts the client connections
+   */
   private ServerSocket serverSocket;
 
-  /** A list clients connected to the game server */
+  /**
+   * A list clients connected to the game server
+   */
   public List<ClientConnection> clients = new ArrayList<ClientConnection>();
 
-  /** The socket used for communication */
+  /**
+   * The socket used for communication
+   */
   private Socket socket;
 
-  /**Indicates if the server is running*/
+  /**
+   * Indicates if the server is running
+   */
   private boolean isRunning;
 
-  /** This parameter represents the number of players selected by the host to play the game */
+  /**
+   * This parameter represents the number of players selected by the host to play the game
+   */
   private int noOfPlayer;
 
-  /** Controller of the host game lobby */
+  /**
+   * Controller of the host game lobby
+   * 
+   */
   private HostGameLobbyController lobbyController;
 
-  /** Represents the socket of each client with this server */
+  /**
+   * Represents the socket of each client with this server
+   */
   private ClientConnection connection;
 
-  /** IP address of this server */
+  /**
+   * IP address of this server
+   */
   private InetAddress ipAddress;
 
-  /** Board Controller of the Game */
+  /**
+   * Board Controller of the Game
+   */
   private BoardController boardController;
 
   /**
@@ -146,7 +163,7 @@ public class Server extends Thread implements Serializable {
    */
   public void listen() {
     try {
-      serverSocket = new ServerSocket(Parameter.PORT);
+      serverSocket = new ServerSocket(main.Parameter.PORT);
       socket = serverSocket.accept();
       // create a client connection instance for each client which connects to the server
       ClientConnection c = new ClientConnection(socket, this);
@@ -184,6 +201,12 @@ public class Server extends Thread implements Serializable {
     }
   }
 
+  /**************************************************
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
+   *************************************************/
+  
   public int getPort() {
     return this.port;
   }

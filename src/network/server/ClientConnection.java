@@ -127,10 +127,8 @@ public class ClientConnection extends Thread {
                 "Message from client with the content " + content + " sent to all clients");
             // gui.HostGameLobbyController.showMessage(content);
             break;
-          case SEND:
-            break;
           case START_GAME:
-            handleStartGameMessage((StartGameMessage) message);
+           this.sendMessagesToallClients((StartGameMessage) message);
             break;
           case LEAVE:
             recieveLeaveMessage((LeaveGameMessage) message);
@@ -142,7 +140,7 @@ public class ClientConnection extends Thread {
             handleAllianceMessage((SendAllianceMessage) message);
             break;
           case INITIAL_TERRITORY:
-            recieveInitialTerritory((SelectInitialTerritoryMessage) message);
+           this.sendMessagesToallClients((SelectInitialTerritoryMessage) message);
             break;
           case INGAME:
             this.sendMessagesToallClients(message);
@@ -214,14 +212,6 @@ public class ClientConnection extends Thread {
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
     
-  }
-
-  public void handleStartGameMessage(StartGameMessage startMessage) {
-    this.sendMessagesToallClients(startMessage);
-  }
-
-  public void recieveInitialTerritory(SelectInitialTerritoryMessage message) {
-    this.sendMessagesToallClients(message);
   }
 
   private void receiveAttackTerritory(AttackMessage message) {

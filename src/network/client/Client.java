@@ -16,7 +16,6 @@ import gui.controller.JoinGameLobbyController;
 import gui.controller.NetworkController;
 import javafx.application.Platform;
 import main.Main;
-import network.Parameter;
 import network.messages.GameMessageMessage;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
@@ -122,7 +121,7 @@ public class Client extends Thread implements Serializable {
    */
   public boolean connect() {
     try {
-      this.s = new Socket(address, Parameter.PORT);
+      this.s = new Socket(address, main.Parameter.PORT);
       fromServer = new ObjectInputStream(s.getInputStream());
       toServer = new ObjectOutputStream(s.getOutputStream());
       this.active = true;
