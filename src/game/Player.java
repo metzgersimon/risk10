@@ -419,6 +419,7 @@ public class Player implements Serializable {
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
+        Main.b.handleContinentGlow();
         this.numberArmiesToDistribute -= amount;
         return true;
 
@@ -485,6 +486,7 @@ public class Player implements Serializable {
     if (t.getOwner() == null) {
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
         this.initialArmyDistributionNetwork(t);
+        Main.b.handleContinentGlow();
         return true;
       }
       t.setOwner(this);
@@ -620,6 +622,7 @@ public class Player implements Serializable {
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
       }
+      Main.b.handleContinentGlow();
       return true;
     } else {
       if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
