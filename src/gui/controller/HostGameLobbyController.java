@@ -22,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
-import network.messages.GameCancelMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.StartGameMessage;
 
@@ -107,10 +106,10 @@ public class HostGameLobbyController {
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
-    if(Main.g.getPlayers().size() > 1) {
-      GameCancelMessage cancelMessage = new GameCancelMessage();
-      NetworkController.gameFinder.getClient().sendMessage(cancelMessage);
-    }
+//    if(Main.g.getPlayers().size() > 1) {
+//      GameCancelMessage cancelMessage = new GameCancelMessage();
+//      NetworkController.gameFinder.getClient().sendMessage(cancelMessage);
+//    }
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
