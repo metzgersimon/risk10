@@ -166,14 +166,12 @@ public class Server extends Thread implements Serializable {
       ServerSocket ss = new ServerSocket(main.Parameter.PORT);
       this.serverSocket = ss;
       Socket socket;
-      while(true) {
       socket = serverSocket.accept();
       // create a client connection instance for each client which connects to the server
       ClientConnection c = new ClientConnection(socket, this);
       clients.add(c);
       c.start();
       serverSocket.close();
-      }
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -194,6 +192,7 @@ public class Server extends Thread implements Serializable {
    */
   public void stopServer() {
     if (this.getConnections().size() < 1) {
+      this.interrupt();
       this.isRunning = false;
       try {
         this.socket.close();
@@ -202,7 +201,7 @@ public class Server extends Thread implements Serializable {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-      this.interrupt();
+
       System.out.println("Server is shutting down....");
     }
   }
