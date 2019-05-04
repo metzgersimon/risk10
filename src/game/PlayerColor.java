@@ -35,4 +35,28 @@ public enum PlayerColor {
         return Color.BLACK;
     }
   }
+  
+  /**
+   * @author prto get color string
+   * @return name of current color
+   */
+  public String getColorString() {
+    switch (this) {
+      case YELLOW:
+        return "Yellow";
+      case RED:
+        return "Red";
+      case GREEN:
+        return "Green";
+      case MAGENTA:
+        return "Magenta";
+      case BLUE:
+        return "Blue";
+      case ORANGE:
+        return "Orange";
+      default:
+        return "";
+    }
+  }
+  
 }

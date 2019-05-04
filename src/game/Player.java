@@ -44,6 +44,7 @@ public class Player implements Serializable {
   public int numberOfAttacks;
   public int rank;
   public int sessionWins;
+  public String colorString;
 
  
   
@@ -52,8 +53,8 @@ public class Player implements Serializable {
    *                  Constuctor                    *
    *                                                *
    *************************************************/ 
-  
-  
+
+
   /**
    * Constructor creates a player instance with a name, a color and a game instance.
    * It initializes all private and public attributes.
@@ -75,6 +76,7 @@ public class Player implements Serializable {
     this.numberOfAttacks = 0;
     this.rank = 0;
     this.sessionWins = 0;
+    this.colorString = this.color.getColorString();
   }
   
   
@@ -201,6 +203,14 @@ public class Player implements Serializable {
 
   public void setContinents(HashSet<Continent> continents) {
     this.continents = continents;
+  }
+  
+  public String getColorString() {
+    return colorString;
+  }
+
+  public void setColorString(String colorString) {
+    this.colorString = colorString;
   }
 
  

@@ -7,6 +7,7 @@ import game.AiPlayer;
 import game.Continent;
 import game.GameState;
 import game.Player;
+import game.PlayerColor;
 import game.Territory;
 import game.TutorialMessages;
 import javafx.application.Platform;
@@ -69,12 +70,6 @@ public class BoardController implements Initializable {
   private static int tradedCards = 0;
   // private CardDeck deck = new CardDeck();
   // Views
-
-  @FXML
-  private AnchorPane rootAnchor;
-
-  @FXML
-  private Pane grayPane;
 
 
   /**
@@ -183,6 +178,9 @@ public class BoardController implements Initializable {
   private TitledPane statisticPane;
   @FXML
   private TableView<Player> statistic;
+  
+  @FXML 
+  private TableColumn<Player, PlayerColor> c0;
 
   @FXML
   private TableColumn<Player, Integer> c1;
@@ -195,10 +193,18 @@ public class BoardController implements Initializable {
 
   @FXML
   private Button liveStats;
+  
+  @FXML
+  private AnchorPane rootAnchor;
+  
+  @FXML
+  private AnchorPane newSPane;
 
   @FXML
   private Circle openRuleBook;
-
+  
+  @FXML
+  private Pane grayPane;
 
   @FXML
   private Label endGame;
@@ -233,13 +239,19 @@ public class BoardController implements Initializable {
   public SinglePlayerGUIController boardGui;
 
 
+  /**
+   * @author prto create live stat table columns
+   */
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
+
+    c0.setCellValueFactory(new PropertyValueFactory<>("colorString"));
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
-
+  
     c1.setSortType(TableColumn.SortType.ASCENDING);
+   
   }
 
 
@@ -253,14 +265,7 @@ public class BoardController implements Initializable {
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
-    /*
-     * statistic.getColumns().get(0).setVisible(false);
-     * statistic.getColumns().get(0).setVisible(true);
-     * statistic.getColumns().get(1).setVisible(false);
-     * statistic.getColumns().get(1).setVisible(true);
-     * statistic.getColumns().get(2).setVisible(false);
-     * statistic.getColumns().get(2).setVisible(true);
-     */
+
 
     statistic.refresh();
     statisticPane.setExpanded(true);
@@ -993,17 +998,37 @@ public class BoardController implements Initializable {
    * @author prto handle press on live stats button
    */
   public void handleLiveStats() {
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
-      Parent root = (Parent) fxmlLoader.load();
-      Main.liveStats = fxmlLoader.getController();
-      Main.stagePanes.setX(Main.stage.getX() + 2);
-      Main.stagePanes.setY(Main.stage.getY() + 24);
-      Main.stagePanes.setScene(new Scene(root));
-      Main.stagePanes.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    
+    Main.g.updateLiveStatistics();
+    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
+    statistic.setItems(playerList);
+    statistic.getSortOrder().add(c1);
+    statistic.refresh();
+    
+    newSPane.setVisible(true);
+    
+    //grayPane.setVisible(true);
+    //grayPane.setMouseTransparent(false);
+//    try {
+//      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
+//      Parent root = (Parent) fxmlLoader.load();
+//      Main.liveStats = fxmlLoader.getController();
+//      Main.stagePanes.setX(Main.stage.getX() + 2);
+//      Main.stagePanes.setY(Main.stage.getY() + 24);
+//      Main.stagePanes.setScene(new Scene(root));
+//      Main.stagePanes.show();
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+  }
+  
+  /**
+   * @author prto handle press on background to close live stats
+   */
+  public void handleCloseLiveStats() {
+    //grayPane.setVisible(false);
+    //grayPane.setMouseTransparent(true);
+    newSPane.setVisible(false);
   }
 
 
