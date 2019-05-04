@@ -75,11 +75,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * Constructor to join the game on discovery
    * 
    * @author qiychen
    * @param address
    * @param player
+   * Constructor to join the game on discovery
    */
   public Client(InetAddress address, Player player, int port) {
     this.address = address;
@@ -134,7 +134,9 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * @author qiychen disconnect the connection
+   * @author qiychen 
+   *  
+   * disconnect the connection
    */
   public void disconnect() {
     this.interrupt();
@@ -156,11 +158,10 @@ public class Client extends Thread implements Serializable {
    *                                                *
    *************************************************/
   
-  /**
-   * send message to server
-   * 
+  /** 
    * @author qiychen
    * @param message
+   * send message to server
    */
   public void sendMessage(Message m) {
     // System.out.println("test send message" + m.getContent());
@@ -172,29 +173,18 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-  public void run() {
-    transact();
-  }
-
 
   /**
    * handle incoming messages from server
    */
-  public void transact() {
+  public void run() {
 
     while (active) {
       try {
         Message message = (Message) fromServer.readObject();
         switch (message.getType()) {
           case BROADCAST:
-            String name = ((SendChatMessageMessage) message).getUsername();
-            String content = ((SendChatMessageMessage) message).getMessage();
-            System.out.println("from server: " + name + " " + content);
-            System.out.println("client show " + content);
-            System.out.println("host show " + content);
-            if (!isHost) {
-              controller.showMessage(name.toUpperCase() + " : " + content);
-            }
+            handleSendChatMessage((SendChatMessageMessage)message);            
             break;
           case START_GAME:
             handleStartGameMessage((StartGameMessage) message);
@@ -462,6 +452,25 @@ public class Client extends Thread implements Serializable {
     }
     Main.g.furtherFortify();
 
+  }
+  
+  /**
+   * @author Liwang @author qiychen
+   * @param message
+   * 
+   *        After receiving the send chat message, the message will be showed
+   *        in the lobby           
+   * 
+   */
+  private void handleSendChatMessage(SendChatMessageMessage message) {
+    String name = message.getUsername();
+    String content = message.getMessage();
+     System.out.println("from server: " + name + " " + content);
+     System.out.println("client show " + content);
+     System.out.println("host show " + content);
+    if (!isHost) {
+      controller.showMessage(name.toUpperCase() + " : " + content);
+    }
   }
 
   /**

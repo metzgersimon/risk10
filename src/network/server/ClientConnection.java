@@ -22,24 +22,32 @@ import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
 /**
- *This class represents the connection between the server and the client
+ * This class represents the connection between the server and the client
  */
 
 public class ClientConnection extends Thread {
-
-  private InetAddress address; //address of the server
-  private int port; //port of the server
+  /**
+   * Variables for connection with clients
+   */
+  private InetAddress address; // address of the server
+  private int port; // port of the server
   private Socket socket;
   private ObjectInputStream fromClient;
   private ObjectOutputStream toClient;
   private boolean active;
-  private Player player; //player who represents this client connection
+  private Player player; // player who represents this client connection
   private Server server;
   private HostGameLobbyController hostLobbyController;
-  private ArrayList<Player> players = new ArrayList<Player>(); //list of players joined 
+  private ArrayList<Player> players = new ArrayList<Player>(); // list of players joined
   private BoardController boardController;
   private String playerN;
 
+  /**
+   * Constructor
+   * 
+   * @author qiychen
+   * @param socket
+   */
   public ClientConnection(Socket s) {
     this.socket = s;
     this.active = true;
@@ -73,13 +81,56 @@ public class ClientConnection extends Thread {
       e.printStackTrace();
     }
   }
+  
+  /**************************************************
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
+   *************************************************/
 
-  public void run() {
-    transact();
+  public ArrayList<Player> getPlayer() {
+    return this.players;
   }
 
+  public String getPlayerName() {
+    return this.playerN;
+  }
+
+  public InetAddress getAdress() {
+    return this.address;
+  }
+
+  public int getPort() {
+    return this.port;
+  }
+
+  public Player getPlaye() {
+    return this.player;
+  }
+
+  public HostGameLobbyController getHostLobbyController() {
+    return this.hostLobbyController;
+  }
+
+  public BoardController getBoardController() {
+    return this.boardController;
+  }
+
+  public void setHostController(HostGameLobbyController controller) {
+    this.hostLobbyController = controller;
+  }
+ 
+  
+  /**************************************************
+   *                                                *
+   *     Send messages from server                  *
+   *                                                *
+   *************************************************/
+
   /**
-   * send messages to client
+   * server sends messages to client
+   * 
+   * @author qiychen
    */
   public void sendMessage(Message m) {
     try {
@@ -91,7 +142,7 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * send message to all clients
+   * server sends message to all clients
    * 
    * @author qiychen
    * @param message
@@ -102,33 +153,28 @@ public class ClientConnection extends Thread {
       c.sendMessage(m);
     }
   }
+  
+  /**************************************************
+   *                                                 *
+   * Process the messages received from the clients  *
+   *                                                 *
+   *************************************************/
 
-  public void setHostController(HostGameLobbyController controller) {
-    this.hostLobbyController = controller;
-  }
 
   /**
    * handle incoming messages from clients
    */
-  public void transact() {
+  public void run() {
     System.out.println("connection works");
     while (active) {
       try {
         Message message = (Message) this.fromClient.readObject();
         switch (message.getType()) {
           case BROADCAST:
-            String name = ((SendChatMessageMessage) message).getUsername();
-            String content = ((SendChatMessageMessage) message).getMessage();
-            // send message to all clients and show in join game lobby
-            this.sendMessagesToallClients(message);
-            // show message in host game lobby
-            this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
-            System.out.println(
-                "Message from client with the content " + content + " sent to all clients");
-            // gui.HostGameLobbyController.showMessage(content);
+            receiveSendChatMessage((SendChatMessageMessage) message);
             break;
           case START_GAME:
-           this.sendMessagesToallClients((StartGameMessage) message);
+            this.sendMessagesToallClients((StartGameMessage) message);
             break;
           case LEAVE:
             recieveLeaveMessage((LeaveGameMessage) message);
@@ -140,7 +186,7 @@ public class ClientConnection extends Thread {
             handleAllianceMessage((SendAllianceMessage) message);
             break;
           case INITIAL_TERRITORY:
-           this.sendMessagesToallClients((SelectInitialTerritoryMessage) message);
+            this.sendMessagesToallClients((SelectInitialTerritoryMessage) message);
             break;
           case INGAME:
             this.sendMessagesToallClients(message);
@@ -152,10 +198,10 @@ public class ClientConnection extends Thread {
             this.sendMessagesToallClients(message);
             break;
           case ATTACK:
-            receiveAttackTerritory((AttackMessage) message);
+            this.sendMessagesToallClients(message);
             break;
           case FORTIFY:
-            receiveFortifyMessage((FortifyMessage) message);
+            this.sendMessagesToallClients(message);
           default:
             break;
         }
@@ -169,21 +215,6 @@ public class ClientConnection extends Thread {
     }
   }
 
-  /**
-   * disconnect the connection
-   */
-  public void disconnect() {
-    try {
-      this.toClient.close();
-      this.fromClient.close();
-      this.socket.close();
-      this.active = false;
-      System.out.println("Protocol ended");
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
 
   /**
    * 
@@ -211,18 +242,27 @@ public class ClientConnection extends Thread {
     // join game message with the player instance as parameter
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
-    
+
   }
 
-  private void receiveAttackTerritory(AttackMessage message) {
+  /**
+   * 
+   * @param message
+   * 
+   *        send the message to all clients and server show message in host game lobby
+   */
+  private void receiveSendChatMessage(SendChatMessageMessage message) {
+    String name = message.getUsername();
+    String content = message.getMessage();
+    // send message to all clients and show in join game lobby
     this.sendMessagesToallClients(message);
+    // show message in host game lobby
+    this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
+    System.out.println("Message from client with the content " + content + " sent to all clients");
+    // gui.HostGameLobbyController.showMessage(content);
 
   }
 
-  private void receiveFortifyMessage(FortifyMessage message) {
-    this.sendMessagesToallClients(message);
-
-  }
 
   /**
    * @author skaur
@@ -237,7 +277,7 @@ public class ClientConnection extends Thread {
       this.disconnect();
     }
   }
-  
+
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be
@@ -248,43 +288,30 @@ public class ClientConnection extends Thread {
     System.out.println("Clientconnection playername " + playername);
     for (int i = 0; i < server.getConnections().size(); i++) {
       ClientConnection c = server.getConnections().get(i);
-      if(playername.equalsIgnoreCase(c.getPlayerName())) {
+      if (playername.equalsIgnoreCase(c.getPlayerName())) {
         c.sendMessage(message);
       }
     }
 
   }
 
-  public ArrayList<Player> getPlayer() {
-    return this.players;
-  }
-
   /**
    * @author qiychen
-   * @return name of the player
+   * 
+   *         disconnect the connection
    */
-  public String getPlayerName() {
-    return this.playerN;
+  public void disconnect() {
+    try {
+      this.toClient.close();
+      this.fromClient.close();
+      this.socket.close();
+      this.active = false;
+      System.out.println("Protocol ended");
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
-  public InetAddress getAdress() {
-    return this.address;
-  }
-
-  public int getPort() {
-    return this.port;
-  }
-
-  public Player getPlaye() {
-    return this.player;
-  }
-
-  public HostGameLobbyController getHostLobbyController() {
-    return this.hostLobbyController;
-  }
-
-  public BoardController getBoardController() {
-    return this.boardController;
-  }
 }
 
