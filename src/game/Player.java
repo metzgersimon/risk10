@@ -16,7 +16,7 @@ import network.messages.game.DistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
- * 
+ * Class defines a player which 
  * @author qiychen
  *
  */
@@ -45,32 +45,22 @@ public class Player implements Serializable {
   public int rank;
   public int sessionWins;
 
-  private static StringBuffer sb = new StringBuffer();
-
+ 
+  
+  /**************************************************
+   *                                                *
+   *                  Constuctor                    *
+   *                                                *
+   *************************************************/ 
+  
+  
   /**
-   * create a new player
-   * 
+   * Constructor creates a player instance with a name, a color and a game instance.
+   * It initializes all private and public attributes.
    * @param name
-   * @param armies
-   * @param type
+   * @param color
+   * @param g
    */
-  public Player(String name, int armies, PlayerColor color) {
-    this.name = name;
-    this.armies = armies;
-    this.color = color;
-    territories = new HashSet<>();
-    continents = new HashSet<>();
-    cards = new ArrayList<>();
-    this.tradedCardSets = 0;
-    // this.g = Main.g;
-    this.numberOfTerritories = 0;
-    this.numberOfCards = 0;
-    this.territoriesConquered = 1;
-    this.numberOfAttacks = 0;
-    this.rank = 0;
-    this.sessionWins = 0;
-  }
-
   public Player(String name, PlayerColor color, Game g) {
     this.name = name;
     this.color = color;
@@ -86,6 +76,13 @@ public class Player implements Serializable {
     this.rank = 0;
     this.sessionWins = 0;
   }
+  
+  
+  /**************************************************
+   *                                                *
+   *               Getter and Setter                *
+   *                                                *
+   *************************************************/
 
   public String getName() {
     return name;
@@ -124,7 +121,6 @@ public class Player implements Serializable {
     this.territories = territories;
   }
 
-
   public int getTradedCardSets() {
     return tradedCardSets;
   }
@@ -132,8 +128,6 @@ public class Player implements Serializable {
   public void setTradedCardSets(int tradedCardSets) {
     this.tradedCardSets = tradedCardSets;
   }
-
-
 
   public int getValueActuallyTradedIn() {
     return valueActuallyTradedIn;
@@ -200,50 +194,7 @@ public class Player implements Serializable {
   public void setFortify(boolean fortify) {
     this.fortify = fortify;
   }
-
-  /**
-   * 
-   * @returnthe total number of territories owned by player
-   */
-  public int TerritoriesOwned() {
-    return territories.size();
-  }
-
-  /**
-   * player conquers a new territory, which need to be added in the list
-   * 
-   * @param t
-   */
-  public void addTerritories(Territory t) {
-    territories.add(t);
-    boolean newContinent = true;
-    for (Territory territory : t.getContinent().getTerritories()) {
-      if (!this.getTerritories().contains(territory)) {
-        newContinent = false;
-      }
-    }
-
-    if (newContinent) {
-      Main.b.handleContinentGlow();
-      this.addContinents(t.getContinent());
-    }
-  }
-
-  /**
-   * player losts a territory, which need to be reduced from the list
-   * 
-   * @param t
-   */
-  public void lostTerritories(Territory t) {
-    territories.remove(t);
-    if (this.getContinents().contains(t.getContinent())) {
-      this.lostContinents(t.getContinent());
-    }
-    if (Main.g.isShowTutorialMessages()) {
-      Main.b.showMessage(TutorialMessages.lostTerritory);
-    }
-  }
-
+  
   public HashSet<Continent> getContinents() {
     return continents;
   }
@@ -252,13 +203,7 @@ public class Player implements Serializable {
     this.continents = continents;
   }
 
-  public void addContinents(Continent c) {
-    continents.add(c);
-  }
-
-  public void lostContinents(Continent c) {
-    continents.remove(c);
-  }
+ 
 
   public ArrayList<Card> getCards() {
     return cards;
@@ -266,6 +211,12 @@ public class Player implements Serializable {
 
   public void addCard(Card c) {
     this.cards.add(c);
+  }
+  
+  public void setCards(ArrayList<Card> cards) {
+    for (Card c : cards) {
+      this.cards.add(c);
+    }
   }
 
   public void removeCard(Card c) {
@@ -275,24 +226,20 @@ public class Player implements Serializable {
   public PlayerColor getColor() {
     return color;
   }
-
-  public ArrayList<Player> getEliminatedPlayers() {
-    return eliminatedPlayers;
-  }
-
-  public void setCards(ArrayList<Card> cards) {
-    for (Card c : cards) {
-      this.cards.add(c);
-    }
-  }
-
+  
   public void setColor(PlayerColor color) {
     this.color = color;
   }
 
+  public ArrayList<Player> getEliminatedPlayers() {
+    return eliminatedPlayers;
+  }
+  
   public void setEliminatedPlayers(ArrayList<Player> eliminatedPlayers) {
     this.eliminatedPlayers = eliminatedPlayers;
   }
+  
+ 
 
   public int getNumberArmiesToDistibute() {
     return this.numberArmiesToDistribute;
@@ -300,15 +247,6 @@ public class Player implements Serializable {
 
   public void setNumberArmiesToDistribute(int amount) {
     this.numberArmiesToDistribute = amount;
-  }
-
-  /**
-   * if player defeated another player, this player will be add to eliminatedPlayers
-   * 
-   * @param p
-   */
-  public void addElimiatedPlayer(Player p) {
-    eliminatedPlayers.add(p);
   }
 
   public boolean getSuccessfullAttack() {
@@ -326,18 +264,93 @@ public class Player implements Serializable {
   public void setStartedDistribution(boolean startedDistribution) {
     this.startedDistribution = startedDistribution;
   }
+  
+  
+  /**********************************************************
+   *                                                        *
+   *          Methods to add eliminated players,            *
+   *          territories and continents                    *
+   *          and remove territories and continents         *    
+   *                                                        *
+   **********************************************************/
 
   /**
+   * @param t
+   * Method adds a given territory to the players territory set and if the player now owns a continent through this territory 
+   * the territory's continent is added to the continent set of the player.
+   */
+  public void addTerritories(Territory t) {
+    territories.add(t);
+    boolean newContinent = true;
+    for (Territory territory : t.getContinent().getTerritories()) {
+      if (!this.getTerritories().contains(territory)) {
+        newContinent = false;
+      }
+    }
+    if (newContinent) {
+      this.addContinents(t.getContinent());
+    }
+  }
+  
+  /**
+   * Method adds given continent to the player's set of continents.
+   * @param c
+   */
+  public void addContinents(Continent c) {
+    continents.add(c);
+  }
+  
+  /**
+   * Method adds a given player to a list of players who are already out of the game.
+   * @param p
+   */
+  public void addElimiatedPlayer(Player p) {
+    eliminatedPlayers.add(p);
+  }
+  
+
+  /**
+   * @param t
+   * Method removes a territory from the players territory set, if the player lost this territory in a battle.
+   * If the player owns the whole continent of this territory that continent is removed as well.
+   */
+  public void lostTerritories(Territory t) {
+    territories.remove(t);
+    if (this.getContinents().contains(t.getContinent())) {
+      this.lostContinents(t.getContinent());
+    }
+    if (Main.g.isShowTutorialMessages()) {
+      Main.b.showMessage(TutorialMessages.lostTerritory);
+    }
+  }
+  
+  /**
+   * Method removes given continent from the player's set of continents.
+   * @param c
+   */
+  public void lostContinents(Continent c) {
+    continents.remove(c);
+  }
+
+
+ 
+
+  /**
+   * 
    * @author qiychen
    * @param c1 card1
    * @param c2 card2
    * @param c3 card3
    * @return the number of armies received after trade cards
+   * 
+   * Method allows player to trade in a set of three cards.
    */
   public boolean tradeCards(Card c1, Card c2, Card c3) {
+    //trade-in is only possible when the player did not start the army distribution yet
     if (!this.startedDistribution) {
       int armies = 0;
       int number = this.getTradedCardSets();
+      //checks if the given cards are a valid set
       if (c1.canBeTraded(c2, c3)) {
         System.out.println(this.getName() + " Karten: " + this.getCards().size());
         switch (number) {
@@ -362,7 +375,8 @@ public class Player implements Serializable {
           default:
             armies = 15 + (number - 5) * 5;
         }
-
+        
+        //if a card represents a territory the player owns he gets two additional armies on this territory
         if (this.getTerritories().contains(c1.getTerritory())) {
           c1.getTerritory().setNumberOfArmies(2);
           Main.b.updateLabelTerritory(c1.getTerritory());
@@ -375,20 +389,20 @@ public class Player implements Serializable {
           c3.getTerritory().setNumberOfArmies(2);
           Main.b.updateLabelTerritory(c3.getTerritory());
         }
-
+        
+        
         this.setTradedCardSets(++number);
-        System.out.println("Traded Cardsets: " + number);
         this.valueActuallyTradedIn = armies;
+        
+        //removes cards from the players card list and add them to the card deck again
         this.removeCard(c1);
         this.removeCard(c2);
         this.removeCard(c3);
         Main.g.setCard(c1);
         Main.g.setCard(c2);
         Main.g.setCard(c3);
-        sb.append(this.getName() + " traded in one set and got " + armies + " armies.");
 
-
-
+        
         int originalReceivedNumber = this.getTerritories().size() / 3;
         for (Continent c : this.getContinents()) {
           originalReceivedNumber += c.getValue();
@@ -407,12 +421,14 @@ public class Player implements Serializable {
 
 
   /**
+   * 
    * @author pcoberge
    * 
    * @param amount of armies that shall be set at territory t
    * @param t is the territory that should receive the amount of armies
    * @return boolean in order to show whether the distribution has been successful or not
    * 
+   * Method covers the second and third phase, meaning the initial- and in-game army distribution.
    *         Precondition: only own territories can be chosen, player has enough armies left
    */
   public boolean armyDistribution(int amount, Territory t) {
@@ -420,6 +436,7 @@ public class Player implements Serializable {
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
+        Main.b.handleContinentGlow();
         this.numberArmiesToDistribute -= amount;
         return true;
 
@@ -455,41 +472,30 @@ public class Player implements Serializable {
     }
   }
 
-  /**
-   * @author skaur
-   * 
-   * @param amount of armies that shall be set at territory t
-   * @param t is the territory that should receive the amount of armies
-   * 
-   *        This method is for the network game. The host player sends the message to the server on
-   *        the behalf of the AiPlayer The attributes of the AiPlayer will be changed after
-   *        receiving the message in client class
-   */
-  // public void armyDistributionNetwork(int amount, Territory t) {
-  // if (NetworkController.server != null) {
-  // DistributeArmyMessage armyMessage = new DistributeArmyMessage(1, t.getId());
-  // armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-  // NetworkController.gameFinder.getClient().sendMessage(armyMessage);
-  // }
-  // }
-
-
+  
   /**
    * @author liwang
    * 
    * @param t is the territory which is selected
    * @return boolean in order to show whether the distribution has been successful or not
    * 
+   * Method allows player to choose a territory in the first phase.
    *         Precondition: only free territories can be chosen
    */
-  public synchronized boolean initialTerritoryDistribution(Territory t) {
+  public boolean initialTerritoryDistribution(Territory t) {
+    //if the territory is not selected yet
     if (t.getOwner() == null) {
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
         this.initialArmyDistributionNetwork(t);
+        Main.b.handleContinentGlow();
         return true;
       }
+      
+      //set player as owner of the territory and add it to his set of territories
       t.setOwner(this);
       this.addTerritories(t);
+      
+      //reduces number of armies to distribute and set the army on the territory
       this.numberArmiesToDistribute -= 1;
       t.setNumberOfArmies(1);
       return true;
@@ -538,18 +544,20 @@ public class Player implements Serializable {
       return 3;
     } else {
       this.numberArmiesToDistribute = result;
-      sb.append(this.getName() + " receives " + result + " armies to distribute.");
+    
       return result;
     }
   }
 
   /**
+   * Method defines the attack phase of the game.
+   * @author qiychen @author pcoberge @author smetzger
    * @param attacker
    * @param defender
    * @param attack
    * @param defend
    * @param numberOfAttackers
-   * @return true if attacker conquers the opponent territory
+   * @return true if attacker conquers the opponents territory
    */
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
@@ -586,6 +594,7 @@ public class Player implements Serializable {
           numberOfAttackers, defend.getNumberOfArmies());
     }
 
+    //if the defender has no more armies left on his territory
     if (defend.getNumberOfArmies() == 0) {
       System.out.println("defending territory is dead.");
       Player p = defend.getOwner();
@@ -601,23 +610,22 @@ public class Player implements Serializable {
       if (Main.g.isShowTutorialMessages()) {
         Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
       }
-      // int randomCard = (int)((Math.random()*Main.g.getCards().size()));
-      // p.setCards(Main.g.getCards().get(randomCard));
+      
       if (!Main.g.getPlayers().contains(p)) {
-
         // set loser rank
         p.setRank(Main.g.getPlayers().size());
-
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
-
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
       }
+      
+      //if the attacker won the game
       if (Main.g.getPlayers().size() == 1) {
-        // attacker wins game
         Main.b.showMessage("Game Over. " + attack.getOwner().getName() + " won the game!");
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
+        
+        //if there are no human player left in the game
       } else if (Main.g.onlyAiPlayersLeft()) {
         Main.b.showMessage("You lost the Game!");
         Main.g.setGameState(GameState.END_GAME);
@@ -626,9 +634,6 @@ public class Player implements Serializable {
       Main.b.handleContinentGlow();
       return true;
     } else {
-//      if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-//        Main.attack.updateDiceSlider(attack);
-//      }
       return false;
     }
   }
@@ -668,50 +673,29 @@ public class Player implements Serializable {
    *          player selects valid paramater or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
-
-    // if (Main.g.getGameState() == GameState.FORTIFY) {
     // check if both territories belong to the current player
     if (this.equals(moveFrom.getOwner()) && (this.equals(moveTo.getOwner()))) {
 
       // check if both territories are neighbors
       if (moveFrom.getNeighbor().contains(moveTo)) {
-        // int currentNoArmies = moveFrom.getNumberOfArmies();
-        // check is current available number of army is greater than the army to move, so that
-        // there
-        // is at least one
-        // army left behind in the territory
+        /** check if current available number of army is greater than the army to move, so that
+          * there is at least one army left behind on the territory */  
         if (moveFrom.getNumberOfArmies() > armyToMove) {
           moveFrom.setReducedNumberOfArmies(armyToMove);
           moveTo.setNumberOfArmies(armyToMove);
-          sb.append(this.getName() + " moved " + armyToMove + " from " + moveFrom.getName() + " to "
-              + moveTo.getName() + ".");
           if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
             this.fortifyNetwork(moveFrom.getId(), moveTo.getId(), armyToMove);
           }
           return true;
         } else {
-          // error messages which may be implemented in the boardgui later
-          System.out.println(
-              "The number of army to move is greater than the available army in the territory "
-                  + moveFrom.getName());
           return false;
         }
       } else {
-
-        System.out.println("Armies can't be moved because " + moveTo.getName() + " and "
-            + moveFrom.getName() + " are not neighbors");
         return false;
       }
     } else {
-
-      System.out.println(
-          moveFrom.getName() + " or " + moveTo.getName() + " doesnt belong to the current player ");
       return false;
     }
-
-    // }
-    // System.out.println("Not in a fortify mode ");
-    // return false;
   }
 
   /**
@@ -735,6 +719,11 @@ public class Player implements Serializable {
     return true;
   }
 
+  /**
+   * 
+   * @param p
+   * @return true or false regarding on whether the two players are the same or not.
+   */
   public boolean equals(Player p) {
     if (this != null && p != null) {
       if (this.getColor().toString().equals(p.getColor().toString())) {

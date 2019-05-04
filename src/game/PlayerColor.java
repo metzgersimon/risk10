@@ -4,7 +4,7 @@ package game;
 import javafx.scene.paint.Color;
 
 /**
- * Enum defines color for a player during the game
+ * Enum defines color for a player during the game.
  * 
  * @author smetzger
  */
@@ -13,7 +13,7 @@ public enum PlayerColor {
 
 
   /**
-   * Method returns the color regarding to the enum value
+   * Method returns the color regarding to the enum value.
    * 
    * @return Color
    */
