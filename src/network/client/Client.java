@@ -145,7 +145,7 @@ public class Client extends Thread implements Serializable {
       this.fromServer.close();
       this.toServer.close();
       s.close();
-      System.out.println("Protocol ended");
+      System.out.println("Client is leaving the game ....");
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -217,6 +217,8 @@ public class Client extends Thread implements Serializable {
           case LEAVE:
             handleLeaveGame((LeaveGameMessage) message);
             break;
+          case LEAVE_RESPONSE : 
+            this.disconnect();
           default:
             break;
         }
@@ -502,11 +504,7 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (message.getColor().equals(player.getColor().toString())) {
-          disconnect();
-        } else {
           Main.b.gameCancelAlert();
-        }
       }
     });
   }

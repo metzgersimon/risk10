@@ -52,6 +52,7 @@ import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;
 import network.messages.game.DistributeArmyMessage;
+import network.messages.game.LeaveGameResponseMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 
 /**
@@ -1275,6 +1276,8 @@ public class BoardController implements Initializable {
       alert.close();
     } else if (option.get() == ButtonType.OK) {
       // this method shows the end game staticstics and disconnect the client
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
       this.clientLeaveGame();
     } else if (option.get() == ButtonType.CANCEL) {
       // do nothing
@@ -1288,7 +1291,6 @@ public class BoardController implements Initializable {
    *        After the player choose to leave the game, this shows the game statistics to each player
    */
   public void clientLeaveGame() {
-    NetworkController.gameFinder.getClient().disconnect();
     Platform.runLater(new Runnable() {
       public void run() {
         try {

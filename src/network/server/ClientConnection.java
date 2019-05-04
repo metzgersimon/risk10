@@ -18,6 +18,7 @@ import network.messages.SendChatMessageMessage;
 import network.messages.game.AttackMessage;
 import network.messages.game.FortifyMessage;
 import network.messages.game.LeaveGameMessage;
+import network.messages.game.LeaveGameResponseMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
@@ -179,6 +180,9 @@ public class ClientConnection extends Thread {
           case LEAVE:
             recieveLeaveMessage((LeaveGameMessage) message);
             break;
+          case LEAVE_RESPONSE :
+            recieveLeaveGameResponse((LeaveGameResponseMessage) message);
+            break;
           case JOIN:
             handleJoinGame((JoinGameMessage) message);
             break;
@@ -272,10 +276,23 @@ public class ClientConnection extends Thread {
    * 
    */
   private void recieveLeaveMessage(LeaveGameMessage message) {
+    this.server.getConnections().remove(this);
     this.sendMessagesToallClients(message);
-    if (this.player.getColor().toString().equals(message.getColor())) {
+//    if (this.player.getColor().toString().equals(message.getColor())) {
+    LeaveGameResponseMessage m = new LeaveGameResponseMessage();
+    this.sendMessage(m);
       this.disconnect();
+//    }
+  }
+  
+  public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
+    this.sendMessage(message);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+    this.disconnect();
   }
 
   /**
@@ -306,7 +323,7 @@ public class ClientConnection extends Thread {
       this.fromClient.close();
       this.socket.close();
       this.active = false;
-      System.out.println("Protocol ended");
+      System.out.println("Client Connection is ending....");
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

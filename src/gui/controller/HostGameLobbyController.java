@@ -29,12 +29,12 @@ public class HostGameLobbyController {
 
 
   /** 
-   * Text field in which a player writes his/her message to send to chatbox 
+   * Text field in which a player writes his/her message to send to chat box 
    */
   @FXML TextField textField;
 
   /**
-   *  to send a message in the chat box this button should be clicke
+   *  to send a message in the chat box this button should be click
    */
   @FXML Button sendButton;
 
