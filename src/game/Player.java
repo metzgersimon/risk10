@@ -555,9 +555,11 @@ public class Player implements Serializable {
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
     attack.getOwner().setNumberOfAttacks(attack.getOwner().getNumberOfAttacks() + 1);
+    if (Main.g.isShowTutorialMessages()) {
     Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
         + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
         + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
+    }
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
@@ -594,8 +596,8 @@ public class Player implements Serializable {
       Main.g.checkAllPlayers();
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
-      Main.b.updateColorTerritory(defend);
       successfullAttack = true;
+      Main.b.updateColorTerritory(defend);     
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered() + 1);
       if (Main.g.isShowTutorialMessages()) {
         Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
@@ -625,9 +627,9 @@ public class Player implements Serializable {
       Main.b.handleContinentGlow();
       return true;
     } else {
-      if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-        Main.attack.updateDiceSlider(attack);
-      }
+//      if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+//        Main.attack.updateDiceSlider(attack);
+//      }
       return false;
     }
   }
