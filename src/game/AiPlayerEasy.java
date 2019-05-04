@@ -1,6 +1,8 @@
 package game;
 
+import java.util.Date;
 import java.util.Vector;
+import javafx.application.Platform;
 import main.Main;
 
 /**
@@ -11,6 +13,7 @@ import main.Main;
  *
  */
 public class AiPlayerEasy extends Player implements AiPlayer {
+  private Territory territory;
 
   /**
    * Constructor which calls the super constructor of the player class to set the name, the color
@@ -26,20 +29,35 @@ public class AiPlayerEasy extends Player implements AiPlayer {
    * one and 42 which represents a random territory the ai places an army on
    */
   public synchronized void initialTerritoryDistribution() {
-    int random = 0;
-    do {
-      random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
-    } while (!super.initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(random)));
-    if (!Main.g.isNetworkGame()) {
-      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
-      Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+    Thread th = new Thread() {
+      public void run() {
+        int random = 0;
+        do {
+          random = (random != 0 ? (random % 42) + 1 : (int) (Math.random() * 42) + 1);
+        } while (!AiPlayerEasy.super.initialTerritoryDistribution(
+            Main.g.getWorld().getTerritories().get(random)));
+        if (!Main.g.isNetworkGame()) {
+          // Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
+          Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+          // System.out.println(Platform.isFxApplicationThread());
+          // System.out.println(new Date().toString());
+          // try {
+          // Thread.sleep(1000);
+          // } catch (InterruptedException e) {
+          // e.printStackTrace();
+          // }
+          // System.out.println(new Date().toString());
+          Main.g.furtherInitialTerritoryDistribution();
+        }
       }
-      Main.g.furtherInitialTerritoryDistribution();
-    }
+    };
+    th.start();
   }
 
   /**
@@ -48,7 +66,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
    */
   public synchronized void initialArmyDistribution() {
     int random = 0;
-    Territory territory = null;
+    territory = null;
     // while the armyDistribution method of the player class returns false it computes a new random
     // number to select a territory
     do {
@@ -64,7 +82,13 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       }
     } while (!super.armyDistribution(1, territory));
     if (!Main.g.isNetworkGame()) {
-      Main.b.updateLabelTerritory(territory);
+      Thread th = new Thread() {
+        public void run() {
+          Main.b.highlightTerritory(territory);
+          Main.b.updateLabelTerritory(territory);
+        }
+      };
+      th.start();
       Main.g.furtherInitialArmyDistribution();
     }
 

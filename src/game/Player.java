@@ -224,6 +224,7 @@ public class Player implements Serializable {
     }
 
     if (newContinent) {
+      Main.b.handleContinentGlow();
       this.addContinents(t.getContinent());
     }
   }
@@ -419,7 +420,6 @@ public class Player implements Serializable {
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
-        Main.b.handleContinentGlow();
         this.numberArmiesToDistribute -= amount;
         return true;
 
@@ -482,11 +482,10 @@ public class Player implements Serializable {
    * 
    *         Precondition: only free territories can be chosen
    */
-  public boolean initialTerritoryDistribution(Territory t) {
+  public synchronized boolean initialTerritoryDistribution(Territory t) {
     if (t.getOwner() == null) {
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
         this.initialArmyDistributionNetwork(t);
-        Main.b.handleContinentGlow();
         return true;
       }
       t.setOwner(this);

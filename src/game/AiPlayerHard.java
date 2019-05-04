@@ -2,12 +2,15 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
+import javafx.application.Platform;
 import main.Main;
 
 public class AiPlayerHard extends Player implements AiPlayer {
+  private Territory territory;
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;
 
@@ -22,77 +25,84 @@ public class AiPlayerHard extends Player implements AiPlayer {
    * least number of neighbor territories
    */
   public void initialTerritoryDistribution() {
-    int minHostile = 42;
-    double maxPartOfContinent = 0.0;
-    Territory selection = null;
-    HashSet<Territory> minHostileTerritories = new HashSet<>();
+    Thread th = new Thread() {
+      public void run() {
+        int minHostile = 42;
+        double maxPartOfContinent = 0.0;
+        Territory selection = null;
+        HashSet<Territory> minHostileTerritories = new HashSet<>();
 
-    for (Territory t1 : this.getTerritories()) {
-      if (minHostile >= t1.getHostileNeighbor().size()) {
-        minHostile = t1.getHostileNeighbor().size();
-        for (Territory t2 : t1.getHostileNeighbor()) {
-          System.out.println(t2.getName());
-          if (t2.getOwner() == null) {
-            System.out.println(t2.getOwner() != null ? t2.getOwner().getName() : t2.getOwner());
-            minHostileTerritories.add(t2);
+        for (Territory t1 : AiPlayerHard.this.getTerritories()) {
+          if (minHostile >= t1.getHostileNeighbor().size()) {
+            minHostile = t1.getHostileNeighbor().size();
+            for (Territory t2 : t1.getHostileNeighbor()) {
+              if (t2.getOwner() == null) {
+                minHostileTerritories.add(t2);
+              }
+            }
+          }
+
+        }
+
+        if (minHostileTerritories.size() == 0) {
+          minHostile = 42;
+          // territories with least number of hostile neighbors
+          for (Territory t : Main.g.getWorld().getTerritories().values()) {
+            if (t.getOwner() == null) {
+              minHostile =
+                  minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size()
+                      : minHostile;
+            }
+          }
+
+          for (Territory t : Main.g.getWorld().getTerritories().values()) {
+            if (t.getOwner() == null && t.getHostileNeighbor().size() == minHostile) {
+              minHostileTerritories.add(t);
+            }
           }
         }
-      }
 
-    }
-
-    if (minHostileTerritories.size() == 0) {
-      minHostile = 42;
-      // territories with least number of hostile neighbors
-      for (Territory t : Main.g.getWorld().getTerritories().values()) {
-        if (t.getOwner() == null) {
-          minHostile = minHostile > t.getHostileNeighbor().size() ? t.getHostileNeighbor().size()
-              : minHostile;
+        for (Territory t : minHostileTerritories) {
+          if ((1.0 / (double) Main.g.getWorld().getContinent().get(t.getContinente())
+              .getTerritories().size()) > maxPartOfContinent) {
+            maxPartOfContinent = (1.0 / (double) Main.g.getWorld().getContinent()
+                .get(t.getContinente()).getTerritories().size());
+            selection = t;
+          }
         }
-      }
+        AiPlayerHard.super.initialTerritoryDistribution(selection);
 
-      for (Territory t : Main.g.getWorld().getTerritories().values()) {
-        if (t.getOwner() == null && t.getHostileNeighbor().size() == minHostile) {
-          minHostileTerritories.add(t);
+        if (!Main.g.isNetworkGame()) {
+          //          Main.b.updateLabelTerritory(selection);
+          Main.b.updateColorTerritory(selection);
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+//          System.out.println(Platform.isFxApplicationThread());
+//          System.out.println(new Date().toString());
+//          try {
+//            Thread.sleep(1000);
+//          } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//          }
+//          System.out.println(new Date().toString());
+          Main.g.furtherInitialTerritoryDistribution();
         }
+
       }
-    }
-
-    for (Territory t : minHostileTerritories) {
-      System.out.println(t.getName());
-    }
-
-    for (Territory t : minHostileTerritories) {
-      if ((1.0 / (double) Main.g.getWorld().getContinent().get(t.getContinente()).getTerritories()
-          .size()) > maxPartOfContinent) {
-        maxPartOfContinent = (1.0 / (double) Main.g.getWorld().getContinent().get(t.getContinente())
-            .getTerritories().size());
-        selection = t;
-      }
-    }
-    System.out.println(selection);
-    this.initialTerritoryDistribution(selection);
-
-    if (!Main.g.isNetworkGame()) {
-      Main.b.updateLabelTerritory(selection);
-
-      Main.b.updateColorTerritory(selection);
-      System.out.println(Main.g.getCurrentPlayer().getName() + "--"
-          + Main.g.getCurrentPlayer().getColor() + "--" + selection);
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      Main.g.furtherInitialTerritoryDistribution();
-    }
+    };
+    th.start();
   }
 
   public void initialArmyDistribution() {
     int maxNeighbors = 0;
     int averageArmies = 0;
     int sum = 0;
+    territory = null;
     for (Territory t : this.getTerritories()) {
       if (t.getHostileNeighbor().size() > maxNeighbors) {
         sum = 0;
@@ -102,9 +112,16 @@ public class AiPlayerHard extends Player implements AiPlayer {
         averageArmies = (int) (sum / t.getHostileNeighbor().size());
         if (averageArmies > t.getNumberOfArmies()) {
           maxNeighbors = t.getHostileNeighbor().size();
+          territory = t;
           if (super.armyDistribution(1, t)) {
             if (!Main.g.isNetworkGame()) {
-              Main.b.updateLabelTerritory(t);
+              Thread th = new Thread() {
+                public void run() {
+                  Main.b.highlightTerritory(territory);
+                  Main.b.updateLabelTerritory(territory);
+                }
+              };
+              th.start();
               Main.g.furtherInitialArmyDistribution();
               return;
             }
@@ -393,17 +410,17 @@ public class AiPlayerHard extends Player implements AiPlayer {
   public void InitialArmyDistributionMedium() {
 
     int min = 0;
-    Territory own = null;
+    territory = null;
     for (Territory t : this.getTerritories()) {
       for (Territory opponent : t.getHostileNeighbor()) {
         if (((t.getNumberOfArmies()) - (opponent.getNumberOfArmies())) <= min) {
           min = t.getNumberOfArmies() - opponent.getNumberOfArmies();
-          own = t;
+          territory = t;
         }
       }
     }
-    if (own != null) {
-      super.armyDistribution(1, own);
+    if (territory != null) {
+      super.armyDistribution(1, territory);
     } else {
       int random = 0;
       do {
@@ -412,16 +429,22 @@ public class AiPlayerHard extends Player implements AiPlayer {
         for (Territory t : this.getTerritories()) {
           if (i == random) {
             System.out.println(t.getName());
-            own = t;
+            territory = t;
             break;
           } else {
             i++;
           }
         }
-      } while (!super.armyDistribution(1, own));
+      } while (!super.armyDistribution(1, territory));
     }
     if (!Main.g.isNetworkGame()) {
-      Main.b.updateLabelTerritory(own);
+      Thread th = new Thread() {
+        public void run() {
+          Main.b.highlightTerritory(territory);
+          Main.b.updateLabelTerritory(territory);
+        }
+      };
+      th.start();
       Main.g.furtherInitialArmyDistribution();
     }
   }

@@ -58,17 +58,17 @@ public class ArmyDistributionSubSceneController implements Initializable {
           message.setColor(Main.g.getCurrentPlayer().getColor().toString());
           NetworkController.gameFinder.getClient().sendMessage(message);
         }
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+//        try {
+//          Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//          // TODO Auto-generated catch block
+//          e.printStackTrace();
+//        }
 
-        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
-          Main.g.setGameState(GameState.ATTACK);
-          Main.b.prepareAttack();
-        }
+//        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
+//          Main.g.setGameState(GameState.ATTACK);
+//          Main.b.prepareAttack();
+//        }
       }
     };
     th.start();

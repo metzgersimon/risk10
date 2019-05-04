@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import javafx.application.Platform;
 import main.Main;
 
 public class Game implements Serializable {
@@ -21,15 +22,13 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   *                                                *
-   *                  Constuctor                    *
-   *                                                *
+   * * Constuctor * *
    *************************************************/
 
   /**
-   * @author qiychen 
+   * @author qiychen
    * 
-   * override default-constructor
+   *         override default-constructor
    */
   public Game() {
     players = new ArrayList<>();
@@ -39,25 +38,23 @@ public class Game implements Serializable {
     gameState = GameState.NEW_GAME;
   }
 
-  
+
   /**************************************************
-   *                                                *
-   *               Getter and Setter                *
-   *                                                *
+   * * Getter and Setter * *
    *************************************************/
-  
-  public ArrayList<Player> getAllPlayers(){
+
+  public ArrayList<Player> getAllPlayers() {
     return allPlayers;
   }
-  
-  public void setAllPlayers(ArrayList<Player> players){
+
+  public void setAllPlayers(ArrayList<Player> players) {
     this.allPlayers = players;
   }
-  
+
   public void addToAllPlayers(Player player) {
     this.allPlayers.add(player);
   }
-  
+
   public HashSet<String> getAiNames() {
     return aiNames;
   }
@@ -65,15 +62,15 @@ public class Game implements Serializable {
   public void addAiNames(String aiName) {
     this.aiNames.add(aiName);
   }
-  
+
   public LinkedList<Card> getCards() {
     return this.cards;
   }
-  
+
   public void setCard(Card c) {
     this.cards.addFirst(c);
-  }  
-  
+  }
+
   public Player getCurrentPlayer() {
     return this.currentPlayer;
   }
@@ -81,14 +78,14 @@ public class Game implements Serializable {
   public void setCurrentPlayer(Player currentPlayer) {
     this.currentPlayer = currentPlayer;
   }
-  
+
   public GameState getGameState() {
     return this.gameState;
   }
 
   public void setGameState(GameState gameState) {
     this.gameState = gameState;
-  } 
+  }
 
   public Player getLastPlayer() {
     return players.get(players.size() - 1);
@@ -101,7 +98,7 @@ public class Game implements Serializable {
   public void setNetworkGame(boolean isNetworkGame) {
     this.isNetworkGame = isNetworkGame;
   }
-   
+
   public ArrayList<Player> getPlayers() {
     return players;
   }
@@ -109,11 +106,11 @@ public class Game implements Serializable {
   public void setPlayers(ArrayList<Player> players) {
     this.players = players;
   }
-  
+
   public World getWorld() {
     return w;
   }
-  
+
   public boolean isShowTutorialMessages() {
     return showTutorialMessages;
   }
@@ -122,18 +119,15 @@ public class Game implements Serializable {
     this.showTutorialMessages = showTutorialMessages;
   }
 
-  
+
   /**************************************************
-   *                                                *
-   *(more complex) Methods to handle Game-Attributes*
-   *                                                *
+   * * (more complex) Methods to handle Game-Attributes* *
    *************************************************/
-  
+
   /**
    * @author qiychen
    * @param name
-   * @return
-   * Add a new player in the list
+   * @return Add a new player in the list
    */
   public void addPlayer(Player p) {
     if (gameState == GameState.NEW_GAME) {
@@ -146,11 +140,10 @@ public class Game implements Serializable {
     }
   }
 
-  /** 
+  /**
    * @author liwang
    * @param name
-   * @return
-   * Reomove a new player from the list
+   * @return Reomove a new player from the list
    */
   public void removePlayer() {
     if (gameState == GameState.NEW_GAME) {
@@ -171,7 +164,7 @@ public class Game implements Serializable {
     }
     return players.get(0);
   }
-  
+
   /**
    * @author pcoberge
    * @author smetzger
@@ -185,7 +178,7 @@ public class Game implements Serializable {
     }
     return (this.currentPlayer = players.get(0));
   }
-  
+
   /**
    * @author pcoberge
    * 
@@ -199,12 +192,10 @@ public class Game implements Serializable {
     }
     return true;
   }
-  
+
 
   /**************************************************
-   *                                                *
-   *           Methods to initialize Game           *
-   *                                                *
+   * * Methods to initialize Game * *
    *************************************************/
 
   /**
@@ -227,13 +218,12 @@ public class Game implements Serializable {
    */
   public void initCardDeck() {
     this.cards = new CardDeck().shuffle();
-  }  
-  
+  }
+
   /**
    * @author pcoberge
-   * @author smetzger
-   * compute the initial number of armies 2 players - 40 3 players - 35 4 players - 30 5 players -
-   * 25 6 players - 20
+   * @author smetzger compute the initial number of armies 2 players - 40 3 players - 35 4 players -
+   *         30 5 players - 25 6 players - 20
    */
   public void initNumberOfArmies() {
     int number = 50 - (this.players.size() * 5);
@@ -242,19 +232,23 @@ public class Game implements Serializable {
     }
   }
 
- 
+
 
   /**************************************************
-   *                                                *
-   *             Methods to Manage Game             *
-   *                                                *
+   * * Methods to Manage Game * *
    *************************************************/
-  
+
   /**
    * @author smetzger
    * @author pcoberge
    */
   public synchronized void furtherInitialTerritoryDistribution() {
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
     this.setNextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
@@ -262,7 +256,9 @@ public class Game implements Serializable {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialTerritoryDistribution();
       }
-    } else {
+    } else
+
+    {
       this.setGameState(GameState.INITIALIZING_ARMY);
       Main.b.prepareArmyDistribution();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
@@ -333,7 +329,7 @@ public class Game implements Serializable {
       p.armyDistribution();
     }
   }
-  
+
   /**
    * @author smetzger
    * @return
@@ -360,7 +356,7 @@ public class Game implements Serializable {
     }
     return false;
   }
-  
+
   /**
    * @author prto, @author smetzger
    * @param players
@@ -381,14 +377,11 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   *                                                *
-   *          Methods to Manage Statistics          *
-   *                                                *
+   * * Methods to Manage Statistics * *
    *************************************************/
-  
+
   /**
-   * @author prto 
-   *         update amount of territories and cards owned for each player
+   * @author prto update amount of territories and cards owned for each player
    */
   public void updateLiveStatistics() {
     for (Player p : players) {
