@@ -96,6 +96,7 @@ public class HostGameLobbyController {
         new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
     Client client = NetworkController.gameFinder.getClient();
     client.sendMessage(m);
+    textField.clear();
   }
 
   /**
