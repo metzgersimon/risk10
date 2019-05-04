@@ -8,7 +8,7 @@ import java.util.Vector;
 
 /**
  * Class defines a Dice which is used for the attacking phase, it represents both, attacking and
- * defending dices
+ * defending dices.
  * 
  * @author smetzger
  *
@@ -18,7 +18,7 @@ public class Dice {
   private int numberOfDices;
 
   /**
-   * getter and setter method for the only attribute numberOfDices
+   * getter and setter method for the only attribute numberOfDices.
    */
 
   public int getNumberOfDices() {
@@ -31,7 +31,7 @@ public class Dice {
 
 
   /**
-   * Method computes a random number from 1-6 to simulate a single dice roll
+   * Method computes a random number from 1-6 to simulate a single dice roll.
    * 
    * @return an int number which is calculated randomly
    */
@@ -41,7 +41,7 @@ public class Dice {
 
   /**
    * Method generates an array of int numbers which are computed through the rollSingleDice method.
-   * Each number in the array represents a number thrown by the player
+   * Each number in the array represents a number thrown by the player.
    * 
    * @param numberOfDices represents the number of dices the player chooses to roll
    * @return a vector with the rolled numbers

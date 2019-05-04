@@ -3,7 +3,7 @@ package game;
 
 
 /**
- * Class represents a risk card which is given to each player after a successfull attack
+ * Class represents a risk card which is given to each player after a successfull attack.
  * 
  * @author smetzger
  *
@@ -13,14 +13,25 @@ public class Card {
   private boolean isWildcard;
   private int id;
 
-  // constructor for cards which are covered with a territory
+
+  /**
+   * Constructor to create a risk card that is covered with a territory.
+   * @param territory
+   * @param isWildcard
+   */
   public Card(Territory territory, boolean isWildcard) {
     this.territory = territory;
     this.isWildcard = isWildcard;
     this.id = territory.getId();
   }
 
-  // constructor for cards that are wildcards
+ 
+  /**
+   * Constructor to create a risk card that represents a wildcard.
+   * @author smetzger
+   * @param id
+   * @param isWildcard
+   */
   public Card(int id, boolean isWildcard) {
     this.isWildcard = isWildcard;
     this.id = id;
@@ -92,7 +103,7 @@ public class Card {
 
   /**
    * Method checks if two cards are equal by comparing their ids. If so, it returns true, otherwise
-   * false
+   * false.
    */
   @Override
   public boolean equals(Object o) {

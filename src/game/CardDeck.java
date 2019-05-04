@@ -7,7 +7,7 @@ import main.Main;
 
 
 /**
- * CardDeck represents the full risiko card set with 42 territory cards and two wildcards
+ * CardDeck represents the full risiko card set with 42 territory cards and two wildcards.
  * 
  * @author smetzger
  */
@@ -23,7 +23,7 @@ public class CardDeck {
   }
 
   /**
-   * Constructor fills the HashMap cards with 42 territory cards and two wildcards
+   * Constructor fills the HashMap cards with 42 territory cards and two wildcards.
    */
   public CardDeck() {
     for (Territory t : Main.g.getWorld().getTerritories().values()) {
@@ -34,7 +34,7 @@ public class CardDeck {
   }
 
   /**
-   * Method shuffles the card deck
+   * Method shuffles the card deck.
    * 
    * @return LinkedList with all risk cards in a shuffled order
    */
@@ -46,7 +46,7 @@ public class CardDeck {
 
   /**
    * Method calculates a random number in the range of zero to 44 and selecting a card regarding to
-   * this number
+   * this number.
    * 
    * @return a card specified by the computed random number
    */
