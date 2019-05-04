@@ -278,11 +278,9 @@ public class ClientConnection extends Thread {
   private void recieveLeaveMessage(LeaveGameMessage message) {
     this.server.getConnections().remove(this);
     this.sendMessagesToallClients(message);
-//    if (this.player.getColor().toString().equals(message.getColor())) {
     LeaveGameResponseMessage m = new LeaveGameResponseMessage();
     this.sendMessage(m);
-      this.disconnect();
-//    }
+    this.disconnect();
   }
   
   public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
@@ -292,7 +290,9 @@ public class ClientConnection extends Thread {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    this.server.getConnections().remove(this);
     this.disconnect();
+    this.server.stopServer();
   }
 
   /**

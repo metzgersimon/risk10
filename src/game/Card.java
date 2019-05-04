@@ -1,6 +1,6 @@
 package game;
 
-
+import java.io.Serializable;
 
 /**
  * Class represents a risk card which is given to each player after a successfull attack.
@@ -8,7 +8,11 @@ package game;
  * @author smetzger
  *
  */
-public class Card {
+public class Card implements Serializable{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private Territory territory;
   private boolean isWildcard;
   private int id;

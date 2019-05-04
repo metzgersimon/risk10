@@ -163,13 +163,17 @@ public class Server extends Thread implements Serializable {
    */
   public void listen() {
     try {
-      serverSocket = new ServerSocket(main.Parameter.PORT);
+      ServerSocket ss = new ServerSocket(main.Parameter.PORT);
+      this.serverSocket = ss;
+      Socket socket;
+      while(true) {
       socket = serverSocket.accept();
       // create a client connection instance for each client which connects to the server
       ClientConnection c = new ClientConnection(socket, this);
       clients.add(c);
       c.start();
       serverSocket.close();
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -189,24 +193,24 @@ public class Server extends Thread implements Serializable {
    *         down
    */
   public void stopServer() {
-    if (!this.serverSocket.isClosed()) {
-      System.out.println("stopping server....");
+    if (this.getConnections().size() < 1) {
+      this.isRunning = false;
       try {
+        this.socket.close();
         this.serverSocket.close();
-        this.isRunning = false;
       } catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
+      this.interrupt();
+      System.out.println("Server is shutting down....");
     }
   }
 
   /**************************************************
-   *                                                *
-   *                Getter and Setter               *
-   *                                                *
+   * * Getter and Setter * *
    *************************************************/
-  
+
   public int getPort() {
     return this.port;
   }
