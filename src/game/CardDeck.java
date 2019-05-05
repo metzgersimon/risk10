@@ -15,9 +15,7 @@ import main.Main;
 public class CardDeck {
   private HashMap<Integer, Card> cards = new HashMap<Integer, Card>();
 
-  /**
-   * getter for the cards attribute
-   */
+  
   public HashMap getCards() {
     return cards;
   }

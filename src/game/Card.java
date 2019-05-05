@@ -8,20 +8,24 @@ import java.io.Serializable;
  * @author smetzger
  *
  */
-public class Card implements Serializable{
-  /**
-   * 
-   */
+public class Card implements Serializable {
+
   private static final long serialVersionUID = 1L;
   private Territory territory;
   private boolean isWildcard;
   private int id;
 
+  
+  /**************************************************
+   *                                                *
+   *                  Constuctor                    *
+   *                                                *
+   *************************************************/ 
 
   /**
    * Constructor to create a risk card that is covered with a territory.
-   * @param territory
-   * @param isWildcard
+   * @param territory represents the territory which is displayed on the card
+   * @param isWildcard true or false whether the card is a wildcard or not
    */
   public Card(Territory territory, boolean isWildcard) {
     this.territory = territory;
@@ -31,10 +35,10 @@ public class Card implements Serializable{
 
  
   /**
-   * Constructor to create a risk card that represents a wildcard.
+   * Constructor to create a risk card that represents a ildcard.
    * @author smetzger
-   * @param id
-   * @param isWildcard
+   * @param id represents the id of the card
+   * @param isWildcard true or false whether the card is a wildcard or not
    */
   public Card(int id, boolean isWildcard) {
     this.isWildcard = isWildcard;
@@ -42,42 +46,40 @@ public class Card implements Serializable{
   }
 
 
-  /**
-   * getters
-   */
+  /**************************************************
+   *                                                *
+   *               Getter and Setter                *
+   *                                                *
+   *************************************************/
+  
   public Territory getTerritory() {
     return territory;
+  }
+  
+  public void setTerritory(Territory territory) {
+    this.territory = territory;
   }
 
   public boolean getIsWildcard() {
     return isWildcard;
+  }
+  
+  public void setIsWildcard(boolean isWildcard) {
+    this.isWildcard = isWildcard;
   }
 
   public int getId() {
     return this.id;
   }
 
-
-  /**
-   * setters
-   */
-  public void setTerritory(Territory territory) {
-    this.territory = territory;
-  }
-
-  public void setIsWildcard(boolean isWildcard) {
-    this.isWildcard = isWildcard;
-  }
-
-
-
+  
   /**
    * Methods checks if a set of three cards is a valid card set. That happens through checking if
    * those cards pass one of those combinations.
    * 
    * @author qiychen
-   * @param c2 card2
-   * @param c3 card3
+   * @param c2 represents the second card
+   * @param c3 represents the third card
    * @return boolean, whether three cards can be traded or not
    */
   public boolean canBeTraded(Card c2, Card c3) {
