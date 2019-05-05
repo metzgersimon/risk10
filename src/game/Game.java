@@ -186,7 +186,7 @@ public class Game implements Serializable {
    */
   public boolean onlyAiPlayersLeft() {
     for (Player p : players) {
-      if (p instanceof AiPlayer) {
+      if (!(p instanceof AiPlayer)) {
         return false;
       }
     }

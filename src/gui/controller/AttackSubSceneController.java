@@ -223,8 +223,14 @@ public class AttackSubSceneController implements Initializable {
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");           
               diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
+              try {
+                Thread.sleep(50);
+              } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
               // network game message
               if (Main.g.isNetworkGame()) {
                 AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
