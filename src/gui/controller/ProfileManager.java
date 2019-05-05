@@ -84,8 +84,8 @@ public class ProfileManager {
    * 
    * @return currently selected player profile
    */
-  public PlayerProfile getSelectedProfile() {
-    return this.selectedProfile;
+  public static PlayerProfile getSelectedProfile() {
+    return selectedProfile;
   }
 
   /**
