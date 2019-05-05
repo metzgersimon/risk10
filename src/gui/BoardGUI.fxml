@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
@@ -21,45 +20,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.BoardController">
 	<children>
-		<SplitPane dividerPositions="0.8" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<SplitPane dividerPositions="0.8" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>
-				<AnchorPane fx:id="rootAnchor" minWidth="1024.0" SplitPane.resizableWithParent="false">
+				<AnchorPane fx:id="rootAnchor" cacheHint="SPEED" minWidth="1023.0" prefHeight="735.0" prefWidth="1023.0" SplitPane.resizableWithParent="false">
 					<children>
-						<Pane prefHeight="718.0" prefWidth="1024.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-							<children>
-								<ImageView fitHeight="96.0" fitWidth="88.0" layoutX="722.0" layoutY="611.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@../resources/gui/infantry.png" />
-									</image>
-								</ImageView>
-								<Circle fx:id="circle" fill="SILVER" layoutX="787.0" layoutY="624.0" radius="13.0" stroke="SILVER" style="-fx-background: transparent;">
-									<cursor>
-										<Cursor fx:constant="DEFAULT" />
-									</cursor>
-									<effect>
-										<Glow level="0.4" />
-									</effect>
-								</Circle>
-								<Label fx:id="armiesToDistribute" alignment="CENTER" layoutX="774.0" layoutY="609.0" prefHeight="31.0" prefWidth="25.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-							</children>
-						</Pane>
 						<Pane prefHeight="720.0" prefWidth="1020.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<Region fx:id="westernAustralia" layoutX="843.0" layoutY="530.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="120.0" prefWidth="97.0" styleClass="Western_Australia" stylesheets="@BoardGUI.css">
@@ -901,154 +874,154 @@
 								<Line endX="340.0" endY="438.0" fill="#220000" layoutX="250.0" layoutY="-180.0" rotate="-40.0" startX="349.0" startY="474.0" stroke="WHITE" strokeWidth="2.0" style="-fx-stroke-dash-array: 10;" />
 							</children>
 						</Pane>
-						<Pane fx:id="imageRuleBook" mouseTransparent="true" prefHeight="720.0" prefWidth="1280.0">
-							<children>
-								<Label fx:id="easternAustraliaHeadline" layoutX="933.0" layoutY="572.0" mouseTransparent="true" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="48.0" prefWidth="58.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern Australia" wrapText="true">
+      						<Pane fx:id="imageRuleBook" mouseTransparent="true" prefHeight="720.0" prefWidth="1280.0">
+      							<children>
+      								<Label fx:id="easternAustraliaHeadline" layoutX="933.0" layoutY="572.0" mouseTransparent="true" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="48.0" prefWidth="58.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern Australia" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="easternAustraliaNoA" alignment="CENTER" layoutX="943.0" layoutY="620.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="21.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-								<Label fx:id="westernAustraliaHeadline" layoutX="852.0" layoutY="571.0" mouseTransparent="true" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="43.0" prefWidth="68.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western Australia" wrapText="true">
+      								<Label fx:id="easternAustraliaNoA" alignment="CENTER" layoutX="943.0" layoutY="620.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="21.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+      									<font>
+      										<Font name="System Bold" size="12.0" />
+      									</font>
+      								</Label>
+      								<Label fx:id="westernAustraliaHeadline" layoutX="852.0" layoutY="571.0" mouseTransparent="true" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="43.0" prefWidth="68.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western Australia" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="westernAustraliaNoA" alignment="CENTER" layoutX="865.0" layoutY="615.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="21.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-								<Label fx:id="newGuineaHeadline" layoutX="926.0" layoutY="468.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="New-Guinea">
+      								<Label fx:id="westernAustraliaNoA" alignment="CENTER" layoutX="865.0" layoutY="615.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="21.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+      									<font>
+      										<Font name="System Bold" size="12.0" />
+      									</font>
+      								</Label>
+      								<Label fx:id="newGuineaHeadline" layoutX="926.0" layoutY="468.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="New-Guinea">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="newGuineaNoA" alignment="CENTER" layoutX="949.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="26.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-								<Label fx:id="indonesiaNoA" alignment="CENTER" layoutX="826.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="26.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-								<Label fx:id="indonesiaHeadline" layoutX="807.0" layoutY="458.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Indonesia">
+      								<Label fx:id="newGuineaNoA" alignment="CENTER" layoutX="949.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="26.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+      									<font>
+      										<Font name="System Bold" size="12.0" />
+      									</font>
+      								</Label>
+      								<Label fx:id="indonesiaNoA" alignment="CENTER" layoutX="826.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="17.0" prefWidth="26.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+      									<font>
+      										<Font name="System Bold" size="12.0" />
+      									</font>
+      								</Label>
+      								<Label fx:id="indonesiaHeadline" layoutX="807.0" layoutY="458.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Indonesia">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="brazilHeadline" layoutX="325.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Brazil">
+      								<Label fx:id="brazilHeadline" layoutX="325.0" layoutY="489.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Brazil">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="argentinaHeadline" layoutX="276.0" layoutY="575.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Argentinia">
+      								<Label fx:id="argentinaHeadline" layoutX="276.0" layoutY="575.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Argentinia">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="peruHeadline" layoutX="264.0" layoutY="512.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Peru">
+      								<Label fx:id="peruHeadline" layoutX="264.0" layoutY="512.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Peru">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="southAfricaHeadline" layoutX="506.0" layoutY="567.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="South Africa">
+      								<Label fx:id="southAfricaHeadline" layoutX="506.0" layoutY="567.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="South Africa">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="madagascarHeadline" layoutX="619.0" layoutY="563.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Madagascar">
+      								<Label fx:id="madagascarHeadline" layoutX="619.0" layoutY="563.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Madagascar">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="congoHeadline" layoutX="520.0" layoutY="475.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Congo">
+      								<Label fx:id="congoHeadline" layoutX="520.0" layoutY="475.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Congo">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="eastAfricaHeadline" layoutX="578.0" layoutY="447.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="East Africa">
+      								<Label fx:id="eastAfricaHeadline" layoutX="578.0" layoutY="447.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="East Africa">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="egyptHeadline" layoutX="513.0" layoutY="360.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Egypt">
+      								<Label fx:id="egyptHeadline" layoutX="513.0" layoutY="360.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Egypt">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="northAfricaHeadline" layoutX="417.0" layoutY="393.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="North Africa">
+      								<Label fx:id="northAfricaHeadline" layoutX="417.0" layoutY="393.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="North Africa">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="venezuelaHeadline" layoutX="248.0" layoutY="439.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Venezuela">
+      								<Label fx:id="venezuelaHeadline" layoutX="248.0" layoutY="439.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Venezuela">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="centralAmericaHeadline" layoutX="159.0" layoutY="360.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="43.0" prefWidth="58.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Central America" wrapText="true">
+      								<Label fx:id="centralAmericaHeadline" layoutX="159.0" layoutY="360.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="43.0" prefWidth="58.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Central America" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="westernUnitedStatesHeadline" layoutX="115.0" layoutY="251.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="102.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western         United States" wrapText="true">
+      								<Label fx:id="westernUnitedStatesHeadline" layoutX="115.0" layoutY="251.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="102.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western         United States" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="easternUnitedStatesHeadline" layoutX="193.0" layoutY="267.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="110.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern             United States" wrapText="true">
+      								<Label fx:id="easternUnitedStatesHeadline" layoutX="193.0" layoutY="267.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="110.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Eastern             United States" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="albertaHeadline" layoutX="108.0" layoutY="206.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Alberta">
+      								<Label fx:id="albertaHeadline" layoutX="108.0" layoutY="206.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Alberta">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="ontarioHeadline" layoutX="176.0" layoutY="198.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ontario">
+      								<Label fx:id="ontarioHeadline" layoutX="176.0" layoutY="198.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ontario">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="quebecHeadline" layoutX="282.0" layoutY="217.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Quebec">
+      								<Label fx:id="quebecHeadline" layoutX="282.0" layoutY="217.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Quebec">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="alaskaHeadline" layoutX="43.0" layoutY="138.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Alaska">
+      								<Label fx:id="alaskaHeadline" layoutX="43.0" layoutY="138.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Alaska">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="northwestTerritoryHeadline" layoutX="95.0" layoutY="141.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Northwest Territory">
+      								<Label fx:id="northwestTerritoryHeadline" layoutX="95.0" layoutY="141.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Northwest Territory">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="greenlandHeadline" layoutX="278.0" layoutY="76.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Greenland">
+      								<Label fx:id="greenlandHeadline" layoutX="278.0" layoutY="76.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Greenland">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="icelandHeadline" layoutX="362.0" layoutY="133.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Iceland">
+      								<Label fx:id="icelandHeadline" layoutX="362.0" layoutY="133.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Iceland">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="greatBritainHeadline" layoutX="417.0" layoutY="120.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="43.0" prefWidth="56.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Great Britain" wrapText="true">
+      								<Label fx:id="greatBritainHeadline" layoutX="417.0" layoutY="120.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="43.0" prefWidth="56.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Great Britain" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="westernEuropeHeadline" layoutX="401.0" layoutY="255.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="48.0" prefWidth="112.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western            Europe" wrapText="true">
+      								<Label fx:id="westernEuropeHeadline" layoutX="401.0" layoutY="255.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="48.0" prefWidth="112.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Western            Europe" wrapText="true">
                            <padding>
                               <Insets top="-5.0" />
                            </padding>
@@ -1056,93 +1029,93 @@
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="northernEuropeHeadline" layoutX="468.0" layoutY="200.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="21.0" prefWidth="122.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Northern Europe">
+      								<Label fx:id="northernEuropeHeadline" layoutX="468.0" layoutY="200.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="21.0" prefWidth="122.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Northern Europe">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="southernEuropeHeadline" layoutX="483.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="25.0" prefWidth="112.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Southern Europe">
+      								<Label fx:id="southernEuropeHeadline" layoutX="483.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="25.0" prefWidth="112.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Southern Europe">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="ukraineHeadline" layoutX="592.0" layoutY="163.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ukraine">
+      								<Label fx:id="ukraineHeadline" layoutX="592.0" layoutY="163.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ukraine">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="scandinaviaHeadline" alignment="CENTER" layoutX="489.0" layoutY="129.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="24.0" prefWidth="86.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Scandinavia">
+      								<Label fx:id="scandinaviaHeadline" alignment="CENTER" layoutX="489.0" layoutY="129.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="24.0" prefWidth="86.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Scandinavia">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="uralHeadline" layoutX="700.0" layoutY="146.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ural">
+      								<Label fx:id="uralHeadline" layoutX="700.0" layoutY="146.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Ural">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="siberiaHeadline" layoutX="771.0" layoutY="147.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Siberia">
+      								<Label fx:id="siberiaHeadline" layoutX="771.0" layoutY="147.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Siberia">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="afghanistanHeadline" layoutX="671.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Afghanistan">
+      								<Label fx:id="afghanistanHeadline" layoutX="671.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Afghanistan">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="middleEastHeadline" layoutX="605.0" layoutY="304.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="56.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Middle East" wrapText="true">
+      								<Label fx:id="middleEastHeadline" layoutX="605.0" layoutY="304.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="56.0" prefWidth="56.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Middle East" wrapText="true">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="yakutskHeadline" layoutX="842.0" layoutY="93.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Yakutsk">
+      								<Label fx:id="yakutskHeadline" layoutX="842.0" layoutY="93.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Yakutsk">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="irkutskHeadline" layoutX="844.0" layoutY="172.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Irkutsk">
+      								<Label fx:id="irkutskHeadline" layoutX="844.0" layoutY="172.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Irkutsk">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="chinaHeadline" layoutX="795.0" layoutY="295.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="China">
+      								<Label fx:id="chinaHeadline" layoutX="795.0" layoutY="295.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="China">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="indiaHeadline" layoutX="721.0" layoutY="359.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="India">
+      								<Label fx:id="indiaHeadline" layoutX="721.0" layoutY="359.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="India">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="siamHeadline" layoutX="805.0" layoutY="373.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Siam">
+      								<Label fx:id="siamHeadline" layoutX="805.0" layoutY="373.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Siam">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="kamchatkaHeadline" layoutX="914.0" layoutY="96.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Kamchatka">
+      								<Label fx:id="kamchatkaHeadline" layoutX="914.0" layoutY="96.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Kamchatka">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="mongoliaHeadline" layoutX="852.0" layoutY="224.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="24.0" prefWidth="68.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Mongolia">
+      								<Label fx:id="mongoliaHeadline" layoutX="852.0" layoutY="224.0" mouseTransparent="true" onMouseClicked="#clicked" prefHeight="24.0" prefWidth="68.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Mongolia">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="japanHeadline" layoutX="973.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Japan">
+      								<Label fx:id="japanHeadline" layoutX="973.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#clicked" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Japan">
                            <font>
                               <Font size="12.5" />
                            </font>
                         </Label>
-								<Label fx:id="argentinaNoA" layoutX="287.0" layoutY="596.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
-									<font>
-										<Font name="System Bold" size="12.0" />
-									</font>
-								</Label>
-							</children>
-						</Pane>
+      								<Label fx:id="argentinaNoA" layoutX="287.0" layoutY="596.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+      									<font>
+      										<Font name="System Bold" size="12.0" />
+      									</font>
+      								</Label>
+      							</children>
+      						</Pane>
 										<AnchorPane fx:id="newSPane" maxHeight="724.0" maxWidth="1013.0" minHeight="724.0" minWidth="1013.0" onMouseClicked="#handleCloseLiveStats" opacity="0.9" prefHeight="724.0" prefWidth="1013.0" style="-fx-background-color: gray;" visible="false">
 											<children>
                         <TableView fx:id="statistic" layoutX="229.0" layoutY="222.0" prefHeight="280.0" prefWidth="555.0">
@@ -1155,56 +1128,35 @@
                         </TableView>
 											</children>
 										</AnchorPane>
-						<GridPane alignment="CENTER">
-							<columnConstraints>
-								<ColumnConstraints hgrow="ALWAYS" maxWidth="392.0" minWidth="10.0" prefWidth="253.99995930989584" />
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="672.0" minWidth="10.0" prefWidth="572.6666259765625" />
-								<ColumnConstraints hgrow="SOMETIMES" maxWidth="190.66670735677087" minWidth="10.0" prefWidth="190.66670735677087" />
-							</columnConstraints>
-							<rowConstraints>
-								<RowConstraints valignment="TOP" vgrow="ALWAYS" />
-							</rowConstraints>
-							<children>
-                        <TitledPane fx:id="statisticPane" alignment="CENTER" expanded="false" onMouseEntered="#openLiveStats" onMouseExited="#exitLiveStat" text="Statistics" visible="false">
-                           <padding>
-                              <Insets left="10.0" top="10.0" />
-                           </padding>
-                        </TitledPane>
-								<AnchorPane prefHeight="81.0" prefWidth="500.0" GridPane.columnIndex="1">
+								<AnchorPane layoutX="389.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="81.0" prefWidth="330.0">
 									<children>
-										<VBox alignment="CENTER" layoutX="176.0" layoutY="6.0" spacing="5.0" AnchorPane.topAnchor="10.0">
-											<children>
-												<Label fx:id="gameState" layoutX="269.0" layoutY="6.0" styleClass="playerNames" stylesheets="@FontStyle.css" text="Choose your Territory!" textAlignment="CENTER">
+												<Label fx:id="gameState" alignment="CENTER" layoutX="52.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="250.0" styleClass="playerNames" stylesheets="@FontStyle.css" text="Choose your Territory!" textAlignment="CENTER">
 													<font>
 														<Font size="23.0" />
 													</font>
 												</Label>
-												<ProgressBar fx:id="progress" layoutX="176.0" layoutY="44.0" prefWidth="269.0" progress="0.0" />
-											</children>
-										</VBox>
-										<Button fx:id="changeGameState" defaultButton="true" layoutX="448.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSkipGameState" prefHeight="32.0" prefWidth="29.0" style="-fx-background-radius: 100;">
-											<graphic>
-												<ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-													<image>
-														<Image url="@../resources/gui/nextGameState.png" />
-													</image>
-													<cursor>
-														<Cursor fx:constant="HAND" />
-													</cursor>
-												</ImageView>
-											</graphic>
-											<cursor>
-												<Cursor fx:constant="HAND" />
-											</cursor>
-										</Button>
+												<ProgressBar fx:id="progress" layoutX="31.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="269.0" progress="0.0" />
+                        <Button fx:id="changeGameState" defaultButton="true" layoutX="294.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSkipGameState" prefHeight="32.0" prefWidth="29.0" style="-fx-background-radius: 100;">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../alte%20Git-Projekte/risk10_190418/risk10/src/ressources/gui/nextGameState.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
 									</children>
 								</AnchorPane>
-							</children>
-						</GridPane>
                   <Button fx:id="liveStats" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLiveStats" prefHeight="26.0" prefWidth="102.0" text="Statistics" />
 					</children>
 				</AnchorPane>
-				<BorderPane minWidth="256.0">
+				<BorderPane minWidth="256.0" style="-fx-background-color: white;">
 					<bottom>
 						<HBox BorderPane.alignment="CENTER">
 							<children>
@@ -1230,7 +1182,7 @@
 				</BorderPane>
 			</items>
 		</SplitPane>
-		<AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="269.0">
+		<AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="256.0">
 			<children>
 				<Circle fx:id="circleLeave" fill="#1e1d1d" layoutX="53.0" layoutY="51.0" onMousePressed="#pressLeave" radius="28.0" stroke="BLACK" strokeType="INSIDE">
 					<effect>
@@ -1304,6 +1256,24 @@
                   <Image url="@../resources/gui/rulebook.png" />
                </image>
             </ImageView>
+								<ImageView fitHeight="96.0" fitWidth="88.0" layoutX="729.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../resources/gui/infantry.png" />
+									</image>
+								</ImageView>
+								<Circle fx:id="circle" fill="SILVER" layoutX="794.0" layoutY="4.0" radius="13.0" stroke="SILVER" style="-fx-background: transparent;">
+									<cursor>
+										<Cursor fx:constant="DEFAULT" />
+									</cursor>
+									<effect>
+										<Glow level="0.4" />
+									</effect>
+								</Circle>
+								<Label fx:id="armiesToDistribute" alignment="CENTER" layoutX="781.0" layoutY="-11.0" prefHeight="31.0" prefWidth="25.0" styleClass="nOaLabels" stylesheets="@FontStyle.css" text="0">
+									<font>
+										<Font name="System Bold" size="12.0" />
+									</font>
+								</Label>
 			</children>
 		</AnchorPane>
 	</children>

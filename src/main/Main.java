@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -45,11 +46,11 @@ public class Main extends Application {
   public static FortifySubSceneController fortify;
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
-  public static StatisticsPopUpController liveStats;
   public static RuleBookPopUp ruleBook;
 
   public static Stage stage;
   public static Scene scene;
+  public static Scene cards;
   public static Stage stagePanes;
   public static AnchorPane board;
   public static AnchorPane cardPane;
@@ -74,6 +75,7 @@ public class Main extends Application {
       FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
       cardPane = (AnchorPane) fxmlLoader2.load();
       Main.cardC = fxmlLoader2.getController();
+      cards = new Scene(cardPane);
 
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
       // scenePanes = new Scene(new Pane(), 1024, 720);
@@ -97,8 +99,9 @@ public class Main extends Application {
       });
 
       stagePanes = new Stage(StageStyle.TRANSPARENT);
+      stagePanes.initModality(Modality.WINDOW_MODAL);
+      stagePanes.initOwner(stage);
       stagePanes.setOpacity(0.9);
-      stagePanes.setAlwaysOnTop(true);
 
     } catch (Exception e) {
       e.printStackTrace();

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -12,13 +19,91 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CardSubSceneController">
+<AnchorPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CardSubSceneController">
    <children>
-      <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="713.0" style="-fx-border-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="125.0">
+      <Pane fx:id="transparentPane" onMouseClicked="#clickBack" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="269.0">
          <children>
-            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="166.0" prefWidth="712.0" style="-fx-border-color: gray;">
+            <Circle fx:id="circleLeave" fill="#1e1d1d" layoutX="53.0" layoutY="51.0" onMousePressed="#pressLeave" radius="28.0" stroke="BLACK" strokeType="INSIDE">
+               <effect>
+                  <SepiaTone level="0.26">
+                     <input>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </input>
+                  </SepiaTone>
+               </effect>
+            </Circle>
+            <ImageView fx:id="imageLeave" fitHeight="44.0" fitWidth="38.0" layoutX="34.0" layoutY="31.0" onMousePressed="#pressLeave" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/gui/exit.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Circle fx:id="cardButton" fill="#1e1d1d" layoutX="145.0" layoutY="51.0" onMouseClicked="#handleCardPane" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5">
+               <effect>
+                  <SepiaTone level="0.26">
+                     <input>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </input>
+                  </SepiaTone>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
+            <ImageView fitHeight="48.0" fitWidth="49.0" layoutX="153.0" layoutY="45.0" mouseTransparent="true" onMouseClicked="#handleCardPane" pickOnBounds="true" preserveRatio="true" x="-30.0" y="-20.0">
+               <image>
+                  <Image url="@../resources/cards/Karten.png" />
+               </image>
+            </ImageView>
+            <Circle fx:id="openRuleBook" fill="#1e1d1d" layoutX="227.0" layoutY="51.0" onMouseClicked="#handleRuleBook" radius="28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5">
+               <effect>
+                  <SepiaTone level="0.26">
+                     <input>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </input>
+                  </SepiaTone>
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
+            <ImageView fitHeight="41.0" fitWidth="40.0" layoutX="207.0" layoutY="31.0" mouseTransparent="true" pickOnBounds="true">
+               <image>
+                  <Image url="@../resources/gui/rulebook.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane fx:id="grayPane" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox layoutX="264.0" layoutY="362.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="713.0" style="-fx-border-color: gray; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="47.0">
+         <children>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="711.0" style="-fx-border-color: gray;">
                <children>
                   <GridPane fx:id="paneXY">
                      <columnConstraints>
@@ -55,9 +140,9 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="712.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="712.0" vbarPolicy="ALWAYS">
                <content>
-                  <FlowPane fx:id="ownCards" alignment="CENTER" focusTraversable="true" hgap="20.0" prefHeight="193.0" prefWidth="710.0" prefWrapLength="200.0" vgap="10.0" />
+                  <FlowPane fx:id="ownCards" alignment="CENTER" cache="true" cacheHint="SPEED" focusTraversable="true" hgap="20.0" prefHeight="193.0" prefWidth="710.0" prefWrapLength="200.0" style="-fx-background-color: white;" vgap="10.0" />
                </content>
             </ScrollPane>
          </children>

@@ -1,10 +1,12 @@
 package gui.controller;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 import game.AiPlayer;
+import game.Card;
 import game.Continent;
 import game.GameState;
 import game.Player;
@@ -15,6 +17,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,14 +41,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -137,22 +145,6 @@ public class BoardController implements Initializable {
   @FXML
   private ImageView winnerCrown;
 
-
-  /**
-   * Elements that handle dicePane
-   */
-
-
-
-  /**
-   * Elements that handle setArmyPane
-   */
-
-  /**
-   * Elements that handle fortifyPane
-   */
-
-
   /**
    * Elements that show the current game state and illustrate who is the current player
    */
@@ -175,8 +167,6 @@ public class BoardController implements Initializable {
   /**
    * Elements for statistic pane
    */
-  @FXML
-  private TitledPane statisticPane;
   @FXML
   private TableView<Player> statistic;
 
@@ -203,9 +193,6 @@ public class BoardController implements Initializable {
 
   @FXML
   private Circle openRuleBook;
-
-  @FXML
-  private Pane grayPane;
 
   @FXML
   private Label endGame;
@@ -255,33 +242,33 @@ public class BoardController implements Initializable {
 
   }
 
-
-  /**
-   * @author prto opens live statistics panel
-   */
-  @FXML
-  public void openLiveStats() {
-
-    Main.g.updateLiveStatistics();
-    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
-    statistic.setItems(playerList);
-    statistic.getSortOrder().add(c1);
-
-
-    statistic.refresh();
-    statisticPane.setExpanded(true);
-
-  }
-
-  /**
-   * @author prto
-   * 
-   *         collapses the live statistics pane when mouse pointer exits
-   */
-  @FXML
-  public void exitLiveStat() {
-    statisticPane.setExpanded(false);
-  }
+  //
+  // /**
+  // * @author prto opens live statistics panel
+  // */
+  // @FXML
+  // public void openLiveStats() {
+  //
+  // Main.g.updateLiveStatistics();
+  // ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
+  // statistic.setItems(playerList);
+  // statistic.getSortOrder().add(c1);
+  //
+  //
+  // statistic.refresh();
+  // statisticPane.setExpanded(true);
+  //
+  // }
+  //
+  // /**
+  // * @author prto
+  // *
+  // * collapses the live statistics pane when mouse pointer exits
+  // */
+  // @FXML
+  // public void exitLiveStat() {
+  // statisticPane.setExpanded(false);
+  // }
 
 
 
@@ -384,7 +371,8 @@ public class BoardController implements Initializable {
             }
           });
         } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-          if (gameState.getText().equals("Place your Armies initially!") || gameState.getText().equals("End your Turn!")) {
+          if (gameState.getText().equals("Place your Armies initially!")
+              || gameState.getText().equals("End your Turn!")) {
             Platform.runLater(new Runnable() {
               public void run() {
                 gameState.setText("Place your Armies!");
@@ -439,17 +427,22 @@ public class BoardController implements Initializable {
             }
           }
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
-            try {
-              FXMLLoader fxmlLoader =
-                  new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
-              Parent root = (Parent) fxmlLoader.load();
-              Main.cardC = fxmlLoader.getController();
-              Main.stagePanes.setScene(new Scene(root));
-              Main.stagePanes.show();
-
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
+            Platform.runLater(new Runnable() {
+              public void run() {
+                try {
+                  Main.cardC.handleGrayPane(true);
+                  Main.stagePanes.setScene(Main.cards);
+                  Main.stagePanes.setOpacity(0.9);
+                  Main.stagePanes.setX(Main.stage.getX() + 2);
+                  Main.stagePanes.setY(Main.stage.getY() + 24);
+                  Main.stagePanes.show();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+            // grayPane.setVisible(true);
+            // cardPane.setVisible(true);
             if (Main.g.isShowTutorialMessages()) {
               Platform.runLater(new Runnable() {
                 public void run() {
@@ -616,7 +609,7 @@ public class BoardController implements Initializable {
   public void disableAll() {
     Platform.runLater(new Runnable() {
       public void run() {
-        rootAnchor.setMouseTransparent(true); 
+        rootAnchor.setMouseTransparent(true);
       }
     });
   }
@@ -624,7 +617,7 @@ public class BoardController implements Initializable {
   public void enableAll() {
     Platform.runLater(new Runnable() {
       public void run() {
-        rootAnchor.setMouseTransparent(false); 
+        rootAnchor.setMouseTransparent(false);
       }
     });
   }
@@ -658,6 +651,7 @@ public class BoardController implements Initializable {
    *        order to choose how many armies should be transferred.
    * 
    */
+  @FXML
   public synchronized void clicked(MouseEvent e) {
     if (Main.g.isNetworkGame()) {
       if (!NetworkController.gameFinder.getClient().getPlayer().equals(Main.g.getCurrentPlayer())) {
@@ -1035,20 +1029,6 @@ public class BoardController implements Initializable {
 
     newSPane.setVisible(true);
     showMessage("Click on the background to close the statistics screen");
-
-    // grayPane.setVisible(true);
-    // grayPane.setMouseTransparent(false);
-    // try {
-    // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
-    // Parent root = (Parent) fxmlLoader.load();
-    // Main.liveStats = fxmlLoader.getController();
-    // Main.stagePanes.setX(Main.stage.getX() + 2);
-    // Main.stagePanes.setY(Main.stage.getY() + 24);
-    // Main.stagePanes.setScene(new Scene(root));
-    // Main.stagePanes.show();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
   }
 
   /**
@@ -1070,6 +1050,8 @@ public class BoardController implements Initializable {
       Parent root = (Parent) fxmlLoader.load();
       Main.ruleBook = fxmlLoader.getController();
       Main.stagePanes.setScene(new Scene(root));
+      Main.stagePanes.setX(Main.stage.getX() + 2);
+      Main.stagePanes.setY(Main.stage.getY() + 24);
       Main.stagePanes.show();
     } catch (Exception e) {
       e.printStackTrace();
@@ -1082,12 +1064,12 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         if (!Main.stagePanes.isShowing()) {
-          Main.stagePanes.setOpacity(0.95);
+          Main.stagePanes.setOpacity(0.9);
           try {
             FXMLLoader fxmlLoader =
                 new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Main.cardC = fxmlLoader.getController();
+            // Main.cardC = fxmlLoader.getController();
             // SubScene subScene = new SubScene(root, 1024, 720);
 
             // subScene.setRoot(root);
@@ -1097,10 +1079,12 @@ public class BoardController implements Initializable {
 
             // Main.stage.setScene(new Scene(root));
             // Main.stage.show();
-            if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
-              Main.cardC.handleGrayPane(true);
-            }
-            Main.stagePanes.setScene(new Scene(root));
+            // if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+            // Main.cardC.handleGrayPane(true);
+            // }
+            Main.stagePanes.setScene(Main.cards);
+            Main.stagePanes.setX(Main.stage.getX() + 2);
+            Main.stagePanes.setY(Main.stage.getY() + 24);
             Main.stagePanes.show();
 
           } catch (Exception e) {
@@ -1113,23 +1097,14 @@ public class BoardController implements Initializable {
             showMessage(TutorialMessages.tradeInTip);
           }
         }
+        // if (cardPane.isVisible()) {
+        // cardPane.setVisible(false);
+        // } else {
+        // cardPane.setVisible(true);
+        // }
       }
     });
   }
-
-
-
-  // /**
-  // * @author smetzger
-  // * @param e
-  // */
-  // @FXML
-  // public void exitPopup(ActionEvent e) {
-  // Button b = (Button) e.getSource();
-  // if (b.equals(exitPopup)) {
-  // cantBeTraded.toBack();
-  // }
-  // }
 
   /**
    * @author smetzger
@@ -1155,7 +1130,7 @@ public class BoardController implements Initializable {
             break;
           case ATTACK:
             System.out.println("Handle Skip GameState: ATTACK");
-            gameState.setText("Move armies!");
+            gameState.setText("Move your armies!");
             // progress.setProgress(0.9);
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
@@ -1506,8 +1481,10 @@ public class BoardController implements Initializable {
           // SubScene sub = new SubScene(root, 1024, 720);
           // rootAnchor.getChildren().add(sub);
 
-          Main.stage.setScene(new Scene(root));
-          Main.stage.show();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.setX(Main.stage.getX() + 2);
+          Main.stagePanes.setY(Main.stage.getY() + 24);
+          Main.stagePanes.show();
 
         } catch (Exception e) {
           e.printStackTrace();

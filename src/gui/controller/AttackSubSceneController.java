@@ -224,7 +224,7 @@ public class AttackSubSceneController implements Initializable {
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
-              diceSlider.setValue(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
+              diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
               // network game message
               if (Main.g.isNetworkGame()) {
                 AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),

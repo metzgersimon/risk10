@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.Main;
 
-public class StatisticsPopUpController implements Initializable{
+public class StatisticsPopUpController implements Initializable {
 
   @FXML
   private TitledPane statisticPane;
@@ -46,7 +46,6 @@ public class StatisticsPopUpController implements Initializable{
   /**
    * @author prto opens live statistics panel
    */
-  @FXML
   public void openLiveStats() {
 
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -54,7 +53,7 @@ public class StatisticsPopUpController implements Initializable{
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
     c1.setSortType(TableColumn.SortType.ASCENDING);
     
-    Main.g.updateLiveStatistics();
+  //  Main.g.updateLiveStatistics();
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
