@@ -1143,7 +1143,7 @@
 								</Label>
 							</children>
 						</Pane>
-										<AnchorPane fx:id="newSPane" maxHeight="724.0" maxWidth="1013.0" minHeight="724.0" minWidth="1013.0" onMouseClicked="#handleCloseLiveStats" opacity="0.9" prefHeight="724.0" prefWidth="1013.0" style="-fx-background-color: gray;">
+										<AnchorPane fx:id="newSPane" maxHeight="724.0" maxWidth="1013.0" minHeight="724.0" minWidth="1013.0" onMouseClicked="#handleCloseLiveStats" opacity="0.9" prefHeight="724.0" prefWidth="1013.0" style="-fx-background-color: gray;" visible="false">
 											<children>
                         <TableView fx:id="statistic" layoutX="229.0" layoutY="222.0" prefHeight="280.0" prefWidth="555.0">
                           <columns>
