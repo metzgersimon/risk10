@@ -40,7 +40,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
           // Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
           try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
           } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();

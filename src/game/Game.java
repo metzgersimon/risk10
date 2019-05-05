@@ -243,18 +243,15 @@ public class Game implements Serializable {
    * @author pcoberge
    */
   public synchronized void furtherInitialTerritoryDistribution() {
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
     this.setNextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+        Main.b.disableAll();
         p.initialTerritoryDistribution();
+      } else {
+        Main.b.enableAll();
       }
     } else
 
@@ -264,6 +261,8 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
+      } else {
+        Main.b.enableAll();
       }
     }
   }
@@ -273,17 +272,20 @@ public class Game implements Serializable {
    * @author pcoberge
    */
   public synchronized void furtherInitialArmyDistribution() {
+
     this.setNextPlayer();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     Main.b.prepareArmyDistribution();
     if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
+      } else {
+        Main.b.enableAll();
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
@@ -293,6 +295,8 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
+      } else {
+        Main.b.enableAll();
       }
     }
   }

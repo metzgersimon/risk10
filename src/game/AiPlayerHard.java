@@ -73,23 +73,14 @@ public class AiPlayerHard extends Player implements AiPlayer {
         AiPlayerHard.super.initialTerritoryDistribution(selection);
 
         if (!Main.g.isNetworkGame()) {
-          //          Main.b.updateLabelTerritory(selection);
+          // Main.b.updateLabelTerritory(selection);
           Main.b.updateColorTerritory(selection);
           try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
           } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
           }
-//          System.out.println(Platform.isFxApplicationThread());
-//          System.out.println(new Date().toString());
-//          try {
-//            Thread.sleep(1000);
-//          } catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//          }
-//          System.out.println(new Date().toString());
           Main.g.furtherInitialTerritoryDistribution();
         }
 

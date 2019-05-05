@@ -3,6 +3,7 @@ package gui.controller;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 import game.AiPlayer;
 import game.Continent;
 import game.GameState;
@@ -64,7 +65,7 @@ import network.messages.game.SelectInitialTerritoryMessage;
 public class BoardController implements Initializable {
 
 
-
+  private boolean ready = false;
   private Territory selectedTerritory = null;
   private Territory selectedTerritory_attacked = null;
   private static int tradedCards = 0;
@@ -178,8 +179,8 @@ public class BoardController implements Initializable {
   private TitledPane statisticPane;
   @FXML
   private TableView<Player> statistic;
-  
-  @FXML 
+
+  @FXML
   private TableColumn<Player, PlayerColor> c0;
 
   @FXML
@@ -193,16 +194,16 @@ public class BoardController implements Initializable {
 
   @FXML
   private Button liveStats;
-  
+
   @FXML
   private AnchorPane rootAnchor;
-  
+
   @FXML
   private AnchorPane newSPane;
 
   @FXML
   private Circle openRuleBook;
-  
+
   @FXML
   private Pane grayPane;
 
@@ -249,9 +250,9 @@ public class BoardController implements Initializable {
     c1.setCellValueFactory(new PropertyValueFactory<>("name"));
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
-  
+
     c1.setSortType(TableColumn.SortType.ASCENDING);
-   
+
   }
 
 
@@ -298,6 +299,14 @@ public class BoardController implements Initializable {
 
   public void startBoard() {
     connectRegionTerritory();
+  }
+
+  public synchronized boolean getReady() {
+    return ready;
+  }
+
+  public synchronized void setReady(boolean b) {
+    this.ready = b;
   }
 
   /**************************************************
@@ -375,7 +384,7 @@ public class BoardController implements Initializable {
             }
           });
         } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-          if (gameState.getText().equals("Place your Armies initially!")) {
+          if (gameState.getText().equals("Place your Armies initially!") || gameState.getText().equals("End your Turn!")) {
             Platform.runLater(new Runnable() {
               public void run() {
                 gameState.setText("Place your Armies!");
@@ -586,8 +595,8 @@ public class BoardController implements Initializable {
                     CornerRadii.EMPTY, Insets.EMPTY)));
             t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
-            armiesToDistribute
-                .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+            armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+            // setReady(true);
           }
         });
       }
@@ -600,6 +609,22 @@ public class BoardController implements Initializable {
       @Override
       public void run() {
         t.getBoardRegion().getRegion().setEffect(null);
+      }
+    });
+  }
+
+  public void disableAll() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        rootAnchor.setMouseTransparent(true); 
+      }
+    });
+  }
+
+  public void enableAll() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        rootAnchor.setMouseTransparent(false); 
       }
     });
   }
@@ -654,21 +679,23 @@ public class BoardController implements Initializable {
         case INITIALIZING_TERRITORY:
 
           if (Main.g.getCurrentPlayer().initialTerritoryDistribution(t)) {
+            disableAll();
             Thread th = new Thread() {
               public void run() {
                 // Farbe aendern!!!
-                Platform.runLater(new Runnable() {
-                  public void run() {
-                    t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-                    armiesToDistribute
-                        .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-                    circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
-                    t.getBoardRegion().getRegion()
-                        .setBackground(new Background(
-                            new BackgroundFill(Main.g.getCurrentPlayer().getColor().getColor(),
-                                CornerRadii.EMPTY, Insets.EMPTY)));
-                  }
-                });
+                // Platform.runLater(new Runnable() {
+                // public void run() {
+                // t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+                // armiesToDistribute
+                // .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+                // circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
+                // t.getBoardRegion().getRegion()
+                // .setBackground(new Background(
+                // new BackgroundFill(Main.g.getCurrentPlayer().getColor().getColor(),
+                // CornerRadii.EMPTY, Insets.EMPTY)));
+                // }
+                // });
+                updateColorTerritory(t);
                 try {
                   Thread.sleep(1000);
                 } catch (InterruptedException e1) {
@@ -698,6 +725,7 @@ public class BoardController implements Initializable {
         // place armies
         case INITIALIZING_ARMY:
           if (Main.g.getCurrentPlayer().armyDistribution(1, t)) {
+            disableAll();
             Thread th = new Thread() {
               public void run() {
                 Platform.runLater(new Runnable() {
@@ -998,37 +1026,37 @@ public class BoardController implements Initializable {
    * @author prto handle press on live stats button
    */
   public void handleLiveStats() {
-    
+
     Main.g.updateLiveStatistics();
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
     statistic.refresh();
-    
+
     newSPane.setVisible(true);
     showMessage("Click on the background to close the statistics screen");
-    
-    //grayPane.setVisible(true);
-    //grayPane.setMouseTransparent(false);
-//    try {
-//      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
-//      Parent root = (Parent) fxmlLoader.load();
-//      Main.liveStats = fxmlLoader.getController();
-//      Main.stagePanes.setX(Main.stage.getX() + 2);
-//      Main.stagePanes.setY(Main.stage.getY() + 24);
-//      Main.stagePanes.setScene(new Scene(root));
-//      Main.stagePanes.show();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
+
+    // grayPane.setVisible(true);
+    // grayPane.setMouseTransparent(false);
+    // try {
+    // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticsPopUp.fxml"));
+    // Parent root = (Parent) fxmlLoader.load();
+    // Main.liveStats = fxmlLoader.getController();
+    // Main.stagePanes.setX(Main.stage.getX() + 2);
+    // Main.stagePanes.setY(Main.stage.getY() + 24);
+    // Main.stagePanes.setScene(new Scene(root));
+    // Main.stagePanes.show();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
   }
-  
+
   /**
    * @author prto handle press on background to close live stats
    */
   public void handleCloseLiveStats() {
-    //grayPane.setVisible(false);
-    //grayPane.setMouseTransparent(true);
+    // grayPane.setVisible(false);
+    // grayPane.setMouseTransparent(true);
     newSPane.setVisible(false);
   }
 

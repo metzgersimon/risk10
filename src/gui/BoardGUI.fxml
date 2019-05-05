@@ -287,7 +287,7 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="westernUnitedStates" layoutX="111.0" layoutY="257.0" onMouseClicked="#clicked" prefHeight="94.0" prefWidth="83.0" styleClass="Western_United_States" stylesheets="@BoardGUI.css">
+								<Region fx:id="alberta" layoutX="81.0" layoutY="172.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="86.0" prefWidth="75.0" styleClass="Alberta" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
 											<bumpInput>
@@ -317,21 +317,6 @@
 										<Cursor fx:constant="HAND" />
 									</cursor>
 								</Region>
-								<Region fx:id="alberta" layoutX="81.0" layoutY="172.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="86.0" prefWidth="75.0" styleClass="Alberta" stylesheets="@BoardGUI.css">
-									<effect>
-										<Lighting>
-											<bumpInput>
-												<Shadow />
-											</bumpInput>
-											<light>
-												<Light.Distant />
-											</light>
-										</Lighting>
-									</effect>
-									<cursor>
-										<Cursor fx:constant="HAND" />
-									</cursor>
-								</Region>
 								<Region fx:id="ontario" layoutX="155.0" layoutY="183.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="98.0" prefWidth="110.0" styleClass="Ontario" stylesheets="@BoardGUI.css">
 									<effect>
 										<Lighting>
@@ -346,6 +331,21 @@
 									<cursor>
 										<Cursor fx:constant="HAND" />
 									</cursor>
+								</Region>
+								<Region fx:id="westernUnitedStates" layoutX="111.0" layoutY="256.0" onMouseClicked="#clicked" prefHeight="97.0" prefWidth="83.0" styleClass="Western_United_States" stylesheets="@BoardGUI.css">
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect>
 								</Region>
 								<Region fx:id="quebec" disable="true" layoutX="263.0" layoutY="171.0" onMouseClicked="#clicked" pickOnBounds="false" prefHeight="110.0" prefWidth="86.0" styleClass="Quebec" stylesheets="@BoardGUI.css">
 									<effect>

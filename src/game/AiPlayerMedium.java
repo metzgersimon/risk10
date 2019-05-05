@@ -78,7 +78,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         if (!Main.g.isNetworkGame()) {
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
           try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
           } catch (InterruptedException e1) {
           }
           Main.g.furtherInitialTerritoryDistribution();
