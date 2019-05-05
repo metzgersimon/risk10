@@ -1006,6 +1006,7 @@ public class BoardController implements Initializable {
     statistic.refresh();
     
     newSPane.setVisible(true);
+    showMessage("Click on the background to close the statistics screen");
     
     //grayPane.setVisible(true);
     //grayPane.setMouseTransparent(false);
@@ -1374,7 +1375,7 @@ public class BoardController implements Initializable {
   public void showMessage(String message) {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText(message + "\n_____________\n");
+        chat.appendText(message + "\n_____________\n\n");
       }
     });
   }

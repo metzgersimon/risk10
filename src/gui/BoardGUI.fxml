@@ -1143,9 +1143,9 @@
 								</Label>
 							</children>
 						</Pane>
-										<AnchorPane fx:id="newSPane" maxHeight="724.0" maxWidth="1013.0" minHeight="724.0" minWidth="1013.0" onMouseClicked="#handleCloseLiveStats" opacity="0.9" prefHeight="724.0" prefWidth="1013.0" style="-fx-background-color: gray;" visible="false">
+										<AnchorPane fx:id="newSPane" maxHeight="724.0" maxWidth="1013.0" minHeight="724.0" minWidth="1013.0" onMouseClicked="#handleCloseLiveStats" opacity="0.9" prefHeight="724.0" prefWidth="1013.0" style="-fx-background-color: gray;">
 											<children>
-                        <TableView fx:id="statistic" layoutX="229.0" layoutY="173.0" prefHeight="378.0" prefWidth="555.0">
+                        <TableView fx:id="statistic" layoutX="229.0" layoutY="222.0" prefHeight="280.0" prefWidth="555.0">
                           <columns>
                               <TableColumn fx:id="c0" prefWidth="110.0" text="Color" />
                             <TableColumn fx:id="c1" prefWidth="230.0" text="Player" />
@@ -1155,7 +1155,7 @@
                         </TableView>
 											</children>
 										</AnchorPane>
-						<GridPane alignment="CENTER" visible="false">
+						<GridPane alignment="CENTER">
 							<columnConstraints>
 								<ColumnConstraints hgrow="ALWAYS" maxWidth="392.0" minWidth="10.0" prefWidth="253.99995930989584" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="672.0" minWidth="10.0" prefWidth="572.6666259765625" />
@@ -1165,7 +1165,7 @@
 								<RowConstraints valignment="TOP" vgrow="ALWAYS" />
 							</rowConstraints>
 							<children>
-                        <TitledPane fx:id="statisticPane" alignment="CENTER" expanded="false" onMouseEntered="#openLiveStats" onMouseExited="#exitLiveStat" text="Statistics">
+                        <TitledPane fx:id="statisticPane" alignment="CENTER" expanded="false" onMouseEntered="#openLiveStats" onMouseExited="#exitLiveStat" text="Statistics" visible="false">
                            <padding>
                               <Insets left="10.0" top="10.0" />
                            </padding>
@@ -1217,7 +1217,10 @@
 					<center>
 						<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
 							<content>
-								<TextArea fx:id="chat" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+								<TextArea fx:id="chat" prefHeight="200.0" prefWidth="200.0" wrapText="true">
+                           <font>
+                              <Font size="12.0" />
+                           </font></TextArea>
 							</content>
 						</ScrollPane>
 					</center>
