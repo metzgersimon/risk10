@@ -34,6 +34,31 @@ public class TestProfiles {
     assertEquals(testID3, ProfileManager.getSelectedProfile());
   }
   
+  @Test
+  public void testEditProfiles() {
+    String testName4 = "Tester4";
+    int testID4 = 4;
+    
+    String testName5 = "Tester5";
+    int testID5 = 5;
+    
+    ProfileManager.addNewProfile(testName4, testID4);
+    ProfileManager.saveXml();
+    ProfileManager.readXml();
+
+    ProfileManager.setSelectedProfile(testName4);
+    ProfileManager.editProfile(testName4, testName5, testID5);
+    
+    ProfileManager.saveXml();
+    ProfileManager.readXml();
+    
+    ProfileManager.setSelectedProfile(testName5);
+    
+    assertEquals(testName5, ProfileManager.getSelectedProfile().getName());
+    assertEquals(testID5, ProfileManager.getSelectedProfile().getId());
+    
+  }
+  
   
 
 }
