@@ -62,9 +62,7 @@ public class Client extends Thread implements Serializable {
   private Player player; // player of this client
 
   /**************************************************
-   *                                                *
-   *                 Constructors                   *
-   *                                                *
+   * * Constructors * *
    *************************************************/
 
   public Client(InetAddress address, int port) {
@@ -78,8 +76,7 @@ public class Client extends Thread implements Serializable {
    * 
    * @author qiychen
    * @param address
-   * @param player
-   * Constructor to join the game on discovery
+   * @param player Constructor to join the game on discovery
    */
   public Client(InetAddress address, Player player, int port) {
     this.address = address;
@@ -110,11 +107,9 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   *   Connection and disconnection of clients      *
-   *                                                *
+   * * Connection and disconnection of clients * *
    *************************************************/
-  
+
   /**
    * @author qiychen
    * @return whether the connection is established
@@ -134,9 +129,9 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * @author qiychen 
-   *  
-   * disconnect the connection
+   * @author qiychen
+   * 
+   *         disconnect the connection
    */
   public void disconnect() {
     this.interrupt();
@@ -153,15 +148,12 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   *     Send and receive messages from client      *
-   *                                                *
+   * * Send and receive messages from client * *
    *************************************************/
-  
-  /** 
+
+  /**
    * @author qiychen
-   * @param message
-   * send message to server
+   * @param message send message to server
    */
   public void sendMessage(Message m) {
     // System.out.println("test send message" + m.getContent());
@@ -184,7 +176,7 @@ public class Client extends Thread implements Serializable {
         Message message = (Message) fromServer.readObject();
         switch (message.getType()) {
           case BROADCAST:
-            handleSendChatMessage((SendChatMessageMessage)message);            
+            handleSendChatMessage((SendChatMessageMessage) message);
             break;
           case START_GAME:
             handleStartGameMessage((StartGameMessage) message);
@@ -217,7 +209,7 @@ public class Client extends Thread implements Serializable {
           case LEAVE:
             handleLeaveGame((LeaveGameMessage) message);
             break;
-          case LEAVE_RESPONSE : 
+          case LEAVE_RESPONSE:
             this.disconnect();
           default:
             break;
@@ -231,11 +223,9 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   *                Getter and Setter               *
-   *                                                *
+   * * Getter and Setter * *
    *************************************************/
-  
+
   public Player getPlayer() {
     return this.player;
   }
@@ -265,11 +255,9 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   * Process the messages received from the server  *
-   *                                                *
+   * * Process the messages received from the server * *
    *************************************************/
-  
+
   /**
    * @author skaur
    * @param name of the player who has requested to join the game
@@ -385,18 +373,21 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {
-          Main.g.getWorld().getTerritories().get(message.getTerritoryId())
-              .setNumberOfArmies(message.getAmount());
-          Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
-          Main.b.updateLabelTerritory(
-              Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
-        }
-      }
-    });
+    // Platform.runLater(new Runnable() {
+    // @Override
+    // public void run() {
+    if (!(player.getColor().toString().equals(message.getColor()))) {
+      Main.g.getWorld().getTerritories().get(message.getTerritoryId())
+          .setNumberOfArmies(message.getAmount());
+      Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
+      System.out.println(Main.g.getCurrentPlayer().getName() + " set " + message.getAmount()
+          + " on " + Main.g.getWorld().getTerritories().get(message.getTerritoryId()).getName());
+      System.out.println(Main.g.getCurrentPlayer().getName() + " still have "
+          + Main.g.getCurrentPlayer().numberArmiesToDistribute + " to distribute");
+      Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
+    }
+    // }
+    // });
   }
 
   /**
@@ -425,8 +416,8 @@ public class Client extends Thread implements Serializable {
         Main.b.updateColorTerritory(defend);
         Main.g.getCurrentPlayer().addTerritories(defend);
       }
-      // System.out.println("attack owner " + attack.getOwner().getName());
-      // System.out.println("defend owner " + defend.getOwner().getName());
+      System.out.println("attack owner " + attack.getOwner().getName());
+      System.out.println("defend owner " + defend.getOwner().getName());
       // }
     }
   }
@@ -455,21 +446,20 @@ public class Client extends Thread implements Serializable {
     Main.g.furtherFortify();
 
   }
-  
+
   /**
    * @author Liwang @author qiychen
    * @param message
    * 
-   *        After receiving the send chat message, the message will be showed
-   *        in the lobby           
+   *        After receiving the send chat message, the message will be showed in the lobby
    * 
    */
   private void handleSendChatMessage(SendChatMessageMessage message) {
     String name = message.getUsername();
     String content = message.getMessage();
-     System.out.println("from server: " + name + " " + content);
-     System.out.println("client show " + content);
-     System.out.println("host show " + content);
+    System.out.println("from server: " + name + " " + content);
+    System.out.println("client show " + content);
+    System.out.println("host show " + content);
     if (!isHost) {
       controller.showMessage(name.toUpperCase() + " : " + content);
     }
@@ -504,7 +494,7 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-          Main.b.gameCancelAlert();
+        Main.b.gameCancelAlert();
       }
     });
   }
