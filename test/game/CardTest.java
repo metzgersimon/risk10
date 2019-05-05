@@ -19,20 +19,20 @@ public class CardTest {
     Card c4 = new Card(g.getWorld().getTerritories().get(4), false);
     Card c5 = new Card(g.getWorld().getTerritories().get(5), false);
 
-    Card wildCard1 = new Card(true);
-    Card wildCard2 = new Card(true);
+    Card wildCard1 = new Card(43,true);
+    Card wildCard2 = new Card(44,true);
 
     // Test, whether three Cards with different symbols are valid
-    assertFalse(c1.validCardSet(c2, c5));
+    assertFalse(c1.canBeTraded(c2, c5));
     // Test, whether three cards with two different symbols are valid
-    assertFalse(c1.validCardSet(c2, c3));
+    assertFalse(c1.canBeTraded(c2, c3));
     // Test, whether three Cards with same symbols are valid
-    assertTrue(c1.validCardSet(c3, c4));
+    assertTrue(c1.canBeTraded(c3, c4));
     // Test, whether one Card and two Wildcards are valid
-    assertTrue(c1.validCardSet(wildCard1, wildCard2));
+    assertTrue(c1.canBeTraded(wildCard1, wildCard2));
     // Test, whether two Cards with different symbols and one Wildcard are valid
-    assertFalse(c1.validCardSet(c2, wildCard1));
+    assertFalse(c1.canBeTraded(c2, wildCard1));
     // Test, whether two Cards with same symbols and one Wildcard are valid
-    assertTrue(c1.validCardSet(c3, wildCard1));
+    assertTrue(c1.canBeTraded(c3, wildCard1));
   }
 }

@@ -6,9 +6,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
 import org.junit.Test;
+import gui.controller.BoardController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import main.Main;
 
 public class PlayerTest {
-  private Game g = new Game();
+  Game g = new Game();
+
+  public PlayerTest() {
+    Main.g = g;
+    FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
+    Main.b = fxmlLoader1.getController();
+  }
 
   /**
    * @author pcoberge
@@ -20,7 +30,7 @@ public class PlayerTest {
 
     // Player has only Territories
     // Test, if player would receive less than 3 armies, so the system would round to 3
-    Player p = new Player("Test1", PlayerColor.RED);
+    Player p = new Player("Test1", PlayerColor.RED, g);
     p.addTerritories(g.getWorld().getTerritories().get(10));
     p.addTerritories(g.getWorld().getTerritories().get(30));
     p.addTerritories(g.getWorld().getTerritories().get(40));
@@ -44,7 +54,7 @@ public class PlayerTest {
 
     // Player has Territories and Continents
     // Test, if player would receive less 3 armies
-    p = new Player("Test2", PlayerColor.RED);
+    p = new Player("Test2", PlayerColor.RED, g);
     p.addTerritories(g.getWorld().getTerritories().get(39));
     p.addTerritories(g.getWorld().getTerritories().get(40));
     p.addTerritories(g.getWorld().getTerritories().get(41));
@@ -61,16 +71,16 @@ public class PlayerTest {
     // Method tradeCards is tested explicitly
     // Test, if player would receive correct number of Armies
     p.tradeCards(new Card(g.getWorld().getTerritories().get(41), false),
-        new Card(g.getWorld().getTerritories().get(2), false), new Card(true));
+        new Card(g.getWorld().getTerritories().get(2), false), new Card(43, true));
     assertEquals(8, p.computeAdditionalNumberOfArmies());
 
     // Player has Territories and traded-in Cards
     // Test, if player would receive more than 3 armies
-    p = new Player("Test3", PlayerColor.RED);
+    p = new Player("Test3", PlayerColor.RED, g);
     p.addTerritories(g.getWorld().getTerritories().get(41));
     p.addTerritories(g.getWorld().getTerritories().get(2));
     p.tradeCards(new Card(g.getWorld().getTerritories().get(41), false),
-        new Card(g.getWorld().getTerritories().get(2), false), new Card(true));
+        new Card(g.getWorld().getTerritories().get(2), false), new Card(44, true));
     assertFalse(p.computeAdditionalNumberOfArmies() == 3);
   }
 
@@ -81,7 +91,7 @@ public class PlayerTest {
    *         Test, if the number is between 0 and number of Players
    */
   public void armyDistributionTest() {
-    Player p = new Player("Test1", PlayerColor.RED);
+    Player p = new Player("Test1", PlayerColor.RED, g);
     p.addTerritories(g.getWorld().getTerritories().get(5));
     p.setNumberArmiesToDistribute(10);
     assertTrue(p.armyDistribution(5, g.getWorld().getTerritories().get(5)));
@@ -109,13 +119,13 @@ public class PlayerTest {
   public void attackTest1() {
     Game g = new Game();
 
-    Player p1 = new Player("Test", PlayerColor.RED);
+    Player p1 = new Player("Test", PlayerColor.RED, g);
     Territory tAttacker = g.getWorld().getTerritories().get(1);
     p1.addTerritories(tAttacker);
     tAttacker.setOwner(p1);
     tAttacker.setNumberOfArmies(2);
 
-    Player p2 = new Player("Test2", PlayerColor.RED);
+    Player p2 = new Player("Test2", PlayerColor.RED, g);
     Territory tDefender1 = g.getWorld().getTerritories().get(2);
     p2.addTerritories(tDefender1);
     tDefender1.setOwner(p2);
@@ -129,13 +139,13 @@ public class PlayerTest {
     defender.add(4);
 
     // attacker wins attack and wins game
-    assertTrue(g.attack(attacker, defender, tAttacker, tDefender1, 1));
+    assertTrue(p1.attack(attacker, defender, tAttacker, tDefender1, 1));
     assertTrue(p1.getTerritories().contains(tDefender1));
     assertEquals(1, tDefender1.getNumberOfArmies());
     assertTrue(p2.getTerritories().size() == 0);
 
 
-    Player p3 = new Player("Test3", PlayerColor.RED);
+    Player p3 = new Player("Test3", PlayerColor.RED, g);
     Territory tDefender2 = g.getWorld().getTerritories().get(3);
     p3.addTerritories(tDefender2);
     tDefender2.setOwner(p3);
@@ -148,7 +158,7 @@ public class PlayerTest {
     defender.add(4);
 
     // attacker loses attack
-    assertFalse(g.attack(attacker1, defender1, tAttacker, tDefender2, 1));
+    assertFalse(p1.attack(attacker1, defender1, tAttacker, tDefender2, 1));
     assertFalse(p1.getTerritories().contains(tDefender2));
     assertEquals(1, tDefender2.getNumberOfArmies());
     assertEquals(1, tAttacker.getNumberOfArmies());
@@ -159,7 +169,7 @@ public class PlayerTest {
     p1.addTerritories(tAttacker1);
     tAttacker1.setNumberOfArmies(2);
     tAttacker1.setOwner(p1);
-    Player p4 = new Player("Test4", PlayerColor.RED);
+    Player p4 = new Player("Test4", PlayerColor.RED, g);
     Territory tDefender3 = g.getWorld().getTerritories().get(22);
     tDefender3.setNumberOfArmies(1);
     p4.addTerritories(tDefender3);
@@ -172,7 +182,7 @@ public class PlayerTest {
     defender.add(4);
 
     // attacker loses attack by same dices
-    assertFalse(g.attack(attacker2, defender2, tAttacker1, tDefender3, 1));
+    assertFalse(p4.attack(attacker2, defender2, tAttacker1, tDefender3, 1));
     assertFalse(p1.getTerritories().contains(tDefender3));
     assertEquals(1, tDefender2.getNumberOfArmies());
     assertEquals(1, tAttacker.getNumberOfArmies());
@@ -184,13 +194,13 @@ public class PlayerTest {
   public void attackTest2() {
     Game g = new Game();
 
-    Player p1 = new Player("Test", PlayerColor.RED);
+    Player p1 = new Player("Test", PlayerColor.RED, g);
     Territory tAttacker = g.getWorld().getTerritories().get(1);
     p1.addTerritories(tAttacker);
     tAttacker.setOwner(p1);
     tAttacker.setNumberOfArmies(4);
 
-    Player p2 = new Player("Test2", PlayerColor.RED);
+    Player p2 = new Player("Test2", PlayerColor.RED, g);
     Territory tDefender1 = g.getWorld().getTerritories().get(2);
     p2.addTerritories(tDefender1);
     tDefender1.setOwner(p2);
@@ -207,7 +217,7 @@ public class PlayerTest {
     defender.add(4);
 
     // attacker wins attack but doesnt conquers the territory
-    assertFalse(g.attack(attacker, defender, tAttacker, tDefender1, 3));
+    assertFalse(p1.attack(attacker, defender, tAttacker, tDefender1, 3));
     assertFalse(p1.getTerritories().contains(tDefender1));
     assertEquals(1, tDefender1.getNumberOfArmies());
     assertEquals(4, tAttacker.getNumberOfArmies());
@@ -219,13 +229,13 @@ public class PlayerTest {
   public void attackTest3() {
     Game g = new Game();
 
-    Player p1 = new Player("Test", PlayerColor.RED);
+    Player p1 = new Player("Test", PlayerColor.RED, g);
     Territory tAttacker = g.getWorld().getTerritories().get(1);
     p1.addTerritories(tAttacker);
     tAttacker.setOwner(p1);
     tAttacker.setNumberOfArmies(10);
 
-    Player p2 = new Player("Test2", PlayerColor.RED);
+    Player p2 = new Player("Test2", PlayerColor.RED, g);
     Territory tDefender1 = g.getWorld().getTerritories().get(2);
     p2.addTerritories(tDefender1);
     tDefender1.setOwner(p2);
@@ -243,7 +253,7 @@ public class PlayerTest {
     defender.add(5);
 
     // attacker loses attack
-    assertFalse(g.attack(attacker, defender, tAttacker, tDefender1, 6));
+    assertFalse(p1.attack(attacker, defender, tAttacker, tDefender1, 6));
     assertFalse(p1.getTerritories().contains(tDefender1));
     assertEquals(2, tDefender1.getNumberOfArmies());
     assertEquals(8, tAttacker.getNumberOfArmies());
@@ -255,13 +265,13 @@ public class PlayerTest {
   public void attackTest4() {
     Game g = new Game();
 
-    Player p1 = new Player("Test", PlayerColor.RED);
+    Player p1 = new Player("Test", PlayerColor.RED, g);
     Territory tAttacker = g.getWorld().getTerritories().get(1);
     p1.addTerritories(tAttacker);
     tAttacker.setOwner(p1);
     tAttacker.setNumberOfArmies(10);
 
-    Player p2 = new Player("Test2", PlayerColor.RED);
+    Player p2 = new Player("Test2", PlayerColor.RED, g);
     Territory tDefender1 = g.getWorld().getTerritories().get(2);
     p2.addTerritories(tDefender1);
     tDefender1.setOwner(p2);
@@ -278,7 +288,7 @@ public class PlayerTest {
     defender.add(1);
 
     // attacker loses attack
-    assertTrue(g.attack(attacker, defender, tAttacker, tDefender1, 6));
+    assertTrue(p1.attack(attacker, defender, tAttacker, tDefender1, 6));
     assertTrue(p1.getTerritories().contains(tDefender1));
     assertEquals(6, tDefender1.getNumberOfArmies());
     assertEquals(4, tAttacker.getNumberOfArmies());

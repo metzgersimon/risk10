@@ -10,13 +10,13 @@ public class TerritoryTest {
   public void getHostileNeighborTest() {
     Main.g = new Game();
     Territory t = Main.g.getWorld().getTerritories().get(41);
-    Player p1 = new Player("Test1", PlayerColor.RED);
+    Player p1 = new Player("Test1", PlayerColor.RED, Main.g);
     p1.addTerritories(t);
     t.setOwner(p1);
 
     assertEquals(3, t.getHostileNeighbor().size());
 
-    Player p2 = new Player("Test2", PlayerColor.BLUE);
+    Player p2 = new Player("Test2", PlayerColor.BLUE, Main.g);
     p2.addTerritories(Main.g.getWorld().getTerritories().get(42));
     Main.g.getWorld().getTerritories().get(42).setOwner(p2);
 

@@ -36,7 +36,7 @@ import network.messages.game.AttackMessage;
  */
 public class Main extends Application {
 
-  public static Game g;// = new TestGame();
+  public static Game g;
   public static BoardController b;
   public static HostGameLobbyController h;
   public static JoinGameLobbyController j;
