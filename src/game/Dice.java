@@ -1,10 +1,7 @@
 package game;
 
-
 import java.util.Collections;
 import java.util.Vector;
-
-
 
 /**
  * Class defines a Dice which is used for the attacking phase, it represents both, attacking and

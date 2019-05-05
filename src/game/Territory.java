@@ -1,17 +1,15 @@
 package game;
 
+import gui.controller.BoardRegion;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import gui.controller.BoardRegion;
 import main.Main;
 
 /**
- * @author pcoberge
+ * Territory defines one territory in the risk-game. Each instance of Territory possesses a name,
+ * id, number of armies, card-symbol, player, continent, neighbor territories and a board region.
  * 
- *         Territory defines one territory in the risk-game. Each instance of Territory possesses a
- *         name, id, number of armies, card-symbol, player, continent, neighbor territories and a
- *         board region.
+ * @author pcoberge
  */
 
 public class Territory {
@@ -20,15 +18,21 @@ public class Territory {
   private int numberOfArmies;
   private CardSymbol sym;
   private Player owner;
-  private Continente c;
+  private Continente continent;
   private HashSet<Territory> neighbor;
-  private BoardRegion r;
+  private BoardRegion region;
+  
+  /**************************************************
+   *                                                *
+   *                    Constuctor                  *
+   *                                                *
+   *************************************************/
 
   /**
-   * Contructor
+   * Contructor.
    * 
-   * @param name
-   * @param id
+   * @param name = name of this territory
+   * @param id = unique number in risk-game
    * @param sym = symbol on risk cards
    * @param c = continent territory belongs to
    */
@@ -36,39 +40,95 @@ public class Territory {
     this.name = name;
     this.id = id;
     this.sym = sym;
-    this.c = c;
+    this.continent = c;
     this.owner = null;
   }
 
+  
+  /**************************************************
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
+   *************************************************/
+
   /**
-   * @param p = owner of a territory Setter-method
+   * Getter-method
+   * 
+   * @return BoardRegion of this territory
    */
-  public void setOwner(Player p) {
-    this.owner = p;
+  public BoardRegion getBoardRegion() {
+    return this.region;
   }
 
   /**
-   * @return Player = owner of a territory Getter-method
+   * Setter-method.
+   * 
+   * @param b = BoardRegion that consists of board GUI elements like region and label
    */
-  public Player getOwner() {
-    return this.owner;
+  public void setBoardRegion(BoardRegion b) {
+    this.region = b;
   }
 
   /**
-   * @param neighbor = all territories the instance has a neighbor-relationship to Setter-method
+   * Getter-method
+   * 
+   * @return continent = (enum) this territory belongs to
+   */
+  public Continente getContinente() {
+    return continent;
+  }
+
+  /**
+   * Getter-method.
+   * 
+   * @return continent = this territory belongs to
+   */
+  public Continent getContinent() {
+    return Main.g.getWorld().getContinent().get(continent);
+  }
+
+  /**
+   * Getter-method.
+   * 
+   * @return id of a territory
+   */
+
+  public int getId() {
+    return id;
+  }
+
+  /**
+   * Getter-method.
+   * 
+   * @return String = name of a territory
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Getter-method.
+   * 
+   * @return HashSet<Territory> = all territories the instance has a neighbor-relationship to
+   */
+  public HashSet<Territory> getNeighbor() {
+    return this.neighbor;
+  }
+
+  /**
+   * Setter-method.
+   * 
+   * @param neighbor = all territories the instance has a neighbor-relationship to
    */
   protected void setNeighbor(HashSet<Territory> neighbor) {
     this.neighbor = neighbor;
   }
 
   /**
-   * @return HashSet<Territory> = all territories the instance has a neighbor-relationship to
-   *         Getter-method
+   * Getter-method.
+   * 
+   * @return ArrayList<Territory> = all territories that do not belong to the same player
    */
-  public HashSet<Territory> getNeighbor() {
-    return this.neighbor;
-  }
-
   public ArrayList<Territory> getHostileNeighbor() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();
     for (Territory t : this.getNeighbor()) {
@@ -79,6 +139,11 @@ public class Territory {
     return hostileNeighbor;
   }
 
+  /**
+   * Getter-method.
+   * 
+   * @return ArrayList<Territory> = all territories that belong to the same owner
+   */
   public ArrayList<Territory> getOwnNeighbors() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();
     for (Territory t : this.getNeighbor()) {
@@ -90,20 +155,25 @@ public class Territory {
   }
 
   /**
-   * @return String = name of a territory Getter-method
+   * Getter-method.
+   * 
+   * @return number of armies at this territory
    */
-  public String getName() {
-    return name;
+  public int getNumberOfArmies() {
+    return this.numberOfArmies;
   }
 
   /**
-   * @param amount = number of armies that should be set to the chosen territory Setter-method
+   * Setter-method.
+   * 
+   * @param amount = number of armies that should be set to the chosen territory
    */
   public void setNumberOfArmies(int amount) {
     this.numberOfArmies += amount;
   }
 
   /**
+   * Setter-method.
    * 
    * @param amount = number of armies in total
    */
@@ -112,6 +182,7 @@ public class Territory {
   }
 
   /**
+   * Setter-method.
    * 
    * @param amount = number of armies to reduce from numberOfArmies
    */
@@ -120,50 +191,30 @@ public class Territory {
   }
 
   /**
-   * @return number of armies at this territory Getter-method
+   * Getter-method.
+   * 
+   * @return Player = owner of a territory
    */
-  public int getNumberOfArmies() {
-    return this.numberOfArmies;
+  public Player getOwner() {
+    return this.owner;
   }
 
   /**
-   * @return id of a territory Getter-method
+   * Setter-method.
+   * 
+   * @param p = owner of a territory
    */
-
-  public int getId() {
-    return id;
+  public void setOwner(Player p) {
+    this.owner = p;
   }
 
   /**
-   * @return symbol this territory is connected with on the risk cards Getter-method
+   * Getter-method.
+   * 
+   * @return symbol this territory is connected with on the risk cards
    */
   public CardSymbol getSym() {
     return sym;
-  }
-
-  /**
-   * @return continent this territory belongs to Getter-method
-   */
-  public Continente getContinente() {
-    return c;
-  }
-
-  public Continent getContinent() {
-    return Main.g.getWorld().getContinent().get(c);
-  }
-
-  /**
-   * @param b = BoardRegion that consists of board GUI elements like region and label Setter-method
-   */
-  public void setBoardRegion(BoardRegion b) {
-    this.r = b;
-  }
-
-  /**
-   * @return BoardRegion of this territory Getter-method
-   */
-  public BoardRegion getBoardRegion() {
-    return this.r;
   }
 
   @Override

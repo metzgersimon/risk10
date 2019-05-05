@@ -1,14 +1,16 @@
 package game;
 
+import gui.controller.BoardRegion;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import gui.controller.BoardRegion;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * @author pcoberge The class World defines all countries that exist in the risk-game.
+ * The class World defines all countries that exist in the risk-game.
+ * 
+ * @author pcoberge
  */
 public class World implements Serializable {
   static HashMap<Integer, Territory> territories = new HashMap<>();
@@ -19,7 +21,7 @@ public class World implements Serializable {
   static HashMap<Continente, Continent> continent = new HashMap<>();
 
   /**
-   * Constructor
+   * Constructor.
    */
   public World() {
     this.initialiseTerritories();
@@ -28,7 +30,7 @@ public class World implements Serializable {
   }
 
   /**
-   * Method initialises all territories existing in risk world
+   * Method initialises all territories existing in risk world.
    */
   public void initialiseTerritories() {
     territories.put(1, new Territory("Alaska", 1, CardSymbol.INFANTRY, Continente.NORTHAMERICA));
@@ -86,7 +88,7 @@ public class World implements Serializable {
   }
 
   /**
-   * Method initialises all neighbor-relationships between territories
+   * Method initialises all neighbor-relationships between territories.
    */
   public void initialiseNeighbors() {
     // Alaska
@@ -422,7 +424,7 @@ public class World implements Serializable {
   }
 
   /**
-   * Method initialises all continents and links them with territories
+   * Method initialises all continents and links them with territories.
    */
   public void initialiseContinents() {
     HashSet<Territory> c1 = new HashSet<>();
@@ -479,44 +481,56 @@ public class World implements Serializable {
   }
 
   /**
-   * @return HashMap of territories that are referenced by the territoriesId Getter-method
+   * Getter-method.
+   * 
+   * @return HashMap of territories that are referenced by the territoriesId
    */
   public HashMap<Integer, Territory> getTerritories() {
     return territories;
   }
 
   /**
-   * @return HashMap of territories that are reference by the territories board region Getter-method
+   * Getter-method.
+   * 
+   * @return HashMap of territories that are reference by the territories board region
    */
   public HashMap<BoardRegion, Territory> getTerritoriesBoardRegion() {
     return territoriesBoardRegion;
   }
 
   /**
-   * @return HashMap of territories that are reference by the territories gui region Getter-method
+   * Getter-method.
+   * 
+   * @return HashMap of territories that are reference by the territories gui region
    */
   public HashMap<Region, Territory> getTerritoriesRegion() {
     return territoriesRegion;
   }
 
   /**
+   * Getter-method.
+   * 
    * @return HashMap of territories that are referenced by the territories gui label, that represent
-   *         the territories name Getter-method
+   *         the territories name
    */
   public HashMap<Label, Territory> getTerritoriesName() {
     return territoriesName;
   }
 
   /**
+   * Getter-method.
+   * 
    * @return HashMap of territories that are referenced by the territories gui label, that represent
-   *         the territories number of armies Getter-method
+   *         the territories number of armies
    */
   public HashMap<Label, Territory> getTerritoriesNoA() {
     return territoriesNoA;
   }
 
   /**
-   * @return HashMap of Continents Getter-method
+   * Getter-method.
+   * 
+   * @return HashMap of Continents
    */
   public HashMap<Continente, Continent> getContinent() {
     return continent;

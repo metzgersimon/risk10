@@ -15,15 +15,19 @@ import javafx.stage.Stage;
 import main.Main;
 import network.messages.game.LeaveGameMessage;
 
+/**
+ * @author pcoberge
+ * @author smetzger
+ */
 public class EndGameSubSceneController {
 
   @FXML
   private Button endGameButton;
 
   /**
-   * @author pcoberge
-   * @param event : ActionEvent This parameter represents the element that invokes this method. This
-   *        action method changes the current stage to the statistic stage.
+   * This action method changes the current stage to the statistic stage.
+   * 
+   * @param event = This parameter represents the element that invokes this method.
    */
   public synchronized void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
@@ -44,13 +48,10 @@ public class EndGameSubSceneController {
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));
           stage.show();
-          // ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
     });
   }
-
-
 }

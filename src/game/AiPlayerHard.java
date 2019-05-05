@@ -21,8 +21,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
   }
 
   /**
-   * if no territory adjacent to another own territory is available, choose a territory with the
-   * least number of neighbor territories
+   * If no territory adjacent to another own territory is available, choose a territory with the
+   * least number of neighbor territories.
    */
   public void initialTerritoryDistribution() {
     Thread th = new Thread() {
@@ -97,8 +97,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
     for (Territory t : this.getTerritories()) {
       if (t.getHostileNeighbor().size() > maxNeighbors) {
         sum = 0;
-        for (Territory tO : t.getHostileNeighbor()) {
-          sum += tO.getNumberOfArmies();
+        for (Territory territoryOpponents : t.getHostileNeighbor()) {
+          sum += territoryOpponents.getNumberOfArmies();
         }
         averageArmies = (int) (sum / t.getHostileNeighbor().size());
         if (averageArmies > t.getNumberOfArmies()) {
@@ -121,7 +121,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
       }
     }
-    InitialArmyDistributionMedium();
+    initialArmyDistributionMedium();
   }
 
   /**
@@ -166,19 +166,19 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
         hostileNeighbors.put(t, i);
       }
-      Territory tToDistribute = null;
+      Territory terrToDistribute = null;
       int min = 42;
       for (Territory t : hostileNeighbors.keySet()) {
         for (Territory ownT : t.getNeighbor()) {
           if (ownT.getOwner().equals(this) && ownT.getNumberOfArmies() >= t.getNumberOfArmies()
               && hostileNeighbors.get(t) <= min) {
             min = hostileNeighbors.get(t);
-            tToDistribute = ownT;
+            terrToDistribute = ownT;
           }
         }
       }
-      System.out.println("Verteilen auf " + tToDistribute.getName());
-      if (super.armyDistribution(1, tToDistribute)) {
+      System.out.println("Verteilen auf " + terrToDistribute.getName());
+      if (super.armyDistribution(1, terrToDistribute)) {
         armiesAttack--;
       }
     } while (armiesAttack > 0 && hostileNeighbors.size() > 0);
@@ -193,9 +193,9 @@ public class AiPlayerHard extends Player implements AiPlayer {
     sortedValues = new ArrayList<Integer>();
     for (Territory t : this.getTerritories()) {
       max = 0;
-      for (Territory tE : t.getHostileNeighbor()) {
-        if (((tE.getNumberOfArmies()) - (t.getNumberOfArmies())) >= max) {
-          max = t.getNumberOfArmies() - tE.getNumberOfArmies();
+      for (Territory terr : t.getHostileNeighbor()) {
+        if (((terr.getNumberOfArmies()) - (t.getNumberOfArmies())) >= max) {
+          max = t.getNumberOfArmies() - terr.getNumberOfArmies();
           if (ownTerritories.containsKey(max)) {
             ownTerritories.get(max).add(t);
           } else {
@@ -345,13 +345,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
       // max = round;
       // round++;
     }
-
-
-    // Main.b.handleSkipGameState();
     Main.g.setGameState(GameState.FORTIFY);
-    try
-
-    {
+    try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
@@ -361,14 +356,13 @@ public class AiPlayerHard extends Player implements AiPlayer {
   }
 
   /**
-   * at first the territory that has no hostile neighbor territories and has more than one army on
+   * At first the territory that has no hostile neighbor territories and has more than one army on
    * it is chosen, if there is no such territory the territory with the highest difference between
-   * territory and hostile neighbor is chosen
+   * territory and hostile neighbor is chosen.
    */
   public void fortify() {
     Territory moveFrom = null;
     Territory moveTo = null;
-    int numberToMove;
 
     for (Territory t : this.getTerritories()) {
       if (t.getHostileNeighbor().size() == 0 && t.getNumberOfArmies() > 1) {
@@ -398,8 +392,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
     Main.g.furtherFortify();
   }
 
-  public void InitialArmyDistributionMedium() {
-
+  /**
+   * This method should be used if the original idea of this ai-player won't work.
+   */
+  public void initialArmyDistributionMedium() {
     int min = 0;
     territory = null;
     for (Territory t : this.getTerritories()) {
@@ -440,6 +436,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
   }
 
+  /**
+   * This method is used if neither the hard army distribution algorithm nor the medium algorithm
+   * would work.
+   */
   public void randomArmyDistribution() {
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
@@ -468,12 +468,14 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
   }
 
+  /**
+   * This method should be used if the hard army distribtuion algorithm won't work.
+   */
   public void greedyArmyDistribution() {
     int min = 0;
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
 
-    HashSet<Territory> list = new HashSet<>();
     for (Territory t : this.getTerritories()) {
       for (Territory oT : t.getHostileNeighbor()) {
         if (t.getNumberOfArmies() - oT.getNumberOfArmies() < min) {
@@ -506,6 +508,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
     }
   }
 
+  /**
+   * This method describes a precondition of the attack-method.
+   * 
+   * @return if there are any territories this player is able to attack with.
+   */
   public boolean isCapableToAttack() {
     for (Territory t : this.getTerritories()) {
       if (t.getNumberOfArmies() > 1) {

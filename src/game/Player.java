@@ -49,7 +49,9 @@ public class Player implements Serializable {
 
 
   /**************************************************
-   * * Constuctor * *
+   *                                                *
+   *                    Constuctor                  *
+   *                                                *
    *************************************************/
 
 
@@ -78,9 +80,10 @@ public class Player implements Serializable {
     this.colorString = this.color.getColorString();
   }
 
-
   /**************************************************
-   * * Getter and Setter * *
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
    *************************************************/
 
   public String getName() {
@@ -275,11 +278,13 @@ public class Player implements Serializable {
     this.startedDistribution = startedDistribution;
   }
 
-
-  /**********************************************************
-   * * Methods to add eliminated players, * territories and continents * and remove territories and
-   * continents * *
-   **********************************************************/
+  /**************************************************
+   *                                                *
+   *     Methods to add eliminated players,         *
+   *     territories and continents and remove      *
+   *     territories and continents                 *
+   *                                                *
+   *************************************************/
 
   /**
    * Method adds a given territory to the players territory set and if the player now owns a
@@ -347,12 +352,16 @@ public class Player implements Serializable {
     continents.remove(c);
   }
 
-
-  /****************************************************************
-   * * Methods represents main actions of the player in * the different stages during the game. * On
-   * the on hand for the single player mode, * on the other hand for the network game. * *
-   ****************************************************************/
-
+  
+  /**************************************************
+   *                                                *
+   *     Methods represents main actions of the     *
+   *     player in the different stages during      *
+   *     the game. On the one hand for the          *
+   *     single player mode, on the other hand      *
+   *     for the network game.                      *
+   *                                                *
+   *************************************************/
 
   /**
    * Method allows player to trade in a set of three cards.
