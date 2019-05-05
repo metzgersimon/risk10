@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import game.AiPlayer;
+import game.GameState;
 import game.Player;
 import game.Territory;
 import gui.controller.BoardController;
@@ -398,7 +399,7 @@ public class Client extends Thread implements Serializable {
    */
   private synchronized void handleAttackMessage(AttackMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-      // if (!(this.player instanceof AiPlayer)) {
+//      if (!(this.player instanceof AiPlayer)) {
       Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
       Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
       int attackarmies = message.getAttackerArmies();
@@ -410,16 +411,35 @@ public class Client extends Thread implements Serializable {
       Main.b.updateLabelTerritory(attack);
       Main.b.updateLabelTerritory(defend);
       if (message.getIfConquered()) {
-        defend.getOwner().lostTerritories(defend);
+        Player defender=defend.getOwner();
+        defender.lostTerritories(defend);
         Player attacker = attack.getOwner();
         defend.setOwner(attacker);
         Main.b.updateColorTerritory(defend);
-        Main.g.getCurrentPlayer().addTerritories(defend);
+        attacker.addTerritories(defend);
+        Main.g.checkAllPlayers();
+        attacker.setTerritoriesConquered(attacker.getTerritoriesConquered() + 1);
+        if(!Main.g.getPlayers().contains(defender)) {
+          defender.setRank(Main.g.getPlayers().size());
+          attacker.addElimiatedPlayer(defender);
+          attacker.setCards(defender.getCards());
+          Main.b.showMessage(attacker.getName()+" defeated " + defender.getName()+ "!");
+        }
+        if(Main.g.getPlayers().size()==1) {
+          Main.g.setGameState(GameState.END_GAME);
+          Main.b.endGame();
+        }        
+//        else if(Main.g.onlyAiPlayersLeft()) {
+//          Main.b.showMessage("You lost the Game!");
+//          Main.g.setGameState(GameState.END_GAME);
+//          Main.b.endGame();
+//        }
+        Main.b.handleContinentGlow();
+        System.out.println("attack owner " + attack.getOwner().getName());
+        System.out.println("defend owner " + defend.getOwner().getName());
       }
-      System.out.println("attack owner " + attack.getOwner().getName());
-      System.out.println("defend owner " + defend.getOwner().getName());
-      // }
     }
+//    }
   }
 
   /**
