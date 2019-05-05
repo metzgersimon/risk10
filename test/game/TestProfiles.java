@@ -15,32 +15,47 @@ public class TestProfiles {
   String testName3 = "Tester3";
   int testId3 = 3;
   
+  String testName4 = "Tester4";
+  int testId4 = 4;
+  
+  String testName5 = "Tester5";
+  int testId5 = 5;
+  
+  String testName6 = "Tester6";
+  int testId6 = 6;
+  
+  String testName7 = "Tester7";
+  int testId7 = 7;
+  
+  
   @Test
   public void testWriteAndLoadProfiles() {
+    
     ProfileManager.addNewProfile(testName1, testId1);
     ProfileManager.saveXml();
     ProfileManager.readXml();
     
     ProfileManager.setSelectedProfile(testName1);
-    assertEquals(testName1, ProfileManager.getSelectedProfile());
-    assertEquals(testId1, ProfileManager.getSelectedProfile());
+    assertEquals(testName1, ProfileManager.getSelectedProfile().getName());
+    assertEquals(testId1, ProfileManager.getSelectedProfile().getIdInt());
     
+    ProfileManager.addNewProfile(testName2, testId2);
     ProfileManager.setSelectedProfile(testName2);
-    assertEquals(testName2, ProfileManager.getSelectedProfile());
-    assertEquals(testId2, ProfileManager.getSelectedProfile());
+    assertEquals(testName2, ProfileManager.getSelectedProfile().getName());
+    assertEquals(testId2, ProfileManager.getSelectedProfile().getIdInt());
     
+    ProfileManager.addNewProfile(testName3, testId3);
     ProfileManager.setSelectedProfile(testName3);
-    assertEquals(testName3, ProfileManager.getSelectedProfile());
-    assertEquals(testId3, ProfileManager.getSelectedProfile());
+    assertEquals(testName3, ProfileManager.getSelectedProfile().getName());
+    assertEquals(testId3, ProfileManager.getSelectedProfile().getIdInt());
+  
+    ProfileManager.deleteProfile(testName1);
+    ProfileManager.deleteProfile(testName2);
+    ProfileManager.deleteProfile(testName3);
   }
   
   @Test
   public void testEditProfiles() {
-    String testName4 = "Tester4";
-    int testId4 = 4;
-    
-    String testName5 = "Tester5";
-    int testId5 = 5;
     
     ProfileManager.addNewProfile(testName4, testId4);
     ProfileManager.saveXml();
@@ -55,18 +70,14 @@ public class TestProfiles {
     ProfileManager.setSelectedProfile(testName5);
     
     assertEquals(testName5, ProfileManager.getSelectedProfile().getName());
-    assertEquals(testId5, ProfileManager.getSelectedProfile().getId());
+    assertEquals(testId5, ProfileManager.getSelectedProfile().getIdInt());
     
+    ProfileManager.deleteProfile(testName5);
   }
   
   @Test
   public void testDeleteProfiles() {
-    String testName6 = "Tester6";
-    int testId6 = 6;
-    
-    String testName7 = "Tester7";
-    int testId7 = 7;
-    
+   
     ProfileManager.addNewProfile(testName6, testId6);
     ProfileManager.addNewProfile(testName7, testId7);
     
@@ -78,8 +89,11 @@ public class TestProfiles {
     ProfileManager.saveXml();
     ProfileManager.readXml();
     
+    ProfileManager.setSelectedProfile(testName6);
     assertEquals(1, ProfileManager.profileList.size());
-    
+    assertEquals(testName6, ProfileManager.getSelectedProfile().getName());
+  
+    ProfileManager.deleteProfile(testName6);
   }
   
   

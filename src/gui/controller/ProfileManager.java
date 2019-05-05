@@ -10,6 +10,7 @@ import org.jdom2.*;
 import org.jdom2.input.*;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import game.Player;
 
 
 /**
@@ -50,6 +51,7 @@ public class ProfileManager {
     profileList.remove(name);
     saveXml();
   }
+  
 
   /**
    * Updates existing profile with new name and/or image id
@@ -64,8 +66,8 @@ public class ProfileManager {
     PlayerProfile profile = profileList.get(oldName);
     profile.profileName = newName;
     profile.imageId = imageId;
-    // profileList.remove(oldName);
-    // profileList.put(newName, profile);
+    profileList.remove(oldName);
+    profileList.put(newName, profile);
     saveXml();
   }
 
