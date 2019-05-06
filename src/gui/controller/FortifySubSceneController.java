@@ -28,6 +28,9 @@ public class FortifySubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
+       ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+    fortifySlider.setBlockIncrement(max);
     fortifySlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
     fortifySlider.setMin(1.0);
     fortifySlider.setValue(1.0);

@@ -31,6 +31,9 @@ public class ArmyDistributionSubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    int max = (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() % 10) == 0 ? 
+        (Main.g.getCurrentPlayer().getNumberArmiesToDistibute()/10):(Main.g.getCurrentPlayer().getNumberArmiesToDistibute()/10)+1;
+    setArmySlider.setBlockIncrement(max);
     setArmySlider.setMax(Main.g.getCurrentPlayer().getNumberArmiesToDistibute());
     setArmySlider.setValue(1);
   }
@@ -73,7 +76,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
     };
     th.start();
     Main.stagePanes.close();
-    Main.b.neutralizeGUIarmyDistribution();
+//    Main.b.neutralizeGUIarmyDistribution();
   }
 
   /**
@@ -81,6 +84,6 @@ public class ArmyDistributionSubSceneController implements Initializable {
    */
   public synchronized void clickBack() {
     Main.stagePanes.close();
-    Main.b.neutralizeGUIarmyDistribution();
+//    Main.b.neutralizeGUIarmyDistribution();
   }
 }

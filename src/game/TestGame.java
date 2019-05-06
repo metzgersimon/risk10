@@ -34,6 +34,50 @@ public class TestGame extends Game implements Serializable {
 
     }
   }
+  public void prepareEndGameWinner() {
+    int i=1;
+    for (Player p : Main.g.getPlayers()) {
+        Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(i));
+        this.getCurrentPlayer().initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(i));
+        i++;
+        super.setNextPlayer();
+    }
+
+    for (Territory t : this.getWorld().getTerritories().values()) {
+      if (t.getOwner() == null) {
+        Main.b.updateColorTerritory(t);
+        this.getCurrentPlayer().initialTerritoryDistribution(t);
+      }
+    }
+  }
+
+ 
+
+  public void prepareEndGameLoser() {
+    int i=1;
+    for (Player p : Main.g.getPlayers()) {
+        Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(i));
+        this.getCurrentPlayer().initialTerritoryDistribution(Main.g.getWorld().getTerritories().get(i));
+        i++;
+        super.setNextPlayer();
+    }
+
+    Main.g.setCurrentPlayer(Main.g.getPlayers().get(1));
+    for (Territory t : this.getWorld().getTerritories().values()) {
+      if (t.getOwner() == null) {
+        Main.b.updateColorTerritory(t);
+        this.getCurrentPlayer().initialTerritoryDistribution(t);
+      }
+    }
+  }
+
+ 
+//  public void initGame() {
+//    // Compute number of armies
+//    super.initGame();
+//    setGameState(GameState.INITIALIZING_TERRITORY);
+//    prepareEndGameWinner();
+//    distributeArmies();
 
   public void initGame() {
     // Compute number of armies
@@ -46,8 +90,9 @@ public class TestGame extends Game implements Serializable {
 //    System.out.println(this.getCurrentPlayer().getName());
     setGameState(GameState.INITIALIZING_TERRITORY);
     // Main.b.prepareInitTerritoryDistribution();
-    distributeTerritories();
-    distributeArmies();
+//    distributeTerritories();
+    prepareEndGameWinner();
+//    distributeArmies();
     setGameState(GameState.ARMY_DISTRIBUTION);
     super.getCurrentPlayer().setStartedDistribution(false);
 //    Card c = super.getCards().getLast();

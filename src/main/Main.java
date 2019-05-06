@@ -97,7 +97,7 @@ public class Main extends Application {
           primaryStage.close();
         }
       });
-
+//stagePanes = new Stage();
       stagePanes = new Stage(StageStyle.TRANSPARENT);
       stagePanes.initModality(Modality.WINDOW_MODAL);
       stagePanes.initOwner(stage);

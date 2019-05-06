@@ -28,7 +28,7 @@ import main.Main;
 
 
 /**
- * Controls the endgame statistics screen
+ * Controls the endgame statistics screen.
  * 
  * @author prto
  *
@@ -58,9 +58,9 @@ public class StatisticController implements Initializable {
 
 
   /**
-   * @author prto
+   * Creates a table with the end game statistics.
    * 
-   *         creates a table with the end game statistics
+   * @author prto
    * 
    */
   @Override
@@ -76,6 +76,9 @@ public class StatisticController implements Initializable {
 
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getAllPlayers());
     table.setItems(playerList);
+    for(Player p: playerList) {
+      System.out.println(p);
+    }
     table.getSortOrder().add(c1);
 
   }

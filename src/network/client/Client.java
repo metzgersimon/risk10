@@ -439,7 +439,7 @@ public class Client extends Thread implements Serializable {
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
         }
-        Main.b.handleContinentGlow();
+//        Main.b.handleContinentGlow();
         System.out.println("attack owner " + attack.getOwner().getName());
         System.out.println("defend owner " + defend.getOwner().getName());
       }

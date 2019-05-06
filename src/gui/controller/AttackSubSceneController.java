@@ -55,6 +55,9 @@ public class AttackSubSceneController implements Initializable {
 
     Platform.runLater(new Runnable() {
       public void run() {
+        int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
+            ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+        diceSlider.setBlockIncrement(max);
         diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
         diceSlider.setMin(1.0);
         diceSlider.setValue(1.0);
@@ -223,7 +226,10 @@ public class AttackSubSceneController implements Initializable {
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");           
+                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");  
+              int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
+                  ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+              diceSlider.setBlockIncrement(max);
               diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
               try {
                 Thread.sleep(50);

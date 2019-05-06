@@ -313,6 +313,7 @@ public class Player implements Serializable {
    */
   public void addContinents(Continent c) {
     continents.add(c);
+    Main.b.handleContinentGlow(c, true);
   }
 
   /**
@@ -350,6 +351,7 @@ public class Player implements Serializable {
    */
   public void lostContinents(Continent c) {
     continents.remove(c);
+    Main.b.handleContinentGlow(c, false);
   }
 
   
@@ -468,7 +470,7 @@ public class Player implements Serializable {
     if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
-        Main.b.handleContinentGlow();
+//        Main.b.handleContinentGlow();
         this.numberArmiesToDistribute -= amount;
         return true;
 
@@ -523,7 +525,7 @@ public class Player implements Serializable {
     if (t.getOwner() == null) {
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
         this.initialArmyDistributionNetwork(t);
-        Main.b.handleContinentGlow();
+//        Main.b.handleContinentGlow();
         return true;
       }
 
@@ -655,6 +657,9 @@ public class Player implements Serializable {
         p.setRank(Main.g.getPlayers().size());
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
+        for(Card c: p.getCards()) {
+          Main.cardC.insertCards(c);
+        }
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
       }
 
@@ -670,7 +675,7 @@ public class Player implements Serializable {
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
       }
-      Main.b.handleContinentGlow();
+//      Main.b.handleContinentGlow();
 
       // network
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
