@@ -37,9 +37,9 @@ public class MultiPlayerGUIController {
 
   @FXML
   private Button connect;
-  
+
   private Alert alert = null;
-  
+
   private String ipAddressRegex =
       "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
           + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
@@ -53,11 +53,12 @@ public class MultiPlayerGUIController {
 
   @FXML
   void back(ActionEvent event) {
-  if(NetworkController.server != null) {
-     Main.g.removePlayer();
-  }
+    if (NetworkController.server != null) {
+      Main.g.removePlayer();
+    }
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");
@@ -107,7 +108,7 @@ public class MultiPlayerGUIController {
 
     // call the method to connect to the server
     networkController.joinGameonDiscovery();
-     try {
+    try {
       Thread.sleep(1000);
     } catch (InterruptedException e1) {
       // TODO Auto-generated catch block
@@ -148,7 +149,8 @@ public class MultiPlayerGUIController {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
       alert.setHeaderText("Error in joining the server.");
-      alert.setContentText("Possible Errors : " + "\n" + "1.Server is not available." + "\n" + "2.Game Lobby is full.");
+      alert.setContentText("Possible Errors : " + "\n" + "1.Server is not available." + "\n"
+          + "2.Game Lobby is full.");
       alert.showAndWait();
     }
   }
@@ -163,20 +165,22 @@ public class MultiPlayerGUIController {
    */
   @FXML
   void joinGameWithAddress(ActionEvent event) {
-    
+
     String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
     String ip_port = address.getText();
     String[] tokens = ip_port.split("_");
-    
-    if(!tokens[0].matches(ipAddressRegex)) {
+
+    if (!tokens[0].matches(ipAddressRegex)) {
       alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
       alert.setHeaderText("Error in IP Address format !");
-      alert.setContentText("Give the IP Address again in the right format followed by _ and the port number " + "\n");
+      alert.setContentText(
+          "Give the IP Address again in the right format followed by _ and the port number "
+              + "\n");
       alert.showAndWait();
     }
-    try {    
+    try {
       int port;
       try {
         port = Integer.parseInt(tokens[1]);
@@ -196,7 +200,7 @@ public class MultiPlayerGUIController {
         stage.setTitle("Game Lobby");
         stage.setScene(new Scene(root));
         stage.show();
-       
+
       } else {
         alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error alert");
@@ -204,14 +208,14 @@ public class MultiPlayerGUIController {
         alert.setContentText("Player Lobby is already full." + "\n");
         alert.showAndWait();
       }
-      
+
     } catch (IOException e1) {
       System.out.println("Can't connect to the server ");
       e1.printStackTrace();
     } catch (Exception e2) {
       System.out.println(getClass() + ":  Can't open the JoinGameLobby.fxml");
     }
-    
+
     if (NetworkController.gameFinder.getClient() != null) {
       JoinGameLobbyController controller = fxmlLoader.getController();
       Client client = NetworkController.gameFinder.getClient();
@@ -221,5 +225,5 @@ public class MultiPlayerGUIController {
       client.register(name);
     }
   }
-  
+
 }

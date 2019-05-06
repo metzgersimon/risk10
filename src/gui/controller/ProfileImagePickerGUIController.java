@@ -46,7 +46,8 @@ public class ProfileImagePickerGUIController {
         CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
         CreateProfileGUIController.id = getId(id);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
+        FXMLLoader fxmlLoader =
+            new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
         stage.setTitle("Create Profile");

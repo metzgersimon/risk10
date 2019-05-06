@@ -25,7 +25,7 @@ public class StatisticsPopUpController implements Initializable {
 
   @FXML
   private TableColumn<Player, Color> c0;
-  
+
   @FXML
   private TableColumn<Player, Integer> c1;
 
@@ -34,15 +34,15 @@ public class StatisticsPopUpController implements Initializable {
 
   @FXML
   private TableColumn<Player, Integer> c3;
-  
+
   @FXML
   private Pane grayPane;
-  
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     openLiveStats();
   }
-  
+
   /**
    * @author prto opens live statistics panel
    */
@@ -52,8 +52,8 @@ public class StatisticsPopUpController implements Initializable {
     c2.setCellValueFactory(new PropertyValueFactory<>("numberOfTerritories"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
     c1.setSortType(TableColumn.SortType.ASCENDING);
-    
-  //  Main.g.updateLiveStatistics();
+
+    // Main.g.updateLiveStatistics();
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
@@ -61,7 +61,7 @@ public class StatisticsPopUpController implements Initializable {
     statistic.refresh();
 
   }
-  
+
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
       public void run() {

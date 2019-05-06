@@ -49,9 +49,7 @@ public class Player implements Serializable {
 
 
   /**************************************************
-   *                                                *
-   *                    Constuctor                  *
-   *                                                *
+   * * Constuctor * *
    *************************************************/
 
 
@@ -81,9 +79,7 @@ public class Player implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   *                Getter and Setter               *
-   *                                                *
+   * * Getter and Setter * *
    *************************************************/
 
   public String getName() {
@@ -279,11 +275,8 @@ public class Player implements Serializable {
   }
 
   /**************************************************
-   *                                                *
-   *     Methods to add eliminated players,         *
-   *     territories and continents and remove      *
-   *     territories and continents                 *
-   *                                                *
+   * * Methods to add eliminated players, * territories and continents and remove * territories and
+   * continents * *
    *************************************************/
 
   /**
@@ -352,15 +345,10 @@ public class Player implements Serializable {
     continents.remove(c);
   }
 
-  
+
   /**************************************************
-   *                                                *
-   *     Methods represents main actions of the     *
-   *     player in the different stages during      *
-   *     the game. On the one hand for the          *
-   *     single player mode, on the other hand      *
-   *     for the network game.                      *
-   *                                                *
+   * * Methods represents main actions of the * player in the different stages during * the game. On
+   * the one hand for the * single player mode, on the other hand * for the network game. * *
    *************************************************/
 
   /**
@@ -488,8 +476,8 @@ public class Player implements Serializable {
                       + " geschickt mit " + amount + " on " + t.getName());
               return true;
             } else if (Main.g.getGameState().equals(GameState.ARMY_DISTRIBUTION)) {
-               t.setNumberOfArmies(amount);
-               this.numberArmiesToDistribute -= amount;
+              t.setNumberOfArmies(amount);
+              this.numberArmiesToDistribute -= amount;
               FurtherDistributeArmyMessage armyMessage =
                   new FurtherDistributeArmyMessage(amount, t.getId());
               armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
@@ -652,7 +640,7 @@ public class Player implements Serializable {
 
       if (!Main.g.getPlayers().contains(p)) {
         // set loser rank
-        p.setRank(Main.g.getPlayers().size()+1);
+        p.setRank(Main.g.getPlayers().size() + 1);
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");

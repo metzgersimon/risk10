@@ -9,11 +9,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import main.Main;
 
-public class RuleBookPopUp implements Initializable{
+public class RuleBookPopUp implements Initializable {
 
   @FXML
   private TextArea ruleBook;
-  
+
   @FXML
   private Pane grayPane;
 
@@ -23,7 +23,7 @@ public class RuleBookPopUp implements Initializable{
   public void initialize(URL location, ResourceBundle resources) {
     ruleBook.setText(game.TutorialMessages.ruleBook);
   }
-  
+
   /**
    * @author prto handle press on background to close
    */

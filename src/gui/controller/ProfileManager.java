@@ -51,7 +51,7 @@ public class ProfileManager {
     profileList.remove(name);
     saveXml();
   }
-  
+
 
   /**
    * Updates existing profile with new name and/or image id
