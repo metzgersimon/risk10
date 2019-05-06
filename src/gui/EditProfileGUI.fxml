@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditProfileGUIController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditProfileGUIController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,7 +26,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <TextField fx:id="name" layoutX="412.0" layoutY="459.0" prefHeight="71.0" prefWidth="457.0" promptText="Enter user name" styleClass="playerNames" stylesheets="@FontStyle.css">
+      <TextField fx:id="name" layoutX="412.0" layoutY="459.0" onAction="#save" prefHeight="71.0" prefWidth="457.0" promptText="Enter user name" styleClass="playerNames" stylesheets="@FontStyle.css">
          <font>
             <Font size="33.0" />
          </font>
@@ -39,7 +39,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <ImageView fx:id="profileImage" fitHeight="192.0" fitWidth="277.0" layoutX="544.0" layoutY="239.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="profileImage" fitHeight="192.0" fitWidth="277.0" layoutX="413.0" layoutY="227.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/avatars/1.jpg" />
          </image>
@@ -49,9 +49,29 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="445.0" layoutY="183.0" prefHeight="27.0" prefWidth="391.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Click image to change" textFill="#f7f3f3">
+      <Label alignment="CENTER" layoutX="313.0" layoutY="200.0" prefHeight="27.0" prefWidth="391.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Click image to change" textFill="#f7f3f3">
          <font>
-            <Font name="System Bold" size="25.0" />
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="matchesPlayed" layoutX="704.0" layoutY="239.0" text="Matches Played" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="matchesWon" layoutX="704.0" layoutY="287.0" text="Matches won" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="matchesLost" layoutX="708.0" layoutY="335.0" text="Matches lost" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="territoriesConquered" layoutX="708.0" layoutY="383.0" text="Territories Conquered" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
          </font>
       </Label>
    </children>

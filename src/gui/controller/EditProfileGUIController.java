@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +45,18 @@ public class EditProfileGUIController {
   private ImageView profileImage;
   @FXML
   private Button delete;
+  
+  @FXML
+  private Label matchesPlayed;
+  
+  @FXML
+  private Label matchesWon;
+  
+  @FXML
+  private Label matchesLost;
+  
+  @FXML
+  private Label territoriesConquered;
 
   /**
    * Event handle class invoked when the profile image is clicked
@@ -231,6 +244,13 @@ public class EditProfileGUIController {
       imageId = (ProfileManager.profileList.get(profileName)).getIdInt();
     }
     profileImage.setImage(image);
+    
+    //@prto Load stats
+    matchesPlayed.setText("Matches played\t" + ProfileManager.profileList.get(profileName).getMatchesPlayed());
+    matchesWon.setText("Matches won\t" + ProfileManager.profileList.get(profileName).getMatchesWon());
+    matchesLost.setText("Matches lost\t" + ProfileManager.profileList.get(profileName).getMatchesLost());
+    territoriesConquered.setText("Territories Conquered\t" + ProfileManager.profileList.get(profileName).getTerritoriesConquered());
+    
   }
 
 }

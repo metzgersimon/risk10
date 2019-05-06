@@ -79,6 +79,39 @@ public class StatisticController implements Initializable {
     table.getSortOrder().add(c1);
 
   }
+  
+  /**
+   * 
+   * @author prto
+   *    
+   *        update player profile statistics
+   */
+  public void updateProfileStats() {
+    
+    Player thisPlayer = null;
+    
+    //Get this player
+    for(Player p : Main.g.getPlayers()) {
+      if(p.getName().equals(ProfileManager.getSelectedProfile().getName())){
+        thisPlayer = p;
+      }
+    }
+    
+    //Update matchedPlayed
+    ProfileManager.getSelectedProfile().incrementMatchesPlayed();
+    
+    //Update territoriesConquered
+    ProfileManager.getSelectedProfile().incrementTerritoriesConquered(thisPlayer.getTerritoriesConquered());
+    
+    //Update matchesWon / matchesLost
+    if(thisPlayer.rank == 1) {
+      ProfileManager.getSelectedProfile().incrementMatchesWon();
+    } else {
+      ProfileManager.getSelectedProfile().incrementMatchesLost();
+    }
+    
+    ProfileManager.saveXml();
+  }
 
   public void backToMenu(ActionEvent e) {
     try {

@@ -62,9 +62,9 @@ public class Main extends Application {
     Font ubuntuFontLight =
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
     Font ubuntuFontRegular =
-        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-R.ttf"), 14);
     Font ubuntuFontMedium =
-        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-M.ttf"), 14);
 
     try {
       FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
