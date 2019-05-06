@@ -39,7 +39,7 @@
             <Font name="Ubuntu Light" size="32.0" />
          </font>
       </Button>
-      <Button fx:id="closeGame" layoutX="150.0" layoutY="585.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="62.0" prefWidth="251.0" text="Close Game">
+      <Button fx:id="closeGame" layoutX="150.0" layoutY="585.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="62.0" prefWidth="251.0" text="Exit Game">
          <font>
             <Font name="Ubuntu Light" size="32.0" />
          </font>
