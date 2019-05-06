@@ -1391,6 +1391,8 @@ public class BoardController implements Initializable {
       if (player.equals("") || player.isEmpty() || playername == null) {
         GameMessageMessage chatmessage = new GameMessageMessage(author, message);
         client.sendMessage(chatmessage);
+        this.messages.clear();
+        this.playername.clear();
       } else {
         this.showMessage(author.toUpperCase() + " (private) : " + message);
         SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
