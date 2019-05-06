@@ -26,7 +26,7 @@ public class MainMenuGUIController {
   @FXML
   private Button multiPlayer;
   @FXML
-  private Button settings;
+  private Button exitGame;
 
   /**
    * Event handle class invoked when the single Player or multi Player Button clicked to choose the
@@ -70,6 +70,14 @@ public class MainMenuGUIController {
       System.out.println("Can't load SettingsGUI.fxml");
       e.printStackTrace();
     }
+  }
+  
+  /**
+   * @author prto closes the game
+   */
+  public void exitGame() {
+    main.Main.stagePanes.close();
+    main.Main.stage.close();
   }
 
 }
