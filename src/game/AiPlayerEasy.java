@@ -139,11 +139,11 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
       }
-      try {
-        Thread.sleep(2000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+//      try {
+//        Thread.sleep(2000);
+//      } catch (InterruptedException e) {
+//        e.printStackTrace();
+//      }
     }
     // sets the game state to the next stage and calls the attack method
     Main.g.setGameState(GameState.ATTACK);
@@ -199,12 +199,16 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (super.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
+        if(!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
         Main.b.updateColorTerritory(territoryOpponent);
+        }
       } else {
+        if(!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
+        }
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {

@@ -488,8 +488,8 @@ public class Player implements Serializable {
                       + " geschickt mit " + amount + " on " + t.getName());
               return true;
             } else if (Main.g.getGameState().equals(GameState.ARMY_DISTRIBUTION)) {
-              t.setNumberOfArmies(amount);
-              // this.numberArmiesToDistribute -= amount;
+               t.setNumberOfArmies(amount);
+               this.numberArmiesToDistribute -= amount;
               FurtherDistributeArmyMessage armyMessage =
                   new FurtherDistributeArmyMessage(amount, t.getId());
               armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
