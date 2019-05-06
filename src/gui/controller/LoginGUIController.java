@@ -19,7 +19,7 @@ public class LoginGUIController {
 
   @FXML
   private Button klickToStart;
-  
+
 
   /**
    * Event handle class invoked when the klickToStart Button clicked to open the MainMenuGUI

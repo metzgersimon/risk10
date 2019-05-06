@@ -62,7 +62,7 @@ public class SettingsGUIController {
       stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
-//      ((Node) event.getSource()).getScene().getWindow().hide();
+      // ((Node) event.getSource()).getScene().getWindow().hide();
     } catch (Exception e) {
       System.out.println("Can't load MainMenuGUI.fxml");
     }

@@ -2,6 +2,7 @@ package main;
 
 import java.net.URL;
 import game.Game;
+import game.GameState;
 import game.TestGame;
 import gui.controller.ArmyDistributionSubSceneController;
 import gui.controller.AttackSubSceneController;
@@ -12,6 +13,7 @@ import gui.controller.HostGameGUIController;
 import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.MultiPlayerGUIController;
+import gui.controller.NetworkController;
 import gui.controller.QuitGameSubSceneController;
 import gui.controller.RuleBookPopUp;
 import gui.controller.StatisticsPopUpController;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import network.messages.game.AttackMessage;
+import network.messages.game.LeaveGameMessage;
 
 
 /**
@@ -62,9 +65,9 @@ public class Main extends Application {
     Font ubuntuFontLight =
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
     Font ubuntuFontRegular =
-        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-R.ttf"), 14);
     Font ubuntuFontMedium =
-        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-L.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-M.ttf"), 14);
 
     try {
       FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
@@ -93,8 +96,23 @@ public class Main extends Application {
         @Override
         public void handle(WindowEvent event) {
           // TODO Auto-generated method stub
+
+          if (Main.g != null) {
+            if (Main.g.isNetworkGame()) {
+              if (!Main.g.getGameState().equals(GameState.END_GAME)) {
+                LeaveGameMessage leaveMessage =
+                    new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
+                leaveMessage.setColor(
+                    NetworkController.gameFinder.getClient().getPlayer().getColorString());
+                NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
+              }
+              Main.g.setGameState(GameState.END_GAME);
+            }
+          }
+
           stagePanes.close();
           primaryStage.close();
+
         }
       });
 //stagePanes = new Stage();

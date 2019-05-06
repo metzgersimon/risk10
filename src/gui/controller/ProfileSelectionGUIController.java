@@ -167,6 +167,9 @@ public class ProfileSelectionGUIController {
     }
 
     Main.g = new TestGame();
+    ProfileManager.setSelectedProfile(selectedPlayerName);
+
+    Main.g = new Game();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
@@ -194,16 +197,16 @@ public class ProfileSelectionGUIController {
    */
   public void loadProfiles() {
     ProfileManager.readXml();
-    ProfileManager.printAllProfiles();
+    // ProfileManager.printAllProfiles();
 
     count = 0;
     for (PlayerProfile x : ProfileManager.profileList.values()) {
       names[count] = x.getName();
-      System.out.println("the name is " + names[count]);
+      // System.out.println("the name is " + names[count]);
       images[count] = x.getImage();
       count++;
     }
-    System.out.println("there are " + count + " profiles");//
+    // System.out.println("there are " + count + " profiles");//
   }
 
 

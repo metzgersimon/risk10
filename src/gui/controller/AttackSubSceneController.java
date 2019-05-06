@@ -175,30 +175,30 @@ public class AttackSubSceneController implements Initializable {
                   String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
               // back to map
               clickBack();
-            }
-          });
-
-          // network game message
-          if (Main.g.isNetworkGame()) {
-            AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
-                Main.b.getSelectedTerritory_attacked().getId(), false,
-                Main.b.getSelectedTerritory().getNumberOfArmies(),
-                Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            if (attackResult) {
-              message.setIfConquered(true);
-            }
-            NetworkController.gameFinder.getClient().sendMessage(message);
-          }
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              Main.b.updateLabelTerritory(Main.b.getSelectedTerritory());
-              Main.b.updateLabelTerritory(Main.b.getSelectedTerritory_attacked());
+              // Main.b.updateLabelTerritory(Main.b.getSelectedTerritory());
+              // Main.b.updateLabelTerritory(Main.b.getSelectedTerritory_attacked());
+              Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
+                  .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
+              Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
+                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+              // network game
+              if (Main.g.isNetworkGame()) {
+                AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
+                    Main.b.getSelectedTerritory_attacked().getId(), false,
+                    Main.b.getSelectedTerritory().getNumberOfArmies(),
+                    Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
+                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                if (attackResult) {
+                  message.setIfConquered(true);
+                }
+                NetworkController.gameFinder.getClient().sendMessage(message);
+              }
             }
           });
         }
       };
+
+
       th1.start();
     } else {
       Thread th2 = new Thread() {

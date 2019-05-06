@@ -39,7 +39,8 @@ public class MainMenuGUIController {
   void openProfile(ActionEvent event) {
     mode = (String) ((Node) event.getSource()).getId();
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setTitle("Profile Selection");

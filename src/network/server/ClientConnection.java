@@ -296,7 +296,7 @@ public class ClientConnection extends Thread {
     }
     this.server.getConnections().remove(this);
     this.disconnect();
-    this.server.stopServer();
+//    this.server.stopServer();
   }
 
   /**

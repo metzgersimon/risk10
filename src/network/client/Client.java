@@ -382,7 +382,7 @@ public class Client extends Thread implements Serializable {
     // Platform.runLater(new Runnable() {
     // @Override
     // public void run() {
-    if (!(player.getColor().toString().equals(message.getColor()))) {
+    if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
       Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();

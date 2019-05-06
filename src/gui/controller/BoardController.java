@@ -1427,7 +1427,7 @@ public class BoardController implements Initializable {
    *         asks them to leave the game by giving them to options.
    */
   public void gameCancelAlert() {
-    Alert alert = new Alert(AlertType.CONFIRMATION);
+    Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle("Game Cancelled");
     alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
         + "Please leave the Game Board");
@@ -1441,9 +1441,6 @@ public class BoardController implements Initializable {
       LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
       NetworkController.gameFinder.getClient().sendMessage(responseMessage);
       this.clientLeaveGame();
-    } else if (option.get() == ButtonType.CANCEL) {
-      // do nothing
-      alert.close();
     }
   }
 
@@ -1456,6 +1453,11 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
+          Main.g.setAllPlayers(Main.g.getAllPlayers());
+          for (Player p : Main.g.getPlayers()) {
+            Main.g.addToAllPlayers(p);
+          }
+          Main.g.setGameState(GameState.END_GAME);
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;

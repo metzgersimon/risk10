@@ -1,5 +1,6 @@
 package gui.controller;
 
+import game.GameState;
 import game.Player;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -34,11 +35,13 @@ public class QuitGameSubSceneController {
                 new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
             leaveMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
             NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
+            Main.g.setGameState(GameState.END_GAME);
           }
           Main.g.setAllPlayers(Main.g.getAllPlayers());
           for (Player p : Main.g.getPlayers()) {
             Main.g.addToAllPlayers(p);
           }
+         
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;

@@ -54,7 +54,8 @@ public class CreateProfileGUIController {
     toInizialied = true; // gui need to be initialized if user comes back to this
     username = name.getText();
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
       stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
@@ -115,7 +116,8 @@ public class CreateProfileGUIController {
       ProfileManager.addNewProfile(username, id);
 
       try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+        FXMLLoader fxmlLoader =
+            new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
         stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
