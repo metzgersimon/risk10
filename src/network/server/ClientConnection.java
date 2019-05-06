@@ -206,6 +206,10 @@ public class ClientConnection extends Thread {
             break;
           case FORTIFY:
             this.sendMessagesToallClients(message);
+            break;
+          case SKIP:
+            this.sendMessagesToallClients(message);
+            break;
           default:
             break;
         }

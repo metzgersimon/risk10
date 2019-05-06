@@ -64,6 +64,7 @@ import network.messages.SendAllianceMessage;
 import network.messages.game.DistributeArmyMessage;
 import network.messages.game.LeaveGameResponseMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
+import network.messages.game.SkipgamestateMessage;
 
 /**
  * 
@@ -221,7 +222,6 @@ public class BoardController implements Initializable {
   public Label getArmiesToDistributeLabel() {
     return armiesToDistribute;
   }
-
 
   // public BoardGUI_Main boardGui;
   public SinglePlayerGUIController boardGui;
@@ -1136,6 +1136,11 @@ public class BoardController implements Initializable {
             Main.g.setGameState(GameState.FORTIFY);
             break;
           case FORTIFY:
+            if(Main.g.isNetworkGame()){
+             SkipgamestateMessage message=new SkipgamestateMessage(GameState.FORTIFY);
+             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+             NetworkController.gameFinder.getClient().sendMessage(message);
+            }
             Main.g.getCurrentPlayer().setFortify(true);
             neutralizeGUIfortify();
             System.out.println("Handle Skip GameState: ARMY FORTIFY");

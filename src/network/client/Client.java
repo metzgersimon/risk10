@@ -29,6 +29,7 @@ import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
+import network.messages.game.SkipgamestateMessage;
 import network.messages.game.StartGameMessage;
 
 
@@ -207,6 +208,9 @@ public class Client extends Thread implements Serializable {
           case FORTIFY:
             handleFortifyMessage((FortifyMessage) message);
             break;
+          case SKIP:
+            handleSkipgamestateMessage((SkipgamestateMessage)message);
+            break;
           case LEAVE:
             handleLeaveGame((LeaveGameMessage) message);
             break;
@@ -222,6 +226,7 @@ public class Client extends Thread implements Serializable {
       }
     }
   }
+
 
   /**************************************************
    * * Getter and Setter * *
@@ -429,11 +434,11 @@ public class Client extends Thread implements Serializable {
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
         }        
-//        else if(Main.g.onlyAiPlayersLeft()) {
-//          Main.b.showMessage("You lost the Game!");
-//          Main.g.setGameState(GameState.END_GAME);
-//          Main.b.endGame();
-//        }
+        else if(Main.g.onlyAiPlayersLeft()) {
+          Main.b.showMessage("You lost the Game!");
+          Main.g.setGameState(GameState.END_GAME);
+          Main.b.endGame();
+        }
         Main.b.handleContinentGlow();
         System.out.println("attack owner " + attack.getOwner().getName());
         System.out.println("defend owner " + defend.getOwner().getName());
@@ -448,7 +453,7 @@ public class Client extends Thread implements Serializable {
    * @author qiychen
    * @param message
    */
-  private void handleFortifyMessage(FortifyMessage message) {
+  private synchronized void handleFortifyMessage(FortifyMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       // if (!(this.player instanceof AiPlayer)) {
       Territory moveFrom = Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
@@ -457,16 +462,29 @@ public class Client extends Thread implements Serializable {
       moveTo.setNumberOfArmies(message.getAmount());
       Main.b.updateLabelTerritory(moveFrom);
       Main.b.updateLabelTerritory(moveTo);
-      System.out.println("move from " + moveFrom.getName());
-      System.out.println("move to " + moveTo.getName());
-      System.out.println("move " + message.getAmount());
+//      System.out.println("move from " + moveFrom.getName()+" "+moveFrom.getNumberOfArmies());
+//      System.out.println("move to " + moveTo.getName()+" "+moveTo.getNumberOfArmies());
+//      System.out.println("move " + message.getAmount());
 
       // }
-    }
+    }   
     Main.g.furtherFortify();
 
   }
-
+  /**
+   * @author qiychen
+   * @param message
+   * 
+   *  After receiving skip gamestate message, the turns will be changed
+   */
+  private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
+    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+    if(message.getGameState()==GameState.FORTIFY) {
+   //   Main.b.neutralizeGUIfortify();
+      Main.g.furtherFortify();
+    }
+    }  
+  }
   /**
    * @author Liwang @author qiychen
    * @param message
