@@ -96,19 +96,23 @@ public class Main extends Application {
         @Override
         public void handle(WindowEvent event) {
           // TODO Auto-generated method stub
-          
-          if (Main.g.isNetworkGame() && !Main.g.getGameState().equals(GameState.END_GAME)) {
-            LeaveGameMessage leaveMessage =
-                new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
-            leaveMessage
-                .setColor(NetworkController.gameFinder.getClient().getPlayer().getColorString());
-            NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
+
+          if (Main.g != null) {
+            if (Main.g.isNetworkGame()) {
+              if (!Main.g.getGameState().equals(GameState.END_GAME)) {
+                LeaveGameMessage leaveMessage =
+                    new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
+                leaveMessage.setColor(
+                    NetworkController.gameFinder.getClient().getPlayer().getColorString());
+                NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
+              }
+              Main.g.setGameState(GameState.END_GAME);
+            }
           }
-          Main.g.setGameState(GameState.END_GAME);
-          
+
           stagePanes.close();
           primaryStage.close();
-         
+
         }
       });
 
