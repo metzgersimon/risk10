@@ -201,11 +201,11 @@ public class ProfileSelectionGUIController {
     count = 0;
     for (PlayerProfile x : ProfileManager.profileList.values()) {
       names[count] = x.getName();
-      System.out.println("the name is " + names[count]);
+      //System.out.println("the name is " + names[count]);
       images[count] = x.getImage();
       count++;
     }
-    System.out.println("there are " + count + " profiles");//
+    //System.out.println("there are " + count + " profiles");//
   }
 
 
