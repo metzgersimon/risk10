@@ -101,7 +101,7 @@ public class Main extends Application {
             if (Main.g.isNetworkGame()) {
               if (!Main.g.getGameState().equals(GameState.END_GAME)) {
                 LeaveGameMessage leaveMessage =
-                    new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
+                    new LeaveGameMessage("");
                 leaveMessage.setColor(
                     NetworkController.gameFinder.getClient().getPlayer().getColorString());
                 NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
