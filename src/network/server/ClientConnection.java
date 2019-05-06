@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import main.Main;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
+import network.messages.LeaveLobbyMessage;
 import network.messages.Message;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
@@ -183,6 +184,9 @@ public class ClientConnection extends Thread {
           case LEAVE_RESPONSE :
             recieveLeaveGameResponse((LeaveGameResponseMessage) message);
             break;
+          case LEAVE_LOBBY : 
+            recieveLeaveLobbyMessage( (LeaveLobbyMessage ) message);
+            break;
           case JOIN:
             handleJoinGame((JoinGameMessage) message);
             break;
@@ -299,6 +303,10 @@ public class ClientConnection extends Thread {
 //    this.server.stopServer();
   }
 
+  
+  public void recieveLeaveLobbyMessage(LeaveLobbyMessage message) {
+    
+  }
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be
