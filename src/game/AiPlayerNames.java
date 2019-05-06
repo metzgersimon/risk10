@@ -4,7 +4,9 @@ import java.util.Random;
 import main.Main;
 
 /**
- * Enum defines a set of player names for the Ai and some methods to get those names randomly and formatted.
+ * Enum defines a set of player names for the Ai and 
+ * some methods to get those names randomly and formatted.
+ * 
  * @author smetzger
  *
  */

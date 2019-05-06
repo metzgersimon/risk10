@@ -37,6 +37,8 @@ public enum PlayerColor {
   }
   
   /**
+   * Method returns a string representation of a given enum value.
+   * 
    * @author prto get color string
    * @return name of current color
    */

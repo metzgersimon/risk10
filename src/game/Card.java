@@ -15,15 +15,10 @@ public class Card implements Serializable {
   private boolean isWildcard;
   private int id;
 
-  
-  /**************************************************
-   *                                                *
-   *                  Constuctor                    *
-   *                                                *
-   *************************************************/ 
 
   /**
    * Constructor to create a risk card that is covered with a territory.
+   * 
    * @param territory represents the territory which is displayed on the card
    * @param isWildcard true or false whether the card is a wildcard or not
    */
@@ -36,6 +31,7 @@ public class Card implements Serializable {
  
   /**
    * Constructor to create a risk card that represents a ildcard.
+   * 
    * @author smetzger
    * @param id represents the id of the card
    * @param isWildcard true or false whether the card is a wildcard or not
@@ -46,11 +42,6 @@ public class Card implements Serializable {
   }
 
 
-  /**************************************************
-   *                                                *
-   *               Getter and Setter                *
-   *                                                *
-   *************************************************/
   
   public Territory getTerritory() {
     return territory;
@@ -108,8 +99,8 @@ public class Card implements Serializable {
   }
 
   /**
-   * Method checks if two cards are equal by comparing their ids. If so, it returns true, otherwise
-   * false.
+   * Method checks if two cards are equal by comparing their ids. 
+   * If so, it returns true, otherwise false.
    */
   @Override
   public boolean equals(Object o) {

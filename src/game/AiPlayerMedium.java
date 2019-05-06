@@ -80,6 +80,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
           try {
             Thread.sleep(1500);
           } catch (InterruptedException e1) {
+            e1.printStackTrace();
           }
           Main.g.furtherInitialTerritoryDistribution();
         }
@@ -213,6 +214,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     int max = 0;
     int round = 1;
@@ -247,6 +249,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
           try {
             Thread.sleep(2000);
           } catch (InterruptedException e) {
+            e.printStackTrace();
           }
         }
       } else {
@@ -259,6 +262,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     //keep going with fortify
     this.fortify();

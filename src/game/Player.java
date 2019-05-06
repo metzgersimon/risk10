@@ -22,7 +22,7 @@ import network.messages.game.SelectInitialTerritoryMessage;
  */
 public class Player implements Serializable {
 
-  private Game g;
+  private Game game;
   private String name;
   private int armies;
   private boolean isAi = false;
@@ -70,7 +70,7 @@ public class Player implements Serializable {
     continents = new HashSet<>();
     cards = new ArrayList<>();
     this.eliminatedPlayers = new ArrayList<>();
-    this.g = g;
+    this.game = g;
     this.numberOfTerritories = 0;
     this.numberOfCards = 0;
     this.territoriesConquered = 0;
@@ -647,7 +647,7 @@ public class Player implements Serializable {
       Main.b.updateColorTerritory(defend);
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered() + 1);
       if (Main.g.isShowTutorialMessages()) {
-        Main.b.showMessage(game.TutorialMessages.conqueredTerritory);
+        Main.b.showMessage(TutorialMessages.conqueredTerritory);
       }
 
       if (!Main.g.getPlayers().contains(p)) {
@@ -717,9 +717,9 @@ public class Player implements Serializable {
    * @author skaur
    * @param moveFrom : territory selected from where the army is going to be moved
    * @param moveTo : territory where the army is going to moved
-   * @param armyToMove: no. of armies selected to be move
+   * @param armyToMove : number of armies selected to be moved
    * @return: false if invalid parameter are selected; should be called in a while loop until the
-   *          player selects valid paramater or skip the fortify gamestate
+   *          player selects valid parameters or skip the fortify gamestate
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
     // check if both territories belong to the current player
