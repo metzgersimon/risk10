@@ -37,6 +37,9 @@ import main.Main;
 public class StatisticController implements Initializable {
   @FXML
   private Button back;
+  
+  @FXML
+  private Button closeGame;
 
   @FXML
   private TableView<Player> table;
@@ -136,6 +139,14 @@ public class StatisticController implements Initializable {
     } catch (Exception e1) {
       e1.printStackTrace();
     }
+  }
+  
+  /**
+   * @author prto closes the game
+   */
+  public void closeGame() {
+    main.Main.stagePanes.close();
+    main.Main.stage.close();
   }
 
 
