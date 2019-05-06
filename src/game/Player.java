@@ -3,6 +3,7 @@ package game;
 
 import game.Game;
 import gui.controller.NetworkController;
+import gui.controller.ProfileManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;

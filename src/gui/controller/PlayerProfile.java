@@ -21,6 +21,7 @@ public class PlayerProfile {
   private int matchesWon;
   private int matchesLost;
   private int territoriesConquered;
+  private int sessionWins;
 
   // This constructor is used when a new player profile is created
   public PlayerProfile(String name, int imageId) {
@@ -30,6 +31,7 @@ public class PlayerProfile {
     this.matchesWon = 0;
     this.matchesLost = 0;
     this.territoriesConquered = 0;
+    this.sessionWins = 0;
   }
 
   // This constructor is used when the game loads data from the XML file
@@ -40,6 +42,7 @@ public class PlayerProfile {
     this.matchesWon = mw;
     this.matchesLost = ml;
     this.territoriesConquered = tc;
+    this.sessionWins = 0;
   }
 
   // Name change method is used when an existing player profile name is being changed
@@ -80,6 +83,10 @@ public class PlayerProfile {
   public String getTerritoriesConquered() {
     return "" + this.territoriesConquered;
   }
+  
+  public int getSessionWins() {
+    return this.sessionWins;
+  }
 
   // The following methods are used to update profile game statistics such as total number of
   // matches played etc.
@@ -97,6 +104,10 @@ public class PlayerProfile {
 
   public void incrementTerritoriesConquered(int n) {
     this.territoriesConquered += n;
+  }
+  
+  public void incrementSessionWins() {
+    this.sessionWins++;
   }
 
 
@@ -116,6 +127,10 @@ public class PlayerProfile {
 
   public void setTerritoriesConquered(int tc) {
     this.territoriesConquered = tc;
+  }
+  
+  public void setSessionWins(int sw) {
+    this.sessionWins = sw;
   }
 
 

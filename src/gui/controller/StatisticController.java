@@ -111,9 +111,13 @@ public class StatisticController implements Initializable {
     // Update matchesWon / matchesLost
     if (thisPlayer.rank == 1) {
       ProfileManager.getSelectedProfile().incrementMatchesWon();
+      ProfileManager.getSelectedProfile().incrementSessionWins();
     } else {
       ProfileManager.getSelectedProfile().incrementMatchesLost();
     }
+    
+    // Update session stat
+    main.Main.session = true;
 
     ProfileManager.saveXml();
   }
