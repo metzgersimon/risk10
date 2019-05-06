@@ -246,10 +246,10 @@ public class EditProfileGUIController {
     profileImage.setImage(image);
     
     //@prto Load stats
-    matchesPlayed.setText("Matches played\t" + ProfileManager.profileList.get(profileName).getMatchesPlayed());
-    matchesWon.setText("Matches won\t" + ProfileManager.profileList.get(profileName).getMatchesWon());
-    matchesLost.setText("Matches lost\t" + ProfileManager.profileList.get(profileName).getMatchesLost());
-    territoriesConquered.setText("Territories Conquered\t" + ProfileManager.profileList.get(profileName).getTerritoriesConquered());
+    matchesPlayed.setText("Matches played:\t    " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
+    matchesWon.setText("Matches won:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesWon());
+    matchesLost.setText("Matches lost:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesLost());
+    territoriesConquered.setText("Territories conquered: " + ProfileManager.profileList.get(profileName).getTerritoriesConquered());
     
   }
 
