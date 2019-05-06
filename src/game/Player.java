@@ -652,7 +652,7 @@ public class Player implements Serializable {
 
       if (!Main.g.getPlayers().contains(p)) {
         // set loser rank
-        p.setRank(Main.g.getPlayers().size());
+        p.setRank(Main.g.getPlayers().size()+1);
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
@@ -660,6 +660,7 @@ public class Player implements Serializable {
 
       // if the attacker won the game
       if (Main.g.getPlayers().size() == 1) {
+        attack.getOwner().setRank(1);
         Main.b.showMessage("Game Over. " + attack.getOwner().getName() + " won the game!");
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
