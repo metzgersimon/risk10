@@ -78,6 +78,7 @@ public class StatisticController implements Initializable {
     table.setItems(playerList);
     table.getSortOrder().add(c1);
 
+    updateProfileStats();
   }
   
   /**

@@ -165,6 +165,8 @@ public class ProfileSelectionGUIController {
         selectedPlayerName = names[4];
         break;
     }
+    
+    ProfileManager.setSelectedProfile(selectedPlayerName);
 
     Main.g = new Game();
     System.out.println(Main.g.getGameState().toString());
@@ -194,7 +196,7 @@ public class ProfileSelectionGUIController {
    */
   public void loadProfiles() {
     ProfileManager.readXml();
-    ProfileManager.printAllProfiles();
+    //ProfileManager.printAllProfiles();
 
     count = 0;
     for (PlayerProfile x : ProfileManager.profileList.values()) {
