@@ -403,7 +403,8 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   private synchronized void handleAttackMessage(AttackMessage message) {
-    if (!(this.player.getColor().toString().equals(message.getColor()))) {
+    if (!(this.player.getColor().toString().equals(message.getColor())
+        && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
 //      if (!(this.player instanceof AiPlayer)) {
       Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
       Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());

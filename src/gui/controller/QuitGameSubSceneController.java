@@ -41,6 +41,7 @@ public class QuitGameSubSceneController {
           for (Player p : Main.g.getPlayers()) {
             Main.g.addToAllPlayers(p);
           }
+          main.Main.stagePanes.close();
          
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();

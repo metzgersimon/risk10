@@ -3,6 +3,7 @@ package game;
 
 import game.Game;
 import gui.controller.NetworkController;
+import gui.controller.ProfileManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -709,7 +710,7 @@ public class Player implements Serializable {
     if (NetworkController.server != null) {
       AttackMessage message =
           new AttackMessage(attackerId, defenderId, ifConquered, attackerArmies, defendArmies);
-      message.setColor("YELLOW");
+      message.setColor(Main.g.getCurrentPlayer().getColorString());
       NetworkController.gameFinder.getClient().sendMessage(message);
       return true;
     }

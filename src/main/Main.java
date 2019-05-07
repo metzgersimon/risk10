@@ -50,7 +50,8 @@ public class Main extends Application {
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
   public static RuleBookPopUp ruleBook;
-
+  public static boolean session;
+  
   public static Stage stage;
   public static Scene scene;
   public static Scene cards;
@@ -133,6 +134,7 @@ public class Main extends Application {
 
 
   public static void main(String[] args) {
+    session = false;
     launch(args);
 
     // Testing of xml reader and writer
