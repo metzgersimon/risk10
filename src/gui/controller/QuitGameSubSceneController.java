@@ -14,17 +14,28 @@ import javafx.stage.Stage;
 import main.Main;
 import network.messages.game.LeaveGameMessage;
 
+/**
+ * Class describes a stage if a player quits the game.
+ * 
+ * @author pcoberge
+ * @author smetzger
+ *
+ */
 public class QuitGameSubSceneController {
   @FXML
-  private Pane quitPane, grayPane;
+  private Pane quitPane;
   @FXML
-  private Button yesLeave, noLeave;
+  private Pane grayPane;
+  @FXML
+  private Button noLeave;
+  @FXML
+  private Button yesLeave;
 
 
   /**
-   * @author pcoberge
-   * @param event : ActionEvent This parameter represents the element that invokes this method. This
-   *        action method changes the current stage to the statistic stage.
+   * This action method changes the current stage to the statistic stage.
+   * 
+   * @param event : ActionEvent This parameter represents the element that invokes this method.
    */
   public synchronized void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
@@ -42,13 +53,12 @@ public class QuitGameSubSceneController {
             Main.g.addToAllPlayers(p);
           }
           main.Main.stagePanes.close();
-         
+
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Stage stage = main.Main.stage;
           stage.setScene(new Scene(root));
           stage.show();
-          // ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -57,7 +67,7 @@ public class QuitGameSubSceneController {
   }
 
   /**
-   * @author pcoberge This method cancels the exit-handling.
+   * This method cancels the exit-handling.
    */
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
@@ -66,5 +76,4 @@ public class QuitGameSubSceneController {
       }
     });
   }
-
 }

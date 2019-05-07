@@ -2,11 +2,9 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
-import javafx.application.Platform;
 import main.Main;
 
 public class AiPlayerHard extends Player implements AiPlayer {
@@ -88,7 +86,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
     };
     th.start();
   }
-
+  
+  /**
+   * Method represents the second stage of the game.
+   */
   public void initialArmyDistribution() {
     int maxNeighbors = 0;
     int averageArmies = 0;
@@ -125,11 +126,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
   }
 
   /**
-   * Strategy: Divide number of armies to distribute in attacking and defending armies
-   * 
+   * Strategy: Divide number of armies to distribute in attacking and defending armies.
+   * <p>
    * Attacking armies are placed on territories with the least number of hostile neighbors. These
    * territories are a good opportunity to expand own territories.
-   * 
+   * <p>
    * Defending armies are placed on territories with the highest negative difference in number of
    * armies.
    * 
@@ -485,9 +486,9 @@ public class AiPlayerHard extends Player implements AiPlayer {
     sortedValues = new ArrayList<Integer>();
 
     for (Territory t : this.getTerritories()) {
-      for (Territory oT : t.getHostileNeighbor()) {
-        if (t.getNumberOfArmies() - oT.getNumberOfArmies() < min) {
-          min = t.getNumberOfArmies() - oT.getNumberOfArmies();
+      for (Territory oppT : t.getHostileNeighbor()) {
+        if (t.getNumberOfArmies() - oppT.getNumberOfArmies() < min) {
+          min = t.getNumberOfArmies() - oppT.getNumberOfArmies();
           if (ownTerritories.containsKey(min)) {
             ownTerritories.get(min).add(t);
           } else {

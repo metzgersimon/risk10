@@ -4,6 +4,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
+ * Class connects regions and territories.
+ * 
  * @author pcoberge
  *
  */

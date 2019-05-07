@@ -1,8 +1,6 @@
 package game;
 
-import java.util.Date;
 import java.util.Vector;
-import javafx.application.Platform;
 import main.Main;
 
 /**
@@ -113,7 +111,6 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         }
       }
     }
-
     /** select territory **/
     int randomTerritory = 0;
     int randomNumberOfArmies = 0;
@@ -139,11 +136,11 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
       }
-//      try {
-//        Thread.sleep(2000);
-//      } catch (InterruptedException e) {
-//        e.printStackTrace();
-//      }
+      // try {
+      // Thread.sleep(2000);
+      // } catch (InterruptedException e) {
+      // e.printStackTrace();
+      // }
     }
     // sets the game state to the next stage and calls the attack method
     Main.g.setGameState(GameState.ATTACK);
@@ -170,7 +167,8 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     double random = Math.random();
 
     // checks if an attack is even possible
-    while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME && random > attackProbability) {
+    while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME
+        && random > attackProbability) {
       // choose own territory that is able to attack
       do {
         // random number between zero and the amount of own territories
@@ -199,15 +197,15 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (super.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
-        if(!Main.g.isNetworkGame()) {
-        Main.b.updateLabelTerritory(territoryOwn);
-        Main.b.updateLabelTerritory(territoryOpponent);
-        Main.b.updateColorTerritory(territoryOpponent);
+        if (!Main.g.isNetworkGame()) {
+          Main.b.updateLabelTerritory(territoryOwn);
+          Main.b.updateLabelTerritory(territoryOpponent);
+          Main.b.updateColorTerritory(territoryOpponent);
         }
       } else {
-        if(!Main.g.isNetworkGame()) {
-        Main.b.updateLabelTerritory(territoryOwn);
-        Main.b.updateLabelTerritory(territoryOpponent);
+        if (!Main.g.isNetworkGame()) {
+          Main.b.updateLabelTerritory(territoryOwn);
+          Main.b.updateLabelTerritory(territoryOpponent);
         }
         try {
           Thread.sleep(1000);
@@ -252,7 +250,4 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     }
     return false;
   }
-
-
-
 }

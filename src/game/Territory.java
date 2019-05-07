@@ -52,7 +52,7 @@ public class Territory {
    *************************************************/
 
   /**
-   * Getter-method
+   * Getter-method.
    * 
    * @return BoardRegion of this territory
    */
@@ -70,7 +70,7 @@ public class Territory {
   }
 
   /**
-   * Getter-method
+   * Getter-method.
    * 
    * @return continent = (enum) this territory belongs to
    */
@@ -109,7 +109,7 @@ public class Territory {
   /**
    * Getter-method.
    * 
-   * @return HashSet<Territory> = all territories the instance has a neighbor-relationship to
+   * @return a HashSet of territories 
    */
   public HashSet<Territory> getNeighbor() {
     return this.neighbor;
@@ -127,7 +127,7 @@ public class Territory {
   /**
    * Getter-method.
    * 
-   * @return ArrayList<Territory> = all territories that do not belong to the same player
+   * @return ArrayList of Territories that do not belong to the same player
    */
   public ArrayList<Territory> getHostileNeighbor() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();
@@ -142,7 +142,7 @@ public class Territory {
   /**
    * Getter-method.
    * 
-   * @return ArrayList<Territory> = all territories that belong to the same owner
+   * @return ArrayList of Territories that belong to the same owner
    */
   public ArrayList<Territory> getOwnNeighbors() {
     ArrayList<Territory> hostileNeighbor = new ArrayList<>();

@@ -1,23 +1,14 @@
 package gui.controller;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 import game.Card;
 import game.GameState;
-import game.TutorialMessages;
+import java.util.HashMap;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,41 +21,35 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import main.Main;
 
+/**
+ * Class represents the stage for the risk cards a player owns.
+ * 
+ * @author pcoberge
+ * @author smetzger
+ * @author prto
+ *
+ */
 public class CardSubSceneController {
   @FXML
   private Pane grayPane;
-
-  /**
-   * @author prto testing
-   */
-  public HashMap<Integer, Card> topList = new HashMap<>();
-  public HashMap<Integer, Card> bottomList = new HashMap<>();
-
-
-  /**
-   * Elements to handle the card selection the player wants to trade in
-   */
   @FXML
-  private GridPane paneXY;
+  private GridPane pane;
   @FXML
-  private HBox left, center, right;
-  /**
-   * Elements to handle the card split-pane
-   */
+  private HBox left;
+  @FXML
+  private HBox center;
+  @FXML
+  private HBox right;
   @FXML
   private Pane transparentPane;
   @FXML
   private Pane cardPane;
   @FXML
-  private AnchorPane upAndDown, upperPane, bottomPane;
+  private AnchorPane upAndDown;
   @FXML
   private FlowPane ownCards;
   @FXML
   private Circle cardButton;
-
-  /**
-   * Elements to handle trade-in button
-   */
   @FXML
   private Button tradeIn;
   @FXML
@@ -72,24 +57,28 @@ public class CardSubSceneController {
   @FXML
   private Pane cantBeTraded;
   @FXML
-  private Button exitPopup;
-  @FXML
   private Label label;
 
+  private HashMap<Integer, Card> topList = new HashMap<>();
+  private HashMap<Integer, Card> bottomList = new HashMap<>();
 
+  /**
+   * Method sets graypane visible.
+   * 
+   * @param true or false
+   */
   public void handleGrayPane(boolean b) {
     grayPane.setVisible(b);
   }
 
   /**
+   * Method allows player to drag and drop cards in its own card pane.
+   * 
    * @author smetzger
    * @param e
-   * @return
    */
   @FXML
   public void handleCardDragAndDrop(MouseEvent e) {
-    // Platform.runLater(new Runnable() {
-    // public void run() {
     if (left.getChildren().isEmpty() || center.getChildren().isEmpty()
         || right.getChildren().isEmpty()) {
       ImageView img = (ImageView) e.getSource();
@@ -131,6 +120,8 @@ public class CardSubSceneController {
 
 
   /**
+   * Method inserts a card in the card list of the player on the gui.
+   * 
    * @author pcoberge
    * @param c
    */
@@ -143,25 +134,26 @@ public class CardSubSceneController {
     img.setVisible(true);
     StackPane pane = new StackPane();
     pane.setVisible(true);
+    pane.getChildren().add(img);
+    ownCards.getChildren().add(pane);
+    ownCards.getStyleClass().add("-fx-background-color: red;");
+    ownCards.toFront();
+    bottomList.put(c.getId(), c);
     EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         handleCardDragAndDrop(e);
       }
     };
-    pane.getChildren().add(img);
-    ownCards.getChildren().add(pane);
-    ownCards.getStyleClass().add("-fx-background-color: red;");
-    ownCards.toFront();
-    bottomList.put(c.getId(), c);
     img.setMouseTransparent(false);
     img.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandler);
-//    pane.getStylesheets().add(css);
     img.getStyleClass().add("-fx-translate-y: -5px;");
 
   }
 
   /**
+   * Method removes a chosen card from the trade-in-pane into the bottom pane.
+   * 
    * @author smetzger
    * @param e
    */
@@ -198,6 +190,8 @@ public class CardSubSceneController {
 
 
   /**
+   * Method handles the gui in case a player trades in a valid card set.
+   * 
    * @author smetzger
    * @param e
    */
@@ -230,26 +224,38 @@ public class CardSubSceneController {
   }
 
 
+  /**
+   * Method hides the current stage.
+   * 
+   * @param e
+   */
   @FXML
   public void clickBack(MouseEvent e) {
     Main.stagePanes.hide();
   }
 
+  /**
+   * Method hides the current stage.
+   */
   @FXML
   public void handleCardPane() {
     Main.b.handleCardPane();
   }
 
   /**
-   * @author prto handle press on rule book button
+   * Method handles press on rule book button.
+   * 
+   * @author prto
    */
   public void handleRuleBook() {
     Main.b.handleRuleBook();
   }
 
   /**
-   * @author pcoberge This method handles the exit Button. When the user presses the exit-Button, a
-   *         pop-up window appears and stops the game.
+   * This method handles the exit Button. When the user presses the exit-Button, a pop-up window
+   * appears and stops the game.
+   * 
+   * @author pcoberge
    */
   public void pressLeave() {
     Main.b.pressLeave();
