@@ -32,7 +32,6 @@ public class JoinGameLobbyController {
     SendChatMessageMessage m =
         new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
     NetworkController.gameFinder.getClient().sendMessage(m);
-    textField.clear();
   }
 
   /**
