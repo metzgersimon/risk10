@@ -168,7 +168,7 @@ public class Game implements Serializable {
   /**
    * @author pcoberge
    * @author smetzger
-   * @return
+   * @return Player 
    */
   public Player setNextPlayer() {
     for (int i = 0; i < players.size() - 1; i++) {
@@ -364,7 +364,8 @@ public class Game implements Serializable {
   }
 
   /**
-   * @author prto, @author smetzger
+   * @author prto
+   * @author smetzger
    * @param players
    * @return returns ArrayList of players who have 0 territories left and thus lost checks if all
    *         players still have armies left, otherwise return losing players

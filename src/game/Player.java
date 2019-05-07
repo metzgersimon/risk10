@@ -214,8 +214,6 @@ public class Player implements Serializable {
     this.colorString = colorString;
   }
 
-
-
   public ArrayList<Card> getCards() {
     return cards;
   }
@@ -784,8 +782,10 @@ public class Player implements Serializable {
    * @param p player to compare with
    * @return true or false regarding on whether the two players are the same or not.
    */
-  public boolean equals(Player p) {
-    if (this != null && p != null) {
+  @Override
+  public boolean equals(Object o) {
+    if (this != null && o != null) {
+      Player p = (Player)o;
       if (this.getColor().toString().equals(p.getColor().toString())) {
         return true;
       } else {

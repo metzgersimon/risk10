@@ -240,6 +240,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
           Dice.rollDices(defender.getNumberOfArmies() >= 2 ? 2 : defender.getNumberOfArmies());
       if (max > round) {
         if (super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
+          
           Main.b.updateLabelTerritory(attacker);
           Main.b.updateLabelTerritory(defender);
           Main.b.updateColorTerritory(defender);
