@@ -71,10 +71,6 @@ public class Main extends Application {
         Font.loadFont(getClass().getResourceAsStream("/resources/fonts/Ubuntu-M.ttf"), 14);
 
     try {
-      FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
-      board = (AnchorPane) fxmlLoader1.load();
-      Main.b = fxmlLoader1.getController();
-      // boardScene = new Scene(board);
 
       FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/gui/CardSubScene.fxml"));
       cardPane = (AnchorPane) fxmlLoader2.load();

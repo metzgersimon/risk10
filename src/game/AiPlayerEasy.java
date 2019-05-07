@@ -170,7 +170,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     double random = Math.random();
 
     // checks if an attack is even possible
-    while (this.isCapableToAttack() && random > attackProbability) {
+    while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME && random > attackProbability) {
       // choose own territory that is able to attack
       do {
         // random number between zero and the amount of own territories

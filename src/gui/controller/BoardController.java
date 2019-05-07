@@ -1474,18 +1474,18 @@ public class BoardController implements Initializable {
 
   public void endGame() {
     
-    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
+//    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     Platform.runLater(new Runnable() {
       public void run() {
         try {
           FXMLLoader fxmlLoader =
               new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Main.stagePanes.hide();
-          Main.stagePanes.setScene(new Scene(root));
-          Main.stagePanes.setX(Main.stage.getX() + 2);
-          Main.stagePanes.setY(Main.stage.getY() + 24);
-          Main.stagePanes.show();
+          Parent root = fxmlLoader.load();
+          Stage stage = Main.stagePanes;
+          stage.setScene(new Scene(root));
+          stage.setX(Main.stage.getX() + 2);
+          stage.setY(Main.stage.getY() + 24);
+          stage.show();
 //          Main.stage.setScene(new Scene(root));
 //          Main.stage.show();
           System.out.println(Main.stagePanes.isShowing());

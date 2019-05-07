@@ -221,7 +221,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     Territory attacker = null;
     Territory defender = null;
     int armiesToAttack = 0;
-    while (isCapableToAttack()) {
+    while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME) {
       for (Territory t : this.getTerritories()) {
         for (Territory opponent : t.getHostileNeighbor()) {
           if (((t.getNumberOfArmies()) - (opponent.getNumberOfArmies())) > max) {

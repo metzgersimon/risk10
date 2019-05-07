@@ -306,31 +306,33 @@ public class Game implements Serializable {
    * @author smetzger
    */
   public synchronized void furtherFortify() {
-    if (this.getCurrentPlayer().getSuccessfullAttack()) {
-      Card c = this.cards.getLast();
-      this.cards.removeLast();
-      this.getCurrentPlayer().addCard(c);
-      if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
-        Main.cardC.insertCards(c);
+    if(!this.gameState.equals(GameState.END_GAME)) {
+      if (this.getCurrentPlayer().getSuccessfullAttack()) {
+        Card c = this.cards.getLast();
+        this.cards.removeLast();
+        this.getCurrentPlayer().addCard(c);
+        if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
+          Main.cardC.insertCards(c);
+        }
+        this.getCurrentPlayer().setSuccessfullAttack(false);
+        this.getCurrentPlayer().setFortify(false);
       }
-      this.getCurrentPlayer().setSuccessfullAttack(false);
-      this.getCurrentPlayer().setFortify(false);
-    }
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
-    this.getCurrentPlayer().setStartedDistribution(false);
-    this.setNextPlayer();
-    this.getCurrentPlayer().computeAdditionalNumberOfArmies();
-    Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
-        + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
-    Main.b.prepareArmyDistribution();
-    this.setGameState(GameState.ARMY_DISTRIBUTION);
-    if (this.getCurrentPlayer() instanceof AiPlayer) {
-      AiPlayer p = (AiPlayer) this.getCurrentPlayer();
-      p.armyDistribution();
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e1) {
+        e1.printStackTrace();
+      }
+      this.getCurrentPlayer().setStartedDistribution(false);
+      this.setNextPlayer();
+      this.getCurrentPlayer().computeAdditionalNumberOfArmies();
+      Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
+          + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
+      Main.b.prepareArmyDistribution();
+      this.setGameState(GameState.ARMY_DISTRIBUTION);
+      if (this.getCurrentPlayer() instanceof AiPlayer) {
+        AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+        p.armyDistribution();
+      }
     }
   }
 

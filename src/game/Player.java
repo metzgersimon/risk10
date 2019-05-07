@@ -468,7 +468,7 @@ public class Player implements Serializable {
    */
   public boolean armyDistribution(int amount, Territory t) {
     setStartedDistribution(true);
-    if (t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
+    if (t != null &&t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
 //        Main.b.handleContinentGlow();

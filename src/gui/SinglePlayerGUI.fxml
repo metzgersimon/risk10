@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.SinglePlayerGUIController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.SinglePlayerGUIController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -28,11 +28,6 @@
          </font>
       </Button>
       <Slider fx:id="difficulty" blockIncrement="1.0" layoutX="695.0" layoutY="265.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="64.0" prefWidth="439.0" snapToTicks="true" value="1.0" />
-      <Label layoutX="695.0" layoutY="222.0" prefHeight="62.0" prefWidth="451.0" styleClass="aiLevel" stylesheets="@FontStyle.css" text="Easy          Medium          Hard" textFill="#f7f7f7">
-         <font>
-            <Font name="Ubuntu Light" size="35.0" />
-         </font>
-      </Label>
       <Label layoutX="183.0" layoutY="260.0" styleClass="singlePlayerLabels" stylesheets="@FontStyle.css" text="AI difficulty" textFill="#f5f3f3">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
@@ -79,6 +74,21 @@
       <Label layoutX="182.0" layoutY="457.0" text="Number of AI Players" textFill="WHITE">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="712.0" layoutY="240.0" text="Easy" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="856.0" layoutY="240.0" text="Medium" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="1042.0" layoutY="240.0" text="Hard" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
          </font>
       </Label>
    </children>

@@ -3,18 +3,15 @@ package gui.controller;
 
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
-import game.Game;
 import game.Player;
-import game.PlayerColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -22,8 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import main.Main;
 
 
@@ -76,8 +71,9 @@ public class StatisticController implements Initializable {
     c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
 
     c1.setSortType(TableColumn.SortType.ASCENDING);
-
-    ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getAllPlayers());
+    HashSet<Player> hash = new HashSet<Player>(Main.g.getAllPlayers());
+    hash.addAll(Main.g.getPlayers());
+    ObservableList<Player> playerList = FXCollections.observableArrayList(hash);
     table.setItems(playerList);
     for(Player p: playerList) {
       System.out.println(p);
@@ -98,7 +94,7 @@ public class StatisticController implements Initializable {
     Player thisPlayer = null;
 
     // Get this player
-    for (Player p : Main.g.getPlayers()) {
+    for (Player p : Main.g.getAllPlayers()) {
       if (p.getName().equals(ProfileManager.getSelectedProfile().getName())) {
         thisPlayer = p;
       }

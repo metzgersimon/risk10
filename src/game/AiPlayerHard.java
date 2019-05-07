@@ -177,9 +177,14 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
       }
-      System.out.println("Verteilen auf " + terrToDistribute.getName());
+      System.out.println(this.getTerritories().size());
+      System.out.println(Main.g.getPlayers().size());
+//      System.out.println("Verteilen auf " + terrToDistribute.getName());
       if (super.armyDistribution(1, terrToDistribute)) {
         armiesAttack--;
+      }
+      else {
+        break;
       }
     } while (armiesAttack > 0 && hostileNeighbors.size() > 0);
 
@@ -249,7 +254,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
       e.printStackTrace();
     }
 
-    while (isCapableToAttack()) {
+    while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME) {
       HashMap<Territory, Integer> hostileNeighbors = new HashMap<>();
       // get all hostile neighbor territories
       for (Territory t : this.getTerritories()) {
@@ -345,7 +350,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
       // max = round;
       // round++;
     }
-    Main.g.setGameState(GameState.FORTIFY);
+    if(Main.g.getGameState() != GameState.END_GAME) {
+      Main.g.setGameState(GameState.FORTIFY);
+    }
+    
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {

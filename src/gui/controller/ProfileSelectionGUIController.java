@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Main;
 import java.util.ArrayList;
@@ -169,12 +170,12 @@ public class ProfileSelectionGUIController {
     Main.g = new TestGame();
     ProfileManager.setSelectedProfile(selectedPlayerName);
 
-    //reset sessionWins counter if session boolean in Main.java is false
-    if(!main.Main.session) {
+    // reset sessionWins counter if session boolean in Main.java is false
+    if (!main.Main.session) {
       ProfileManager.getSelectedProfile().setSessionWins(0);
     }
-    
-    Main.g = new Game();
+
+    Main.g = new TestGame();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
@@ -184,6 +185,10 @@ public class ProfileSelectionGUIController {
       toOpen = "/gui/MultiPlayerGUI.fxml";
     }
     try {
+      FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
+      Main.board = (AnchorPane) fxmlLoader1.load();
+      Main.b = fxmlLoader1.getController();
+      // boardScene = new Scene(board);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -223,7 +228,7 @@ public class ProfileSelectionGUIController {
   public void initialize() {
 
     loadProfiles();
-    
+
 
     nameLabels.add(name1);
     nameLabels.add(name2);

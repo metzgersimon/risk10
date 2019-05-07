@@ -91,8 +91,8 @@ public class TestGame extends Game implements Serializable {
     setGameState(GameState.INITIALIZING_TERRITORY);
     // Main.b.prepareInitTerritoryDistribution();
 //    distributeTerritories();
-    prepareEndGameWinner();
-//    distributeArmies();
+    prepareEndGameLoser();
+    distributeArmies();
     setGameState(GameState.ARMY_DISTRIBUTION);
     super.getCurrentPlayer().setStartedDistribution(false);
 //    Card c = super.getCards().getLast();

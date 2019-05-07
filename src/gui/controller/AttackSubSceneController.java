@@ -277,7 +277,9 @@ public class AttackSubSceneController implements Initializable {
         defendDice1.setVisible(false);
         defendDice2.setVisible(false);
         Main.b.neutralizeGUIattack();
-        Main.stagePanes.close();
+        if(Main.g.getPlayers().size() != 1) {
+          Main.stagePanes.close();
+        }   
       }
     });
   }
