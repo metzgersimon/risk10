@@ -40,6 +40,9 @@ public class JoinGameLobbyController {
    */
   @FXML
   void handleLeaveGame(ActionEvent event) {
+    LeaveLobbyMessage message = new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());
+    NetworkController.gameFinder.getClient().sendMessage(message);
+    NetworkController.gameFinder.getClient().disconnect();
     try {
       // Main.g.getGameFinder().closeConnection();
       LeaveLobbyMessage lobbyMessage = new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());

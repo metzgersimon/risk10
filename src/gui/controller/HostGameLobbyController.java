@@ -139,7 +139,7 @@ public class HostGameLobbyController {
       Main.g.addPlayer(p);
 
       // update the list in the game lobby for host player
-      updateList(p);
+      updateList(Main.g.getPlayers().size()-1,p);
       System.out.println("An AI player " + p.getName() + " has joined the game ");
 
       // enable the start button if possible
@@ -180,15 +180,12 @@ public class HostGameLobbyController {
    *         and whenever a new AI player is added to the game lobby,to update the list of players
    *         in the lobby
    */
-  public void updateList(Player p) {
-    this.clients.add(p);
+  public void updateList(int index , Player p) {  
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        int size = clients.size();
-        System.out.println(size);
-        String name = clients.get(size - 1).getName();
-        switch (size) {
+        String name = p.getName();
+        switch ((index+1)) {
           case 1:
             // select the box
             playerNames.get(0).setSelected(true);
@@ -260,4 +257,17 @@ public class HostGameLobbyController {
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   }
 
+  public void refreshList(Player p) {
+    int position = 0;
+    for( Player player : Main.g.getPlayers()) {
+      if(player.equals(p)) {
+        break;
+      }
+      position++;
+    }
+    System.out.println("Position : " + position);
+    Main.g.getPlayers().remove(position);
+    playerNames.get(position).setText("");
+    playerNames.get(position).setSelected(false);
+  }
 }

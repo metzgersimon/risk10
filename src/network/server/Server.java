@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import game.PlayerColor;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import main.Main;
@@ -75,6 +76,8 @@ public class Server extends Thread implements Serializable {
    */
   private BoardController boardController;
 
+  private ArrayList<String> unAvailableColorList = new ArrayList<String>();
+  private PlayerColor[] availableColor = PlayerColor.values();
   /**
    * @author skaur
    * @param port : port of the server
@@ -241,5 +244,5 @@ public class Server extends Thread implements Serializable {
   public BoardController getBoardController() {
     return this.boardController;
   }
-
+  
 }

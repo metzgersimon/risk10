@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import game.Player;
+import game.PlayerColor;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
+import javafx.application.Platform;
 import java.util.ArrayList;
 import main.Main;
 import network.messages.JoinGameMessage;
@@ -244,17 +246,16 @@ public class ClientConnection extends Thread {
         game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addPlayer(player);
     this.players.add(player);
-
+    int index = Main.g.getPlayers().size();
     // update the list in the host game lobby
     if (this.server.getHostLobbyController() != null) {
-      this.server.getHostLobbyController().updateList(player);
+      this.server.getHostLobbyController().updateList(index - 1, player);
     }
 
     // send a response back to the client who has sent the
     // join game message with the player instance as parameter
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
-
   }
 
   /**
@@ -305,7 +306,14 @@ public class ClientConnection extends Thread {
 
   
   public void recieveLeaveLobbyMessage(LeaveLobbyMessage message) {
-    
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+       server.getHostLobbyController().refreshList(message.getPlayer());
+      }
+    });
+    this.server.getConnections().remove(this);
+    this.disconnect();
   }
   /**
    * @author qiychen
