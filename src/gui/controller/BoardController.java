@@ -631,6 +631,19 @@ public class BoardController implements Initializable {
   }
 
   /**
+   * 
+   * @param change the game state text
+   */
+  public synchronized void setState(String text) {
+    Platform.runLater(new Runnable() {      
+      @Override
+      public void run() {
+       gameState.setText(text);        
+      }
+    });
+
+  }
+  /**
    * @author smetzger
    * @author pcoberge
    * @param MouseEvent The parameter contains the information which gui element triggers the

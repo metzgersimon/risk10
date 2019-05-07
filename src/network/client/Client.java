@@ -386,6 +386,9 @@ public class Client extends Thread implements Serializable {
     // Platform.runLater(new Runnable() {
     // @Override
     // public void run() {
+    if(player.getColor().toString().equals(message.getColor())) {
+      Main.b.setState("Choose your Territory!");
+    }  
     if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
       Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setNumberOfArmies(message.getAmount());
@@ -474,7 +477,10 @@ public class Client extends Thread implements Serializable {
       // }
     }   
     Main.g.furtherFortify();
-
+    if(this.player.getColor().toString().equals(message.getColor())) {
+    Main.b.setState("End your turn!");
+    }
+    
   }
   /**
    * @author qiychen
@@ -485,8 +491,8 @@ public class Client extends Thread implements Serializable {
   private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
     if(message.getGameState()==GameState.FORTIFY) {
-   //   Main.b.neutralizeGUIfortify();
       Main.g.furtherFortify();
+      Main.b.setState("Select your Continent!");                               
     }
     }  
   }
