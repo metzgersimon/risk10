@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.LeaveGameMessage;
 import network.messages.game.StartGameMessage;
 
 public class HostGameLobbyController {
@@ -107,10 +108,9 @@ public class HostGameLobbyController {
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
-//    if(Main.g.getPlayers().size() > 1) {
-//      GameCancelMessage cancelMessage = new GameCancelMessage();
-//      NetworkController.gameFinder.getClient().sendMessage(cancelMessage);
-//    }
+     LeaveGameMessage message = new LeaveGameMessage("HOST");
+     message.setLeaveLobby(true);
+     NetworkController.gameFinder.getClient().sendMessage(message);     
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));

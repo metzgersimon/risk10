@@ -259,6 +259,10 @@ public class Client extends Thread implements Serializable {
   public BoardController getBoardController() {
     return this.boardController;
   }
+  
+  public JoinGameLobbyController getController() {
+    return this.controller;
+  }
 
   /**************************************************
    * * Process the messages received from the server * *
@@ -533,7 +537,11 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        if(!message.getLeaveLobby()) {
         Main.b.gameCancelAlert();
+      } else {
+       controller.showGameCancelAlert();
+      }
       }
     });
   }

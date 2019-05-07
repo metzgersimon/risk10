@@ -7,12 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import network.messages.LeaveLobbyMessage;
 import network.messages.SendChatMessageMessage;
+import network.messages.game.LeaveGameResponseMessage;
 
 
 public class JoinGameLobbyController {
@@ -64,22 +66,23 @@ public class JoinGameLobbyController {
     textField.clear();
   }
   
-//  public void showGameCancelAlert() {
-//    Alert alert = new Alert(AlertType.ERROR);
-//    alert.setTitle("Error alert");
-//    alert.setHeaderText("Game Cancelled");
-//    alert.setContentText("The host player has cancelled the game");
-//    alert.showAndWait();
-//    NetworkController.gameFinder.getClient().disconnect();
-//    try {
-//      // Main.g.getGameFinder().closeConnection();
-//      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
-//      Parent root = (Parent) fxmlLoader.load();
-//      Stage stage = main.Main.stage;
-//      stage.setScene(new Scene(root));
-//      stage.show();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//  }
+  public void showGameCancelAlert() {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Error alert");
+    alert.setHeaderText("Game Cancelled");
+    alert.setContentText("The host player has cancelled the game");
+    alert.showAndWait();
+      // this method shows the end game staticstics and disconnect the client
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
+      Parent root = (Parent) fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
