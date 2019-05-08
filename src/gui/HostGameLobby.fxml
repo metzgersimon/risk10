@@ -19,18 +19,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
-    <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="800.0" prefWidth="1280.0">
+    <SplitPane dividerPositions="0.6835245046923879" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="720.0" prefWidth="1280.0">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="426.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="845.0">
           <children>
-            <SplitPane dividerPositions="0.5137395459976105" focusTraversable="true" layoutX="0.0" layoutY="41.0" prefHeight="756.0" prefWidth="839.0">
+            <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="0.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="875.0">
               <items>
-                <AnchorPane maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="426.0" styleClass="backgraound-color">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="438.0" styleClass="backgraound-color">
                   <children>
-                    <Label layoutX="13.0" layoutY="27.0" mouseTransparent="false" pickOnBounds="false" prefHeight="100.0" prefWidth="394.0" styleClass="leftPanelLabel, settings, headlines" text="Game settings ">
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="31.0" mouseTransparent="false" pickOnBounds="false" prefHeight="100.0" prefWidth="427.0" styleClass="leftPanelLabel, settings, headlines" text="Game settings ">
                       <effect>
                         <Glow />
                       </effect>
@@ -41,25 +41,25 @@
                         <Color blue="0.000" green="0.000" red="0.200" fx:id="x1" />
                       </textFill>
                     </Label>
-                    <Slider fx:id="botLevel" layoutX="98.0" layoutY="519.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="56.0" prefWidth="210.0" snapToTicks="true">
+                    <Slider fx:id="botLevel" layoutX="125.0" layoutY="475.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="56.0" prefWidth="210.0" snapToTicks="true">
                       <effect>
                         <DropShadow color="#ff3d00" />
                       </effect>
                     </Slider>
-                    <Label layoutX="103.0" layoutY="401.0" prefWidth="210.0" styleClass="subHeadlines, headlines" text="Choose AI level" textFill="BLACK">
+                    <Label layoutX="121.0" layoutY="390.0" prefWidth="210.0" styleClass="subHeadlines, headlines" text="Choose AI level" textFill="BLACK">
                       <effect>
                         <Glow />
                       </effect>
                     </Label>
-                    <Label layoutX="85.0" layoutY="506.0" styleClass="subHeadlines" text="Easy" textFill="BLACK" />
-                    <Label layoutX="181.0" layoutY="503.0" styleClass="subHeadlines" text="Medium" textFill="BLACK" />
-                    <Label layoutX="289.0" layoutY="506.0" styleClass="subHeadlines" text="Hard" textFill="$x1" />
-                    <Button fx:id="addBots" alignment="CENTER" layoutX="113.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleAddBot" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text="ADD AI">
+                    <Label layoutX="128.0" layoutY="476.0" styleClass="subHeadlines" text="Easy" textFill="BLACK" />
+                    <Label layoutX="204.0" layoutY="475.0" styleClass="subHeadlines" text="Medium" textFill="BLACK" />
+                    <Label layoutX="299.0" layoutY="475.0" styleClass="subHeadlines" text="Hard" textFill="$x1" />
+                    <Button fx:id="addBots" alignment="CENTER" layoutX="122.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleAddBot" prefHeight="43.0" prefWidth="190.0" styleClass="bot-button" text="ADD AI">
                       <effect>
                         <DropShadow />
                       </effect>
                     </Button>
-                    <Button fx:id="leaveGame" layoutX="130.0" layoutY="655.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveLobby" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                    <Button fx:id="leaveGame" layoutX="141.0" layoutY="575.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveLobby" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -67,7 +67,7 @@
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
                     </Button>
-                              <ImageView fx:id="image1" disable="true" fitHeight="70.0" fitWidth="70.0" layoutX="168.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="image1" disable="true" fitHeight="70.0" fitWidth="70.0" layoutX="189.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../bin/resources/gui/robot2.png" />
                                  </image>
@@ -77,9 +77,9 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </AnchorPane>
-                <AnchorPane disable="false" focusTraversable="false" maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="426.0" styleClass="backgraound-color">
+                <AnchorPane disable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="404.0" styleClass="backgraound-color">
                   <children>
-                    <Button fx:id="startGame" disable="true" layoutX="102.0" layoutY="656.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleStartGameButton" prefHeight="41.0" prefWidth="200.0" styleClass="circleButton" text="START  GAME">
+                    <Button fx:id="startGame" disable="true" layoutX="123.0" layoutY="577.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleStartGameButton" prefHeight="41.0" prefWidth="200.0" styleClass="circleButton" text="START  GAME">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -92,7 +92,7 @@
                         <SepiaTone level="0.3" />
                       </effect>
                     </CheckBox>
-                    <Label layoutX="90.0" layoutY="23.0" prefHeight="100.0" prefWidth="200.0" styleClass="leftPanelLabel, headlines" text="  List of players">
+                    <Label alignment="CENTER" layoutX="3.0" layoutY="23.0" prefHeight="100.0" prefWidth="429.0" styleClass="leftPanelLabel, headlines" text="List of players">
                       <effect>
                         <Glow />
                       </effect>
@@ -129,7 +129,7 @@
                 </AnchorPane>
               </items>
             </SplitPane>
-            <Label layoutX="3.0" layoutY="0.0" prefHeight="42.0" prefWidth="830.0" styleClass="headlines" stylesheets="@FontStyle.css" text="Welcome to the Game Lobby" textAlignment="CENTER" textFill="$x1" textOverrun="WORD_ELLIPSIS" wrapText="true">
+            <Label alignment="CENTER" layoutX="-1.0" layoutY="0.0" prefHeight="42.0" prefWidth="973.0" styleClass="headlines" text="Welcome to the Game Lobby" textAlignment="CENTER" textFill="$x1" textOverrun="WORD_ELLIPSIS" wrapText="true">
               <effect>
                 <Glow />
               </effect>
@@ -139,44 +139,47 @@
             <URL value="@HostGameLobby.css" />
           </stylesheets>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="300.0">
-          <children>
-            <GridPane prefHeight="800.0" prefWidth="267.0001220703125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
-              <children>
-                <SplitPane focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                  <items>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="308.0">
-                      <children>
-                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" onAction="#handleSendMessage" prefHeight="45.0" prefWidth="348.0" promptText="Enter message..." styleClass="label">
-                          <stylesheets>
-                            <URL value="@HostGameLobby.css" />
-                          </stylesheets>
-                        </TextField>
-                                    <Button fx:id="sendButton" layoutX="344.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
-                      </children>
-                    </AnchorPane>
-                  </items>
-                </SplitPane>
-                <Label prefHeight="43.0" prefWidth="427.0" styleClass="headlines" text="Chat" textAlignment="CENTER" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                  <effect>
-                    <Glow />
-                  </effect>
-                  <stylesheets>
-                    <URL value="@HostGameLobby.css" />
-                  </stylesheets>
-                </Label>
-                        <TextArea fx:id="chat" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-              </children>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="722.0" minHeight="10.0" prefHeight="720.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="260.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-          </children>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="425.0">
+               <children>
+                  <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="435.0">
+                     <children>
+                        <SplitPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="435.0" GridPane.rowIndex="2">
+                           <items>
+                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="350.0">
+                                 <children>
+                                    <TextField fx:id="textField" alignment="CENTER" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="350.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <stylesheets>
+                                          <URL value="@HostGameLobby.css" />
+                                       </stylesheets>
+                                    </TextField>
+                                    <Button fx:id="sendButton1" layoutX="344.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                        <Label prefHeight="55.0" prefWidth="427.0" styleClass="headlines" text="     CHATROOM" textAlignment="CENTER">
+                           <textFill>
+                              <Color blue="0.000" green="0.000" red="0.200" fx:id="x11" />
+                           </textFill>
+                           <effect>
+                              <Glow />
+                           </effect>
+                           <stylesheets>
+                              <URL value="@HostGameLobby.css" />
+                           </stylesheets>
+                        </Label>
+                        <TextArea fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="429.0" GridPane.rowIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="43.55556297302246" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="722.0" minHeight="10.0" prefHeight="659.4444370269775" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="260.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
         </AnchorPane>
       </items>
     </SplitPane>

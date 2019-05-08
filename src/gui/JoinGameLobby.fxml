@@ -14,18 +14,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.JoinGameLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.JoinGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
-    <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" layoutX="-7.0" layoutY="-2.0" prefHeight="800.0" prefWidth="1280.0">
+    <SplitPane dividerPositions="0.6588419405320813" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="426.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="845.0">
           <children>
-            <SplitPane focusTraversable="true" layoutX="1.0" layoutY="40.0" prefHeight="756.0" prefWidth="839.0">
+            <SplitPane focusTraversable="true" layoutX="9.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="837.0">
               <items>
-                <AnchorPane maxWidth="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="347.0" styleClass="backgraound-color">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="845.0" styleClass="backgraound-color">
                   <children>
-                    <Button fx:id="leaveGame" layoutX="345.0" layoutY="630.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveGame" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
+                    <Button fx:id="leaveGame" layoutX="342.0" layoutY="621.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveGame" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
                         <DropShadow />
                       </effect>
@@ -46,7 +46,7 @@
                 </AnchorPane>
               </items>
             </SplitPane>
-            <Label layoutX="217.0" prefHeight="42.0" prefWidth="404.0" styleClass="headlines" text="Welcome to the Game Lobby" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
+            <Label alignment="CENTER" layoutX="4.0" layoutY="0.0" prefHeight="42.0" prefWidth="838.0" styleClass="headlines" text="                Welcome to the Game Lobby" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
               <effect>
                 <Glow />
               </effect>
@@ -59,25 +59,25 @@
             <URL value="@HostGameLobby.css" />
           </stylesheets>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="300.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="435.0">
           <children>
-            <GridPane prefHeight="800.0" prefWidth="267.0001220703125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="435.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                <SplitPane focusTraversable="true" prefHeight="160.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <SplitPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="435.0" GridPane.rowIndex="2">
                   <items>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="308.0">
+                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="350.0">
                       <children>
-                        <TextField fx:id="textField" alignment="CENTER" layoutX="-4.0" layoutY="0.0" onAction="#handleSendMessage" prefHeight="45.0" prefWidth="348.0" promptText="Enter message..." styleClass="subHeadlines">
+                        <TextField fx:id="textField" alignment="CENTER" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="350.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <stylesheets>
                             <URL value="@HostGameLobby.css" />
                           </stylesheets>
                         </TextField>
-                                    <Button fx:id="sendButton1" layoutX="344.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
+                                    <Button fx:id="sendButton1" layoutX="344.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
                       </children>
                     </AnchorPane>
                   </items>
                 </SplitPane>
-                <Label prefHeight="43.0" prefWidth="427.0" styleClass="headlines" text="     CHATROOM" textAlignment="CENTER" textFill="$x1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label prefHeight="55.0" prefWidth="427.0" styleClass="headlines" text="     CHATROOM" textAlignment="CENTER" textFill="$x1">
                   <effect>
                     <Glow />
                   </effect>
@@ -85,14 +85,14 @@
                     <URL value="@HostGameLobby.css" />
                   </stylesheets>
                 </Label>
-                        <TextArea fx:id="chat" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <TextArea fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="435.0" GridPane.rowIndex="1" />
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="722.0" minHeight="10.0" prefHeight="720.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="43.55556297302246" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="722.0" minHeight="10.0" prefHeight="659.4444370269775" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="260.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
