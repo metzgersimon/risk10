@@ -74,7 +74,7 @@ public class Player implements Serializable {
     this.numberOfCards = 0;
     this.territoriesConquered = 0;
     this.numberOfAttacks = 0;
-    this.rank = 0;
+    this.rank = 1;
     this.sessionWins = 0;
     this.colorString = this.color.getColorString();
   }

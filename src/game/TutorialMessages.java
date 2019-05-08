@@ -26,7 +26,7 @@ public class TutorialMessages {
       + "distributing phase. At the beginning of each turn,"
       + "the player receives a number of Armies"
       + "to distribute across their territories.\n\n"
-      + "The number of armies you get for each turn is calculated"
+      + "The number of armies you get for each turn is calculated "
       + "from the number of territories owned, continents claimed"
       + "and number of cards traded in with a minimum of 3 armies.";
   

@@ -22,6 +22,7 @@ public class RuleBookPopUp implements Initializable {
    */
   public void initialize(URL location, ResourceBundle resources) {
     ruleBook.setText(game.TutorialMessages.ruleBook);
+    Main.b.showMessage("Click on the background to close the rule book");
   }
 
   /**

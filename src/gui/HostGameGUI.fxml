@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameGUIController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameGUIController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.27490234375" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -21,7 +21,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Label ellipsisString="" layoutX="386.0" layoutY="61.0" prefHeight="167.0" prefWidth="510.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Host Game" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label alignment="CENTER" ellipsisString="" layoutX="1.0" layoutY="61.0" prefHeight="167.0" prefWidth="1281.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Host Game" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font name="Bernard MT Condensed" size="96.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Label layoutX="257.0" layoutY="264.0" styleClass="subHeadlines" stylesheets="@FontStyle.css" text="Please choose the number of players" textFill="#faf7f7">
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="264.0" prefHeight="53.0" prefWidth="1282.0" styleClass="subHeadlines" stylesheets="@FontStyle.css" text="Please choose the number of players" textFill="#faf7f7">
          <font>
             <Font name="System Bold" size="39.0" />
          </font>
