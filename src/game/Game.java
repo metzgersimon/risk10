@@ -10,7 +10,7 @@ import main.Main;
 
 public class Game implements Serializable {
 
-  private World w;
+  private World world;
   private ArrayList<Player> allPlayers;
   private ArrayList<Player> players;
   private boolean isNetworkGame;
@@ -22,25 +22,29 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   * * Constuctor * *
+   *                                                *
+   *                    Constuctor                  * 
+   *                                                *
    *************************************************/
 
   /**
-   * @author qiychen
+   * Override default-constructor.
    * 
-   *         override default-constructor
+   * @author qiychen         
    */
   public Game() {
     players = new ArrayList<>();
     allPlayers = new ArrayList<Player>();
-    this.w = new World();
+    this.world = new World();
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
   }
 
 
   /**************************************************
-   * * Getter and Setter * *
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
    *************************************************/
 
   public ArrayList<Player> getAllPlayers() {
@@ -108,7 +112,7 @@ public class Game implements Serializable {
   }
 
   public World getWorld() {
-    return w;
+    return world;
   }
 
   public boolean isShowTutorialMessages() {
@@ -121,13 +125,17 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   * * (more complex) Methods to handle Game-Attributes* *
+   *                                                *
+   *            (more complex) Methods              *
+   *            to handle Game-Attributes           *
+   *                                                *
    *************************************************/
 
   /**
+   * This method adds a new player to the list.
+   * 
    * @author qiychen
-   * @param name
-   * @return Add a new player in the list
+   * @param player
    */
   public void addPlayer(Player p) {
     if (gameState == GameState.NEW_GAME) {
@@ -141,9 +149,10 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method removes a new player from the list.
+   * 
    * @author liwang
-   * @param name
-   * @return Reomove a new player from the list
+   * @param name 
    */
   public void removePlayer() {
     if (gameState == GameState.NEW_GAME) {
@@ -152,9 +161,11 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method represents the next player.
+   * 
    * @author pcoberge
    * @author smetzger
-   * @return
+   * @return Player which is the next player
    */
   public Player getNextPlayer() {
     for (int i = 0; i < players.size() - 1; i++) {
@@ -166,9 +177,11 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method sets the next player.
+   * 
    * @author pcoberge
    * @author smetzger
-   * @return Player 
+   * @return Player which is the new current player
    */
   public Player setNextPlayer() {
     for (int i = 0; i < players.size() - 1; i++) {
@@ -180,9 +193,10 @@ public class Game implements Serializable {
   }
 
   /**
-   * @author pcoberge
+   * This method represents if game should be closed, because only Ai-players are in-game.
    * 
-   *         get to know if game should be closed, if only Ai-players are in-game
+   * @author pcoberge
+   * @return true or false
    */
   public boolean onlyAiPlayersLeft() {
     for (Player p : players) {
@@ -195,13 +209,16 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   * * Methods to initialize Game * *
+   *                                                *
+   *            Methods to initialize Game          * 
+   *                                                *
    *************************************************/
 
   /**
+   * This method initializes the initial game situation and chooses the first player.
+   * 
    * @author pcoberge
    * @author smetzger
-   * 
    */
   public void initGame() {
     initNumberOfArmies();
@@ -212,6 +229,8 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method initializes a shuffled carddeck.
+   * 
    * @author pcoberge
    * @author smetzger
    * 
@@ -221,9 +240,15 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method computes the initial number of armies. 
+   * 2 players - 40 
+   * 3 players - 35 
+   * 4 players - 30
+   * 5 players - 25
+   * 6 players - 20
+   *         
    * @author pcoberge
-   * @author smetzger compute the initial number of armies 2 players - 40 3 players - 35 4 players -
-   *         30 5 players - 25 6 players - 20
+   * @author smetzger
    */
   public void initNumberOfArmies() {
     int number = 50 - (this.players.size() * 5);
@@ -232,13 +257,16 @@ public class Game implements Serializable {
     }
   }
 
-
-
+  
   /**************************************************
-   * * Methods to Manage Game * *
+   *                                                *
+   *            Methods to Manage Game              *
+   *                                                *
    *************************************************/
 
   /**
+   * This method represents choosing next player and preparing the gui for this player in initial territory distribution phase.
+   * 
    * @author smetzger
    * @author pcoberge
    */
@@ -253,9 +281,7 @@ public class Game implements Serializable {
       } else {
         Main.b.enableAll();
       }
-    } else
-
-    {
+    } else {
       this.setGameState(GameState.INITIALIZING_ARMY);
       Main.b.prepareArmyDistribution();
       if (this.getCurrentPlayer() instanceof AiPlayer) {
@@ -268,11 +294,12 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method represents choosing next player and preparing the gui for this player in initial army distribution phase.
+   * 
    * @author smetzger
    * @author pcoberge
    */
   public synchronized void furtherInitialArmyDistribution() {
-
     this.setNextPlayer();
     try {
       Thread.sleep(1000);
@@ -302,11 +329,14 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method represents assigning risk-card to a player when conquering a territory in his turn,
+   * choosing next player and preparing the gui for this player in the army distribution phase.
+   * 
    * @author pcoberge
    * @author smetzger
    */
   public synchronized void furtherFortify() {
-    if(!this.gameState.equals(GameState.END_GAME)) {
+    if (!this.gameState.equals(GameState.END_GAME)) {
       if (this.getCurrentPlayer().getSuccessfullAttack()) {
         Card c = this.cards.getLast();
         this.cards.removeLast();
@@ -337,11 +367,13 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method returns if there are territories left, that do not have an owner.
+   * 
    * @author smetzger
-   * @return
+   * @return true or false
    */
   public boolean unconqueredTerritories() {
-    for (Territory t : this.w.getTerritories().values()) {
+    for (Territory t : this.world.getTerritories().values()) {
       if (t.getOwner() == null) {
         return true;
       }
@@ -350,9 +382,11 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method returns whether the initial armie distribution phase is finished.
+   * 
    * @author pcoberge
    * @author smetzger
-   * @return
+   * @return true or false
    */
   public boolean getRemainingInitialArmies() {
     for (int i = 0; i < this.players.size(); i++) {
@@ -364,11 +398,12 @@ public class Game implements Serializable {
   }
 
   /**
+   * This method checks if all players still have armies left.
+   *
    * @author prto
    * @author smetzger
    * @param players
-   * @return returns ArrayList of players who have 0 territories left and thus lost checks if all
-   *         players still have armies left, otherwise return losing players
+   * @return ArrayList of players who have 0 territories left and thus lost the game
    */
   public ArrayList<Player> checkAllPlayers() {
     ArrayList<Player> lostPlayers = new ArrayList<Player>();
@@ -384,11 +419,15 @@ public class Game implements Serializable {
 
 
   /**************************************************
-   * * Methods to Manage Statistics * *
+   *                                                *
+   *          Methods to Manage Statistics          *                    
+   *                                                *
    *************************************************/
 
   /**
-   * @author prto update amount of territories and cards owned for each player
+   * This method updates amount of territories and cards owned for each player.
+   * 
+   * @author prto
    */
   public void updateLiveStatistics() {
     for (Player p : players) {
@@ -396,5 +435,4 @@ public class Game implements Serializable {
       p.setNumberOfCards(p.getNumberOfCards());
     }
   }
-
 }

@@ -118,7 +118,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         int i = 1;
         for (Territory t : this.getTerritories()) {
           if (i == random) {
-            System.out.println(t.getName());
             territory = t;
             break;
           } else {
@@ -148,7 +147,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
    * 
    */
   public void armyDistribution() {
-    System.out.println("Test armyDistribution");
     int max = 0;
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
@@ -318,7 +316,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (Territory t : this.getTerritories()) {
           if (i == randomTerritory) {
             territory = t;
-            System.out.println(territory.getName() + " -- " + randomNumberOfArmies);
             break;
           } else {
             i++;
@@ -362,7 +359,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            System.out.println("Army distribution: " + t.getName());
             if (!Main.g.isNetworkGame()) {
               Main.b.updateLabelTerritory(t);
             }

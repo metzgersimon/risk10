@@ -7,16 +7,40 @@ import java.util.HashSet;
 import java.util.Vector;
 import main.Main;
 
+/** 
+ * Class defines the hard Ai including their strategy in the different game stages
+ * 
+ * @author smetzger
+ * @author pcoberge
+ *
+ */
 public class AiPlayerHard extends Player implements AiPlayer {
   private Territory territory;
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;
 
-
+  /**************************************************
+   *                                                *
+   *                  Constuctor                    *
+   *                                                *
+   *************************************************/ 
+  
+  /**
+   * Constructor creates an hard Ai player by calling the player constructor to intialize
+   * the name, color and the game the player will be active in.
+   * After that the Ai is added into a HashSet to prevent the have same name multiple times.
+   */
   public AiPlayerHard() {
     super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
+  
+  /**************************************************
+   *                                                *
+   *        Methods for the different main          *
+   *        stages of the game                      *
+   *                                                *
+   *************************************************/ 
 
   /**
    * If no territory adjacent to another own territory is available, choose a territory with the
@@ -71,12 +95,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
         AiPlayerHard.super.initialTerritoryDistribution(selection);
 
         if (!Main.g.isNetworkGame()) {
-          // Main.b.updateLabelTerritory(selection);
           Main.b.updateColorTerritory(selection);
           try {
             Thread.sleep(1500);
           } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
           }
           Main.g.furtherInitialTerritoryDistribution();
@@ -86,7 +108,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
     };
     th.start();
   }
-  
+
   /**
    * Method represents the second stage of the game.
    */
@@ -127,13 +149,12 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
   /**
    * Strategy: Divide number of armies to distribute in attacking and defending armies.
-   * <p>
-   * Attacking armies are placed on territories with the least number of hostile neighbors. These
-   * territories are a good opportunity to expand own territories.
-   * <p>
-   * Defending armies are placed on territories with the highest negative difference in number of
-   * armies.
    * 
+   * <p>Attacking armies are placed on territories with the least number of hostile neighbors. These
+   * territories are a good opportunity to expand own territories.
+   * 
+   * <p>Defending armies are placed on territories with the highest negative difference in number of
+   * armies.
    */
   public void armyDistribution() {
     HashMap<Territory, Integer> hostileNeighbors = new HashMap<Territory, Integer>();
@@ -178,22 +199,15 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
       }
-      System.out.println(this.getTerritories().size());
-      System.out.println(Main.g.getPlayers().size());
-//      System.out.println("Verteilen auf " + terrToDistribute.getName());
       if (super.armyDistribution(1, terrToDistribute)) {
         armiesAttack--;
-      }
-      else {
+      } else {
         break;
       }
     } while (armiesAttack > 0 && hostileNeighbors.size() > 0);
 
-
-
     // armies that defend territories/ continents
     int armiesDefend = this.getNumberArmiesToDistibute() - armiesAttack;
-    System.out.println("Defend armies number: " + armiesDefend);
     int max = 0;
     ownTerritories = new HashMap<Integer, HashSet<Territory>>();
     sortedValues = new ArrayList<Integer>();
@@ -234,7 +248,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     }
 
-    // Main.b.handleSkipGameState();
     Main.g.setGameState(GameState.ATTACK);
     this.attack();
   }
@@ -244,14 +257,13 @@ public class AiPlayerHard extends Player implements AiPlayer {
    * Strategy: At first all hostile territories are sorted by their number of hostile neighbors. So,
    * the player can evaluate whether this territory increases the number of hosts or not.
    * 
-   * These territories with the least number of hosts (min + 1) are sorted by their difference in
+   * <p>These territories with the least number of hosts (min + 1) are sorted by their difference in
    * number of armies in compare with their neighbors.
    */
   public void attack() {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -271,7 +283,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
             i++;
           }
         }
-        System.out.println("Anzahl i von " + t.getName() + ": " + i);
         hostileNeighbors.put(t, i);
       }
 
@@ -306,8 +317,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
 
-        System.out.println("Minimale Anzahl an neuen Gegnern durch Eroberung: " + min + " vs. "
-            + hostileNeighbors.get(defender));
         int value = 0;
         if (attacker.getHostileNeighbor().size() == 1) {
           value = attacker.getNumberOfArmies() - 1;
@@ -323,11 +332,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
         Vector<Integer> attackDices = Dice.rollDices(armiesToAttack >= 3 ? 3 : armiesToAttack);
         Vector<Integer> defendDices =
             Dice.rollDices(defender.getNumberOfArmies() >= 2 ? 2 : defender.getNumberOfArmies());
-        System.out.println(attacker.getNumberOfArmies() + " vs. " + defender.getNumberOfArmies());
-        // System.out.println("Max:" + max);
         if (attackDices.size() > defendDices.size()) {
           if (super.attack(attackDices, defendDices, attacker, defender, armiesToAttack)) {
-            System.out.println("Defending territory owner: " + defender.getOwner().getName());
             Main.b.updateLabelTerritory(attacker);
             Main.b.updateLabelTerritory(defender);
             Main.b.updateColorTerritory(defender);
@@ -337,28 +343,23 @@ public class AiPlayerHard extends Player implements AiPlayer {
             try {
               Thread.sleep(2000);
             } catch (InterruptedException e) {
-              // TODO Auto-generated catch block
               e.printStackTrace();
             }
           }
-          System.out.println(attacker + " -- " + defender);
         } else {
           break;
         }
       } else {
         break;
       }
-      // max = round;
-      // round++;
     }
-    if(Main.g.getGameState() != GameState.END_GAME) {
+    if (Main.g.getGameState() != GameState.END_GAME) {
       Main.g.setGameState(GameState.FORTIFY);
     }
-    
+
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     this.fortify();
@@ -391,13 +392,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
     if (moveTo != null) {
       if (super.fortify(moveFrom, moveTo, moveFrom.getNumberOfArmies() - 1)) {
-        System.out.println("Territory from: " + moveFrom + " to: " + moveTo);
         Main.b.updateLabelTerritory(moveFrom);
         Main.b.updateLabelTerritory(moveTo);
       }
     }
 
-    // Main.b.handleSkipGameState();
     Main.g.furtherFortify();
   }
 
@@ -456,7 +455,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
     // choose territory
     while (this.getNumberArmiesToDistibute() != 0) {
-      // System.out.println(this.getNumberArmiesToDistibute());
       do {
         randomTerritory = (int) (Math.random() * this.getTerritories().size()) + 1;
         randomNumberOfArmies = (int) (Math.random() * this.getNumberArmiesToDistibute()) + 1;
@@ -464,7 +462,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
         for (Territory t : this.getTerritories()) {
           if (i == randomTerritory) {
             territory = t;
-            System.out.println(territory.getName() + " -- " + randomNumberOfArmies);
             break;
           } else {
             i++;
@@ -507,7 +504,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            System.out.println("Army distribution: " + t.getName());
             if (!Main.g.isNetworkGame()) {
               Main.b.updateLabelTerritory(t);
             }
