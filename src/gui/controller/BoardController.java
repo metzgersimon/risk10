@@ -312,6 +312,7 @@ public class BoardController implements Initializable {
         }
         Platform.runLater(new Runnable() {
           public void run() {
+            setTurns();
             showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -344,6 +345,31 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
+  /**
+   * This method changes the game state in network game, the current player name will be showed in game state
+   * @author qiychen
+   * 
+   */
+    public void setTurns() {
+      if (Main.g.isNetworkGame()) {
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+            if (Main.g.getCurrentPlayer().getName()
+                .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
+              if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY
+                  || Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
+                gameState.setText("Place your Armies initially!");
+              } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
+                gameState.setText("Place your Armies!");
+              }
+
+            }
+          }
+        });
+      }
+  }
 
   /**
    * @author smetzger
@@ -358,6 +384,7 @@ public class BoardController implements Initializable {
           Platform.runLater(new Runnable() {
             public void run() {
               if (!gameState.getText().equals("Place your Armies initially!")) {
+                setTurns();
                 gameState.setText("Place your Armies initially!");
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
                 if(Main.g.isShowTutorialMessages()) {
@@ -366,6 +393,7 @@ public class BoardController implements Initializable {
                 }
                 
               } else {
+                setTurns();
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
               circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -378,6 +406,7 @@ public class BoardController implements Initializable {
               || gameState.getText().equals("End your Turn!")) {
             Platform.runLater(new Runnable() {
               public void run() {
+                setTurns();
                 gameState.setText("Place your Armies!");
               }
             });

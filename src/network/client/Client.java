@@ -489,6 +489,7 @@ public class Client extends Thread implements Serializable {
    *  After receiving skip gamestate message, the turns will be changed
    */
   private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
+    Main.b.setTurns();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
     if(message.getGameState()==GameState.FORTIFY) {
       Main.g.furtherFortify();

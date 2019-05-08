@@ -316,6 +316,7 @@ public class Game implements Serializable {
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
+      Main.b.setTurns();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
