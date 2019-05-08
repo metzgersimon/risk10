@@ -66,27 +66,27 @@
             <ImageView fx:id="image3" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="image4" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="image5" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="240.0" onMouseClicked="#choose" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="edit1" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" stylesheets="@FontStyle.css" text="view/edit">
+            <Button fx:id="edit1" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" styleClass="buttonViewEdit" stylesheets="@FontStyle.css" text="view/edit">
                <font>
                   <Font name="Ubuntu Light" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="edit2" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" stylesheets="@FontStyle.css" text="view/edit">
+            <Button fx:id="edit2" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" styleClass="buttonViewEdit" stylesheets="@FontStyle.css" text="view/edit">
                <font>
                   <Font name="Ubuntu Light" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="edit3" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" stylesheets="@FontStyle.css" text="view/edit">
+            <Button fx:id="edit3" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" styleClass="buttonViewEdit" stylesheets="@FontStyle.css" text="view/edit">
                <font>
                   <Font name="Ubuntu Light" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="edit4" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" stylesheets="@FontStyle.css" text="view/edit">
+            <Button fx:id="edit4" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" styleClass="buttonViewEdit" stylesheets="@FontStyle.css" text="view/edit">
                <font>
                   <Font name="Ubuntu Light" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="edit5" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" stylesheets="@FontStyle.css" text="view/edit">
+            <Button fx:id="edit5" layoutX="486.0" layoutY="420.0" mnemonicParsing="false" onAction="#edit" opacity="0.0" prefHeight="56.0" prefWidth="106.0" styleClass="buttonViewEdit" stylesheets="@FontStyle.css" text="view/edit">
                <font>
                   <Font name="Ubuntu Light" size="18.0" />
                </font>

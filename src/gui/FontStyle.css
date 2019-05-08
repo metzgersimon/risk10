@@ -1,19 +1,19 @@
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("/resources/fonts/Ubuntu-L.ttf");
+	src: url("fonts/Ubuntu-L.ttf");
 }
 
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("resources/fonts/Ubuntu-M.ttf");
+	src: url("fonts/Ubuntu-M.ttf");
 }
 
 @font-face {
 	font-style: normal;
 	font-weight: 400;
-	src: url("resources/fonts/Ubuntu-R.ttf");
+	src: url("fonts/Ubuntu-R.ttf");
 }
 
 .headlinesA {
@@ -36,7 +36,13 @@
 }
 
 .button {
-	-fx-font-size:	33.0;
+	-fx-font-size:	26.0;
+	-fx-font-family:	'Ubuntu Light';
+	-fx-font-style:	normal;
+}
+
+.buttonViewEdit {
+	-fx-font-size:	18.0;
 	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }
@@ -54,7 +60,7 @@
 }
 
 .playerNames {
-	-fx-font-size:	32.0;
+	-fx-font-size:	28.0;
 	-fx-font-family:	'Ubuntu Light';
 	-fx-font-style:	normal;
 }

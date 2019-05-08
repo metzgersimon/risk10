@@ -45,7 +45,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="107.0" layoutY="72.0" prefHeight="77.0" prefWidth="1066.0" styleClass="headlinesC" stylesheets="@FontStyle.css" text="Host, connect automatically or manually join a Server" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="107.0" layoutY="72.0" prefHeight="77.0" prefWidth="1066.0" stylesheets="@FontStyle.css" text="Host, connect automatically or manually join a Server" textFill="WHITE">
          <font>
             <Font name="Ubuntu Medium" size="42.0" />
          </font></Label>
