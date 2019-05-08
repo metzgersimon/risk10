@@ -64,6 +64,9 @@ public class TutorialMessages {
       + "have no armies left on this territory."
       + " It now belongs to your opponent";
   
+  public static String fortify = "You can now move armies"
+      + " between adjacent territories";
+  
   public static String fortifyTip = "Tip: Decrease the chances "
       + "of weak spots by "
       + "fortifying your border territories against opponent attacks";

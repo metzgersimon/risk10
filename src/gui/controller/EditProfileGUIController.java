@@ -209,7 +209,7 @@ public class EditProfileGUIController {
   private void showNameUnavilable() {
     Stage dialogStage = new Stage();
     dialogStage.initModality(Modality.APPLICATION_MODAL);
-    VBox vbox = new VBox(new Text("The name is already exist, please give another name"));
+    VBox vbox = new VBox(new Text("This name already exists. Try a different one"));
     Button okButton = new Button("OK");
     okButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -249,7 +249,7 @@ public class EditProfileGUIController {
 
     // @prto Load stats
     matchesPlayed.setText(
-        "Matches played:\t    " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
+        "Matches played:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
     matchesWon.setText(
         "Matches won:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesWon());
     matchesLost.setText(
