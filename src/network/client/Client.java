@@ -332,7 +332,6 @@ public class Client extends Thread implements Serializable {
       public void run() {
         // Dont update the board if the message is sent the by the humanplayer himself
         if (!(player.getColor().toString().equals(message.getColor()))) {
-
           // update the information recieved from the message in game instance
           Main.g.getWorld().getTerritories().get(message.getTerritoryId())
               .setOwner(Main.g.getCurrentPlayer());
@@ -366,7 +365,7 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {
+        if (!(player.getColor().toString().equals(message.getColor()))) {         
           Main.g.getWorld().getTerritories().get(message.getTerritoryId())
               .setNumberOfArmies(message.getAmount());
           Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -390,6 +389,7 @@ public class Client extends Thread implements Serializable {
       Main.b.setState("Choose your Territory!");
     }  
     if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
+     // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
       Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -476,10 +476,10 @@ public class Client extends Thread implements Serializable {
 
       // }
     }   
-    Main.g.furtherFortify();
-    if(this.player.getColor().toString().equals(message.getColor())) {
-    Main.b.setState("End your turn!");
-    }
+//    Main.g.furtherFortify();
+//    if(this.player.getColor().toString().equals(message.getColor())) {
+//    Main.b.setState("End your turn!");
+//    }
     
   }
   /**
@@ -492,7 +492,7 @@ public class Client extends Thread implements Serializable {
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
     if(message.getGameState()==GameState.FORTIFY) {
       Main.g.furtherFortify();
-      Main.b.setState("Select your Continent!");                               
+      Main.b.setState("Select your Territory!");                               
     }
     }  
   }
