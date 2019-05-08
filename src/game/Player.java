@@ -591,11 +591,11 @@ public class Player implements Serializable {
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
     attack.getOwner().setNumberOfAttacks(attack.getOwner().getNumberOfAttacks() + 1);
-    if (Main.g.isShowTutorialMessages()) {
+//    if (Main.g.isShowTutorialMessages()) {
       Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
           + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
           + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
-    }
+//    }
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {

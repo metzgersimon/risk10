@@ -312,7 +312,7 @@ public class BoardController implements Initializable {
         Platform.runLater(new Runnable() {
           public void run() {
             setTurns();
-            showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+//            showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             currentPlayer.setText(Main.g.getCurrentPlayer().getName());
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -386,7 +386,7 @@ public class BoardController implements Initializable {
               if (!gameState.getText().equals("Place your Armies initially!")) {
                 setTurns();
                 gameState.setText("Place your Armies initially!");
-                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+//                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
                 if(Main.g.isShowTutorialMessages()) {
                   showMessage(game.TutorialMessages.distributing);
                   showMessage(game.TutorialMessages.distributingTip);
@@ -394,7 +394,7 @@ public class BoardController implements Initializable {
                 
               } else {
                 setTurns();
-                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+//                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
               currentPlayer.setText(Main.g.getCurrentPlayer().getName());
               circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -1193,6 +1193,7 @@ public class BoardController implements Initializable {
     // progress.setStyle("-fx-accent: magenta;");
     Platform.runLater(new Runnable() {
       public void run() {
+        changeGameState.setDisable(true);
         // System.out.println("Handle Skip GameState");
         // changeGameState.setOnAction(new EventHandler<ActionEvent>() {
         changeGameState.setEffect(new Bloom());
@@ -1201,6 +1202,7 @@ public class BoardController implements Initializable {
           case ARMY_DISTRIBUTION:
             System.out.println("Handle Skip GameState: ARMY DISTRIBUTION");
             gameState.setText("Attack!");
+            changeGameState.setDisable(false);
             // progress.setProgress(0.66);
             prepareAttack();
             Main.g.setGameState(GameState.ATTACK);
@@ -1208,6 +1210,7 @@ public class BoardController implements Initializable {
           case ATTACK:
             System.out.println("Handle Skip GameState: ATTACK");
             gameState.setText("Move your armies!");
+            changeGameState.setDisable(false);
             // progress.setProgress(0.9);
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
@@ -1229,7 +1232,6 @@ public class BoardController implements Initializable {
             // // TODO Auto-generated catch block
             // e1.printStackTrace();
             // }
-            changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
             // progress.setProgress(0);
