@@ -72,9 +72,10 @@ public class AttackSubSceneController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
-            ? ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
-            : ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
-        diceSlider.setBlockIncrement(max);
+            ? ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
+            : ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
+        diceSlider.setMajorTickUnit(max);
+        diceSlider.setMinorTickCount(max);
         diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
         diceSlider.setMin(1.0);
         diceSlider.setValue(1.0);

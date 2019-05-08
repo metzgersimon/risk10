@@ -96,11 +96,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
         if (!Main.g.isNetworkGame()) {
           Main.b.updateColorTerritory(selection);
-          try {
-            Thread.sleep(1500);
-          } catch (InterruptedException e1) {
-            e1.printStackTrace();
-          }
+//          try {
+//            Thread.sleep(1500);
+//          } catch (InterruptedException e1) {
+//            e1.printStackTrace();
+//          }
           Main.g.furtherInitialTerritoryDistribution();
         }
 
@@ -261,11 +261,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
    * number of armies in compare with their neighbors.
    */
   public void attack() {
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Thrleep(2000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
 
     while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME) {
       HashMap<Territory, Integer> hostileNeighbors = new HashMap<>();
@@ -340,11 +340,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
           } else {
             Main.b.updateLabelTerritory(attacker);
             Main.b.updateLabelTerritory(defender);
-            try {
-              Thread.sleep(2000);
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-            }
+//            try {
+//              Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//              e.printStackTrace();
+//            }
           }
         } else {
           break;
@@ -357,11 +357,11 @@ public class AiPlayerHard extends Player implements AiPlayer {
       Main.g.setGameState(GameState.FORTIFY);
     }
 
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
     this.fortify();
   }
 
@@ -423,7 +423,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
         int i = 1;
         for (Territory t : this.getTerritories()) {
           if (i == random) {
-            System.out.println(t.getName());
             territory = t;
             break;
           } else {

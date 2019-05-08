@@ -17,7 +17,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="394.0" spacing="10.0" style="-fx-background-color: rgb(20,20,20);">
                <children>
-                  <Label styleClass="choiceBox" stylesheets="@FontStyle.css" text="Set Army" textFill="WHITE">
+                  <Label styleClass="choiceBox" stylesheets="@FontStyle.css" text="Set Armies" textFill="WHITE">
                      <font>
                         <Font name="Ubuntu Light" size="23.0" />
                      </font>

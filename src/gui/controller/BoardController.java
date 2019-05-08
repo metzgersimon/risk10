@@ -414,12 +414,12 @@ public class BoardController implements Initializable {
           }
         }
 
-        try {
-          Thread.sleep(500);
-        } catch (InterruptedException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
+        // try {
+        // Thread.sleep(500);
+        // } catch (InterruptedException e1) {
+        // // TODO Auto-generated catch block
+        // e1.printStackTrace();
+        // }
 
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
@@ -669,14 +669,15 @@ public class BoardController implements Initializable {
    * @param change the game state text
    */
   public synchronized void setState(String text) {
-    Platform.runLater(new Runnable() {      
+    Platform.runLater(new Runnable() {
       @Override
       public void run() {
-       gameState.setText(text);        
+        gameState.setText(text);
       }
     });
 
   }
+
   /**
    * @author smetzger
    * @author pcoberge
@@ -719,7 +720,6 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         DropShadow d = (DropShadow) r.getEffect();
-        System.out.println(d);
         d.setInput(null);
       }
     });
@@ -747,12 +747,12 @@ public class BoardController implements Initializable {
                 // }
                 // });
                 updateColorTerritory(t);
-                try {
-                  Thread.sleep(1000);
-                } catch (InterruptedException e1) {
-                  // TODO Auto-generated catch block
-                  e1.printStackTrace();
-                }
+                // try {
+                // Thread.sleep(1000);
+                // } catch (InterruptedException e1) {
+                // // TODO Auto-generated catch block
+                // e1.printStackTrace();
+                // }
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
@@ -768,10 +768,11 @@ public class BoardController implements Initializable {
                     }
                   });
                 }
-                Main.g.furtherInitialTerritoryDistribution();
               }
             };
             th.start();
+            Main.g.furtherInitialTerritoryDistribution();
+
           }
           break;
         // place armies
@@ -896,11 +897,11 @@ public class BoardController implements Initializable {
               }
             });
           }
-          try {
-            this.sleep(50);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+          // try {
+          // this.sleep(50);
+          // } catch (InterruptedException e) {
+          // e.printStackTrace();
+          // }
           if (Main.g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
             showMessage(game.TutorialMessages.attacking2);
             showMessage(game.TutorialMessages.attackingTip);
@@ -992,7 +993,8 @@ public class BoardController implements Initializable {
             selectedTerritory = t;
             Platform.runLater(new Runnable() {
               public void run() {
-                DropShadow d = (DropShadow) selectedTerritory.getBoardRegion().getRegion().getEffect();
+                DropShadow d =
+                    (DropShadow) selectedTerritory.getBoardRegion().getRegion().getEffect();
                 d.setInput(new Lighting());
               }
             });
@@ -1060,7 +1062,8 @@ public class BoardController implements Initializable {
       if (selectedTerritory_attacked != null) {
         Platform.runLater(new Runnable() {
           public void run() {
-            DropShadow d = (DropShadow) selectedTerritory_attacked.getBoardRegion().getRegion().getEffect();
+            DropShadow d =
+                (DropShadow) selectedTerritory_attacked.getBoardRegion().getRegion().getEffect();
             d.setInput(new Lighting());
             selectedTerritory_attacked.getBoardRegion().getRegion().setDisable(true);
           }
@@ -1078,12 +1081,12 @@ public class BoardController implements Initializable {
         }
       }
     }
-    try {
-      Thread.sleep(500);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // try {
+    // Thread.sleep(500);
+    // } catch (InterruptedException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
     selectedTerritory = null;
     selectedTerritory_attacked = null;
   }
@@ -1100,7 +1103,9 @@ public class BoardController implements Initializable {
     statistic.refresh();
 
     newSPane.setVisible(true);
-    showMessage("Click on the background to close the statistics screen");
+    if (Main.g.isShowTutorialMessages()) {
+      showMessage("Click on the background to close the statistics screen");
+    }
   }
 
   /**
@@ -1208,22 +1213,22 @@ public class BoardController implements Initializable {
             Main.g.setGameState(GameState.FORTIFY);
             break;
           case FORTIFY:
-            if(Main.g.isNetworkGame()){
-             SkipgamestateMessage message=new SkipgamestateMessage(GameState.FORTIFY);
-             message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-             NetworkController.gameFinder.getClient().sendMessage(message);
+            if (Main.g.isNetworkGame()) {
+              SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
+              message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+              NetworkController.gameFinder.getClient().sendMessage(message);
             }
             Main.g.getCurrentPlayer().setFortify(true);
             neutralizeGUIfortify();
             System.out.println("Handle Skip GameState: ARMY FORTIFY");
             gameState.setText("End your turn!");
             // progress.setProgress(1);
-            try {
-              Thread.sleep(3500);
-            } catch (InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
+            // try {
+            // Thread.sleep(3500);
+            // } catch (InterruptedException e1) {
+            // // TODO Auto-generated catch block
+            // e1.printStackTrace();
+            // }
             changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
@@ -1329,21 +1334,21 @@ public class BoardController implements Initializable {
         Main.g.getWorld().getTerritories().get(42).setBoardRegion(
             new BoardRegion(easternAustralia, easternAustraliaHeadline, easternAustraliaNoA));
         Main.g.getWorld().createTerritoriesBoardRegion();
-        
-        for(Territory t: Main.g.getWorld().getTerritories().values()) {
-        Platform.runLater(new Runnable() {
-          public void run() {
-            DropShadow shadow = new DropShadow();
-            Lighting light = new Lighting();
-            shadow.setRadius(0.0);
-            shadow.setInput(light);
-//            shadow.setColor();
-            t.getBoardRegion().getRegion().setEffect(shadow);
-          }
-        });
+
+        for (Territory t : Main.g.getWorld().getTerritories().values()) {
+          Platform.runLater(new Runnable() {
+            public void run() {
+              DropShadow shadow = new DropShadow();
+              Lighting light = new Lighting();
+              shadow.setRadius(0.0);
+              shadow.setInput(light);
+              // shadow.setColor();
+              t.getBoardRegion().getRegion().setEffect(shadow);
+            }
+          });
         }
       }
-      
+
     };
     th.start();
   }
@@ -1378,41 +1383,40 @@ public class BoardController implements Initializable {
   public void handleContinentGlow(Continent c, boolean hasShadow) {
     Thread th = new Thread() {
       public void run() {
-          if(hasShadow) {
-            for (Territory tL : c.getTerritories()) {
-              Platform.runLater(new Runnable() {
-                public void run() {
-                  DropShadow shadow = (DropShadow) tL.getBoardRegion().getRegion().getEffect();
-                  shadow.setRadius(30.0);
-//                          shadow.setInput(light);
-                  shadow.setColor(tL.getOwner().getColor().getColor());
-//                          tL.getBoardRegion().getRegion().setEffect(shadow);
-                }
-              });
-             }
+        if (hasShadow) {
+          for (Territory tL : c.getTerritories()) {
+            Platform.runLater(new Runnable() {
+              public void run() {
+                DropShadow shadow = (DropShadow) tL.getBoardRegion().getRegion().getEffect();
+                shadow.setRadius(30.0);
+                // shadow.setInput(light);
+                shadow.setColor(tL.getOwner().getColor().getColor());
+                // tL.getBoardRegion().getRegion().setEffect(shadow);
+              }
+            });
           }
-          else {
-            for(Territory t: c.getTerritories()) {
-              Platform.runLater(new Runnable() {
-                public void run() {
-                  DropShadow shadow = (DropShadow)t.getBoardRegion().getRegion().getEffect();
-                  shadow.setRadius(0.0);
-                  shadow.setColor(null);
-                }       
-              });
-            }
+        } else {
+          for (Territory t : c.getTerritories()) {
+            Platform.runLater(new Runnable() {
+              public void run() {
+                DropShadow shadow = (DropShadow) t.getBoardRegion().getRegion().getEffect();
+                shadow.setRadius(0.0);
+                shadow.setColor(null);
+              }
+            });
           }
-                
-              
-            
-            // prepareInitTerritoryDistribution();
-           
-            try {
-              Thread.sleep(500);
-            } catch (InterruptedException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-            }
+        }
+
+
+
+        // prepareInitTerritoryDistribution();
+
+        // try {
+        // Thread.sleep(500);
+        // } catch (InterruptedException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
       }
     };
     th.start();
@@ -1521,8 +1525,8 @@ public class BoardController implements Initializable {
   }
 
   public void endGame() {
-    
-//    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
+
+    // Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     Platform.runLater(new Runnable() {
       public void run() {
         try {
@@ -1534,8 +1538,8 @@ public class BoardController implements Initializable {
           stage.setX(Main.stage.getX() + 2);
           stage.setY(Main.stage.getY() + 24);
           stage.show();
-//          Main.stage.setScene(new Scene(root));
-//          Main.stage.show();
+          // Main.stage.setScene(new Scene(root));
+          // Main.stage.show();
           System.out.println(Main.stagePanes.isShowing());
         } catch (Exception e) {
           e.printStackTrace();

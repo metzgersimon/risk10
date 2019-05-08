@@ -380,7 +380,6 @@ public class Player implements Serializable {
       int number = this.getTradedCardSets();
       // checks if the given cards are a valid set
       if (c1.canBeTraded(c2, c3)) {
-        System.out.println(this.getName() + " Karten: " + this.getCards().size());
         switch (number) {
           case 0:
             armies = 4;
@@ -637,8 +636,10 @@ public class Player implements Serializable {
         p.setRank(Main.g.getPlayers().size() + 1);
         attack.getOwner().addElimiatedPlayer(p);
         attack.getOwner().setCards(p.getCards());
-        for (Card c : p.getCards()) {
-          Main.cardC.insertCards(c);
+        if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+          for (Card c : p.getCards()) {
+            Main.cardC.insertCards(c);
+          }
         }
         Main.b.showMessage(attack.getOwner().getName() + " defeated " + p.getName() + "!");
       }

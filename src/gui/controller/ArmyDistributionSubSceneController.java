@@ -33,18 +33,18 @@ public class ArmyDistributionSubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    int max = (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() % 10) == 0 ?
-          (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10) :
-          (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10) + 1;
-    setArmySlider.setBlockIncrement(max);
+    int max = (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() % 10) == 0
+        ? (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10)
+        : (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10) + 1;
+    setArmySlider.setMajorTickUnit(max);
+    setArmySlider.setMinorTickCount(max);
     setArmySlider.setMax(Main.g.getCurrentPlayer().getNumberArmiesToDistibute());
     setArmySlider.setValue(1);
   }
 
   /**
-   * This method is the actionlistener-method to the button to 
-   * set armies on a chosen territory. 
-   * At the end it turns back to the primaryStage.
+   * This method is the actionlistener-method to the button to set armies on a chosen territory. At
+   * the end it turns back to the primaryStage.
    */
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
@@ -73,8 +73,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
   }
 
   /**
-   * This method is used when a player wants to cancel the 
-   * army distribution on a chosen territory.
+   * This method is used when a player wants to cancel the army distribution on a chosen territory.
    */
   public synchronized void clickBack() {
     Main.stagePanes.close();

@@ -37,12 +37,12 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         if (!Main.g.isNetworkGame()) {
           // Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-          try {
-            Thread.sleep(1500);
-          } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-          }
+//          try {
+//            Thread.sleep(1500);
+//          } catch (InterruptedException e1) {
+//            // TODO Auto-generated catch block
+//            e1.printStackTrace();
+//          }
           // System.out.println(Platform.isFxApplicationThread());
           // System.out.println(new Date().toString());
           // try {
@@ -207,22 +207,22 @@ public class AiPlayerEasy extends Player implements AiPlayer {
           Main.b.updateLabelTerritory(territoryOwn);
           Main.b.updateLabelTerritory(territoryOpponent);
         }
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+//        try {
+//          Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//          e.printStackTrace();
+//        }
       }
       attackProbability = 0.66;
       random = Math.random();
     }
     // sets the game state to the next stage
     Main.g.setGameState(GameState.FORTIFY);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
     // calls the fortify method of the class
     this.fortify();
 

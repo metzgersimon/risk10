@@ -271,6 +271,12 @@ public class Game implements Serializable {
    * @author pcoberge
    */
   public synchronized void furtherInitialTerritoryDistribution() {
+     try {
+     Thread.sleep(1000);
+     } catch (InterruptedException e1) {
+     // TODO Auto-generated catch block
+     e1.printStackTrace();
+     }
     this.setNextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
@@ -300,12 +306,12 @@ public class Game implements Serializable {
    * @author pcoberge
    */
   public synchronized void furtherInitialArmyDistribution() {
-    this.setNextPlayer();
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    this.setNextPlayer();
     Main.b.prepareArmyDistribution();
     if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
@@ -346,11 +352,11 @@ public class Game implements Serializable {
           Main.cardC.insertCards(c);
         }
       }
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e1) {
-        e1.printStackTrace();
-      }
+//      try {
+//        Thread.sleep(1000);
+//      } catch (InterruptedException e1) {
+//        e1.printStackTrace();
+//      }
       this.getCurrentPlayer().setStartedDistribution(false);
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);

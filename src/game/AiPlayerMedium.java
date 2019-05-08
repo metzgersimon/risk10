@@ -77,11 +77,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
             Main.g.getWorld().getTerritories().get(random)));
         if (!Main.g.isNetworkGame()) {
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-          try {
-            Thread.sleep(1500);
-          } catch (InterruptedException e1) {
-            e1.printStackTrace();
-          }
+//          try {
+//            Thread.sleep(1500);
+//          } catch (InterruptedException e1) {
+//            e1.printStackTrace();
+//          }
           Main.g.furtherInitialTerritoryDistribution();
         }
       }
@@ -101,10 +101,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     int min = 0;
     territory = null;
     for (Territory t : this.getTerritories()) {
-      System.out.println(t.getName());
-      System.out.println(t.getNeighbor());
       for (Territory opponent : t.getHostileNeighbor()) {
-        System.out.println(opponent.getName());
         if (((t.getNumberOfArmies()) - (opponent.getNumberOfArmies())) <= min) {
           min = t.getNumberOfArmies() - opponent.getNumberOfArmies();
           territory = t;
@@ -212,11 +209,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
    * and those of the opponent is greatest.
    */
   public void attack() {
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
     int max = 0;
     int round = 1;
     Territory attacker = null;
@@ -248,11 +245,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         } else {
           Main.b.updateLabelTerritory(attacker);
           Main.b.updateLabelTerritory(defender);
-          try {
-            Thread.sleep(2000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+//          try {
+//            Thread.sleep(2000);
+//          } catch (InterruptedException e) {
+//            e.printStackTrace();
+//          }
         }
       } else {
         break;
@@ -261,11 +258,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       round++;
     }
     Main.g.setGameState(GameState.FORTIFY);
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
     //keep going with fortify
     this.fortify();
   }

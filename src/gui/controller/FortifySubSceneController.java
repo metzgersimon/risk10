@@ -21,7 +21,7 @@ import network.messages.game.FortifyMessage;
  */
 public class FortifySubSceneController implements Initializable {
   @FXML
-  private Pane fortifyPane; 
+  private Pane fortifyPane;
   @FXML
   private Pane grayPane;
   @FXML
@@ -32,9 +32,10 @@ public class FortifySubSceneController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
-        ? ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
-        : ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
-    fortifySlider.setBlockIncrement(max);
+        ? ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
+        : ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
+    fortifySlider.setMajorTickUnit(max);
+    fortifySlider.setMinorTickCount(max);
     fortifySlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
     fortifySlider.setMin(1.0);
     fortifySlider.setValue(1.0);
@@ -83,7 +84,7 @@ public class FortifySubSceneController implements Initializable {
    * 
    * @param moveFrom territory from which the armies should be moved.
    * @param moveTo territory the armies should be moved to.
-   *       
+   * 
    */
   public synchronized void updateTerritoryFortify(Territory moveFrom, Territory moveTo) {
     Platform.runLater(new Runnable() {
@@ -101,11 +102,7 @@ public class FortifySubSceneController implements Initializable {
    * This method organizes GUI after canceling fortify.
    */
   public synchronized void clickBack() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        Main.b.neutralizeGUIfortify();
-        Main.stagePanes.close();
-      }
-    });
+    Main.b.neutralizeGUIfortify();
+    Main.stagePanes.close();
   }
 }
