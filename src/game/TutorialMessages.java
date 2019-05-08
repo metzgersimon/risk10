@@ -108,7 +108,7 @@ public class TutorialMessages {
   
   //Rule Book
   public static String ruleBook = 
-      "1 Overview\n Risk​ is a strategy board game of diplomacy, "
+      "1 Overview\nRisk​ is a strategy board game of diplomacy, "
       + "conflict and conquest for two to six players.\n" 
       + "The standard version is played on a board depicting a "
       + "political map of the earth, divided into\n"  

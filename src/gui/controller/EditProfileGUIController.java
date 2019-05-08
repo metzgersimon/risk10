@@ -249,11 +249,11 @@ public class EditProfileGUIController {
 
     // @prto Load stats
     matchesPlayed.setText(
-        "Matches played:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
+        "Matches played:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
     matchesWon.setText(
-        "Matches won:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesWon());
+        "Matches won:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesWon());
     matchesLost.setText(
-        "Matches lost:\t\t    " + ProfileManager.profileList.get(profileName).getMatchesLost());
+        "Matches lost:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesLost());
     territoriesConquered.setText("Territories conquered: "
         + ProfileManager.profileList.get(profileName).getTerritoriesConquered());
 
