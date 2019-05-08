@@ -1,5 +1,7 @@
 package gui.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,6 +66,19 @@ public class HostGameGUIController {
   public void initialize() {
     ObservableList<String> nr = FXCollections.observableArrayList("2", "3", "4", "5", "6");
     choiceBox.setItems(nr);
+    choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+      @Override
+      public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+          Number newValue) {
+        // TODO Auto-generated method stub
+        if (newValue != null) {
+          confirm.setDisable(false);
+        } else {
+          confirm.setDisable(true);
+        }
+      }
+    });
     // initial
   }
 
