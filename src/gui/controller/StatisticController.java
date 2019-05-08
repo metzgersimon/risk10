@@ -32,7 +32,7 @@ import main.Main;
 public class StatisticController implements Initializable {
   @FXML
   private Button back;
-  
+
   @FXML
   private Button closeGame;
 
@@ -75,7 +75,7 @@ public class StatisticController implements Initializable {
     hash.addAll(Main.g.getPlayers());
     ObservableList<Player> playerList = FXCollections.observableArrayList(hash);
     table.setItems(playerList);
-    for(Player p: playerList) {
+    for (Player p : playerList) {
       System.out.println(p);
     }
     table.getSortOrder().add(c1);
@@ -114,7 +114,7 @@ public class StatisticController implements Initializable {
     } else {
       ProfileManager.getSelectedProfile().incrementMatchesLost();
     }
-    
+
     // Update session stat
     main.Main.session = true;
 
@@ -136,7 +136,7 @@ public class StatisticController implements Initializable {
       e1.printStackTrace();
     }
   }
-  
+
   /**
    * @author prto closes the game
    */
