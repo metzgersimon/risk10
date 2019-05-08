@@ -344,8 +344,6 @@ public class Game implements Serializable {
         if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
           Main.cardC.insertCards(c);
         }
-        this.getCurrentPlayer().setSuccessfullAttack(false);
-        this.getCurrentPlayer().setFortify(false);
       }
       try {
         Thread.sleep(1000);
@@ -353,6 +351,8 @@ public class Game implements Serializable {
         e1.printStackTrace();
       }
       this.getCurrentPlayer().setStartedDistribution(false);
+      this.getCurrentPlayer().setSuccessfullAttack(false);
+      this.getCurrentPlayer().setFortify(false);
       this.setNextPlayer();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
