@@ -99,6 +99,7 @@ public class BoardController implements Initializable {
   private Button send;
   @FXML
   private TextField messages;
+  private static StringBuffer sb = new StringBuffer();
 
 
   /**
@@ -162,8 +163,8 @@ public class BoardController implements Initializable {
   private Button changeGameState;
   @FXML
   private Label gameState;
-  @FXML
-  private Label currentPlayer;
+
+
   /**
    * Elements for statistic pane
    */
@@ -311,10 +312,8 @@ public class BoardController implements Initializable {
         }
         Platform.runLater(new Runnable() {
           public void run() {
-            setTurns();
-//            showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+            showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-            currentPlayer.setText(Main.g.getCurrentPlayer().getName());
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
           }
         });
@@ -345,31 +344,6 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
-  /**
-   * This method changes the game state in network game, the current player name will be showed in game state
-   * @author qiychen
-   * 
-   */
-    public void setTurns() {
-      if (Main.g.isNetworkGame()) {
-        Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-            gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
-            if (Main.g.getCurrentPlayer().getName()
-                .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
-              if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY
-                  || Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
-                gameState.setText("Place your Armies initially!");
-              } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-                gameState.setText("Place your Armies!");
-              }
-
-            }
-          }
-        });
-      }
-  }
 
   /**
    * @author smetzger
@@ -384,19 +358,13 @@ public class BoardController implements Initializable {
           Platform.runLater(new Runnable() {
             public void run() {
               if (!gameState.getText().equals("Place your Armies initially!")) {
-                setTurns();
                 gameState.setText("Place your Armies initially!");
-//                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
-                if(Main.g.isShowTutorialMessages()) {
-                  showMessage(game.TutorialMessages.distributing);
-                  showMessage(game.TutorialMessages.distributingTip);
-                }
-                
+                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
+                showMessage(game.TutorialMessages.distributing);
+                showMessage(game.TutorialMessages.distributingTip);
               } else {
-                setTurns();
-//                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
-              currentPlayer.setText(Main.g.getCurrentPlayer().getName());
               circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
               armiesToDistribute
                   .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
@@ -407,7 +375,6 @@ public class BoardController implements Initializable {
               || gameState.getText().equals("End your Turn!")) {
             Platform.runLater(new Runnable() {
               public void run() {
-                setTurns();
                 gameState.setText("Place your Armies!");
               }
             });
@@ -627,7 +594,6 @@ public class BoardController implements Initializable {
                 .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
                     CornerRadii.EMPTY, Insets.EMPTY)));
             t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-            currentPlayer.setText(Main.g.getCurrentPlayer().getName());
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             // setReady(true);
@@ -768,11 +734,10 @@ public class BoardController implements Initializable {
                     }
                   });
                 }
+                Main.g.furtherInitialTerritoryDistribution();
               }
             };
             th.start();
-            Main.g.furtherInitialTerritoryDistribution();
-
           }
           break;
         // place armies
@@ -785,7 +750,6 @@ public class BoardController implements Initializable {
                   public void run() {
                     armiesToDistribute
                         .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-                    currentPlayer.setText(Main.g.getCurrentPlayer().getName());
                     circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
                     t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
                   }
@@ -1103,9 +1067,7 @@ public class BoardController implements Initializable {
     statistic.refresh();
 
     newSPane.setVisible(true);
-    if (Main.g.isShowTutorialMessages()) {
-      showMessage("Click on the background to close the statistics screen");
-    }
+    showMessage("Click on the background to close the statistics screen");
   }
 
   /**
@@ -1161,7 +1123,7 @@ public class BoardController implements Initializable {
             // }
             Main.stagePanes.setScene(Main.cards);
             Main.stagePanes.setX(Main.stage.getX() + 2);
-            Main.stagePanes.setY(Main.stage.getY() + 33);
+            Main.stagePanes.setY(Main.stage.getY() + 24);
             Main.stagePanes.show();
 
           } catch (Exception e) {
@@ -1193,7 +1155,6 @@ public class BoardController implements Initializable {
     // progress.setStyle("-fx-accent: magenta;");
     Platform.runLater(new Runnable() {
       public void run() {
-        changeGameState.setDisable(true);
         // System.out.println("Handle Skip GameState");
         // changeGameState.setOnAction(new EventHandler<ActionEvent>() {
         changeGameState.setEffect(new Bloom());
@@ -1202,7 +1163,6 @@ public class BoardController implements Initializable {
           case ARMY_DISTRIBUTION:
             System.out.println("Handle Skip GameState: ARMY DISTRIBUTION");
             gameState.setText("Attack!");
-            changeGameState.setDisable(false);
             // progress.setProgress(0.66);
             prepareAttack();
             Main.g.setGameState(GameState.ATTACK);
@@ -1210,7 +1170,6 @@ public class BoardController implements Initializable {
           case ATTACK:
             System.out.println("Handle Skip GameState: ATTACK");
             gameState.setText("Move your armies!");
-            changeGameState.setDisable(false);
             // progress.setProgress(0.9);
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
@@ -1232,6 +1191,7 @@ public class BoardController implements Initializable {
             // // TODO Auto-generated catch block
             // e1.printStackTrace();
             // }
+            changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
             // progress.setProgress(0);
@@ -1448,7 +1408,7 @@ public class BoardController implements Initializable {
         this.messages.clear();
         this.playername.clear();
       } else {
-        this.showMessage(author.toUpperCase() + "(private) : " + message);
+        this.showMessage(author.toUpperCase() + " (private) : " + message);
         SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
         client.sendMessage(privatemessage);
         this.messages.clear();
@@ -1469,7 +1429,7 @@ public class BoardController implements Initializable {
   }
 
   public void showAllianceMessage(String message) {
-    chat.appendText("(private) :" + message);
+    chat.appendText(message + " (private) ");
     chat.appendText("\n_____________\n");
   }
 

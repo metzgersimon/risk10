@@ -310,7 +310,7 @@ public class Game implements Serializable {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
-    }
+}
     this.setNextPlayer();
     Main.b.prepareArmyDistribution();
     if (this.getRemainingInitialArmies()) {
@@ -322,7 +322,6 @@ public class Game implements Serializable {
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
-      Main.b.setTurns();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
