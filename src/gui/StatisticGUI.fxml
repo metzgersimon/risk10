@@ -17,7 +17,7 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" ellipsisString="" layoutX="357.0" layoutY="14.0" prefHeight="262.0" prefWidth="566.0" stylesheets="@FontStyle.css" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label alignment="CENTER" ellipsisString="" layoutX="357.0" layoutY="14.0" prefHeight="262.0" prefWidth="566.0" styleClass="headlinesB" stylesheets="@FontStyle.css" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font size="96.0" />
          </font>
