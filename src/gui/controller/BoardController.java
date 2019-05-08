@@ -99,7 +99,6 @@ public class BoardController implements Initializable {
   private Button send;
   @FXML
   private TextField messages;
-  private static StringBuffer sb = new StringBuffer();
 
 
   /**
@@ -163,8 +162,8 @@ public class BoardController implements Initializable {
   private Button changeGameState;
   @FXML
   private Label gameState;
-
-
+  @FXML
+  private Label currentPlayer;
   /**
    * Elements for statistic pane
    */
@@ -315,6 +314,7 @@ public class BoardController implements Initializable {
             setTurns();
             showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+            currentPlayer.setText(Main.g.getCurrentPlayer().getName());
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
           }
         });
@@ -396,6 +396,7 @@ public class BoardController implements Initializable {
                 setTurns();
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
+              currentPlayer.setText(Main.g.getCurrentPlayer().getName());
               circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
               armiesToDistribute
                   .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
@@ -626,6 +627,7 @@ public class BoardController implements Initializable {
                 .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
                     CornerRadii.EMPTY, Insets.EMPTY)));
             t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+            currentPlayer.setText(Main.g.getCurrentPlayer().getName());
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             // setReady(true);
@@ -782,6 +784,7 @@ public class BoardController implements Initializable {
                   public void run() {
                     armiesToDistribute
                         .setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+                    currentPlayer.setText(Main.g.getCurrentPlayer().getName());
                     circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
                     t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
                   }
