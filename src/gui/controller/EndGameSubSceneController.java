@@ -47,7 +47,7 @@ public class EndGameSubSceneController implements Initializable {
   /**
    * Method switches to the statistic stage.
    * 
-   * @param event
+   * @param event Event when the leave button is clicked.
    */
   public synchronized void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {

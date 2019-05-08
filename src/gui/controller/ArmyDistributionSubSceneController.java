@@ -1,10 +1,9 @@
 package gui.controller;
 
+import game.AiPlayer;
+import game.Territory;
 import java.net.URL;
 import java.util.ResourceBundle;
-import game.AiPlayer;
-import game.GameState;
-import game.Territory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,15 +14,18 @@ import main.Main;
 import network.messages.game.FurtherDistributeArmyMessage;
 
 /**
+ * This class organizes gui aspects of army distribution phase.
+ * 
  * @author pcoberge
  * @author smetzger
- *
- *         This class organises gui aspects of army distribution phase
+ * 
  */
 public class ArmyDistributionSubSceneController implements Initializable {
 
   @FXML
-  private Pane setArmyPane, grayPane;
+  private Pane setArmyPane;
+  @FXML
+  private Pane grayPane;
   @FXML
   private Slider setArmySlider;
   @FXML
@@ -31,16 +33,18 @@ public class ArmyDistributionSubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    int max = (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() % 10) == 0 ? 
-        (Main.g.getCurrentPlayer().getNumberArmiesToDistibute()/10):(Main.g.getCurrentPlayer().getNumberArmiesToDistibute()/10)+1;
+    int max = (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() % 10) == 0 ?
+          (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10) :
+          (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() / 10) + 1;
     setArmySlider.setBlockIncrement(max);
     setArmySlider.setMax(Main.g.getCurrentPlayer().getNumberArmiesToDistibute());
     setArmySlider.setValue(1);
   }
 
   /**
-   * This method is the actionlistener-method to the button to set armies on a chosen territory. At
-   * the end it turns back to the primaryStage.
+   * This method is the actionlistener-method to the button to 
+   * set armies on a chosen territory. 
+   * At the end it turns back to the primaryStage.
    */
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
@@ -61,29 +65,17 @@ public class ArmyDistributionSubSceneController implements Initializable {
           message.setColor(Main.g.getCurrentPlayer().getColor().toString());
           NetworkController.gameFinder.getClient().sendMessage(message);
         }
-//        try {
-//          Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//          // TODO Auto-generated catch block
-//          e.printStackTrace();
-//        }
-
-//        if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() == 0) {
-//          Main.g.setGameState(GameState.ATTACK);
-//          Main.b.prepareAttack();
-//        }
       }
     };
     th.start();
     Main.stagePanes.close();
-//    Main.b.neutralizeGUIarmyDistribution();
   }
 
   /**
-   * This method is used when a player wants to cancel the army distirubtion on a chosen territory
+   * This method is used when a player wants to cancel the 
+   * army distribution on a chosen territory.
    */
   public synchronized void clickBack() {
     Main.stagePanes.close();
-//    Main.b.neutralizeGUIarmyDistribution();
   }
 }

@@ -1,8 +1,10 @@
 package game;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+
 import main.Main;
+import org.junit.Test;
+
 
 public class TerritoryTest {
 

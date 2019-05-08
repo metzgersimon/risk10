@@ -1,8 +1,8 @@
 package gui.controller;
 
+import game.Territory;
 import java.net.URL;
 import java.util.ResourceBundle;
-import game.Territory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,14 +13,17 @@ import main.Main;
 import network.messages.game.FortifyMessage;
 
 /**
+ * This class organizes GUI aspects of fortify phase.
+ * 
  * @author pcoberge
  * @author smetzger
  * 
- *         This class organises gui aspects of fortify phase
  */
 public class FortifySubSceneController implements Initializable {
   @FXML
-  private Pane fortifyPane, grayPane;
+  private Pane fortifyPane; 
+  @FXML
+  private Pane grayPane;
   @FXML
   private Slider fortifySlider;
   @FXML
@@ -28,8 +31,9 @@ public class FortifySubSceneController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
-       ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+    int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
+        ? ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
+        : ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
     fortifySlider.setBlockIncrement(max);
     fortifySlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
     fortifySlider.setMin(1.0);
@@ -37,7 +41,7 @@ public class FortifySubSceneController implements Initializable {
   }
 
   /**
-   * This method calls the fortify method
+   * This method calls the fortify method.
    */
   public synchronized void confirmFortify() {
     Thread th = new Thread() {
@@ -61,7 +65,7 @@ public class FortifySubSceneController implements Initializable {
             }
           });
         }
-      
+
         Main.g.getCurrentPlayer().setFortify(true);
         Platform.runLater(new Runnable() {
           public void run() {
@@ -75,10 +79,11 @@ public class FortifySubSceneController implements Initializable {
   }
 
   /**
-   * @param moveFrom
-   * @param moveTo
+   * This method changes labels of territories after fortifying.
    * 
-   *        This method changes labels of territories after fortifying
+   * @param moveFrom territory from which the armies should be moved.
+   * @param moveTo territory the armies should be moved to.
+   *       
    */
   public synchronized void updateTerritoryFortify(Territory moveFrom, Territory moveTo) {
     Platform.runLater(new Runnable() {
@@ -93,7 +98,7 @@ public class FortifySubSceneController implements Initializable {
   }
 
   /**
-   * This method organises gui after canceling fortify
+   * This method organizes GUI after canceling fortify.
    */
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
@@ -103,5 +108,4 @@ public class FortifySubSceneController implements Initializable {
       }
     });
   }
-
 }

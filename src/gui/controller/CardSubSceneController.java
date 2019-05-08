@@ -65,7 +65,7 @@ public class CardSubSceneController {
   /**
    * Method sets graypane visible.
    * 
-   * @param true or false
+   * @param b true or false whether the pane should be visible or not.
    */
   public void handleGrayPane(boolean b) {
     grayPane.setVisible(b);
@@ -75,7 +75,7 @@ public class CardSubSceneController {
    * Method allows player to drag and drop cards in its own card pane.
    * 
    * @author smetzger
-   * @param e
+   * @param e represents the MouseEvent of a player.
    */
   @FXML
   public void handleCardDragAndDrop(MouseEvent e) {
@@ -123,7 +123,7 @@ public class CardSubSceneController {
    * Method inserts a card in the card list of the player on the gui.
    * 
    * @author pcoberge
-   * @param c
+   * @param c card which should be added to the GUI of a player.
    */
   public void insertCards(Card c) {
     String file = c.getId() + ".png";
@@ -155,7 +155,7 @@ public class CardSubSceneController {
    * Method removes a chosen card from the trade-in-pane into the bottom pane.
    * 
    * @author smetzger
-   * @param e
+   * @param e MouseEvent when clicked on a card.
    */
   @FXML
   public void handleRemoveCard(MouseEvent e) {
@@ -193,7 +193,7 @@ public class CardSubSceneController {
    * Method handles the gui in case a player trades in a valid card set.
    * 
    * @author smetzger
-   * @param e
+   * @param e ActionEvent when the button is clicked.
    */
   @FXML
   public void handleTradeCards(ActionEvent e) {
@@ -227,7 +227,7 @@ public class CardSubSceneController {
   /**
    * Method hides the current stage.
    * 
-   * @param e
+   * @param e Event when clicked in the back.
    */
   @FXML
   public void clickBack(MouseEvent e) {

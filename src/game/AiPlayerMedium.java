@@ -101,7 +101,10 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     int min = 0;
     territory = null;
     for (Territory t : this.getTerritories()) {
+      System.out.println(t.getName());
+      System.out.println(t.getNeighbor());
       for (Territory opponent : t.getHostileNeighbor()) {
+        System.out.println(opponent.getName());
         if (((t.getNumberOfArmies()) - (opponent.getNumberOfArmies())) <= min) {
           min = t.getNumberOfArmies() - opponent.getNumberOfArmies();
           territory = t;

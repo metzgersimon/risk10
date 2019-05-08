@@ -167,7 +167,6 @@ public class ProfileSelectionGUIController {
         break;
     }
 
-    Main.g = new TestGame();
     ProfileManager.setSelectedProfile(selectedPlayerName);
 
     // reset sessionWins counter if session boolean in Main.java is false
@@ -175,7 +174,7 @@ public class ProfileSelectionGUIController {
       ProfileManager.getSelectedProfile().setSessionWins(0);
     }
 
-    Main.g = new TestGame();
+    Main.g = new Game();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {

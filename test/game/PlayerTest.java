@@ -3,19 +3,11 @@ package game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import javax.swing.SwingUtilities;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import gui.controller.BoardController;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import main.Main;
 
 public class PlayerTest {
@@ -23,33 +15,43 @@ public class PlayerTest {
 
   boolean result;
 
-  public PlayerTest() {
-//    Main.g = g;
-
-  }
 
   @Before
   public void initialize() {
     PlayerTest d = new PlayerTest();
   }
-  
+
+  /**
+   * Test to check whether a territory is added correctly to a player.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   * 
+   */
   @Test
   public void addTerritoriesTest() {
     Main.g = g;
     Territory t = new Territory("Brazil", 12, CardSymbol.CANNON, Continente.SOUTHAMERICA);
     Territory tu = new Territory("Venezuela", 10, CardSymbol.CANNON, Continente.SOUTHAMERICA);
     Territory tut = new Territory("Peru", 11, CardSymbol.CAVALRY, Continente.SOUTHAMERICA);
-    Territory tutu = new Territory("Argentina", 13, CardSymbol.INFANTRY, Continente.SOUTHAMERICA);
     Player p = new Player("TestX", PlayerColor.RED, g);
     p.addTerritories(t);
     p.addTerritories(tu);
     p.addTerritories(tut);
     assertEquals(3, p.getTerritories().size());
+    Territory tutu = new Territory("Argentina", 13, CardSymbol.INFANTRY, Continente.SOUTHAMERICA);
     p.addTerritories(tutu);
     assertEquals(4, p.getTerritories().size());
-//    assertEquals(1, p.getContinents().size());
+    // assertEquals(1, p.getContinents().size());
   }
-  
+
+  /**
+   * Test whether a territory is removed correctly from a player.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   * 
+   */
   @Test
   public void lostTerritoriesTest() {
     Main.g = g;
@@ -62,16 +64,18 @@ public class PlayerTest {
     p.addTerritories(tu);
     p.addTerritories(tut);
     p.addTerritories(tutu);
-//    assertEquals(1, p.getContinents().size());
+    // assertEquals(1, p.getContinents().size());
     p.lostTerritories(tutu);
     assertEquals(0, p.getContinents().size());
     assertEquals(3, p.getTerritories().size());
 
   }
+
   /**
+   * Test, if the additional number of armies at the begin of each turn is right.
+   * 
    * @author pcoberge
    * 
-   *         Test, if the additional number of armies at the begin of each turn is right
    */
   @Test
   public void computeAdditionalNumberOfArmiesTest() {
@@ -132,7 +136,13 @@ public class PlayerTest {
     assertFalse(p.computeAdditionalNumberOfArmies() == 3);
   }
 
-  
+  /**
+   * Test, whether the initialTerritoryDistribution of the player delivers the desired result.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   * 
+   */
   @Test
   public void initialTerritoryDistributionTest() {
     Main.g = g;
@@ -143,9 +153,10 @@ public class PlayerTest {
   }
 
   /**
+   * Test, if the number is between 0 and number of Players.
+   * 
    * @author pcoberge
    * 
-   *         Test, if the number is between 0 and number of Players
    */
   @Test
   public void armyDistributionTest() {
@@ -162,18 +173,20 @@ public class PlayerTest {
     assertFalse(p.armyDistribution(5, Main.g.getWorld().getTerritories().get(12)));
     assertFalse(p.armyDistribution(12, Main.g.getWorld().getTerritories().get(12)));
   }
-  
-  @Test 
+
+  /**
+   * Test, whether the tradeCards method delivers the desired result.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   */
+  @Test
   public void tradeCardsTest() {
-
-
-//    }
-//    Main.b = new BoardController();
     Main.g.initCardDeck();
     Territory t = new Territory("Greenland", 6, CardSymbol.CAVALRY, Continente.NORTHAMERICA);
     Player p = new Player("Test1", PlayerColor.BLUE, g);
     Player p1 = new Player("Test2", PlayerColor.MAGENTA, g);
-//    int number = p.getNumberArmiesToDistibute();
+
     Card c1 = new Card(43, true);
     Card c2 = new Card(44, true);
     Card c3 = new Card(t, false);
@@ -183,6 +196,7 @@ public class PlayerTest {
 
 
   /**
+   * Test for the attack method of the player class.
    * 
    * @author qiychen
    *
@@ -247,6 +261,13 @@ public class PlayerTest {
     }
 
   }
+
+  /**
+   * Test for the fortify method of the player class.
+   * 
+   * @author skaur
+   * 
+   */
   @Test
   public void fortifyTest() {
     Main.g = g;
@@ -273,27 +294,5 @@ public class PlayerTest {
     // when the game is not in fortify state
     g.setGameState(GameState.ATTACK);
     assertFalse(p1.fortify(test1, test3, 9));
-  }
-  
-  
-//}
-
-//abstract class BoardControllerTestView {
-//  @BeforeClass
-  public static void initToolkit() throws InterruptedException {
-//    SwingUtilities.invokeLater(() -> {
-      FXMLLoader fl = new FXMLLoader(PlayerTest.class.getResource("/gui/BoardGUI.fxml"));
-      try {
-        Parent p = fl.load();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      
-      Main.b = fl.getController();
-      Main.g = new Game();
-      System.out.println(Main.b);
-//    });
-
   }
 }

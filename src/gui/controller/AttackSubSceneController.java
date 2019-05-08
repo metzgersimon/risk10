@@ -1,11 +1,11 @@
 package gui.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Vector;
 import game.Dice;
 import game.Territory;
 import game.TutorialMessages;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.Vector;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,11 +21,11 @@ import main.Main;
 import network.messages.game.AttackMessage;
 
 /**
+ * This class organizes gui aspects of attack phase.
+ * 
  * @author pcoberge
  * @author smetzger
  * 
- *         This class organises gui aspects of attack phase
- *
  */
 public class AttackSubSceneController implements Initializable {
   private int numberOfDices = 1;
@@ -33,15 +33,31 @@ public class AttackSubSceneController implements Initializable {
   Vector<Integer> defender;
 
   @FXML
-  private Pane dicePane, grayPane;
+  private Pane dicePane;
   @FXML
-  private ImageView attackDice1, attackDice2, attackDice3, defendDice1, defendDice2;
+  private Pane grayPane;
+  @FXML
+  private ImageView attackDice1;
+  @FXML
+  private ImageView attackDice2;
+  @FXML
+  private ImageView attackDice3;
+  @FXML
+  private ImageView defendDice1;
+  @FXML
+  private ImageView defendDice2;
   @FXML
   private Button throwDices;
   @FXML
   private Slider diceSlider;
   @FXML
-  private Label nameAttacker, nameDefender, armiesAttacker, armiesDefender;
+  private Label nameAttacker;
+  @FXML
+  private Label nameDefender;
+  @FXML
+  private Label armiesAttacker;
+  @FXML
+  private Label armiesDefender;
 
 
   @Override
@@ -55,8 +71,9 @@ public class AttackSubSceneController implements Initializable {
 
     Platform.runLater(new Runnable() {
       public void run() {
-        int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
-            ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+        int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
+            ? ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
+            : ( (Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
         diceSlider.setBlockIncrement(max);
         diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
         diceSlider.setMin(1.0);
@@ -226,9 +243,10 @@ public class AttackSubSceneController implements Initializable {
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");  
-              int max = ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1) % 10) == 0 ? 
-                  ( (Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10): ((Main.b.getSelectedTerritory().getNumberOfArmies()-1)/10)+1;
+                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+              int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
+                  ? ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
+                  : ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
               diceSlider.setBlockIncrement(max);
               diceSlider.setMax(Main.b.getSelectedTerritory().getNumberOfArmies() - 1);
               try {
@@ -249,7 +267,6 @@ public class AttackSubSceneController implements Initializable {
               }
             }
           });
-
         }
       };
       th2.start();
@@ -257,16 +274,17 @@ public class AttackSubSceneController implements Initializable {
   }
 
   /**
+   * This method updates the dice slider fitting to the number of armies in territory t.
+   * 
    * @param t = Territory the player has chosen to attack with
    * 
-   *        This method updates the dice slider fitting to the number of armies in territory t
    */
   public void updateDiceSlider(Territory t) {
     this.diceSlider.setMax(t.getNumberOfArmies() - 1);
   }
 
   /**
-   * This method cancels the attack and neutralizes the gui
+   * This method cancels the attack and neutralizes the GUI.
    */
   public synchronized void clickBack() {
     Platform.runLater(new Runnable() {
@@ -277,9 +295,9 @@ public class AttackSubSceneController implements Initializable {
         defendDice1.setVisible(false);
         defendDice2.setVisible(false);
         Main.b.neutralizeGUIattack();
-        if(Main.g.getPlayers().size() != 1) {
+        if (Main.g.getPlayers().size() != 1) {
           Main.stagePanes.close();
-        }   
+        }
       }
     });
   }
