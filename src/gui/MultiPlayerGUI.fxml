@@ -25,12 +25,12 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Button fx:id="joinGame" layoutX="535.0" layoutY="370.0" mnemonicParsing="false" onAction="#joinGame" prefHeight="60.0" prefWidth="210.0" text="Auto-join" textAlignment="CENTER">
+      <Button fx:id="joinGame" layoutX="535.0" layoutY="370.0" mnemonicParsing="false" onAction="#joinGame" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Auto-connect" textAlignment="CENTER">
          <font>
             <Font name="Ubuntu Light" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="connect" layoutX="712.0" layoutY="477.0" mnemonicParsing="false" onAction="#joinGameWithAddress" prefHeight="60.0" prefWidth="210.0" text="Connect" textAlignment="CENTER">
+      <Button fx:id="connect" layoutX="712.0" layoutY="477.0" mnemonicParsing="false" onAction="#joinGameWithAddress" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Connect" textAlignment="CENTER">
          <font>
             <Font name="Ubuntu Light" size="23.0" />
          </font>

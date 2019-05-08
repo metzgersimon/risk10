@@ -17,7 +17,7 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="startGame" disable="true" layoutX="850.0" layoutY="582.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="210.0" text="Start game" textAlignment="CENTER">
+      <Button fx:id="startGame" disable="true" layoutX="850.0" layoutY="582.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Start game" textAlignment="CENTER">
          <font>
             <Font size="30.0" />
          </font>
@@ -46,7 +46,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <CheckBox fx:id="checkTips" layoutX="153.0" layoutY="364.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" prefHeight="54.0" prefWidth="641.0" text="Game instructions / Tips          " textFill="#f5f3f3">
+      <CheckBox fx:id="checkTips" layoutX="153.0" layoutY="364.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" prefHeight="54.0" prefWidth="641.0" stylesheets="@FontStyle.css" text="Game instructions / Tips          " textFill="#f5f3f3">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
@@ -61,7 +61,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Label fx:id="numberAI" layoutX="758.0" layoutY="457.0" text="0" textFill="WHITE">
+      <Label fx:id="numberAI" layoutX="758.0" layoutY="457.0" stylesheets="@FontStyle.css" text="0" textFill="WHITE">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
@@ -76,17 +76,17 @@
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="712.0" layoutY="240.0" text="Easy" textFill="WHITE">
+      <Label layoutX="712.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Easy" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="856.0" layoutY="240.0" text="Medium" textFill="WHITE">
+      <Label layoutX="856.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Medium" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="1042.0" layoutY="240.0" text="Hard" textFill="WHITE">
+      <Label layoutX="1042.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Hard" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>

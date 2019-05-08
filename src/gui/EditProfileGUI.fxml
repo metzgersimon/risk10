@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditProfileGUIController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@FontStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditProfileGUIController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -49,27 +49,27 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="313.0" layoutY="200.0" prefHeight="27.0" prefWidth="391.0" stylesheets="@FontStyle.css" text="Click image to change" textFill="#f7f3f3">
+      <Label alignment="CENTER" layoutX="314.0" layoutY="197.0" prefHeight="27.0" prefWidth="391.0" styleClass="statisticlabel" stylesheets="@FontStyle.css" text="Click image to change" textFill="#f7f3f3">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="matchesPlayed" layoutX="708.0" layoutY="236.0" text="Matches Played" textFill="WHITE">
+      <Label fx:id="matchesPlayed" layoutX="708.0" layoutY="236.0" styleClass="statisticlabel" stylesheets="@FontStyle.css" text="Matches Played" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="matchesWon" layoutX="708.0" layoutY="285.0" text="Matches won" textFill="WHITE">
+      <Label fx:id="matchesWon" layoutX="708.0" layoutY="285.0" styleClass="statisticlabel" stylesheets="@FontStyle.css" text="Matches won" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="matchesLost" layoutX="708.0" layoutY="335.0" text="Matches lost" textFill="WHITE">
+      <Label fx:id="matchesLost" layoutX="708.0" layoutY="335.0" styleClass="statisticlabel" stylesheets="@FontStyle.css" text="Matches lost" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="territoriesConquered" layoutX="708.0" layoutY="383.0" text="Territories Conquered" textFill="WHITE">
+      <Label fx:id="territoriesConquered" layoutX="708.0" layoutY="383.0" styleClass="statisticlabel" stylesheets="@FontStyle.css" text="Territories Conquered" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>

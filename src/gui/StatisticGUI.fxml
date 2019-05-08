@@ -17,7 +17,7 @@
             <Image url="@../resources/gui/Background.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" ellipsisString="" layoutX="357.0" layoutY="14.0" prefHeight="262.0" prefWidth="566.0" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
+      <Label alignment="CENTER" ellipsisString="" layoutX="357.0" layoutY="14.0" prefHeight="262.0" prefWidth="566.0" stylesheets="@FontStyle.css" text="Game Over" textAlignment="CENTER" textFill="#f7f5f5" textOverrun="CLIP">
          <font>
             <Font size="96.0" />
          </font>
@@ -25,7 +25,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <TableView fx:id="table" layoutX="275.0" layoutY="238.0" prefHeight="260.0" prefWidth="730.0">
+      <TableView fx:id="table" layoutX="275.0" layoutY="238.0" prefHeight="260.0" prefWidth="730.0" stylesheets="@FontStyle.css">
          <columns>
             <TableColumn fx:id="c1" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Rank" />
             <TableColumn fx:id="c2" prefWidth="221.0" style="-fx-alignment: CENTER;" text="Player" />
@@ -34,12 +34,12 @@
             <TableColumn fx:id="c5" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Session wins" />
          </columns>
       </TableView>
-      <Button fx:id="back" layoutX="880.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="62.0" prefWidth="251.0" text="Main Menu" textAlignment="CENTER">
+      <Button fx:id="back" layoutX="880.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Main Menu" textAlignment="CENTER">
          <font>
             <Font name="Ubuntu Light" size="32.0" />
          </font>
       </Button>
-      <Button fx:id="closeGame" layoutX="150.0" layoutY="585.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="62.0" prefWidth="251.0" text="Exit Game">
+      <Button fx:id="closeGame" layoutX="150.0" layoutY="585.0" mnemonicParsing="false" onAction="#closeGame" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Exit Game">
          <font>
             <Font name="Ubuntu Light" size="32.0" />
          </font>

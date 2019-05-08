@@ -18,12 +18,12 @@
                   <Image url="@../resources/gui/Background.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="back" layoutX="79.0" layoutY="595.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="60.0" prefWidth="210.0" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.66">
+            <Button fx:id="back" layoutX="79.0" layoutY="595.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="63.67" AnchorPane.leftAnchor="72.66">
                <font>
                   <Font name="Ubuntu Light" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="createNewProfile" layoutX="901.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="60.0" prefWidth="210.0" text="Create new profile" AnchorPane.bottomAnchor="63.66999999999996" AnchorPane.rightAnchor="72.67">
+            <Button fx:id="createNewProfile" layoutX="901.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleCreateNewProfileButton" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="New Profile" AnchorPane.bottomAnchor="63.66999999999996" AnchorPane.rightAnchor="72.67">
                <font>
                   <Font name="Ubuntu Light" size="21.0" />
                </font>

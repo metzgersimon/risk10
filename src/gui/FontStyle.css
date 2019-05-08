@@ -77,6 +77,12 @@
 	-fx-font-weight:	bold;	
 }
 
+.statisticlabel {
+	-fx-font-size:	25.0;
+	-fx-font-family:	'Ubuntu Light';
+	-fx-font-style:	normal;
+}
+
 .addLabels {
 	-fx-font-size:	17.0;
 	-fx-font-family:	'Ubuntu Light';
