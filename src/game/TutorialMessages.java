@@ -15,15 +15,20 @@ public class TutorialMessages {
       + "Interaction will be done through clicking "
       + "on the territories. Attack and defeat opponent "
       + "areas to obtain their territories and risk cards,"
-      + " which can be traded in for armies. At the beginning"
+      + " which can be traded in for armies.\n\n At the beginning"
       + " of each turn, you will be given a number of"
-      + " armies to distribute across your territories. "
+      + " armies to distribute across your territories.\n\n"
       + "You can then choose to attack,"
-      + " fortify or pass the round using the red arrow";
+      + " fortify or pass the round using the red arrow.\n"
+      + "Firstly, players take turns claming their territories. ";
   
   public static String distributing = "You are now in the "
-      + "distributing phase. Players take"
-      + " turns distributing their armies across the map";
+      + "distributing phase. At the beginning of each turn,"
+      + "the player receives a number of Armies"
+      + "to distribute across their territories.\n\n"
+      + "The number of armies you get for each turn is calculated"
+      + "from the number of territories owned, continents claimed"
+      + "and number of cards traded in with a minimum of 3 armies.";
   
   public static String distributingTip = "Tip: Isolated "
       + "continents are easier to maintain,"
