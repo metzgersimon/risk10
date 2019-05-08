@@ -1121,7 +1121,7 @@ public class BoardController implements Initializable {
             // }
             Main.stagePanes.setScene(Main.cards);
             Main.stagePanes.setX(Main.stage.getX() + 2);
-            Main.stagePanes.setY(Main.stage.getY() + 24);
+            Main.stagePanes.setY(Main.stage.getY() + 33);
             Main.stagePanes.show();
 
           } catch (Exception e) {
