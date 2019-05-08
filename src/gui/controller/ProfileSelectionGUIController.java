@@ -174,7 +174,8 @@ public class ProfileSelectionGUIController {
       ProfileManager.getSelectedProfile().setSessionWins(0);
     }
 
-    Main.g = new Game();
+    Main.g = new TestGame();
+    //Main.g = new Game();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {

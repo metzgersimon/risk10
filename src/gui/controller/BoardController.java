@@ -360,8 +360,11 @@ public class BoardController implements Initializable {
               if (!gameState.getText().equals("Place your Armies initially!")) {
                 gameState.setText("Place your Armies initially!");
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
-                showMessage(game.TutorialMessages.distributing);
-                showMessage(game.TutorialMessages.distributingTip);
+                if(Main.g.isShowTutorialMessages()) {
+                  showMessage(game.TutorialMessages.distributing);
+                  showMessage(game.TutorialMessages.distributingTip);
+                }
+                
               } else {
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }

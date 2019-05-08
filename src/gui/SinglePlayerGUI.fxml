@@ -76,17 +76,17 @@
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="712.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Easy" textFill="WHITE">
+      <Label layoutX="695.0" layoutY="243.0" stylesheets="@FontStyle.css" text="Easy" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="856.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Medium" textFill="WHITE">
+      <Label layoutX="850.0" layoutY="243.0" stylesheets="@FontStyle.css" text="Medium" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="1042.0" layoutY="240.0" stylesheets="@FontStyle.css" text="Hard" textFill="WHITE">
+      <Label layoutX="1042.0" layoutY="243.0" stylesheets="@FontStyle.css" text="Hard" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
