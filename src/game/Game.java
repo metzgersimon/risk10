@@ -272,7 +272,7 @@ public class Game implements Serializable {
    */
   public synchronized void furtherInitialTerritoryDistribution() {
      try {
-     Thread.sleep(1000);
+     Thread.sleep(10);
      } catch (InterruptedException e1) {
      // TODO Auto-generated catch block
      e1.printStackTrace();
@@ -322,6 +322,7 @@ public class Game implements Serializable {
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
+      Main.b.setTurns();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");

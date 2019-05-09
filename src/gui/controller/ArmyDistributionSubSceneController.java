@@ -49,6 +49,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
       public void run() {
+        Main.b.setTurns();
         Territory t = Main.b.getSelectedTerritory();
         int amount = (int) setArmySlider.getValue();
         if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {

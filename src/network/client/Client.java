@@ -386,7 +386,7 @@ public class Client extends Thread implements Serializable {
     // @Override
     // public void run() {
     if(player.getColor().toString().equals(message.getColor())) {
-      Main.b.setState("Choose your Territory!");
+      Main.b.setState("Place your Armies!");
     }  
     if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
      // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
@@ -489,10 +489,11 @@ public class Client extends Thread implements Serializable {
    *  After receiving skip gamestate message, the turns will be changed
    */
   private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
+    Main.b.setTurns();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
     if(message.getGameState()==GameState.FORTIFY) {
       Main.g.furtherFortify();
-      Main.b.setState("Select your Territory!");                               
+      Main.b.setState("\"Place your Armies!\"");                               
     }
     }  
   }
