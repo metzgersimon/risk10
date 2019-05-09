@@ -290,6 +290,7 @@ public class ClientConnection extends Thread {
     LeaveGameResponseMessage m = new LeaveGameResponseMessage();
     this.sendMessage(m);
     this.disconnect();
+    this.server.stopServer();
   }
   
   public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
