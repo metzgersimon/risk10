@@ -17,8 +17,9 @@ import gui.controller.HostGameLobbyController;
 import main.Main;
 
 /**
+ * This class represents the Server for the network game.
  * 
- * @author skaur This class represents the Server for the network game
+ * @author skaur
  */
 
 public class Server extends Thread implements Serializable {
@@ -157,9 +158,9 @@ public class Server extends Thread implements Serializable {
   }
 
   /**
-   * @author skaur
+   * Indicates that that the server has started running and starts listening to the clients.
    * 
-   *         indicates that that the server has started running and starts listening to the clients
+   * @author skaur
    */
   @Override
   public void run() {
@@ -170,23 +171,22 @@ public class Server extends Thread implements Serializable {
   }
 
   /**
-   * @author skaur
+   * Opens the server socket on s specified port and starts accepting the connections creates an
+   * instance of client connection to the server and add the clients to the list of clients
+   * connected to this server.
    * 
-   *         opens the server socket on s specified port and starts accepting the connections
-   *         creates an instance of client connection to the server and add the clients to the list
-   *         of clients connected to this server
+   * @author skaur
    */
   public void listen() {
     try {
-     Socket socket = serverSocket.accept();
+      Socket socket = serverSocket.accept();
       // create a client connection instance for each client which connects to the server
       ClientConnection c = new ClientConnection(socket, this);
       clients.add(c);
       c.start();
     } catch (SocketException e) {
-    System.out.println(" Socket closed!");
-    }
-    catch (IOException e) {
+      System.out.println(" Socket closed!");
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
@@ -199,10 +199,9 @@ public class Server extends Thread implements Serializable {
   }
 
   /**
-   * @author skaur
+   * Stops the server and send a broadcast message to all clients that server is shutting down.
    * 
-   *         stops the server and send a broadcast message to all clients that server is shutting
-   *         down
+   * @author skaur
    */
   public void stopServer() {
     try {
@@ -215,14 +214,17 @@ public class Server extends Thread implements Serializable {
       }
 
     } catch (SocketException e) {
-     System.out.println("Socket closed");
+      System.out.println("Socket closed");
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
+  
   /**************************************************
-   * * Getter and Setter * *
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
    *************************************************/
 
   public int getPort() {

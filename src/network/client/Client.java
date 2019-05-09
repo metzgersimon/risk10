@@ -41,7 +41,7 @@ public class Client extends Thread implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Elements needed for the communication with the server
+   * Elements needed for the communication with the server.
    */
   private InetAddress address;
   private Socket s;
@@ -64,8 +64,11 @@ public class Client extends Thread implements Serializable {
   private boolean active;
   private Player player; // player of this client
 
+  
   /**************************************************
-   * * Constructors * *
+   *                                                *
+   *                Constructors                    *
+   *                                                *
    *************************************************/
 
   public Client(InetAddress address, int port) {
@@ -90,13 +93,13 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * Second Constructor to join the game by giving the ip and port address and starts the client
+   * thread.
    * 
    * @skaur
    * @param ip address of the server
    * @param port listening to the server
-   * 
-   *        Second Constructor to join the game by giving the ip and port address and starts the
-   *        client thread
+   *
    */
   public Client(String ip, int port) {
     try {
@@ -108,11 +111,13 @@ public class Client extends Thread implements Serializable {
     connect();
     Main.g.setNetworkGame(true);
   }
-
+  
   /**************************************************
-   * * Connection and disconnection of clients * *
+   *                                                *
+   *   Connection and disconnection of clients      *
+   *                                                *
    *************************************************/
-
+  
   /**
    * @author qiychen
    * @return whether the connection is established
@@ -151,9 +156,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   * * Send and receive messages from client * *
+   *                                                *
+   *      Send and receive messages from client     *
+   *                                                *
    *************************************************/
-
+  
   /**
    * @author qiychen
    * @param message send message to server
@@ -232,11 +239,13 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-
+  
   /**************************************************
-   * * Getter and Setter * *
+   *                                                *
+   *               Getters and Setters              *
+   *                                                *
    *************************************************/
-
+  
   public Player getPlayer() {
     return this.player;
   }
@@ -269,16 +278,20 @@ public class Client extends Thread implements Serializable {
     return this.controller;
   }
 
+  
   /**************************************************
-   * * Process the messages received from the server * *
+   *                                                *
+   *  Process the messages received from the server *
+   *                                                *
    *************************************************/
 
   /**
+   * After connecting to the server, the client sends a message to the server with the player name
+   * to register for the game and to get response from the server.
+   * 
    * @author skaur
    * @param name of the player who has requested to join the game
-   * 
-   *        After connecting to the server, the client sends a message to the server with the player
-   *        name to register for the game and to get response from the server
+   *
    */
   public void register(String name) {
     JoinGameMessage join = new JoinGameMessage(name);
@@ -287,12 +300,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After registering the name of the client, server sends back a response message containing the
+   * player instance. This methods initialize the player instance for the client.
+   * 
    * @author skaur
    * @param responseMessage containing the player instance for the client
-   * 
-   *        After registering the name of the client, server sends back a response message
-   *        containing the player instance. This methods initialize the player instance for the
-   *        client.
    */
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     if (!(responseMessage.getPlayer() instanceof AiPlayer)) {
@@ -301,12 +313,12 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the start game message from the host player, this method update the player list
+   * to match up the player list of the host player. After that it opens the game board for the
+   * client player.
+   * 
    * @author skaur
    * @param message containing the list of players who will be playing the game
-   * 
-   *        After receiving the start game message from the host player, this method update the
-   *        player list to match up the player list of the host player .After that it opens the game
-   *        board for the client player
    */
   public void handleStartGameMessage(StartGameMessage message) {
     // update the player list
@@ -324,11 +336,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the Initial Territory information, every client updates the information in
+   * their game instance and game board.
+   * 
    * @author skaur
    * @param message
-   * 
-   *        After receiving the Initial Territory information, every client updates the information
-   *        in their game instance and game board
    * 
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {

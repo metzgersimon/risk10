@@ -26,7 +26,7 @@ import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
 /**
- * This class represents the connection between the server and the client
+ * This class represents the connection between the server and the client.
  */
 
 public class ClientConnection extends Thread {
@@ -231,14 +231,14 @@ public class ClientConnection extends Thread {
 
 
   /**
+   * This methods is called whenever a client is connected to the server. It creates the Player
+   * instance for each player which joins the game lobby, add it to the list and send the game
+   * instance as a response message back. This method update the list of players in the host game
+   * lobby.
    * 
    * @author skaur
    * @param message sent from client after he joins the game lobby
    * 
-   *        This methods is called whenever a client is connected to the server. It creates the
-   *        Player instance for each player which joins the game lobby, add it to the list and send
-   *        the game instance as a response message back. This method update the list of players in
-   *        the host game lobby
    */
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
@@ -278,10 +278,10 @@ public class ClientConnection extends Thread {
 
 
   /**
+   * Send the leave message to the clients and disconnect the client who has sent the message.
+   * 
    * @author skaur
    * @param message
-   * 
-   *        send the leave message to the clients and disconnect the client who has sent the message
    * 
    */
   private void recieveLeaveMessage(LeaveGameMessage message) {
@@ -292,7 +292,7 @@ public class ClientConnection extends Thread {
     this.disconnect();
     this.server.stopServer();
   }
-  
+
   public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
     this.sendMessage(message);
     try {
