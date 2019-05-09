@@ -284,8 +284,6 @@ public class Game implements Serializable {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         Main.b.disableAll();
         p.initialTerritoryDistribution();
-      } else {
-        Main.b.enableAll();
       }
     } else {
       this.setGameState(GameState.INITIALIZING_ARMY);
@@ -293,8 +291,6 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
-      } else {
-        Main.b.enableAll();
       }
     }
   }
@@ -317,8 +313,6 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
-      } else {
-        Main.b.enableAll();
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
@@ -328,8 +322,6 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
-      } else {
-        Main.b.enableAll();
       }
     }
   }
@@ -356,7 +348,6 @@ public class Game implements Serializable {
 //      } catch (InterruptedException e1) {
 //        e1.printStackTrace();
 //      }
-      this.getCurrentPlayer().setStartedDistribution(false);
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);
       this.setNextPlayer();

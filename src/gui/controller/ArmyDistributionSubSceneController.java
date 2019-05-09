@@ -68,6 +68,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
       }
     };
     th.start();
+    Main.b.neutralizeGUIarmyDistribution();
     Main.stagePanes.close();
   }
 

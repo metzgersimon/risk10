@@ -2,11 +2,14 @@ package gui.controller;
 
 import game.Card;
 import game.GameState;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -109,7 +112,6 @@ public class CardSubSceneController {
       if (!left.getChildren().isEmpty() && !center.getChildren().isEmpty()
           && !right.getChildren().isEmpty()
           && topList.get(0).canBeTraded(topList.get(1), topList.get(2))
-          && !Main.g.getCurrentPlayer().getStartedDistribution()
           && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
         System.out.println(
             topList.get(0).getId() + " " + topList.get(1).getId() + " " + topList.get(2).getId());
@@ -231,7 +233,7 @@ public class CardSubSceneController {
    */
   @FXML
   public void clickBack(MouseEvent e) {
-    Main.stagePanes.hide();
+    Main.stagePanes.close();
   }
 
   /**
@@ -259,5 +261,9 @@ public class CardSubSceneController {
    */
   public void pressLeave() {
     Main.b.pressLeave();
+  }
+
+  public void disableTradeInButton(boolean b) {
+    tradeIn.setDisable(b);
   }
 }

@@ -24,7 +24,7 @@ public class TutorialMessages {
   
   public static String distributing = "You are now in the "
       + "distributing phase. At the beginning of each turn,"
-      + "the player receives a number of Armies"
+      + "the player receives a number of Armies "
       + "to distribute across their territories.\n\n"
       + "The number of armies you get for each turn is calculated "
       + "from the number of territories owned, continents claimed"
