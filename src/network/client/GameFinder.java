@@ -55,13 +55,13 @@ public class GameFinder extends Thread {
       DatagramPacket responseP = new DatagramPacket(buf, buf.length);
       datagramSocket.receive(responseP);
       System.out.println("A package is recieved from " + responseP.getAddress());
-      //get the ip address and create a socket for it
+      // get the ip address and create a socket for it
       InetAddress address = responseP.getAddress();
-       client = new Client(address,port);
-       client.start();
-//      new ClientProtocol(address).start();
+      client = new Client(address, port);
+      client.start();
+      // new ClientProtocol(address).start();
       System.out.println("Client Created");
-
+      this.datagramSocket.close();
     } catch (IOException e) {
       e.printStackTrace();
     }

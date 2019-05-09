@@ -301,7 +301,7 @@ public class ClientConnection extends Thread {
     }
     this.server.getConnections().remove(this);
     this.disconnect();
-//    this.server.stopServer();
+    this.server.stopServer();
   }
 
   
@@ -338,11 +338,12 @@ public class ClientConnection extends Thread {
    *         disconnect the connection
    */
   public void disconnect() {
+    this.active = false;
+    this.interrupt();
     try {
       this.toClient.close();
       this.fromClient.close();
       this.socket.close();
-      this.active = false;
       System.out.println("Client Connection is ending....");
     } catch (IOException e) {
       // TODO Auto-generated catch block

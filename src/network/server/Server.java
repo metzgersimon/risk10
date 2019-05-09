@@ -75,9 +75,8 @@ public class Server extends Thread implements Serializable {
    * Board Controller of the Game
    */
   private BoardController boardController;
+  DatagramSocket datagramSocket = null;
 
-  private ArrayList<String> unAvailableColorList = new ArrayList<String>();
-  private PlayerColor[] availableColor = PlayerColor.values();
   /**
    * @author skaur
    * @param port : port of the server
@@ -85,13 +84,28 @@ public class Server extends Thread implements Serializable {
   public Server(int port, int noofPlayers) {
     this.port = port;
     this.noOfPlayer = noofPlayers;
-
+    this.isRunning = true;
     Main.g.setNetworkGame(true);
 
     try {
       // Ip address of this server
       this.ipAddress = InetAddress.getLocalHost();
     } catch (UnknownHostException e1) {
+      e1.printStackTrace();
+    }
+    
+    try {
+       serverSocket = new ServerSocket(main.Parameter.PORT);
+    } catch (SocketException e) {      
+      try {
+        Thread.sleep(5000);
+      } catch (InterruptedException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+    } 
+    catch (IOException e1) {
+      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
 
@@ -101,7 +115,6 @@ public class Server extends Thread implements Serializable {
 
       public void run() {
         // socket to send packets on the broadcast address
-        DatagramSocket datagramSocket = null;
         try {
 
           // opening socket on a random port and setting the broadcast to true
@@ -132,7 +145,7 @@ public class Server extends Thread implements Serializable {
             }
           }
         } catch (SocketException | UnknownHostException e) {
-          e.printStackTrace();
+          System.out.println("Datagramsocket closed !");
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -150,9 +163,8 @@ public class Server extends Thread implements Serializable {
    */
   @Override
   public void run() {
-    this.isRunning = true;
     System.out.println("Server started....");
-    while (isRunning) {
+    while (this.isRunning) {
       listen();
     }
   }
@@ -166,16 +178,15 @@ public class Server extends Thread implements Serializable {
    */
   public void listen() {
     try {
-      ServerSocket ss = new ServerSocket(main.Parameter.PORT);
-      this.serverSocket = ss;
-      Socket socket;
-      socket = serverSocket.accept();
+     Socket socket = serverSocket.accept();
       // create a client connection instance for each client which connects to the server
       ClientConnection c = new ClientConnection(socket, this);
       clients.add(c);
       c.start();
-      serverSocket.close();
-    } catch (IOException e) {
+    } catch (SocketException e) {
+    System.out.println(" Socket closed!");
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
   }
@@ -194,18 +205,19 @@ public class Server extends Thread implements Serializable {
    *         down
    */
   public void stopServer() {
-    if (this.getConnections().size() < 1) {
-      this.interrupt();
-      this.isRunning = false;
-      try {
-        this.socket.close();
+    try {
+      if (this.getConnections().size() == 0) {
+        this.interrupt();
         this.serverSocket.close();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        this.datagramSocket.close();
+        this.isRunning = false;
+        System.out.println("Server is shutting down....");
       }
 
-      System.out.println("Server is shutting down....");
+    } catch (SocketException e) {
+     System.out.println("Socket closed");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
