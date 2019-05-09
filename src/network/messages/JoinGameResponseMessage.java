@@ -5,7 +5,7 @@ import game.Player;
 public class JoinGameResponseMessage extends Message {
   /**
    * This message class represents the response of the server after the server receives the join
-   * game response message from the player/client
+   * game response message from the player/client.
    * 
    * @skaur
    */
@@ -13,12 +13,12 @@ public class JoinGameResponseMessage extends Message {
 
   private Player player;
 
-  // send the response to the player with the player instance as the parameter
   public JoinGameResponseMessage(Player player) {
     super(MessageType.JOIN_REPONSE);
     this.player = player;
   }
 
+  // send the response to the player with the player instance as the parameter
   public Player getPlayer() {
     return this.player;
   }

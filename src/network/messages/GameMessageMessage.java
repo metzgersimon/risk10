@@ -2,7 +2,11 @@ package network.messages;
 
 
 public class GameMessageMessage extends Message {
-
+  /**
+   * This class is used for sending and receiving the text message for the in-game chat.
+   * 
+   * @skaur
+   */
   private static final long serialVersionUID = 1L;
 
   private String username;
@@ -10,7 +14,7 @@ public class GameMessageMessage extends Message {
 
   public GameMessageMessage(String username, String message) {
     super(MessageType.INGAME);
-    this.username=username;
+    this.username = username;
     this.message = message;
 
   }

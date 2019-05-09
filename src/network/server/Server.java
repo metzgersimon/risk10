@@ -11,7 +11,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import game.PlayerColor;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import main.Main;
@@ -27,12 +26,12 @@ public class Server extends Thread implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * the port where server connects to the clients
+   * The port where server connects to the clients.
    */
   private int port;
 
   /**
-   * server socket which accepts the client connections
+   * Server socket which accepts the client connections.
    */
   private ServerSocket serverSocket;
 

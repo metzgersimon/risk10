@@ -40,18 +40,27 @@ public class Client extends Thread implements Serializable {
    */
   private static final long serialVersionUID = 1L;
 
+  /*************** Elements needed for the communication with the server. **********************/
+  
   /**
-   * Elements needed for the communication with the server.
+   * InetAddress of the connected server.
    */
   private InetAddress address;
+  
+  /**
+   * The socket of the client.
+   */
   private Socket s;
+  
+  /**
+   * Streams to read and write to the server.
+   */
   private ObjectInputStream fromServer;
   private ObjectOutputStream toServer;
   private int port;
 
-  /**
-   * Controllers
-   */
+  /*************************************** Controllers. *****************************************/
+  
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
@@ -60,9 +69,23 @@ public class Client extends Thread implements Serializable {
   /**
    * other elements
    */
+  
+  
+  /*************************************** Other Elements.***************************************/
+  /**
+   * Represents if the client is host.
+   */
   public static boolean isHost;
+  
+  /**
+   * Represnts if the client is active.
+   */
   private boolean active;
-  private Player player; // player of this client
+  
+  /**
+   * The player which is represents this client.
+   */
+  private Player player; 
 
   
   /**************************************************
@@ -93,7 +116,7 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
-   * Second Constructor to join the game by giving the ip and port address and starts the client
+   * Second Constructor to join the game by giving the IP and port address and starts the client
    * thread.
    * 
    * @skaur
@@ -375,6 +398,10 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * 
+   * After receiving the army distribution information, every client updates the information in
+   * their game instance and game board.
+   * 
    * @author skaur
    * @param message
    */
@@ -382,7 +409,7 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {         
+        if (!(player.getColor().toString().equals(message.getColor()))) {
           Main.g.getWorld().getTerritories().get(message.getTerritoryId())
               .setNumberOfArmies(message.getAmount());
           Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -395,6 +422,10 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * 
+   * After receiving the further army distribution information, every client updates the information
+   * in their game instance and game board.
+   * 
    * @author skaur
    * @param message
    */
@@ -402,12 +433,12 @@ public class Client extends Thread implements Serializable {
     if (player.getColor().toString().equals(message.getColor())) {
       Main.b.setState("Place your Armies!");
     }
-    
+
     if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       System.out.println("host soll further army message nicht bearbeiten");
       return;
     }
-    
+
     if ((NetworkController.server != null
         && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
       System.out.println(
@@ -428,7 +459,7 @@ public class Client extends Thread implements Serializable {
     }
 
   }
-  
+
   /**
    * After receiving attack message, update the territory in gui accordingly
    * 
@@ -609,18 +640,21 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the leave game message, this methods shows the game cancelled alert and shows
+   * the end game statistics.
+   * 
    * @author skaur
-   * @param message
+   * @param message send from one of the player after quitting the game.
    */
   public void handleLeaveGame(LeaveGameMessage message) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if(!message.getLeaveLobby()) {
-        Main.b.gameCancelAlert();
-      } else {
-       controller.showGameCancelAlert();
-      }
+        if (!message.getLeaveLobby()) {
+          Main.b.gameCancelAlert();
+        } else {
+          controller.showGameCancelAlert();
+        }
       }
     });
   }
