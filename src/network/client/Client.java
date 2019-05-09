@@ -1,5 +1,6 @@
 package network.client;
 
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -200,15 +201,19 @@ public class Client extends Thread implements Serializable {
             handleDistributeArmy((DistributeArmyMessage) message);
             break;
           case FURTHER_DISTRIBUTE_ARMY:
+            System.out.println("further army message bekommen!!!");
             handleFurtheDistributeAmry((FurtherDistributeArmyMessage) message);
             break;
           case ATTACK:
+            System.out.println("attack message bekommen");
             handleAttackMessage((AttackMessage) message);
             break;
           case FORTIFY:
+            System.out.println("fortify message bekommen");
             handleFortifyMessage((FortifyMessage) message);
             break;
           case SKIP:
+            System.out.println("skip message bekommen");
             handleSkipgamestateMessage((SkipgamestateMessage)message);
             break;
           case LEAVE:
@@ -382,14 +387,24 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
-    // Platform.runLater(new Runnable() {
-    // @Override
-    // public void run() {
-    if(player.getColor().toString().equals(message.getColor())) {
+    if (player.getColor().toString().equals(message.getColor())) {
       Main.b.setState("Place your Armies!");
-    }  
-    if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
-     // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
+    }
+    
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll further army message nicht bearbeiten");
+      return;
+    }
+    
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das further army message nicht bearbeiten");
+      return;
+    }
+
+    if (!(player.getColor().toString().equals(message.getColor()))) {
+      // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
       Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -399,10 +414,9 @@ public class Client extends Thread implements Serializable {
           + Main.g.getCurrentPlayer().numberArmiesToDistribute + " to distribute");
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
     }
-    // }
-    // });
-  }
 
+  }
+  
   /**
    * After receiving attack message, update the territory in gui accordingly
    * 
@@ -410,13 +424,28 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   private synchronized void handleAttackMessage(AttackMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll attack message nicht bearbeiten");
+      return;
+    }
+
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das attack message nicht bearbeiten");
+      return;
+    }
+
     if (!(this.player.getColor().toString().equals(message.getColor())
         && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
-//      if (!(this.player instanceof AiPlayer)) {
       Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
       Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
       int attackarmies = message.getAttackerArmies();
       int defendarmies = message.getDefendArmies();
+
+      System.out.println(Main.g.getCurrentPlayer().getName() + " attacks  from " + attack.getName()
+          + " to " + defend.getName());
+
       attack.setNumberOfArmies2(attackarmies);
       defend.setNumberOfArmies2(defendarmies);
       System.out.println("client attackarmies " + attackarmies);
@@ -424,7 +453,7 @@ public class Client extends Thread implements Serializable {
       Main.b.updateLabelTerritory(attack);
       Main.b.updateLabelTerritory(defend);
       if (message.getIfConquered()) {
-        Player defender=defend.getOwner();
+        Player defender = defend.getOwner();
         defender.lostTerritories(defend);
         Player attacker = attack.getOwner();
         defend.setOwner(attacker);
@@ -432,27 +461,24 @@ public class Client extends Thread implements Serializable {
         attacker.addTerritories(defend);
         Main.g.checkAllPlayers();
         attacker.setTerritoriesConquered(attacker.getTerritoriesConquered() + 1);
-        if(!Main.g.getPlayers().contains(defender)) {
+        if (!Main.g.getPlayers().contains(defender)) {
           defender.setRank(Main.g.getPlayers().size());
           attacker.addElimiatedPlayer(defender);
           attacker.setCards(defender.getCards());
-          Main.b.showMessage(attacker.getName()+" defeated " + defender.getName()+ "!");
+          Main.b.showMessage(attacker.getName() + " defeated " + defender.getName() + "!");
         }
-        if(Main.g.getPlayers().size()==1) {
+        if (Main.g.getPlayers().size() == 1) {
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
-        }        
-        else if(Main.g.onlyAiPlayersLeft()) {
+        } else if (Main.g.onlyAiPlayersLeft()) {
           Main.b.showMessage("You lost the Game!");
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
         }
-//        Main.b.handleContinentGlow();
         System.out.println("attack owner " + attack.getOwner().getName());
         System.out.println("defend owner " + defend.getOwner().getName());
       }
     }
-//    }
   }
 
   /**
@@ -462,25 +488,44 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   private synchronized void handleFortifyMessage(FortifyMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll fortify message nicht bearbeiten");
+      return;
+    }
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das fortify message nicht bearbeiten");
+      return;
+    }
+
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       // if (!(this.player instanceof AiPlayer)) {
+
       Territory moveFrom = Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
       Territory moveTo = Main.g.getWorld().getTerritories().get(message.getMoveToTerritoryID());
       moveFrom.setNumberOfArmies(-message.getAmount());
       moveTo.setNumberOfArmies(message.getAmount());
       Main.b.updateLabelTerritory(moveFrom);
       Main.b.updateLabelTerritory(moveTo);
-//      System.out.println("move from " + moveFrom.getName()+" "+moveFrom.getNumberOfArmies());
-//      System.out.println("move to " + moveTo.getName()+" "+moveTo.getNumberOfArmies());
-//      System.out.println("move " + message.getAmount());
+      System.out.println("move from " + moveFrom.getName() + " " + moveFrom.getNumberOfArmies());
+      System.out.println("move to " + moveTo.getName() + " " + moveTo.getNumberOfArmies());
+      System.out.println("move " + message.getAmount());
 
       // }
-    }   
-//    Main.g.furtherFortify();
-//    if(this.player.getColor().toString().equals(message.getColor())) {
-//    Main.b.setState("End your turn!");
-//    }
-    
+    }
+
+    // if ((NetworkController.server == null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+    // System.out.println("skip to next for Client");
+    // Main.g.furtherFortify();
+    // return;
+    // }
+
+    // Main.g.furtherFortify();
+    // if(this.player.getColor().toString().equals(message.getColor())) {
+    // Main.b.setState("End your turn!");
+    // }
+
   }
   /**
    * @author qiychen
@@ -489,14 +534,29 @@ public class Client extends Thread implements Serializable {
    *  After receiving skip gamestate message, the turns will be changed
    */
   private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll skip message nicht bearbeiten");
+      return;
+    }
+
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das skip message nicht bearbeiten");
+      return;
+    }
+
     Main.b.setTurns();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-    if(message.getGameState()==GameState.FORTIFY) {
-      Main.g.furtherFortify();
-      Main.b.setState("\"Place your Armies!\"");                               
+      if (message.getGameState() == GameState.FORTIFY) {
+        System.out.println("skip fortify");
+        Main.b.setState("\"Place your Armies!\"");
+        Main.g.furtherFortify();
+      }
     }
-    }  
   }
+
+  
   /**
    * @author Liwang @author qiychen
    * @param message

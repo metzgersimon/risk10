@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import gui.controller.NetworkController;
 import javafx.application.Platform;
 import main.Main;
 
@@ -253,7 +254,7 @@ public class Game implements Serializable {
   public void initNumberOfArmies() {
     int number = 50 - (this.players.size() * 5);
     for (int i = 0; i < this.players.size(); i++) {
-      this.players.get(i).setNumberArmiesToDistribute(number);
+      this.players.get(i).setNumberArmiesToDistribute(11);
     }
   }
 
@@ -352,27 +353,39 @@ public class Game implements Serializable {
           Main.cardC.insertCards(c);
         }
       }
-//      try {
-//        Thread.sleep(1000);
-//      } catch (InterruptedException e1) {
-//        e1.printStackTrace();
-//      }
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException e1) {
+        e1.printStackTrace();
+      }
       this.getCurrentPlayer().setStartedDistribution(false);
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);
+
+      System.out.println(Main.g.getCurrentPlayer().getName());
       this.setNextPlayer();
+      System.out.println(Main.g.getCurrentPlayer().getName());
+
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
+
+      // client macht alles nicht weiter
+      if (Main.g.isNetworkGame() && Main.g.getCurrentPlayer() instanceof AiPlayer
+          && NetworkController.server == null) {
+        System.out.println("client macht alles nicht weiter");
+        return;
+      }
       Main.b.prepareArmyDistribution();
       this.setGameState(GameState.ARMY_DISTRIBUTION);
+
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
+        System.out.println(" AI army distribution");
         p.armyDistribution();
       }
     }
   }
-
   /**
    * This method returns if there are territories left, that do not have an owner.
    * 

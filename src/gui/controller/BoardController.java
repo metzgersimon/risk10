@@ -1219,12 +1219,12 @@ public class BoardController implements Initializable {
             System.out.println("Handle Skip GameState: ARMY FORTIFY");
             gameState.setText("End your turn!");
             // progress.setProgress(1);
-            // try {
-            // Thread.sleep(3500);
-            // } catch (InterruptedException e1) {
-            // // TODO Auto-generated catch block
-            // e1.printStackTrace();
-            // }
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
             changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
