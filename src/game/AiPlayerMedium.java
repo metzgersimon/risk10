@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
+import gui.controller.NetworkController;
 import main.Main;
+import network.messages.game.SkipgamestateMessage;
 
 /**
  * Class defines the medium Ai including their strategy in the different game stages.
@@ -184,9 +186,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            if (!Main.g.isNetworkGame()) {
-              Main.b.updateLabelTerritory(t);
-            }
+            // if (!Main.g.isNetworkGame()) {
+            Main.b.updateLabelTerritory(t);
+            // }
           }
         }
       }
@@ -258,11 +260,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       round++;
     }
     Main.g.setGameState(GameState.FORTIFY);
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     //keep going with fortify
     this.fortify();
   }
@@ -292,9 +294,21 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       }
     }
     if (own1 != null && own2 != null) {
-      super.fortify(own1, own2, armiesToMove);
+      System.out.println("fortify liefert: " + super.fortify(own1, own2, armiesToMove));
+      System.out.println("methode aufgerufen");
       Main.b.updateLabelTerritory(own1);
       Main.b.updateLabelTerritory(own2);
+    }
+
+    if (NetworkController.server != null) {
+      SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
+      message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+      NetworkController.gameFinder.getClient().sendMessage(message);
+    }
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     Main.g.furtherFortify();
   }
@@ -323,9 +337,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
       
-      if (!Main.g.isNetworkGame()) {
+//      if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
-      }
+//      }
     }
   }
 
@@ -359,9 +373,9 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            if (!Main.g.isNetworkGame()) {
+//            if (!Main.g.isNetworkGame()) {
               Main.b.updateLabelTerritory(t);
-            }
+//            }
           }
         }
       }

@@ -307,6 +307,7 @@ public class BoardController implements Initializable {
         }
         Platform.runLater(new Runnable() {
           public void run() {
+            setTurns();
             showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
@@ -340,6 +341,31 @@ public class BoardController implements Initializable {
     th.start();
     enableAll();
   }
+  /**
+   * This method changes the game state in network game, the current player name will be showed in game state
+   * @author qiychen
+   * 
+   */
+    public void setTurns() {
+      if (Main.g.isNetworkGame()) {
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+            if (Main.g.getCurrentPlayer().getName()
+                .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
+              if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY
+                  || Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
+                gameState.setText("Place your Armies initially!");
+              } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
+                gameState.setText("Place your Armies!");
+              }
+
+            }
+          }
+        });
+      }
+  }
 
   /**
    * @author smetzger
@@ -360,11 +386,18 @@ public class BoardController implements Initializable {
           Platform.runLater(new Runnable() {
             public void run() {
               if (!gameState.getText().equals("Place your Armies initially!")) {
+                setTurns();
                 gameState.setText("Place your Armies initially!");
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
-                showMessage(game.TutorialMessages.distributing);
-                showMessage(game.TutorialMessages.distributingTip);
+                
+                //Tutorial Messages
+                if(Main.g.isShowTutorialMessages()) {
+                  showMessage(game.TutorialMessages.distributing);
+                  showMessage(game.TutorialMessages.distributingTip);
+                }
+                
               } else {
+                setTurns();
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
             }
@@ -373,6 +406,7 @@ public class BoardController implements Initializable {
           if (!gameState.getText().equals("Place your Armies!")) {
             Platform.runLater(new Runnable() {
               public void run() {
+                setTurns();
                 gameState.setText("Place your Armies!");
               }
             });
@@ -1153,12 +1187,12 @@ public class BoardController implements Initializable {
             System.out.println("Handle Skip GameState: ARMY FORTIFY");
             gameState.setText("End your turn!");
             // progress.setProgress(1);
-            // try {
-            // Thread.sleep(3500);
-            // } catch (InterruptedException e1) {
-            // // TODO Auto-generated catch block
-            // e1.printStackTrace();
-            // }
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
             changeGameState.setDisable(true);
             Main.g.furtherFortify();
             // System.out.println(Main.g.getCurrentPlayer());
