@@ -112,7 +112,6 @@ public class Main extends Application {
 
         }
       });
-//stagePanes = new Stage();
       stagePanes = new Stage(StageStyle.TRANSPARENT);
       stagePanes.initModality(Modality.WINDOW_MODAL);
       stagePanes.initOwner(stage);
@@ -121,29 +120,11 @@ public class Main extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-    // final URL resource = getClass().getResource("/resources/gui/Demoth.mp3");
-    // final Media media = new Media(resource.toString());
-    // final MediaPlayer mediaPlayer = new MediaPlayer(media);
-    // mediaPlayer.play();
   }
 
 
   public static void main(String[] args) {
     session = false;
     launch(args);
-
-    // Testing of xml reader and writer
-    // ProfileManager.readXml();
-    // ProfileManager.printAllProfiles();
-    // ProfileManager.addNewProfile("Susan", 8);
-    // System.out.println("***************Adding Susan*****************");
-    // ProfileManager.printAllProfiles();
-    // System.out.println("Saving...");
-    // ProfileManager.saveXml();
-    // System.out.println("Reading...");
-    // ProfileManager.readXml();
-    // System.out.println("******Printing all profiles again*******");
-    // ProfileManager.printAllProfiles();
   }
 }

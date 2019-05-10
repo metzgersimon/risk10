@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AttackSubSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AttackSubSceneController">
    <children>
-      <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="grayPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1022.0" style="-fx-background-color: gray;" />
       <Pane fx:id="dicePane" layoutX="287.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="450.0" prefWidth="450.0">
          <children>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: rgb(20,20,20);">
@@ -47,7 +47,7 @@
                            <children>
                               <ImageView fx:id="attackDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/dice/dice_6_RED.png" />
+                                    <Image url="@../resources/dices/dice_6_RED.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -56,7 +56,7 @@
                            <children>
                               <ImageView fx:id="defendDice1" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@../../resources/dice/dice_6_BLUE.png" />
+                                    <Image url="@../resources/dices/dice_6_BLUE.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -65,7 +65,7 @@
                            <children>
                               <ImageView fx:id="attackDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@../../resources/dice/dice_6_RED.png" />
+                                    <Image url="@../resources/dices/dice_6_RED.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -74,7 +74,7 @@
                            <children>
                               <ImageView fx:id="defendDice2" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@../../resources/dice/dice_2_BLUE.png" />
+                                    <Image url="@../resources/dices/dice_6_BLUE.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -83,7 +83,7 @@
                            <children>
                               <ImageView fx:id="attackDice3" fitHeight="79.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@../../resources/dice/dice_3_RED.png" />
+                                    <Image url="@../resources/dices/dice_6_RED.png" />
                                  </image>
                               </ImageView>
                            </children>

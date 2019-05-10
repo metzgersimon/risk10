@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.StatisticsPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.StatisticsPopUpController">
    <children>
-      <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1022.0" style="-fx-background-color: gray;" />
       <Pane layoutX="250.0" layoutY="208.0" prefHeight="278.0" prefWidth="550.0">
          <children>
             <TableView fx:id="statistic" fixedCellSize="1.0" layoutX="8.0" layoutY="8.0" prefHeight="263.0" prefWidth="535.0" stylesheets="@FontStyle.css">

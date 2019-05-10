@@ -58,6 +58,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import main.Main;
+import main.Parameter;
 import network.client.Client;
 import network.messages.GameMessageMessage;
 import network.messages.SendAllianceMessage;
@@ -237,37 +238,6 @@ public class BoardController implements Initializable {
 
   }
 
-  //
-  // /**
-  // * @author prto opens live statistics panel
-  // */
-  // @FXML
-  // public void openLiveStats() {
-  //
-  // Main.g.updateLiveStatistics();
-  // ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
-  // statistic.setItems(playerList);
-  // statistic.getSortOrder().add(c1);
-  //
-  //
-  // statistic.refresh();
-  // statisticPane.setExpanded(true);
-  //
-  // }
-  //
-  // /**
-  // * @author prto
-  // *
-  // * collapses the live statistics pane when mouse pointer exits
-  // */
-  // @FXML
-  // public void exitLiveStat() {
-  // statisticPane.setExpanded(false);
-  // }
-
-
-
-  // public void setMain(BoardGUI_Main boardGUI, Game g) {
   public void setMain(SinglePlayerGUIController boardGui) {
     this.boardGui = boardGui;
     connectRegionTerritory();
@@ -460,8 +430,8 @@ public class BoardController implements Initializable {
                   Main.cardC.handleGrayPane(true);
                   Main.stagePanes.setScene(Main.cards);
                   Main.stagePanes.setOpacity(0.9);
-                  Main.stagePanes.setX(Main.stage.getX() + 2);
-                  Main.stagePanes.setY(Main.stage.getY() + 24);
+                  Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+                  Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
                   Main.stagePanes.show();
                 } catch (Exception e) {
                   e.printStackTrace();
@@ -786,8 +756,8 @@ public class BoardController implements Initializable {
                       new FXMLLoader(getClass().getResource("/gui/ArmyDistributionSubScene.fxml"));
                   Parent root = (Parent) fxmlLoader.load();
                   Main.stagePanes.setScene(new Scene(root));
-                  Main.stagePanes.setX(Main.stage.getX() + 2);
-                  Main.stagePanes.setY(Main.stage.getY() + 24);
+                  Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+                  Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
                   Main.stagePanes.show();
                 } catch (Exception e) {
                   e.printStackTrace();
@@ -894,8 +864,8 @@ public class BoardController implements Initializable {
                 Parent root = (Parent) fxmlLoader.load();
                 Main.attack = fxmlLoader.getController();
                 Main.stagePanes.setScene(new Scene(root));
-                Main.stagePanes.setX(Main.stage.getX() + 2);
-                Main.stagePanes.setY(Main.stage.getY() + 24);
+                Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+                Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
                 Main.stagePanes.show();
               } catch (Exception e) {
                 e.printStackTrace();
@@ -999,8 +969,8 @@ public class BoardController implements Initializable {
                   Parent root = (Parent) fxmlLoader.load();
                   Main.fortify = fxmlLoader.getController();
                   Main.stagePanes.setScene(new Scene(root));
-                  Main.stagePanes.setX(Main.stage.getX() + 2);
-                  Main.stagePanes.setY(Main.stage.getY() + 24);
+                  Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+                  Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
                   Main.stagePanes.show();
                 } catch (Exception e1) {
                   e1.printStackTrace();
@@ -1101,8 +1071,8 @@ public class BoardController implements Initializable {
       Parent root = (Parent) fxmlLoader.load();
       Main.ruleBook = fxmlLoader.getController();
       Main.stagePanes.setScene(new Scene(root));
-      Main.stagePanes.setX(Main.stage.getX() + 2);
-      Main.stagePanes.setY(Main.stage.getY() + 24);
+      Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+      Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
       Main.stagePanes.show();
     } catch (Exception e) {
       e.printStackTrace();
@@ -1124,8 +1094,8 @@ public class BoardController implements Initializable {
               Main.cardC.disableTradeInButton(true);
             }
             Main.stagePanes.setScene(Main.cards);
-            Main.stagePanes.setX(Main.stage.getX() + 2);
-            Main.stagePanes.setY(Main.stage.getY() + 24);
+            Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+            Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
             Main.stagePanes.show();
 
           } catch (Exception e) {
@@ -1532,8 +1502,8 @@ public class BoardController implements Initializable {
           // rootAnchor.getChildren().add(sub);
 
           Main.stagePanes.setScene(new Scene(root));
-          Main.stagePanes.setX(Main.stage.getX() + 2);
-          Main.stagePanes.setY(Main.stage.getY() + 24);
+          Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+          Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
           Main.stagePanes.show();
 
         } catch (Exception e) {
