@@ -115,7 +115,7 @@ public class HostGameLobbyController {
   public void handleLeaveLobby(ActionEvent event) {
      LeaveGameMessage message = new LeaveGameMessage("HOST");
      message.setLeaveLobby(true);
-     NetworkController.gameFinder.getClient().sendMessage(message);     
+     NetworkController.gameFinder.getClient().sendMessage(message);    
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
@@ -127,6 +127,7 @@ public class HostGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    Main.g = new game.Game();
   }
 
   /**
