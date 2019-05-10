@@ -184,7 +184,7 @@ public class Server extends Thread implements Serializable {
       clients.add(c);
       c.start();
     } catch (SocketException e) {
-      System.out.println(" Socket closed!");
+//      System.out.println(" Socket closed!");
     } catch (IOException e) {
       e.printStackTrace();
     }
