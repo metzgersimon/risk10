@@ -230,25 +230,20 @@ public class MultiPlayerGUIController {
       alert.showAndWait();
     }
 
+    networkController.joinGame(tokens[0], main.Parameter.PORT);
+    
     try {
-
-      // check if the port is correct, else show the alert
-      int port;
-      try {
-        port = Integer.parseInt(tokens[1]);
-        networkController.joinGame(tokens[0], port);
-      } catch (NumberFormatException e) {
-        alert.setTitle("Error alert");
-        alert.setHeaderText("Error in the port format ");
-        alert.setContentText("Port number is not in correct format." + "\n");
-        alert.showAndWait();
-        System.out.println(getClass() + " : Port number is not in correct format ");
-        e.printStackTrace();
-      }
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    
+    try {
 
       // show the joined game lobby
       if (NetworkController.gameFinder.getClient() != null) {
-        fxmlLoader = new FXMLLoader(getClass().getResource("JoinGameLobby.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/gui/JoinGameLobby.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = main.Main.stage;
         stage.setTitle("Game Lobby");
