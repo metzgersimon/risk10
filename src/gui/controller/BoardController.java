@@ -414,12 +414,12 @@ public class BoardController implements Initializable {
           }
         }
 
-        // try {
-        // Thread.sleep(500);
-        // } catch (InterruptedException e1) {
-        // // TODO Auto-generated catch block
-        // e1.printStackTrace();
-        // }
+         try {
+         Thread.sleep(500);
+         } catch (InterruptedException e1) {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+         }
 
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
@@ -747,12 +747,12 @@ public class BoardController implements Initializable {
                 // }
                 // });
                 updateColorTerritory(t);
-                // try {
-                // Thread.sleep(1000);
-                // } catch (InterruptedException e1) {
-                // // TODO Auto-generated catch block
-                // e1.printStackTrace();
-                // }
+                 try {
+                 Thread.sleep(1000);
+                 } catch (InterruptedException e1) {
+                 // TODO Auto-generated catch block
+                 e1.printStackTrace();
+                 }
                 if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
                   SelectInitialTerritoryMessage message =
                       new SelectInitialTerritoryMessage(t.getId());
@@ -897,11 +897,11 @@ public class BoardController implements Initializable {
               }
             });
           }
-          // try {
-          // this.sleep(50);
-          // } catch (InterruptedException e) {
-          // e.printStackTrace();
-          // }
+           try {
+           this.sleep(50);
+           } catch (InterruptedException e) {
+           e.printStackTrace();
+           }
           if (Main.g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
             showMessage(game.TutorialMessages.attacking2);
             showMessage(game.TutorialMessages.attackingTip);
@@ -1081,12 +1081,12 @@ public class BoardController implements Initializable {
         }
       }
     }
-    // try {
-    // Thread.sleep(500);
-    // } catch (InterruptedException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
+     try {
+     Thread.sleep(500);
+     } catch (InterruptedException e) {
+     // TODO Auto-generated catch block
+     e.printStackTrace();
+     }
     selectedTerritory = null;
     selectedTerritory_attacked = null;
   }
@@ -1134,7 +1134,6 @@ public class BoardController implements Initializable {
       e.printStackTrace();
     }
   }
-
 
   @FXML
   public synchronized void handleCardPane() {
@@ -1236,6 +1235,7 @@ public class BoardController implements Initializable {
             // System.out.println(Main.g.getCurrentPlayer());
             // progress.setProgress(0);
             break;
+            
         }
       }
     });
@@ -1413,12 +1413,12 @@ public class BoardController implements Initializable {
 
         // prepareInitTerritoryDistribution();
 
-        // try {
-        // Thread.sleep(500);
-        // } catch (InterruptedException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
+         try {
+         Thread.sleep(500);
+         } catch (InterruptedException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+         }
       }
     };
     th.start();

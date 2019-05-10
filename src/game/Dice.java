@@ -12,21 +12,6 @@ import java.util.Vector;
  */
 public class Dice {
 
-  private int numberOfDices;
-
-  /**
-   * getter and setter method for the only attribute numberOfDices.
-   */
-
-  public int getNumberOfDices() {
-    return numberOfDices;
-  }
-
-  public void setNumberOfDices(int numberOfDices) {
-    this.numberOfDices = numberOfDices;
-  }
-
-
   /**
    * Method computes a random number from 1-6 to simulate a single dice roll.
    * 

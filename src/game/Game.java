@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import main.Main;
 
 public class Game implements Serializable {
@@ -330,6 +334,18 @@ public class Game implements Serializable {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
       } else {
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/NextTurnStage.fxml"));
+          Parent root = fxmlLoader.load();
+          Main.turn = fxmlLoader.getController();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.setX(Main.stage.getX() + 2);
+          Main.stagePanes.setY(Main.stage.getY() + 33);
+          Main.stagePanes.show();
+        }catch (Exception e) {
+          e.printStackTrace();
+        }
         Main.b.enableAll();
       }
     }
@@ -369,6 +385,20 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
+      }
+      else {
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/NextTurnStage.fxml"));
+          Parent root = fxmlLoader.load();
+          Main.turn = fxmlLoader.getController();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.setX(Main.stage.getX() + 2);
+          Main.stagePanes.setY(Main.stage.getY() + 33);
+          Main.stagePanes.show();
+        }catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     }
   }

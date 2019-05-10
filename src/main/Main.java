@@ -1,37 +1,28 @@
 package main;
 
-import java.net.URL;
 import game.Game;
 import game.GameState;
-import game.TestGame;
-import gui.controller.ArmyDistributionSubSceneController;
 import gui.controller.AttackSubSceneController;
 import gui.controller.BoardController;
 import gui.controller.CardSubSceneController;
 import gui.controller.FortifySubSceneController;
-import gui.controller.HostGameGUIController;
 import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.MultiPlayerGUIController;
 import gui.controller.NetworkController;
+import gui.controller.NextTurnStageController;
 import gui.controller.QuitGameSubSceneController;
 import gui.controller.RuleBookPopUp;
-import gui.controller.StatisticsPopUpController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import network.messages.game.AttackMessage;
 import network.messages.game.LeaveGameMessage;
 
 
@@ -50,6 +41,7 @@ public class Main extends Application {
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
   public static RuleBookPopUp ruleBook;
+  public static NextTurnStageController turn;
   public static boolean session;
   
   public static Stage stage;
@@ -58,6 +50,7 @@ public class Main extends Application {
   public static Stage stagePanes;
   public static AnchorPane board;
   public static AnchorPane cardPane;
+  
 
   // public static Game g;
 

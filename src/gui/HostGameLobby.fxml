@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="backgraound-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.HostGameLobbyController">
   <!-- TODO Add Nodes -->
   <children>
     <SplitPane dividerPositions="0.6835245046923879" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="720.0" prefWidth="1280.0">
@@ -58,6 +59,9 @@
                       <effect>
                         <DropShadow />
                       </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                     </Button>
                     <Button fx:id="leaveGame" layoutX="141.0" layoutY="575.0" minWidth="28.0" mnemonicParsing="false" onAction="#handleLeaveLobby" prefHeight="40.0" prefWidth="175.0" styleClass="circleButton" text="LEAVE GAME">
                       <effect>
@@ -66,6 +70,9 @@
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                     </Button>
                               <ImageView fx:id="image1" disable="true" fitHeight="70.0" fitWidth="70.0" layoutX="189.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -86,6 +93,9 @@
                       <stylesheets>
                         <URL value="@HostGameLobby.css" />
                       </stylesheets>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                     </Button>
                     <CheckBox fx:id="hostBox" alignment="CENTER_RIGHT" contentDisplay="TOP" graphicTextGap="6.0" layoutX="40.0" layoutY="130.0" minHeight="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="341.0" styleClass="check-box-text" text="   Host" textAlignment="CENTER">
                       <effect>

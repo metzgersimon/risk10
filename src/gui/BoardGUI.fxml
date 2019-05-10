@@ -1125,19 +1125,21 @@
 													</font>
 												</Label>
 												<ProgressBar fx:id="progress" layoutX="31.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="269.0" progress="0.0" />
-                        <Button fx:id="changeGameState" layoutX="300.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSkipGameState" prefHeight="32.0" prefWidth="29.0" style="-fx-background-radius: 100;">
+                        <Button fx:id="changeGameState" defaultButton="true" layoutX="300.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSkipGameState" prefHeight="32.0" prefWidth="29.0" style="-fx-background-radius: 100;">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../Privat/Eclipse/eclipse-workspace/oldRisk10.zip_expanded/risk10/bin/resources/gui/nextGameState.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="295.0" layoutY="49.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/gui/nextGameState.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
 									</children>
 								</AnchorPane>
                   <Label fx:id="currentPlayer" layoutX="900.0" layoutY="25.0" text="Label" />
