@@ -1406,58 +1406,6 @@ public class BoardController implements Initializable {
   }
 
 
-  /**
-   * @author skaur
-   * 
-   *         This method is called in the client class, when a client receives the leave game by the
-   *         host player message. After being called, this method shows an alert to every player
-   *         connected to the game. The alert informs the players that the game is cancelled and
-   *         asks them to leave the game by giving them to options.
-   */
-  public void gameCancelAlert() {
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Game Cancelled");
-    alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
-        + "Please leave the Game Board");
-    alert.setContentText("Leave Game");
-    Optional<ButtonType> option = alert.showAndWait();
-    if (option.get() == null) {
-      // do nothing
-      alert.close();
-    } else if (option.get() == ButtonType.OK) {
-      // this method shows the end game staticstics and disconnect the client
-      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
-      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
-      this.clientLeaveGame();
-    }
-  }
-
-  /**
-   * @skaur
-   * 
-   *        After the player choose to leave the game, this shows the game statistics to each player
-   */
-  public void clientLeaveGame() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        try {
-          Main.g.setAllPlayers(Main.g.getAllPlayers());
-          for (Player p : Main.g.getPlayers()) {
-            Main.g.addToAllPlayers(p);
-          }
-          Main.g.setGameState(GameState.END_GAME);
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Stage stage = main.Main.stage;
-          stage.setScene(new Scene(root));
-          stage.show();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
   public void endGame() {
 
     // Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
@@ -1513,4 +1461,55 @@ public class BoardController implements Initializable {
     });
   }
 
+  /**
+   * This method is called in the client class, when a client receives the leave game by the host
+   * player message. After being called, this method shows an alert to every player connected to the
+   * game. The alert informs the players that the game is cancelled and asks them to leave the game
+   * by giving them to options.
+   * 
+   * @author skaur
+   */
+  public void gameCancelAlert() {
+    //show the alert that game is cancelled
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Game Cancelled");
+    alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
+        + "Please leave the Game Board");
+    alert.setContentText("Leave Game");
+    Optional<ButtonType> option = alert.showAndWait();
+    if (option.get() == null) {
+      // do nothing
+      alert.close();
+    } else if (option.get() == ButtonType.OK) {
+      // send a leave game response to the server
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
+      this.clientLeaveGame();
+    }
+  }
+
+  /**
+   *  After the player choose to leave the game, this shows the game statistics to each player.
+   * @skaur
+   */
+  public void clientLeaveGame() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          Main.g.setAllPlayers(Main.g.getAllPlayers());
+          for (Player p : Main.g.getPlayers()) {
+            Main.g.addToAllPlayers(p);
+          }
+          Main.g.setGameState(GameState.END_GAME);
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          stage.setScene(new Scene(root));
+          stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 }

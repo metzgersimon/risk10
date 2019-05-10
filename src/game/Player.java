@@ -460,11 +460,13 @@ public class Player implements Serializable {
         this.numberArmiesToDistribute -= amount;
         return true;
       } else {
+        //for the network game
         if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
           t.setNumberOfArmies(amount);
           this.numberArmiesToDistribute -= amount;
           return true;
         } else {
+          // if the current player is an instance of AI player the host player sends the message
           if ((NetworkController.server != null)) {
             if (Main.g.getGameState().equals(GameState.INITIALIZING_ARMY)) {
               DistributeArmyMessage armyMessage = new DistributeArmyMessage(amount, t.getId());
@@ -524,7 +526,7 @@ public class Player implements Serializable {
   /**
    * This method is for the network game. The host player sends the message to the server on the
    * behalf of the AiPlayer The attributes of the AiPlayer will be changed after receiving the
-   * message in client class
+   * message in client class.
    * 
    * @author skaur
    * @param t is the territory which is selected
@@ -705,7 +707,7 @@ public class Player implements Serializable {
    * @param moveTo : territory where the army is going to moved
    * @param armyToMove : number of armies selected to be moved
    * @return: false if invalid parameter are selected; should be called in a while loop until the
-   *          player selects valid parameters or skips the fortify gamestate
+   *          player selects valid parameters or skips the fortify game state
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
     // check if both territories belong to the current player
