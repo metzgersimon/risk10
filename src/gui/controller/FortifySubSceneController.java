@@ -68,9 +68,9 @@ public class FortifySubSceneController implements Initializable {
         }
 
         Main.g.getCurrentPlayer().setFortify(true);
+        Main.b.neutralizeGUIfortify();
         Platform.runLater(new Runnable() {
           public void run() {
-            Main.b.neutralizeGUIfortify();
             Main.stagePanes.close();
           }
         });

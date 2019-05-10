@@ -266,14 +266,6 @@ public class Player implements Serializable {
   public void setSuccessfullAttack(boolean b) {
     this.successfullAttack = b;
   }
-
-  public boolean getStartedDistribution() {
-    return startedDistribution;
-  }
-
-  public void setStartedDistribution(boolean startedDistribution) {
-    this.startedDistribution = startedDistribution;
-  }
   
 
   /**************************************************
@@ -375,7 +367,7 @@ public class Player implements Serializable {
    */
   public boolean tradeCards(Card c1, Card c2, Card c3) {
     // trade-in is only possible when the player did not start the army distribution yet
-    if (!this.startedDistribution) {
+    if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
       int armies = 0;
       int number = this.getTradedCardSets();
       // checks if the given cards are a valid set
@@ -462,18 +454,19 @@ public class Player implements Serializable {
    * 
    */
   public boolean armyDistribution(int amount, Territory t) {
-    setStartedDistribution(true);
     if (t != null && t.getOwner().equals(this) && this.numberArmiesToDistribute >= amount) {
       if (!Main.g.isNetworkGame()) {
         t.setNumberOfArmies(amount);
         this.numberArmiesToDistribute -= amount;
         return true;
       } else {
+        //for the network game
         if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
           t.setNumberOfArmies(amount);
           this.numberArmiesToDistribute -= amount;
           return true;
         } else {
+          // if the current player is an instance of AI player the host player sends the message
           if ((NetworkController.server != null)) {
             if (Main.g.getGameState().equals(GameState.INITIALIZING_ARMY)) {
               DistributeArmyMessage armyMessage = new DistributeArmyMessage(amount, t.getId());
@@ -485,6 +478,8 @@ public class Player implements Serializable {
               this.numberArmiesToDistribute -= amount;
               FurtherDistributeArmyMessage armyMessage =
                   new FurtherDistributeArmyMessage(amount, t.getId());
+              System.out.println("FurtherArmyDistribution geschickt: "
+                  + Main.g.getCurrentPlayer().getName() + " set " + amount + " on " + t.getName());
               armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
               NetworkController.gameFinder.getClient().sendMessage(armyMessage);
               return true;
@@ -531,7 +526,7 @@ public class Player implements Serializable {
   /**
    * This method is for the network game. The host player sends the message to the server on the
    * behalf of the AiPlayer The attributes of the AiPlayer will be changed after receiving the
-   * message in client class
+   * message in client class.
    * 
    * @author skaur
    * @param t is the territory which is selected
@@ -591,11 +586,11 @@ public class Player implements Serializable {
   public boolean attack(Vector<Integer> attacker, Vector<Integer> defender, Territory attack,
       Territory defend, int numberOfAttackers) {
     attack.getOwner().setNumberOfAttacks(attack.getOwner().getNumberOfAttacks() + 1);
-//    if (Main.g.isShowTutorialMessages()) {
-      Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
-          + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
-          + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
-//    }
+    // if (Main.g.isShowTutorialMessages()) {
+    Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
+        + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
+        + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
+    // }
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
@@ -617,6 +612,7 @@ public class Player implements Serializable {
 
     // if the defender has no more armies left on his territory
     if (defend.getNumberOfArmies() == 0) {
+      System.out.println("defend t is dead");
       Player p = defend.getOwner();
       p.lostTerritories(defend);
       defend.setOwner(attack.getOwner());
@@ -624,6 +620,7 @@ public class Player implements Serializable {
       Main.g.checkAllPlayers();
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
+      System.out.println("defend Army " + defend.getNumberOfArmies());
       successfullAttack = true;
       Main.b.updateColorTerritory(defend);
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered() + 1);
@@ -657,16 +654,21 @@ public class Player implements Serializable {
         Main.g.setGameState(GameState.END_GAME);
         Main.b.endGame();
       }
-
       // network
       if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-        this.attackNetwork(attack.getId(), defend.getId(), defend.getNumberOfArmies() == 0,
-            numberOfAttackers, defend.getNumberOfArmies());
+        this.attackNetwork(attack.getId(), defend.getId(), true, attack.getNumberOfArmies(),
+            defend.getNumberOfArmies());
       }
       return true;
     } else {
+      // network
+      if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+        this.attackNetwork(attack.getId(), defend.getId(), false, attack.getNumberOfArmies(),
+            defend.getNumberOfArmies());
+      }
       return false;
     }
+
   }
 
 
@@ -705,7 +707,7 @@ public class Player implements Serializable {
    * @param moveTo : territory where the army is going to moved
    * @param armyToMove : number of armies selected to be moved
    * @return: false if invalid parameter are selected; should be called in a while loop until the
-   *          player selects valid parameters or skips the fortify gamestate
+   *          player selects valid parameters or skips the fortify game state
    */
   public boolean fortify(Territory moveFrom, Territory moveTo, int armyToMove) {
     // check if both territories belong to the current player
@@ -720,6 +722,7 @@ public class Player implements Serializable {
           moveFrom.setReducedNumberOfArmies(armyToMove);
           moveTo.setNumberOfArmies(armyToMove);
           if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+            System.out.println(Main.g.getCurrentPlayer().getName() + " move " + armyToMove + " from " + moveFrom.getName() + " to " + moveTo.getName());
             this.fortifyNetwork(moveFrom.getId(), moveTo.getId(), armyToMove);
           }
           return true;
@@ -748,6 +751,7 @@ public class Player implements Serializable {
    */
   public boolean fortifyNetwork(int moveFromTerritoryId, int moveToTerritoryId, int amount) {
     if (NetworkController.server != null) {
+      System.out.println("Fortify message geschickt!");
       FortifyMessage message = new FortifyMessage(moveFromTerritoryId, moveToTerritoryId, amount);
       message.setColor(Main.g.getCurrentPlayer().getColor().toString());
       NetworkController.gameFinder.getClient().sendMessage(message);

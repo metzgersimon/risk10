@@ -83,7 +83,7 @@ public class PlayerProfile {
   public String getTerritoriesConquered() {
     return "" + this.territoriesConquered;
   }
-  
+
   public int getSessionWins() {
     return this.sessionWins;
   }
@@ -105,7 +105,7 @@ public class PlayerProfile {
   public void incrementTerritoriesConquered(int n) {
     this.territoriesConquered += n;
   }
-  
+
   public void incrementSessionWins() {
     this.sessionWins++;
   }
@@ -128,7 +128,7 @@ public class PlayerProfile {
   public void setTerritoriesConquered(int tc) {
     this.territoriesConquered = tc;
   }
-  
+
   public void setSessionWins(int sw) {
     this.sessionWins = sw;
   }

@@ -1,6 +1,5 @@
 package network.messages.game;
 
-
 import network.messages.Message;
 import network.messages.MessageType;
 

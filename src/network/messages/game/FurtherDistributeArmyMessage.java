@@ -15,6 +15,12 @@ public class FurtherDistributeArmyMessage extends Message {
   private int territoryId; // territoryId where army should be placed
   private String color;// color the player
 
+  /**
+   * Constructor.
+   * 
+   * @param amount of the army distributed
+   * @param territoryId represents the territory selected to place the army
+   */
   public FurtherDistributeArmyMessage(int amount, int territoryId) {
     super(MessageType.FURTHER_DISTRIBUTE_ARMY);
     this.amount = amount;

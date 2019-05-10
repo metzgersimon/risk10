@@ -1,9 +1,13 @@
 package network.messages;
 
+/**
+ * This class is used for sending and receiving the text message for the game lobby chat.
+ * 
+ * @skaur
+ */
 
 public class SendChatMessageMessage extends Message {
-
-
+  
   private static final long serialVersionUID = 1L;
 
   private String username; // player class

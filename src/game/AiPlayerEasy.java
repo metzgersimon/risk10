@@ -1,7 +1,12 @@
 package game;
 
 import java.util.Vector;
+import gui.controller.NetworkController;
 import main.Main;
+import network.messages.Message;
+import network.messages.game.SelectInitialTerritoryMessage;
+import network.messages.game.SkipgamestateMessage;
+import network.server.ClientConnection;
 
 /**
  * Class defines an easy ai player which acts completely random.
@@ -133,14 +138,19 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
 
-      if (!Main.g.isNetworkGame()) {
-        Main.b.updateLabelTerritory(territory);
-      }
-      // try {
-      // Thread.sleep(2000);
-      // } catch (InterruptedException e) {
-      // e.printStackTrace();
+      // if (!Main.g.isNetworkGame()) {
+      Main.b.updateLabelTerritory(territory);
       // }
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     // sets the game state to the next stage and calls the attack method
     Main.g.setGameState(GameState.ATTACK);
@@ -197,32 +207,33 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (super.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
-        if (!Main.g.isNetworkGame()) {
-          Main.b.updateLabelTerritory(territoryOwn);
-          Main.b.updateLabelTerritory(territoryOpponent);
-          Main.b.updateColorTerritory(territoryOpponent);
-        }
+        // if (!Main.g.isNetworkGame()) {
+        Main.b.updateLabelTerritory(territoryOwn);
+        Main.b.updateLabelTerritory(territoryOpponent);
+        Main.b.updateColorTerritory(territoryOpponent);
+        // }
       } else {
-        if (!Main.g.isNetworkGame()) {
-          Main.b.updateLabelTerritory(territoryOwn);
-          Main.b.updateLabelTerritory(territoryOpponent);
-        }
-//        try {
-//          Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//          e.printStackTrace();
-//        }
+        // if (!Main.g.isNetworkGame()) {
+        Main.b.updateLabelTerritory(territoryOwn);
+        Main.b.updateLabelTerritory(territoryOpponent);
+        // }
+
+      }
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
       attackProbability = 0.66;
       random = Math.random();
     }
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     // sets the game state to the next stage
     Main.g.setGameState(GameState.FORTIFY);
-//    try {
-//      Thread.sleep(1000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
     // calls the fortify method of the class
     this.fortify();
 
@@ -233,6 +244,17 @@ public class AiPlayerEasy extends Player implements AiPlayer {
    * passes on to the next player
    */
   public synchronized void fortify() {
+    if (NetworkController.server != null) {
+      SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
+      message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+      NetworkController.gameFinder.getClient().sendMessage(message);
+
+    }
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     Main.g.furtherFortify();
   }
 

@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import game.AiPlayer;
 import game.GameState;
 import game.Player;
@@ -15,6 +14,7 @@ import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.NetworkController;
+import java.net.UnknownHostException;
 import javafx.application.Platform;
 import main.Main;
 import network.messages.GameMessageMessage;
@@ -35,22 +35,31 @@ import network.messages.game.StartGameMessage;
 
 public class Client extends Thread implements Serializable {
   /**
-   * 
+   * This class defines the client connected to the server.
    */
   private static final long serialVersionUID = 1L;
 
+  /*************** Elements needed for the communication with the server. **********************/
+  
   /**
-   * Elements needed for the communication with the server
+   * InetAddress of the connected server.
    */
   private InetAddress address;
+  
+  /**
+   * The socket of the client.
+   */
   private Socket s;
+  
+  /**
+   * Streams to read and write to the server.
+   */
   private ObjectInputStream fromServer;
   private ObjectOutputStream toServer;
   private int port;
 
-  /**
-   * Controllers
-   */
+  /*************************************** Controllers. *****************************************/
+  
   private JoinGameLobbyController controller = null;
   private HostGameLobbyController hostcontroller = null;
   private BoardController boardController;
@@ -59,12 +68,29 @@ public class Client extends Thread implements Serializable {
   /**
    * other elements
    */
+  
+  
+  /*************************************** Other Elements.***************************************/
+  /**
+   * Represents if the client is host.
+   */
   public static boolean isHost;
+  
+  /**
+   * Represents if the client is active.
+   */
   private boolean active;
-  private Player player; // player of this client
+  
+  /**
+   * The player which is represents this client.
+   */
+  private Player player; 
 
+  
   /**************************************************
-   * * Constructors * *
+   *                                                *
+   *                Constructors                    *
+   *                                                *
    *************************************************/
 
   public Client(InetAddress address, int port) {
@@ -89,13 +115,13 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * Second Constructor to join the game by giving the IP and port address and starts the client
+   * thread.
    * 
    * @skaur
    * @param ip address of the server
    * @param port listening to the server
-   * 
-   *        Second Constructor to join the game by giving the ip and port address and starts the
-   *        client thread
+   *
    */
   public Client(String ip, int port) {
     try {
@@ -107,11 +133,13 @@ public class Client extends Thread implements Serializable {
     connect();
     Main.g.setNetworkGame(true);
   }
-
+  
   /**************************************************
-   * * Connection and disconnection of clients * *
+   *                                                *
+   *   Connection and disconnection of clients      *
+   *                                                *
    *************************************************/
-
+  
   /**
    * @author qiychen
    * @return whether the connection is established
@@ -150,9 +178,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**************************************************
-   * * Send and receive messages from client * *
+   *                                                *
+   *      Send and receive messages from client     *
+   *                                                *
    *************************************************/
-
+  
   /**
    * @author qiychen
    * @param message send message to server
@@ -200,15 +230,19 @@ public class Client extends Thread implements Serializable {
             handleDistributeArmy((DistributeArmyMessage) message);
             break;
           case FURTHER_DISTRIBUTE_ARMY:
+            System.out.println("further army message bekommen!!!");
             handleFurtheDistributeAmry((FurtherDistributeArmyMessage) message);
             break;
           case ATTACK:
+            System.out.println("attack message bekommen");
             handleAttackMessage((AttackMessage) message);
             break;
           case FORTIFY:
+            System.out.println("fortify message bekommen");
             handleFortifyMessage((FortifyMessage) message);
             break;
           case SKIP:
+            System.out.println("skip message bekommen");
             handleSkipgamestateMessage((SkipgamestateMessage)message);
             break;
           case LEAVE:
@@ -227,11 +261,13 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-
+  
   /**************************************************
-   * * Getter and Setter * *
+   *                                                *
+   *               Getters and Setters              *
+   *                                                *
    *************************************************/
-
+  
   public Player getPlayer() {
     return this.player;
   }
@@ -264,16 +300,20 @@ public class Client extends Thread implements Serializable {
     return this.controller;
   }
 
+  
   /**************************************************
-   * * Process the messages received from the server * *
+   *                                                *
+   *  Process the messages received from the server *
+   *                                                *
    *************************************************/
 
   /**
+   * After connecting to the server, the client sends a message to the server with the player name
+   * to register for the game and to get response from the server.
+   * 
    * @author skaur
    * @param name of the player who has requested to join the game
-   * 
-   *        After connecting to the server, the client sends a message to the server with the player
-   *        name to register for the game and to get response from the server
+   *
    */
   public void register(String name) {
     JoinGameMessage join = new JoinGameMessage(name);
@@ -282,12 +322,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After registering the name of the client, server sends back a response message containing the
+   * player instance. This methods initialize the player instance for the client.
+   * 
    * @author skaur
    * @param responseMessage containing the player instance for the client
-   * 
-   *        After registering the name of the client, server sends back a response message
-   *        containing the player instance. This methods initialize the player instance for the
-   *        client.
    */
   public void handleJoinGameResponse(JoinGameResponseMessage responseMessage) {
     if (!(responseMessage.getPlayer() instanceof AiPlayer)) {
@@ -296,12 +335,12 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the start game message from the host player, this method update the player list
+   * to match up the player list of the host player. After that it opens the game board for the
+   * client player.
+   * 
    * @author skaur
    * @param message containing the list of players who will be playing the game
-   * 
-   *        After receiving the start game message from the host player, this method update the
-   *        player list to match up the player list of the host player .After that it opens the game
-   *        board for the client player
    */
   public void handleStartGameMessage(StartGameMessage message) {
     // update the player list
@@ -319,11 +358,11 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the Initial Territory information, every client updates the information in
+   * their game instance and game board.
+   * 
    * @author skaur
    * @param message
-   * 
-   *        After receiving the Initial Territory information, every client updates the information
-   *        in their game instance and game board
    * 
    */
   public synchronized void handleInitialTerritory(SelectInitialTerritoryMessage message) {
@@ -358,6 +397,10 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * 
+   * After receiving the army distribution information, every client updates the information in
+   * their game instance and game board.
+   * 
    * @author skaur
    * @param message
    */
@@ -365,7 +408,7 @@ public class Client extends Thread implements Serializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (!(player.getColor().toString().equals(message.getColor()))) {         
+        if (!(player.getColor().toString().equals(message.getColor()))) {
           Main.g.getWorld().getTerritories().get(message.getTerritoryId())
               .setNumberOfArmies(message.getAmount());
           Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -378,18 +421,32 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * 
+   * After receiving the further army distribution information, every client updates the information
+   * in their game instance and game board.
+   * 
    * @author skaur
    * @param message
    */
   public synchronized void handleFurtheDistributeAmry(FurtherDistributeArmyMessage message) {
-    // Platform.runLater(new Runnable() {
-    // @Override
-    // public void run() {
-    if(player.getColor().toString().equals(message.getColor())) {
-      Main.b.setState("Choose your Territory!");
-    }  
-    if (!(player.getColor().toString().equals(message.getColor())) && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor()))) {
-     // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
+    if (player.getColor().toString().equals(message.getColor())) {
+      Main.b.setState("Place your Armies!");
+    }
+
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll further army message nicht bearbeiten");
+      return;
+    }
+
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das further army message nicht bearbeiten");
+      return;
+    }
+
+    if (!(player.getColor().toString().equals(message.getColor()))) {
+      // Main.b.setState("It's "+Main.g.getCurrentPlayer().getName()+" turn.");
       Main.g.getWorld().getTerritories().get(message.getTerritoryId())
           .setNumberOfArmies(message.getAmount());
       Main.g.getCurrentPlayer().numberArmiesToDistribute -= message.getAmount();
@@ -399,8 +456,7 @@ public class Client extends Thread implements Serializable {
           + Main.g.getCurrentPlayer().numberArmiesToDistribute + " to distribute");
       Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(message.getTerritoryId()));
     }
-    // }
-    // });
+
   }
 
   /**
@@ -410,13 +466,28 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   private synchronized void handleAttackMessage(AttackMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll attack message nicht bearbeiten");
+      return;
+    }
+
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das attack message nicht bearbeiten");
+      return;
+    }
+
     if (!(this.player.getColor().toString().equals(message.getColor())
         && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
-//      if (!(this.player instanceof AiPlayer)) {
       Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
       Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
       int attackarmies = message.getAttackerArmies();
       int defendarmies = message.getDefendArmies();
+
+      System.out.println(Main.g.getCurrentPlayer().getName() + " attacks  from " + attack.getName()
+          + " to " + defend.getName());
+
       attack.setNumberOfArmies2(attackarmies);
       defend.setNumberOfArmies2(defendarmies);
       System.out.println("client attackarmies " + attackarmies);
@@ -424,7 +495,7 @@ public class Client extends Thread implements Serializable {
       Main.b.updateLabelTerritory(attack);
       Main.b.updateLabelTerritory(defend);
       if (message.getIfConquered()) {
-        Player defender=defend.getOwner();
+        Player defender = defend.getOwner();
         defender.lostTerritories(defend);
         Player attacker = attack.getOwner();
         defend.setOwner(attacker);
@@ -432,27 +503,24 @@ public class Client extends Thread implements Serializable {
         attacker.addTerritories(defend);
         Main.g.checkAllPlayers();
         attacker.setTerritoriesConquered(attacker.getTerritoriesConquered() + 1);
-        if(!Main.g.getPlayers().contains(defender)) {
+        if (!Main.g.getPlayers().contains(defender)) {
           defender.setRank(Main.g.getPlayers().size());
           attacker.addElimiatedPlayer(defender);
           attacker.setCards(defender.getCards());
-          Main.b.showMessage(attacker.getName()+" defeated " + defender.getName()+ "!");
+          Main.b.showMessage(attacker.getName() + " defeated " + defender.getName() + "!");
         }
-        if(Main.g.getPlayers().size()==1) {
+        if (Main.g.getPlayers().size() == 1) {
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
-        }        
-        else if(Main.g.onlyAiPlayersLeft()) {
+        } else if (Main.g.onlyAiPlayersLeft()) {
           Main.b.showMessage("You lost the Game!");
           Main.g.setGameState(GameState.END_GAME);
           Main.b.endGame();
         }
-//        Main.b.handleContinentGlow();
         System.out.println("attack owner " + attack.getOwner().getName());
         System.out.println("defend owner " + defend.getOwner().getName());
       }
     }
-//    }
   }
 
   /**
@@ -462,25 +530,44 @@ public class Client extends Thread implements Serializable {
    * @param message
    */
   private synchronized void handleFortifyMessage(FortifyMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll fortify message nicht bearbeiten");
+      return;
+    }
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das fortify message nicht bearbeiten");
+      return;
+    }
+
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
       // if (!(this.player instanceof AiPlayer)) {
+
       Territory moveFrom = Main.g.getWorld().getTerritories().get(message.getMoveFromTerritoryID());
       Territory moveTo = Main.g.getWorld().getTerritories().get(message.getMoveToTerritoryID());
       moveFrom.setNumberOfArmies(-message.getAmount());
       moveTo.setNumberOfArmies(message.getAmount());
       Main.b.updateLabelTerritory(moveFrom);
       Main.b.updateLabelTerritory(moveTo);
-//      System.out.println("move from " + moveFrom.getName()+" "+moveFrom.getNumberOfArmies());
-//      System.out.println("move to " + moveTo.getName()+" "+moveTo.getNumberOfArmies());
-//      System.out.println("move " + message.getAmount());
+      System.out.println("move from " + moveFrom.getName() + " " + moveFrom.getNumberOfArmies());
+      System.out.println("move to " + moveTo.getName() + " " + moveTo.getNumberOfArmies());
+      System.out.println("move " + message.getAmount());
 
       // }
-    }   
-//    Main.g.furtherFortify();
-//    if(this.player.getColor().toString().equals(message.getColor())) {
-//    Main.b.setState("End your turn!");
-//    }
-    
+    }
+
+    // if ((NetworkController.server == null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+    // System.out.println("skip to next for Client");
+    // Main.g.furtherFortify();
+    // return;
+    // }
+
+    // Main.g.furtherFortify();
+    // if(this.player.getColor().toString().equals(message.getColor())) {
+    // Main.b.setState("End your turn!");
+    // }
+
   }
   /**
    * @author qiychen
@@ -489,14 +576,29 @@ public class Client extends Thread implements Serializable {
    *  After receiving skip gamestate message, the turns will be changed
    */
   private synchronized void handleSkipgamestateMessage(SkipgamestateMessage message) {
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      System.out.println("host soll skip message nicht bearbeiten");
+      return;
+    }
+
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      System.out.println(
+          "host bekommt die nachricht verzögert und soll das skip message nicht bearbeiten");
+      return;
+    }
+
     Main.b.setTurns();
     if (!(this.player.getColor().toString().equals(message.getColor()))) {
-    if(message.getGameState()==GameState.FORTIFY) {
-      Main.g.furtherFortify();
-      Main.b.setState("Select your Territory!");                               
+      if (message.getGameState() == GameState.FORTIFY) {
+        System.out.println("skip fortify");
+        Main.b.setState("\"Place your Armies!\"");
+        Main.g.furtherFortify();
+      }
     }
-    }  
   }
+
+  
   /**
    * @author Liwang @author qiychen
    * @param message
@@ -537,18 +639,21 @@ public class Client extends Thread implements Serializable {
   }
 
   /**
+   * After receiving the leave game message, this methods shows the game cancelled alert and shows
+   * the end game statistics.
+   * 
    * @author skaur
-   * @param message
+   * @param message send from one of the player after quitting the game.
    */
   public void handleLeaveGame(LeaveGameMessage message) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if(!message.getLeaveLobby()) {
-        Main.b.gameCancelAlert();
-      } else {
-       controller.showGameCancelAlert();
-      }
+        if (!message.getLeaveLobby()) {
+          Main.b.gameCancelAlert();
+        } else {
+          controller.showGameCancelAlert();
+        }
       }
     });
   }

@@ -26,46 +26,51 @@ import network.messages.SendChatMessageMessage;
 import network.messages.game.LeaveGameMessage;
 import network.messages.game.StartGameMessage;
 
+/**
+ * Class for host player to handle the functions of lobby before starting the game.
+ * 
+ * @author skaur
+ *
+ */
 public class HostGameLobbyController {
 
-
   /** 
-   * Text field in which a player writes his/her message to send to chat box 
+   * Text field in which a player writes his/her message to send to chat box. 
    */
   @FXML TextField textField;
 
   /**
-   *  to send a message in the chat box this button should be click
+   *  to send a message in the chat box this button should be click.
    */
   @FXML Button sendButton;
 
   /**
-   *  text area in which all the players can see the message 
+   *  text area in which all the players can see the message. 
    */
   @FXML TextArea chat;
 
   /**
-   * Button to leave the game
+   * Button to leave the game.
    */
  @FXML  Button leaveGame;
 
  /**
-  * Button to start the game
+  * Button to start the game.
   */
   @FXML  Button startGame;
 
   /**
-   * Button to add AI players
+   * Button to add AI players.
    */
   @FXML Button addBots;
 
   /**
-   * slider to set the level of AI Player
+   * slider to set the level of AI Player.
    */
   @FXML Slider botLevel;
 
   /** 
-   * check boxes shows the status of the joined player 
+   * check boxes shows the status of the joined player. 
    */
   @FXML CheckBox hostBox;
   @FXML CheckBox box1;
@@ -77,7 +82,7 @@ public class HostGameLobbyController {
   @FXML ImageView image1;
 
   /** 
-   * Check boxes lists for players joining the game
+   * Check boxes lists for players joining the game.
    */
   public static ArrayList<CheckBox> playerNames;
   
@@ -88,7 +93,7 @@ public class HostGameLobbyController {
 
 
   /**
-   * to handle the event when the button "send" is clicked
+   * to handle the event when the button "send" is clicked.
    */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -101,16 +106,16 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @author skaur
-   * @param event parameter represents the element that invokes method by clicking leave button
+   * This action method changes the current stage back to Multiplayer GUI.
    * 
-   *        . This action method changes the current stage back to Multiplayer GUI.
+   * @param event parameter represents the element that invokes method by clicking leave button
+   *
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
      LeaveGameMessage message = new LeaveGameMessage("HOST");
      message.setLeaveLobby(true);
-     NetworkController.gameFinder.getClient().sendMessage(message);     
+     NetworkController.gameFinder.getClient().sendMessage(message);    
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
@@ -122,8 +127,15 @@ public class HostGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    Main.g = new game.Game();
   }
 
+  /**
+   * This methods add an AI player to the game, add the player the AI instance in the list and
+   * update the list on the host lobby.
+   * 
+   * @param event clicked to add the AI player
+   */
   @FXML
   void handleAddBot(ActionEvent event) {
     Player p;
@@ -139,13 +151,14 @@ public class HostGameLobbyController {
       Main.g.addPlayer(p);
 
       // update the list in the game lobby for host player
-      updateList(Main.g.getPlayers().size()-1,p);
+      updateList(Main.g.getPlayers().size() - 1, p);
       System.out.println("An AI player " + p.getName() + " has joined the game ");
 
       // enable the start button if possible
       this.enableStartButton();
 
     } else {
+      //show alert if the list is full
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
       alert.setHeaderText("Can not add player");
@@ -155,9 +168,7 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @skaur
-   * 
-   *        enable the check boxes according to the selected number of players by the host player
+   * Enable the check boxes according to the selected number of players by the host player.
    */
   public void initialize() {
     playerNames = new ArrayList<CheckBox>();
@@ -174,11 +185,9 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @author skaur
    * 
-   *         this method is called from the server class whenever a new player has joined the lobby
-   *         and whenever a new AI player is added to the game lobby,to update the list of players
-   *         in the lobby
+   * This method is called from the server class whenever a new player has joined the lobby and
+   * whenever a new AI player is added to the game lobby,to update the list of players in the lobby.
    */
   public void updateList(int index , Player p) {  
     Platform.runLater(new Runnable() {
@@ -234,9 +243,7 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @skaur
-   * 
-   *        enable the start button, ones the all the clients have joined the lobby
+   * Enable the start button, ones the all the clients have joined the lobby.
    */
   public void enableStartButton() {
     if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
@@ -245,10 +252,8 @@ public class HostGameLobbyController {
   }
 
   /**
-   * @author skaur
-   * @param event clicked by the host player to start the game
-   * 
-   *        Send message to the server that game has started with the list of players as parameter
+   *  Enable the start button, once the all the clients have joined the lobby.
+   * @param event clicked by the host player to start the game.
    */
   @FXML
   public void handleStartGameButton(ActionEvent event) {

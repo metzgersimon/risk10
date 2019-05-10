@@ -28,7 +28,7 @@
          </font>
       </Button>
       <Slider fx:id="difficulty" blockIncrement="1.0" layoutX="695.0" layoutY="265.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="64.0" prefWidth="439.0" snapToTicks="true" value="1.0" />
-      <Label layoutX="183.0" layoutY="260.0" styleClass="singlePlayerLabels" stylesheets="@FontStyle.css" text="AI difficulty" textFill="#f5f3f3">
+      <Label layoutX="186.0" layoutY="263.0" styleClass="singlePlayerLabels" stylesheets="@FontStyle.css" text="AI difficulty" textFill="#f5f3f3">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
@@ -46,7 +46,7 @@
             <Font size="33.0" />
          </font>
       </Button>
-      <CheckBox fx:id="checkTips" layoutX="153.0" layoutY="364.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" prefHeight="54.0" prefWidth="641.0" stylesheets="@FontStyle.css" text="Game instructions / Tips          " textFill="#f5f3f3">
+      <CheckBox fx:id="checkTips" layoutX="148.0" layoutY="350.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleTips" prefHeight="54.0" prefWidth="646.0" stylesheets="@FontStyle.css" text="Game instructions / Tips          " textFill="#f5f3f3">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
          </font>
@@ -71,7 +71,7 @@
             <Image url="@../resources/gui/robot2.png" />
          </image>
       </ImageView>
-      <Label layoutX="182.0" layoutY="457.0" text="Number of AI Players" textFill="WHITE">
+      <Label layoutX="186.0" layoutY="457.0" text="Number of AI Players" textFill="WHITE">
          <font>
             <Font name="Ubuntu Medium" size="40.0" />
          </font>

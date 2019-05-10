@@ -14,4 +14,8 @@ public class Parameter {
 
   // for network game
   public static final int PORT = 8888;
+  
+  // for subscenes
+  public static final int HEIGHT = 26;
+  public static final int WIDTH = 1;
 }

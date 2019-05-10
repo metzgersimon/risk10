@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import gui.controller.NetworkController;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import main.Main;
 
 public class Game implements Serializable {
@@ -297,8 +294,6 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
-      } else {
-        Main.b.enableAll();
       }
     }
   }
@@ -314,19 +309,16 @@ public class Game implements Serializable {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
-    }
+}
     this.setNextPlayer();
     Main.b.prepareArmyDistribution();
     if (this.getRemainingInitialArmies()) {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.initialArmyDistribution();
-      } else {
-        Main.b.enableAll();
       }
     } else {
       this.setGameState(GameState.ARMY_DISTRIBUTION);
-      Main.b.setTurns();
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
@@ -346,7 +338,6 @@ public class Game implements Serializable {
         }catch (Exception e) {
           e.printStackTrace();
         }
-        Main.b.enableAll();
       }
     }
   }
@@ -368,41 +359,38 @@ public class Game implements Serializable {
           Main.cardC.insertCards(c);
         }
       }
-//      try {
-//        Thread.sleep(1000);
-//      } catch (InterruptedException e1) {
-//        e1.printStackTrace();
-//      }
-      this.getCurrentPlayer().setStartedDistribution(false);
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException e1) {
+        e1.printStackTrace();
+      }
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);
+
+      System.out.println(Main.g.getCurrentPlayer().getName());
       this.setNextPlayer();
+      System.out.println(Main.g.getCurrentPlayer().getName());
+
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
+
+      // client macht alles nicht weiter
+      if (Main.g.isNetworkGame() && Main.g.getCurrentPlayer() instanceof AiPlayer
+          && NetworkController.server == null) {
+        System.out.println("client macht alles nicht weiter");
+        return;
+      }
       Main.b.prepareArmyDistribution();
       this.setGameState(GameState.ARMY_DISTRIBUTION);
+
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
       }
-      else {
-        try {
-          FXMLLoader fxmlLoader =
-              new FXMLLoader(getClass().getResource("/gui/NextTurnStage.fxml"));
-          Parent root = fxmlLoader.load();
-          Main.turn = fxmlLoader.getController();
-          Main.stagePanes.setScene(new Scene(root));
-          Main.stagePanes.setX(Main.stage.getX() + 2);
-          Main.stagePanes.setY(Main.stage.getY() + 33);
-          Main.stagePanes.show();
-        }catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
     }
   }
-
+  
   /**
    * This method returns if there are territories left, that do not have an owner.
    * 

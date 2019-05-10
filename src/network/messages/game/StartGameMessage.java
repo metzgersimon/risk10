@@ -1,7 +1,7 @@
 package network.messages.game;
 
-import java.util.ArrayList;
 import game.Player;
+import java.util.ArrayList;
 import network.messages.Message;
 import network.messages.MessageType;
 

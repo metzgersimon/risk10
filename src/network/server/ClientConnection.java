@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
-import java.net.Socket;
 import game.Player;
-import game.PlayerColor;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
-import javafx.application.Platform;
+import java.net.Socket;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import main.Main;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
@@ -18,39 +17,66 @@ import network.messages.LeaveLobbyMessage;
 import network.messages.Message;
 import network.messages.SendAllianceMessage;
 import network.messages.SendChatMessageMessage;
-import network.messages.game.AttackMessage;
-import network.messages.game.FortifyMessage;
 import network.messages.game.LeaveGameMessage;
 import network.messages.game.LeaveGameResponseMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.StartGameMessage;
 
 /**
- * This class represents the connection between the server and the client
+ * This class represents the connection between the server and the client.
  */
 
 public class ClientConnection extends Thread {
+
+  /************* Variable needed for the communication between the server and client. ********************/
+  
   /**
-   * Variables for connection with clients
+   * IP Address of the server.
    */
-  private InetAddress address; // address of the server
-  private int port; // port of the server
+  private InetAddress address;
+  
+  /**
+   * Port of the server.
+   */
+  private int port; 
+  
+  /**
+   * Socket of this connection
+   */
   private Socket socket;
+  
+  /**
+   * Streams to read and write to the client
+   */
   private ObjectInputStream fromClient;
   private ObjectOutputStream toClient;
+  
+  /**
+   * Server of this connection
+   */
+  private Server server;
+  
+  /************************************************ Other variables. *****************************************/
+  
   private boolean active;
   private Player player; // player who represents this client connection
-  private Server server;
   private HostGameLobbyController hostLobbyController;
   private ArrayList<Player> players = new ArrayList<Player>(); // list of players joined
   private BoardController boardController;
   private String playerN;
 
+  
+  
+  /**************************************************
+   *                                                *
+   *                   Constructor                  *
+   *                                                *
+   *************************************************/
+  
   /**
-   * Constructor
    * 
    * @author qiychen
-   * @param socket
+   * @param socket for the communication
    */
   public ClientConnection(Socket s) {
     this.socket = s;
@@ -66,11 +92,10 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * Constructor
    * 
    * @author qiychen
-   * @param socket
-   * @param server
+   * @param socket for the communication
+   * @param server of the game
    */
   public ClientConnection(Socket s, Server server) {
     this.server = server;
@@ -231,14 +256,14 @@ public class ClientConnection extends Thread {
 
 
   /**
+   * This methods is called whenever a client is connected to the server. It creates the Player
+   * instance for each player which joins the game lobby, add it to the list and send the game
+   * instance as a response message back. This method update the list of players in the host game
+   * lobby.
    * 
    * @author skaur
    * @param message sent from client after he joins the game lobby
    * 
-   *        This methods is called whenever a client is connected to the server. It creates the
-   *        Player instance for each player which joins the game lobby, add it to the list and send
-   *        the game instance as a response message back. This method update the list of players in
-   *        the host game lobby
    */
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
@@ -278,10 +303,10 @@ public class ClientConnection extends Thread {
 
 
   /**
+   * Send the leave message to the clients and disconnect the client who has sent the message.
+   * 
    * @author skaur
    * @param message
-   * 
-   *        send the leave message to the clients and disconnect the client who has sent the message
    * 
    */
   private void recieveLeaveMessage(LeaveGameMessage message) {
@@ -290,8 +315,9 @@ public class ClientConnection extends Thread {
     LeaveGameResponseMessage m = new LeaveGameResponseMessage();
     this.sendMessage(m);
     this.disconnect();
+    this.server.stopServer();
   }
-  
+
   public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
     this.sendMessage(message);
     try {
@@ -301,7 +327,7 @@ public class ClientConnection extends Thread {
     }
     this.server.getConnections().remove(this);
     this.disconnect();
-//    this.server.stopServer();
+    this.server.stopServer();
   }
 
   
@@ -338,11 +364,12 @@ public class ClientConnection extends Thread {
    *         disconnect the connection
    */
   public void disconnect() {
+    this.active = false;
+    this.interrupt();
     try {
       this.toClient.close();
       this.fromClient.close();
       this.socket.close();
-      this.active = false;
       System.out.println("Client Connection is ending....");
     } catch (IOException e) {
       // TODO Auto-generated catch block
