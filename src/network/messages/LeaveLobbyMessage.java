@@ -1,28 +1,31 @@
 package network.messages;
 
 import game.Player;
-
+/**
+ * This message class represents the leave lobby message of the player.
+ * 
+ * @skaur
+ */
 public class LeaveLobbyMessage extends Message {
-  /**
-   * This message class represents the leave lobby message of the player.
-   * 
-   * @skaur
-   */
+  
   private static final long serialVersionUID = 1L;
 
-  private Player p;
+  private Player player;
 
-  public LeaveLobbyMessage(Player p) {
+  /**
+   * Constructor.
+   * @param player who decides to leave the game lobby.
+   */
+  public LeaveLobbyMessage(Player player) {
     super(MessageType.LEAVE_LOBBY);
-    // TODO Auto-generated constructor stub
-    this.p = p;
+    this.player = player;
   }
 
   /**
    * The player who leaves the game lobby.
    */
   public Player getPlayer() {
-    return this.p;
+    return this.player;
   }
 
 }

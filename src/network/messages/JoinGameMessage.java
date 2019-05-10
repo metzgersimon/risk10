@@ -6,6 +6,7 @@ package network.messages;
  * @author skaur
  *
  */
+
 public class JoinGameMessage extends Message {
 
   private static final long serialVersionUID = 1L;

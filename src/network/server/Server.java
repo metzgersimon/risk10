@@ -10,9 +10,9 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
+import java.util.List;
 import main.Main;
 
 /**

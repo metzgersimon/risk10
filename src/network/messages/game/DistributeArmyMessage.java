@@ -15,7 +15,12 @@ public class DistributeArmyMessage extends Message {
   private int territoryId; // id of the territory
   private String color; // color of the player
 
-  // initialize the amount of the army and the territory id.
+  /**
+   * Constructor.
+   * 
+   * @param amount of army to place
+   * @param territoryId of the territory selected to place the army
+   */
   public DistributeArmyMessage(int amount, int territoryId) {
     super(MessageType.DISTRIBUTE_ARMY);
     this.amount = amount;

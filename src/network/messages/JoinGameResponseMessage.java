@@ -4,7 +4,7 @@ import game.Player;
 
 public class JoinGameResponseMessage extends Message {
   /**
-   * This message class represents the response of the server after the server receives the join
+   * This message class represents the response of the server after the server receives the join.
    * game response message from the player/client.
    * 
    * @skaur

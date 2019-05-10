@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
-import java.net.Socket;
 import game.Player;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
-import javafx.application.Platform;
+import java.net.Socket;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import main.Main;
 import network.messages.JoinGameMessage;
 import network.messages.JoinGameResponseMessage;
@@ -27,27 +27,56 @@ import network.messages.game.StartGameMessage;
  */
 
 public class ClientConnection extends Thread {
+
+  /************* Variable needed for the communication between the server and client. ********************/
+  
   /**
-   * Variables for connection with clients
+   * IP Address of the server.
    */
-  private InetAddress address; // address of the server
-  private int port; // port of the server
+  private InetAddress address;
+  
+  /**
+   * Port of the server.
+   */
+  private int port; 
+  
+  /**
+   * Socket of this connection
+   */
   private Socket socket;
+  
+  /**
+   * Streams to read and write to the client
+   */
   private ObjectInputStream fromClient;
   private ObjectOutputStream toClient;
+  
+  /**
+   * Server of this connection
+   */
+  private Server server;
+  
+  /************************************************ Other variables. *****************************************/
+  
   private boolean active;
   private Player player; // player who represents this client connection
-  private Server server;
   private HostGameLobbyController hostLobbyController;
   private ArrayList<Player> players = new ArrayList<Player>(); // list of players joined
   private BoardController boardController;
   private String playerN;
 
+  
+  
+  /**************************************************
+   *                                                *
+   *                   Constructor                  *
+   *                                                *
+   *************************************************/
+  
   /**
-   * Constructor
    * 
    * @author qiychen
-   * @param socket
+   * @param socket for the communication
    */
   public ClientConnection(Socket s) {
     this.socket = s;
@@ -63,11 +92,10 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * Constructor
    * 
    * @author qiychen
-   * @param socket
-   * @param server
+   * @param socket for the communication
+   * @param server of the game
    */
   public ClientConnection(Socket s, Server server) {
     this.server = server;

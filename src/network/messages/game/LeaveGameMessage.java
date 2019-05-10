@@ -15,6 +15,7 @@ public class LeaveGameMessage extends Message {
   private String username;
   private String color;
   private boolean leaveLobby;
+  
   public LeaveGameMessage(String username) {
     super(MessageType.LEAVE);
     this.username = username;

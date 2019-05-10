@@ -1,13 +1,11 @@
 package network.client;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import game.AiPlayer;
 import game.GameState;
 import game.Player;
@@ -16,6 +14,7 @@ import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.NetworkController;
+import java.net.UnknownHostException;
 import javafx.application.Platform;
 import main.Main;
 import network.messages.GameMessageMessage;
@@ -36,7 +35,7 @@ import network.messages.game.StartGameMessage;
 
 public class Client extends Thread implements Serializable {
   /**
-   * 
+   * This class defines the client connected to the server.
    */
   private static final long serialVersionUID = 1L;
 
@@ -78,7 +77,7 @@ public class Client extends Thread implements Serializable {
   public static boolean isHost;
   
   /**
-   * Represnts if the client is active.
+   * Represents if the client is active.
    */
   private boolean active;
   
