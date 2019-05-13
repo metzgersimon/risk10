@@ -39,6 +39,7 @@ public class Player implements Serializable {
   private int numberOfTerritories;
   private int numberOfCards;
   private int valueActuallyTradedIn;
+  public int numberOfEliminatedPlayers;
   public int territoriesConquered;
   public int numberOfAttacks;
   public int rank;
@@ -76,6 +77,7 @@ public class Player implements Serializable {
     this.numberOfAttacks = 0;
     this.rank = 1;
     this.sessionWins = 0;
+    numberOfEliminatedPlayers = 0;
     this.colorString = this.color.getColorString();
   }
 
@@ -214,6 +216,18 @@ public class Player implements Serializable {
 
   public ArrayList<Card> getCards() {
     return cards;
+  }
+  
+  public int getNumberOfEliminatedPlayers() {
+    return this.numberOfEliminatedPlayers;
+  }
+  
+  public void setNumberOfEliminatedPlayers(int n) {
+    this.numberOfEliminatedPlayers = n;
+  }
+  
+  public void incrementNumberOfEliminatedPlayers() {
+    this.numberOfEliminatedPlayers++;
   }
 
   public void addCard(Card c) {

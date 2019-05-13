@@ -68,7 +68,7 @@ public class StatisticController implements Initializable {
     c2.setCellValueFactory(new PropertyValueFactory<>("name"));
     c3.setCellValueFactory(new PropertyValueFactory<>("numberOfAttacks"));
     c4.setCellValueFactory(new PropertyValueFactory<>("territoriesConquered"));
-    c5.setCellValueFactory(new PropertyValueFactory<>("sessionWins"));
+    c5.setCellValueFactory(new PropertyValueFactory<>("numberOfEliminatedPlayers"));
 
     c1.setSortType(TableColumn.SortType.ASCENDING);
     HashSet<Player> hash = new HashSet<Player>(Main.g.getAllPlayers());
@@ -81,6 +81,7 @@ public class StatisticController implements Initializable {
     table.getSortOrder().add(c1);
 
     updateProfileStats();
+    table.refresh();
   }
 
   /**
