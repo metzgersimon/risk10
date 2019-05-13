@@ -9,30 +9,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.QuitGameSubSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.QuitGameSubSceneController">
    <children>
-      <Pane fx:id="grayPane" onMouseClicked="#clickBack" opacity="0.8" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" />
-      <Pane fx:id="quitPane" layoutX="465.0" layoutY="260.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane fx:id="grayPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickBack" opacity="0.8" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: gray;">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="350.0">
+            <Pane fx:id="quitPane" layoutX="335.0" layoutY="260.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;">
                <children>
-                  <Label styleClass="quit" stylesheets="@FontStyle.css" text="Quit Game?" wrapText="true">
-                     <VBox.margin>
-                        <Insets top="30.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="350.0">
                      <children>
-                        <Button fx:id="yesLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLeave" prefWidth="70.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Yes" />
-                        <Button fx:id="noLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickBack" prefWidth="70.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="No" />
+                        <Label styleClass="quit" stylesheets="@FontStyle.css" text="Quit Game?" wrapText="true">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                           <children>
+                              <Button fx:id="yesLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLeave" prefWidth="70.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="Yes" />
+                              <Button fx:id="noLeave" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clickBack" prefWidth="70.0" styleClass="territoryLabels" stylesheets="@FontStyle.css" text="No" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </Pane>
+            </Pane>
+         </children></Pane>
    </children>
 </AnchorPane>

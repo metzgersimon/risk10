@@ -38,7 +38,6 @@ public class SettingsGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
       ((Node) event.getSource()).getScene().getWindow().hide();
@@ -59,7 +58,6 @@ public class SettingsGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();

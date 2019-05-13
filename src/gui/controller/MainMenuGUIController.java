@@ -43,7 +43,6 @@ public class MainMenuGUIController {
           new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Profile Selection");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -63,7 +62,6 @@ public class MainMenuGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/SettingsGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Settings");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {

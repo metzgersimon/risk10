@@ -75,6 +75,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
     };
     th.start();
     Main.b.neutralizeGUIarmyDistribution();
+//    Main.b.setSelectedTerritory(null);
     Main.stagePanes.close();
   }
 
@@ -82,6 +83,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
    * This method is used when a player wants to cancel the army distribution on a chosen territory.
    */
   public synchronized void clickBack() {
+    Main.b.setSelectedTerritory(null);
     Main.stagePanes.close();
   }
 }

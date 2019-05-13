@@ -17,14 +17,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AttackSubSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AttackSubSceneController">
    <children>
-      <Pane fx:id="grayPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1022.0" style="-fx-background-color: gray;" />
+      <Pane fx:id="grayPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickBack" opacity="0.6" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: gray;" />
       <Pane fx:id="dicePane" layoutX="287.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="450.0" prefWidth="450.0">
          <children>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: rgb(20,20,20);">
                <children>
-                  <Label styleClass="choiceBox" stylesheets="@FontStyle.css" text="Dices" textFill="WHITE">
+                  <Label styleClass="choiceBox" stylesheets="@FontStyle.css" text="Dice" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
@@ -95,7 +95,7 @@
                         <Insets />
                      </VBox.margin>
                   </Slider>
-                  <Button fx:id="throwDices" mnemonicParsing="false" onMouseClicked="#throwDices" style="-fx-background-color: white;" styleClass="addLabels" stylesheets="@FontStyle.css" text="Throw dice" textAlignment="CENTER">
+                  <Button fx:id="throwDices" mnemonicParsing="false" onMouseClicked="#throwDices" style="-fx-background-color: white;" styleClass="addLabels" stylesheets="@FontStyle.css" text="throw dice" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

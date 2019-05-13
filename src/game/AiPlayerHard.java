@@ -96,15 +96,15 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
         AiPlayerHard.super.initialTerritoryDistribution(selection);
 
-        // if (!Main.g.isNetworkGame()) {
-        Main.b.updateColorTerritory(selection);
+        if (!Main.g.isNetworkGame()) {
+          Main.b.updateColorTerritory(selection);
         // try {
         // Thread.sleep(1500);
         // } catch (InterruptedException e1) {
         // e1.printStackTrace();
         // }
         Main.g.furtherInitialTerritoryDistribution();
-        // }
+         }
 
       }
     };
@@ -130,17 +130,17 @@ public class AiPlayerHard extends Player implements AiPlayer {
           maxNeighbors = t.getHostileNeighbor().size();
           territory = t;
           if (super.armyDistribution(1, t)) {
-            // if (!Main.g.isNetworkGame()) {
-            Thread th = new Thread() {
-              public void run() {
-                Main.b.highlightTerritory(territory);
-                Main.b.updateLabelTerritory(territory);
-              }
-            };
+            if (!Main.g.isNetworkGame()) {
+              Thread th = new Thread() {
+                public void run() {
+                  Main.b.highlightTerritory(territory);
+                  Main.b.updateLabelTerritory(territory);
+                }
+              };
             th.start();
             Main.g.furtherInitialArmyDistribution();
             // return;
-            // }
+             }
             return;
           }
         }

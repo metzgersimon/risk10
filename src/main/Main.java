@@ -10,7 +10,7 @@ import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.MultiPlayerGUIController;
 import gui.controller.NetworkController;
-import gui.controller.NextTurnStageController;
+import gui.controller.NextTurnSubSceneController;
 import gui.controller.QuitGameSubSceneController;
 import gui.controller.RuleBookPopUp;
 import javafx.application.Application;
@@ -41,7 +41,7 @@ public class Main extends Application {
   public static QuitGameSubSceneController quit;
   public static CardSubSceneController cardC;
   public static RuleBookPopUp ruleBook;
-  public static NextTurnStageController turn;
+  public static NextTurnSubSceneController turn;
   public static boolean session;
   
   public static Stage stage;
@@ -78,7 +78,6 @@ public class Main extends Application {
       primaryStage.setScene(scene);
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
-      primaryStage.setTitle("Login");
       primaryStage.show();
 
       primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -109,6 +108,7 @@ public class Main extends Application {
       stagePanes.initModality(Modality.WINDOW_MODAL);
       stagePanes.initOwner(stage);
       stagePanes.setOpacity(0.9);
+      primaryStage.setTitle("Risk");
 
     } catch (Exception e) {
       e.printStackTrace();

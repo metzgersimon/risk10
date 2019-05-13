@@ -114,7 +114,6 @@ public class MultiPlayerGUIController {
       fxmlLoader = new FXMLLoader(getClass().getResource("/gui/HostGameGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Host Game");
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
@@ -160,7 +159,6 @@ public class MultiPlayerGUIController {
         Parent root = (Parent) fxmlLoader.load();
         Main.j = fxmlLoader.getController();
         Stage stage = main.Main.stage;
-        stage.setTitle("Game Lobby");
         stage.setScene(new Scene(root));
         stage.show();
         // ((Node) event.getSource()).getScene().getWindow().hide();
@@ -246,7 +244,6 @@ public class MultiPlayerGUIController {
         fxmlLoader = new FXMLLoader(getClass().getResource("/gui/JoinGameLobby.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = main.Main.stage;
-        stage.setTitle("Game Lobby");
         stage.setScene(new Scene(root));
         stage.show();
 

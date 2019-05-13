@@ -45,6 +45,7 @@ public class FortifySubSceneController implements Initializable {
    * This method calls the fortify method.
    */
   public synchronized void confirmFortify() {
+    System.out.println(Main.b.getSelectedTerritory().getName());
     Thread th = new Thread() {
       public void run() {
         int amount = (int) fortifySlider.getValue();
@@ -52,6 +53,7 @@ public class FortifySubSceneController implements Initializable {
             Main.b.getSelectedTerritory_attacked(), amount)) {
           Platform.runLater(new Runnable() {
             public void run() {
+              System.out.println(Main.b.getSelectedTerritory().getName());
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()

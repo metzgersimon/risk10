@@ -57,7 +57,6 @@ public class CreateProfileGUIController {
       FXMLLoader fxmlLoader =
           new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
-      stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -119,7 +118,6 @@ public class CreateProfileGUIController {
         FXMLLoader fxmlLoader =
             new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
-        stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
       } catch (Exception e) {

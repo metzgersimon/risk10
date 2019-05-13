@@ -73,7 +73,6 @@ public class SinglePlayerGUIController {
           new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Profile Selection");
       Main.scene.setRoot(root);
       stage.setScene(Main.scene);
       stage.show();

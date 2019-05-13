@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.Main;
 
-public class NextTurnStageController implements Initializable{
+public class NextTurnSubSceneController implements Initializable{
 
   @FXML
   private Pane grayPane;

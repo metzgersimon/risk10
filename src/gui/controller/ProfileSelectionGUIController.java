@@ -75,7 +75,6 @@ public class ProfileSelectionGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -96,7 +95,6 @@ public class ProfileSelectionGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Create Profile");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -133,7 +131,6 @@ public class ProfileSelectionGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EditProfileGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Edit Profile");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -174,7 +171,7 @@ public class ProfileSelectionGUIController {
       ProfileManager.getSelectedProfile().setSessionWins(0);
     }
 
-    Main.g = new Game();
+    Main.g = new TestGame();
     //Main.g = new Game();
     System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
@@ -192,7 +189,6 @@ public class ProfileSelectionGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {

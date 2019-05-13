@@ -35,7 +35,6 @@ public class ProfileImagePickerGUIController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/EditProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
-        stage.setTitle("Edit Profile");
         stage.setScene(new Scene(root));
         stage.show();
       } catch (Exception e) {
@@ -50,7 +49,6 @@ public class ProfileImagePickerGUIController {
             new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
-        stage.setTitle("Create Profile");
         stage.setScene(new Scene(root));
         stage.show();
       } catch (Exception e) {

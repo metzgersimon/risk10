@@ -76,7 +76,6 @@ public class HostGameGUIController {
       Parent root = (Parent) fxmlLoader.load();
       Main.h = fxmlLoader.getController();
       Stage stage = main.Main.stage;
-      stage.setTitle("Host Game Lobby");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -119,7 +118,6 @@ public class HostGameGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiPlayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Multi Player");
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();

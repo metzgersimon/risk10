@@ -21,9 +21,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CardSubSceneController">
+<AnchorPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CardSubSceneController">
    <children>
-      <Pane fx:id="transparentPane" onMouseClicked="#clickBack" prefHeight="720.0" prefWidth="1022.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane fx:id="transparentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickBack" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="upAndDown" layoutX="-6.0" layoutY="625.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="269.0">
          <children>
             <Circle fx:id="circleLeave" fill="#1e1d1d" layoutX="53.0" layoutY="51.0" onMousePressed="#pressLeave" radius="28.0" stroke="BLACK" strokeType="INSIDE">
@@ -117,9 +117,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <HBox fx:id="left" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-top-left-radius: 10;" visible="false" />
-                              <HBox fx:id="center" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" visible="false" GridPane.columnIndex="1" />
-                              <HBox fx:id="right" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" visible="false" GridPane.columnIndex="2" />
+                              <HBox fx:id="left" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-top-left-radius: 10;" />
+                              <HBox fx:id="center" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="1" />
+                              <HBox fx:id="right" alignment="CENTER" onMouseClicked="#handleRemoveCard" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
                         <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="256.0" spacing="15.0" style="-fx-border-color: black;" GridPane.columnIndex="1">

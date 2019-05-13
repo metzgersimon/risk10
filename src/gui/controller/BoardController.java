@@ -525,7 +525,6 @@ public class BoardController implements Initializable {
               }
             }
           });
-
         }
 
 
@@ -797,16 +796,16 @@ public class BoardController implements Initializable {
       public void run() {
         DropShadow d = (DropShadow) r.getEffect();
         d.setInput(null);
-        for (Territory t : selectedTerritory.getNeighbor()) {
-          if (!t.getOwner().equals(selectedTerritory.getOwner())) {
-            Platform.runLater(new Runnable() {
-              public void run() {
-                DropShadow d = (DropShadow) r.getEffect();
-                d.setInput(new Lighting());
-              }
-            });
-          }
-        }
+//        for (Territory t : selectedTerritory.getNeighbor()) {
+//          if (!t.getOwner().equals(selectedTerritory.getOwner())) {
+//            Platform.runLater(new Runnable() {
+//              public void run() {
+//                DropShadow d = (DropShadow) r.getEffect();
+//                d.setInput(new Lighting());
+//              }
+//            });
+//          }
+//        }
         selectedTerritory = null;
       }
     };

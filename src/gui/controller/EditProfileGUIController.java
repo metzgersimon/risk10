@@ -78,7 +78,6 @@ public class EditProfileGUIController {
           new FXMLLoader(getClass().getResource("/gui/ProfileImagePickerGUI.fxml"));
       AnchorPane root = (AnchorPane) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Profile Image Selection");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {
@@ -120,7 +119,6 @@ public class EditProfileGUIController {
               new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
           BorderPane root = (BorderPane) fxmlLoader.load();
           Stage stage = main.Main.stage;
-          stage.setTitle("Profile Selection");
           stage.setScene(new Scene(root));
           stage.show();
         } catch (Exception ex) {
@@ -176,7 +174,6 @@ public class EditProfileGUIController {
             new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
         BorderPane root = (BorderPane) fxmlLoader.load();
         Stage stage = main.Main.stage;
-        stage.setTitle("Profile Selection");
         stage.setScene(new Scene(root));
         stage.show();
       } catch (Exception e) {

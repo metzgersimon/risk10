@@ -33,7 +33,6 @@ public class LoginGUIController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Main Menu");
       stage.setScene(new Scene(root));
       stage.show();
     } catch (Exception e) {

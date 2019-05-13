@@ -153,20 +153,16 @@
                <children>
                   <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="435.0">
                      <children>
-                        <SplitPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="435.0" GridPane.rowIndex="2">
-                           <items>
-                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="350.0">
-                                 <children>
-                                    <TextField fx:id="textField" alignment="CENTER" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="350.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <stylesheets>
-                                          <URL value="@HostGameLobby.css" />
-                                       </stylesheets>
-                                    </TextField>
-                                    <Button fx:id="sendButton1" layoutX="344.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="41.0" prefWidth="88.0" text="Send" />
-                                 </children>
-                              </AnchorPane>
-                           </items>
-                        </SplitPane>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="427.0" GridPane.rowIndex="2">
+                           <children>
+                              <Button fx:id="sendButton" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="86.0" text="Send" />
+                              <TextField fx:id="textField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="341.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@HostGameLobby.css" />
+                                 </stylesheets>
+                              </TextField>
+                           </children>
+                        </AnchorPane>
                         <Label prefHeight="55.0" prefWidth="427.0" styleClass="headlines" text="     CHATROOM" textAlignment="CENTER">
                            <textFill>
                               <Color blue="0.000" green="0.000" red="0.200" fx:id="x11" />
