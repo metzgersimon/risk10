@@ -84,8 +84,8 @@ public class PlayerProfile {
     return "" + this.territoriesConquered;
   }
 
-  public int getSessionWins() {
-    return this.sessionWins;
+  public String getSessionWins() {
+    return "" + this.sessionWins;
   }
 
   // The following methods are used to update profile game statistics such as total number of
@@ -108,6 +108,10 @@ public class PlayerProfile {
 
   public void incrementSessionWins() {
     this.sessionWins++;
+  }
+  
+  public void resetSessionWins() {
+    this.sessionWins = 0;
   }
 
 

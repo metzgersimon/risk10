@@ -70,14 +70,17 @@ public class TutorialMessages {
       + " It now belongs to your opponent";
   
   public static String fortify = "You can now move armies"
-      + " between adjacent territories";
+      + " between adjacent territories. Each set of armies"
+      + " can only be moved once each round.";
   
   public static String fortifyTip = "Tip: Decrease the chances "
       + "of weak spots by "
       + "fortifying your border territories against opponent attacks";
   
   public static String tradeIn = "You now have the option to trade in 3 "
-      + "compatible risk cards for armies";
+      + "compatible risk cards for armies. If you happen to trade in "
+      + "a card containing a territory you own, you get 2 additional"
+      + "armies on this territory.";
   
   public static String tradeInTip = "You don't have to trade in"
       + " your cards right away,"
@@ -108,7 +111,7 @@ public class TutorialMessages {
   
   //Rule Book
   public static String ruleBook = 
-      "1 Overview\nRisk​ is a strategy board game of diplomacy, "
+      "1 Overview\n\nRisk​ is a strategy board game of diplomacy, "
       + "conflict and conquest for two to six players.\n" 
       + "The standard version is played on a board depicting a "
       + "political map of the earth, divided into\n"  
@@ -120,7 +123,10 @@ public class TutorialMessages {
       + "Players may form and dissolve alliances during\n" 
       + "the course of the game. The goal of the game is to "
       + "occupy every territory on the board and\n"
-      + "in doing so, eliminate the other players.\n\n\n"
+      + "in doing so, eliminate the other players.\n"
+      + "________________________________________________________\n"
+      + "\n\n"
+      
       
       + "2 The Parts\n\n"
       + "Every Risk game has a map that has a similar shape to"
@@ -139,7 +145,10 @@ public class TutorialMessages {
       + "● There are 44 risk cards. 42 cards are marked "
       + "with countries as\n" 
       + "  well as an infantry, cavalry, or artillery symbol "
-      + "and there are two \"Wild\" cards.\n\n\n" 
+      + "and there are two \"Wild\" cards.\n"
+      + "________________________________________________________\n"
+      + "\n\n" 
+      
       
       + "3 Beginning of the Game\n\n"
       + "Depending on how many players starting the game the amount"
@@ -149,15 +158,11 @@ public class TutorialMessages {
       + "● 4 Players -> 30 armies for each\n"
       + "● 5 Players -> 25 armies for each\n"
       + "● 6 Players -> 20 armies for each\n\n"
-      + "The player who will start the game and make his first move"
-      + " will be determined by random. They\n" 
-      + "will then choose an open territory and place armies on it.\n" 
-      + "Each player will take turns selecting an open "
+      + "Each player will take turns claiming an open "
       + "territory until all territories are occupied.\n" 
       + "Once players have claimed all the 42 territories on the"
-      + " board, players place their remaining\n" 
-      + "armies onto territories they already claim in any order "
-      + "they choose.\n\n"
+      + " board, players again take turns placing their remaining\n" 
+      + "armies onto  their territories until none are left.\n\n"
       
       + "At the beginning of each turn, players receive more armies."
       + " The number of armies is\n" 
@@ -202,7 +207,11 @@ public class TutorialMessages {
       + "set of cards with a territory that\n" 
       + "   you owned, you receive two extra infantrymen.\n" 
       + "   You must place those infantrymen on\n" 
-      + "   the territory specified by the card.\n\n\n"
+      + "   the territory specified by the card.\n"
+      + "________________________________________________________\n"
+      + "\n\n"
+      
+      
       + "4 Attacking\n\n"
       + "You may only attack other territories that are adjacent to"
       + " a territory you own or that are\n" 
@@ -251,7 +260,8 @@ public class TutorialMessages {
       + " armies as used in the attack.\n" 
       + "If you attack with three dice (or three armies), "
       + "you will colonize the newly-acquired territory\n" 
-      + "with three armies.\n\n" 
+      + "with three armies.\n\n"
+      
       + "If at the end of your attacking turn you've conquered "
       + "at least one territory, then you have\n" 
       + "earned a Risk​ card. You cannot earn more than one ​ Risk"
@@ -261,5 +271,14 @@ public class TutorialMessages {
       +   "● If you manage to wipe out an opponent by destroying"
       + " his or her last army, you gain\n"
       + "   possession of all the ​ Risk ​ cards he or she may"
-      + " have had in their hands.";
+      + " have had in their hands.\n\n"
+      
+      + "Once you finish your attacking phase, you enter the\n"
+      + "fortifying phase. Here, you can choose to move armies\n"
+      + "from one of your territories to an adjacent one of your\n"
+      + "posession. Once you have moved armies, you cannot\n"
+      + "move the same set again in the same turn, but you can\n"
+      + "choose to move another set of armies.\n"
+      + "Once you finish the fortifying phase, it's the next\n"
+      + "player's turn.";
 }

@@ -79,6 +79,9 @@ public class ProfileManager {
    */
   public static void setSelectedProfile(String key) {
     selectedProfile = profileList.get(key);
+    if(!main.Main.session) {
+      selectedProfile.resetSessionWins();
+    }
   }
 
   /**
