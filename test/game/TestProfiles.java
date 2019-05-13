@@ -72,12 +72,14 @@ public class TestProfiles {
     assertEquals(testName5, ProfileManager.getSelectedProfile().getName());
     assertEquals(testId5, ProfileManager.getSelectedProfile().getIdInt());
     
+    ProfileManager.deleteProfile(testName4);
     ProfileManager.deleteProfile(testName5);
   }
   
+  
   @Test
   public void testDeleteProfiles() {
-   
+   int currentNumber = ProfileManager.profileList.size(); 
     ProfileManager.addNewProfile(testName6, testId6);
     ProfileManager.addNewProfile(testName7, testId7);
     
@@ -90,7 +92,7 @@ public class TestProfiles {
     ProfileManager.readXml();
     
     ProfileManager.setSelectedProfile(testName6);
-    assertEquals(1, ProfileManager.profileList.size());
+    assertEquals(currentNumber + 1, ProfileManager.profileList.size());
     assertEquals(testName6, ProfileManager.getSelectedProfile().getName());
   
     ProfileManager.deleteProfile(testName6);

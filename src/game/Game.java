@@ -353,7 +353,7 @@ public class Game implements Serializable {
    * @author smetzger
    */
   public synchronized void furtherFortify() {
-    if (!this.gameState.equals(GameState.END_GAME)) {
+    if (this.gameState != GameState.END_GAME) {
       if (this.getCurrentPlayer().getSuccessfullAttack()) {
         Card c = this.cards.getLast();
         this.cards.removeLast();

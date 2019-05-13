@@ -1,6 +1,6 @@
 package game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import main.Main;
 
@@ -14,19 +14,24 @@ public class AiPlayerMediumTest {
     
     AiPlayerMedium a1 = new AiPlayerMedium();
     Main.g.addPlayer(a1);
-    Territory t1 = new Territory("Indonesia", 39, CardSymbol.CAVALRY, Continente.AUSTRALIA);
-    Territory t2 = new Territory("New_Guinea", 40, CardSymbol.CAVALRY, Continente.AUSTRALIA);
-    Territory t3 = new Territory("Western_Australia", 41, CardSymbol.CANNON, Continente.AUSTRALIA);
-    Territory t4 = new Territory("Eastern_Australia", 42, CardSymbol.INFANTRY, Continente.AUSTRALIA);
-    Territory t5 = new Territory("Siam", 33, CardSymbol.CANNON, Continente.ASIA);
+    Territory t1 = Main.g.getWorld().getTerritories().get(39);
+    Territory t2 = Main.g.getWorld().getTerritories().get(40);
+    Territory t3 = Main.g.getWorld().getTerritories().get(28);
+    Territory t4 = Main.g.getWorld().getTerritories().get(33);
     a1.addTerritories(t1);
     a1.addTerritories(t2);
     a1.addTerritories(t3);
+    a1.addTerritories(t4);
     
-    a1.initialTerritoryDistribution();
-    assertTrue(a1.getTerritories().contains(t4) || a1.getTerritories().contains(t5));
    
-       
+    a1.initialTerritoryDistribution();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    assertEquals(5, a1.getTerritories().size());
   }
 
   @Test
@@ -71,6 +76,7 @@ public class AiPlayerMediumTest {
     Player p = new Player("TestX", PlayerColor.GREEN, g);
     Main.g.addPlayer(a1);
     Main.g.addPlayer(p);
+    Main.g.setCurrentPlayer(a1);
     
     Territory t1 = Main.g.getWorld().getTerritories().get(21);
     Territory t2 = Main.g.getWorld().getTerritories().get(22);
@@ -101,11 +107,14 @@ public class AiPlayerMediumTest {
     t5.setNumberOfArmies(20);
    
     
-    t1.getHostileNeighbor().add(t5);
-    t2.getHostileNeighbor().add(t4);
-    t3.getHostileNeighbor().add(t4);
-    
-    a1.initialArmyDistribution();
+//    t1.getHostileNeighbor().add(t5);
+//    t2.getHostileNeighbor().add(t4);
+//    t3.getHostileNeighbor().add(t4);
+    Main.g.setGameState(GameState.END_GAME);
+    a1.armyDistribution();
     assertEquals(2, t1.getNumberOfArmies());      
+    
   }
+  
+  public void attack()
 }

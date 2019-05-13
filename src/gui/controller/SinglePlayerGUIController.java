@@ -87,11 +87,7 @@ public class SinglePlayerGUIController {
   @FXML
   void startGame(ActionEvent event) {
     try {
-      // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BoardGUI.fxml"));
-      // Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      // stage.setTitle("Board");
-      // Main.b = fxmlLoader.getController();
       Main.b.setMain(this);
       stage.setScene(new Scene(Main.board));
       stage.show();

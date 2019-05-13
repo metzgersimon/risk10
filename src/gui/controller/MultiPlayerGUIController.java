@@ -93,7 +93,6 @@ public class MultiPlayerGUIController {
           new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
-      stage.setTitle("Profile Selection");
       stage.setScene(new Scene(root));
       stage.show();
       // ((Node) event.getSource()).getScene().getWindow().hide();
