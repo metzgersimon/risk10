@@ -488,6 +488,9 @@ public class Client extends Thread implements Serializable {
         && (Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
       Territory attack = Main.g.getWorld().getTerritories().get(message.getAttackerID());
       Territory defend = Main.g.getWorld().getTerritories().get(message.getDefenderID());
+      Player defender = defend.getOwner();
+      Player attacker = attack.getOwner();
+      attacker.setNumberOfAttacks(attacker.getNumberOfAttacks() + 1);
       int attackarmies = message.getAttackerArmies();
       int defendarmies = message.getDefendArmies();
       System.out.println(Main.g.getCurrentPlayer().getName() + " attacks  from " + attack.getName()
@@ -498,10 +501,8 @@ public class Client extends Thread implements Serializable {
       System.out.println("client defendarmies " + defendarmies);
       Main.b.updateLabelTerritory(attack);
       Main.b.updateLabelTerritory(defend);
-      if (message.getIfConquered()) {     
-        Player defender = defend.getOwner();
+      if (message.getIfConquered()) {             
         defender.lostTerritories(defend);
-        Player attacker = attack.getOwner();
         defend.setOwner(attacker);
         attacker.setSuccessfullAttack(true);
         Main.b.updateColorTerritory(defend);
@@ -516,9 +517,9 @@ public class Client extends Thread implements Serializable {
         }
         if (Main.g.getPlayers().size() == 1) {
           Main.g.setGameState(GameState.END_GAME);
-          if(this.player.getArmies()>0) {
+//          if(this.player.getArmies()>0) {
               Main.b.endGame();
-          }
+//          }
          
         } else if (Main.g.onlyAiPlayersLeft()) {
           Main.b.showMessage("You lost the Game!");

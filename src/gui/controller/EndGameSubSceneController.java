@@ -39,8 +39,19 @@ public class EndGameSubSceneController implements Initializable {
    */
   public void initialize(URL arg0, ResourceBundle arg1) {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-      endGame.setText("You are the winner!");
-      winnerCrown.setVisible(true);
+      if (Main.g.isNetworkGame()) {
+        if (Main.g.getPlayers().contains(NetworkController.gameFinder.getClient().getPlayer())) {
+          endGame.setText("You are the winner!");
+          winnerCrown.setVisible(true);
+        } else {
+          endGame.setText("You are the loser!");
+          winnerCrown.setVisible(false);
+        }
+      } else {
+        endGame.setText("You are the winner!");
+        winnerCrown.setVisible(true);
+      }
+
     }
   }
 

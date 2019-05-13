@@ -1381,7 +1381,7 @@ public class BoardController implements Initializable {
         this.messages.clear();
         this.playername.clear();
       } else {
-        this.showMessage(author.toUpperCase() + " (private) : " + message);
+        this.showMessage(author.toUpperCase() + " : " + message+ " (private to "+ player + ")");
         SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
         client.sendMessage(privatemessage);
         this.messages.clear();
@@ -1403,7 +1403,7 @@ public class BoardController implements Initializable {
 
   public void showAllianceMessage(String message) {
     chat.appendText(message + " (private) ");
-    chat.appendText("\n_____________\n");
+    chat.appendText("\n_____________\n\n");
   }
 
 
