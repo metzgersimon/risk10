@@ -96,9 +96,13 @@ public class StatisticController implements Initializable {
 
     // Get this player
     for (Player p : Main.g.getAllPlayers()) {
+      // Update eliminated players
+      thisPlayer.updateNumberOfEliminatedPlayers();
       if (p.getName().equals(ProfileManager.getSelectedProfile().getName())) {
         thisPlayer = p;
       }
+      
+
     }
 
     // Update matchedPlayed
@@ -116,8 +120,7 @@ public class StatisticController implements Initializable {
       ProfileManager.getSelectedProfile().incrementMatchesLost();
     }
 
-    // Update eliminated players
-    thisPlayer.updateNumberOfEliminatedPlayers();
+    
 
     ProfileManager.saveXml();
   }
