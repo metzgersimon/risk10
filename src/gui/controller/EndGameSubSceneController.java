@@ -52,14 +52,7 @@ public class EndGameSubSceneController implements Initializable {
   public synchronized void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
       public void run() {
-        try {
-          if (Main.g.isNetworkGame()) {
-            LeaveGameMessage leaveMessage =
-                new LeaveGameMessage(Main.g.getCurrentPlayer().getName());
-            leaveMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
-          }
-          
+        try {       
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Main.stage.setScene(new Scene(root));
