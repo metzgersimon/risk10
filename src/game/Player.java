@@ -652,14 +652,12 @@ public class Player implements Serializable {
         Main.b.showMessage(TutorialMessages.conqueredTerritory);
       }
 
-      if (!Main.g.getPlayers().contains(p)) {
-
-        
-        attack.getOwner().addElimiatedPlayer(p);
-        
+      if (!Main.g.getPlayers().contains(p)) {     
+       attack.getOwner().addElimiatedPlayer(p);
+       attack.getOwner().setNumberOfEliminatedPlayers(attack.getOwner().getNumberOfEliminatedPlayers()+1);
+        System.out.println("player"+attack.getOwner().getNumberOfEliminatedPlayers());
         // set loser rank
-        p.setRank(Main.g.getPlayers().size() + 1);
-        
+        p.setRank(Main.g.getPlayers().size() + 1);     
         attack.getOwner().setCards(p.getCards());
         if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
           for (Card c : p.getCards()) {

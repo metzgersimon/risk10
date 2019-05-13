@@ -510,12 +510,15 @@ public class Client extends Thread implements Serializable {
         Main.g.checkAllPlayers();
         attacker.setTerritoriesConquered(attacker.getTerritoriesConquered() + 1);
         if (!Main.g.getPlayers().contains(defender)) {
-          defender.setRank(Main.g.getPlayers().size());
           attacker.addElimiatedPlayer(defender);
-          attacker.setCards(defender.getCards());   
+          attacker.setNumberOfEliminatedPlayers(attacker.getNumberOfEliminatedPlayers()+1);
+          System.out.println("Client"+attacker.getNumberOfEliminatedPlayers());
+          defender.setRank(Main.g.getPlayers().size() + 1);
+          attacker.setCards(defender.getCards());           
           Main.b.showMessage(attacker.getName() + " defeated " + defender.getName() + "!");
         }
         if (Main.g.getPlayers().size() == 1) {
+          attacker.setRank(1);
           Main.g.setGameState(GameState.END_GAME);
 //          if(this.player.getArmies()>0) {
               Main.b.endGame();
