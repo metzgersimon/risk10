@@ -16,6 +16,7 @@ import gui.controller.HostGameLobbyController;
 import gui.controller.JoinGameLobbyController;
 import gui.controller.NetworkController;
 import java.net.UnknownHostException;
+import java.util.HashSet;
 import javafx.application.Platform;
 import main.Main;
 import network.messages.GameMessageMessage;
@@ -348,7 +349,9 @@ public class Client extends Thread implements Serializable {
   public void handleStartGameMessage(StartGameMessage message) {
     // update the player list
     Main.g.setPlayers(message.getPlayerList());
-
+    HashSet<Player> allPlayers = new HashSet<Player>();
+    allPlayers.addAll(message.getPlayerList());
+    Main.g.setAllPlayers(allPlayers);
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
