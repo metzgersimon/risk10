@@ -51,6 +51,14 @@ public class FortifySubSceneController implements Initializable {
         int amount = (int) fortifySlider.getValue();
         if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
             Main.b.getSelectedTerritory_attacked(), amount)) {
+          // network game
+          if (Main.g.isNetworkGame()) {
+            FortifyMessage message = new FortifyMessage(Main.b.getSelectedTerritory().getId(),
+                Main.b.getSelectedTerritory_attacked().getId(), (int) fortifySlider.getValue());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+          }
+         
           Platform.runLater(new Runnable() {
             public void run() {
               System.out.println(Main.b.getSelectedTerritory().getName());
@@ -58,13 +66,7 @@ public class FortifySubSceneController implements Initializable {
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
-              // network game
-              if (Main.g.isNetworkGame()) {
-                FortifyMessage message = new FortifyMessage(Main.b.getSelectedTerritory().getId(),
-                    Main.b.getSelectedTerritory_attacked().getId(), (int) fortifySlider.getValue());
-                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-                NetworkController.gameFinder.getClient().sendMessage(message);
-              }
+             
             }
           });
         }

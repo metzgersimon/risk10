@@ -145,18 +145,18 @@ public class AiPlayerHard extends Player implements AiPlayer {
                  
                 }
               };
-            th.start();
-//            System.out.println(new Date().toString());
-            try {
-              th.join();
-            } catch (InterruptedException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
+              th.start();
+              // System.out.println(new Date().toString());
+              try {
+                th.join();
+              } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+              }
+              // System.out.println(new Date().toString());
+              Main.g.furtherInitialArmyDistribution();
+              // return;
             }
-//            System.out.println(new Date().toString());
-            Main.g.furtherInitialArmyDistribution();
-            // return;
-             }
             return;
           }
         }
@@ -462,24 +462,24 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
       } while (!super.armyDistribution(1, territory));
     }
-    // if (!Main.g.isNetworkGame()) {
-    Thread th = new Thread() {
-      public void run() {
-        Main.b.highlightTerritory(territory);
-        Main.b.updateLabelTerritory(territory);
+    if (!Main.g.isNetworkGame()) {
+      Thread th = new Thread() {
+        public void run() {
+          Main.b.highlightTerritory(territory);
+          Main.b.updateLabelTerritory(territory);
+        }
+      };
+      th.start();
+      System.out.println(new Date().toString());
+      try {
+        th.join();
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
-    };
-    th.start();
-    System.out.println(new Date().toString());
-    try {
-      th.join();
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      System.out.println(new Date().toString());
+      Main.g.furtherInitialArmyDistribution();
     }
-    System.out.println(new Date().toString());
-    Main.g.furtherInitialArmyDistribution();
-    // }
   }
 
   /**
