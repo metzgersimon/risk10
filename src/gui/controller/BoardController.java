@@ -324,8 +324,9 @@ public class BoardController implements Initializable {
             gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             if (Main.g.getCurrentPlayer().getName()
                 .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
-              if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY
-                  || Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
+              if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY) {               
+                gameState.setText("Choose your Territory");
+              } else if(Main.g.getGameState() == GameState.INITIALIZING_ARMY){
                 gameState.setText("Place your Armies initially!");
               } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
                 gameState.setText("Place your Armies!");
@@ -357,7 +358,9 @@ public class BoardController implements Initializable {
             public void run() {
               if (!gameState.getText().equals("Place your Armies initially!")) {
                 setTurns();
+                if(!Main.g.isNetworkGame()){
                 gameState.setText("Place your Armies initially!");
+                }
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
                 
                 //Tutorial Messages
@@ -366,7 +369,7 @@ public class BoardController implements Initializable {
                   showMessage(game.TutorialMessages.distributingTip);
                 }
                 
-              } else {
+              } else {               
                 setTurns();
                 showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
@@ -377,7 +380,9 @@ public class BoardController implements Initializable {
             Platform.runLater(new Runnable() {
               public void run() {
                 setTurns();
+                if(!Main.g.isNetworkGame()) {
                 gameState.setText("Place your Armies!");
+                }
               }
             });
           }

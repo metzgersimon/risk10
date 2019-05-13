@@ -49,23 +49,28 @@ public class ArmyDistributionSubSceneController implements Initializable {
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
       public void run() {
-        Main.b.setTurns();
+//        Main.b.setTurns();
         Territory t = Main.b.getSelectedTerritory();
         int amount = (int) setArmySlider.getValue();
+        
         if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
+          if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+            System.out.println(Main.b.getSelectedTerritory().getId());
+            FurtherDistributeArmyMessage message =
+                new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
+            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+            NetworkController.gameFinder.getClient().sendMessage(message);
+          }
+          
           Platform.runLater(new Runnable() {
             public void run() {
               Main.b.setTerritoryText(t);
               Main.b.setCircleArmiesToDistributeLable();
             }
           });
+              
         }
-        if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-          FurtherDistributeArmyMessage message =
-              new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
-          message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-          NetworkController.gameFinder.getClient().sendMessage(message);
-        }
+        
       }
     };
     th.start();
