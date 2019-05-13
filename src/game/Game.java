@@ -13,7 +13,7 @@ import main.Main;
 public class Game implements Serializable {
 
   private World world;
-  private ArrayList<Player> allPlayers;
+  private HashSet<Player> allPlayers;
   private ArrayList<Player> players;
   private boolean isNetworkGame;
   private boolean showTutorialMessages;
@@ -36,7 +36,7 @@ public class Game implements Serializable {
    */
   public Game() {
     players = new ArrayList<>();
-    allPlayers = new ArrayList<Player>();
+    allPlayers = new HashSet<Player>();
     this.world = new World();
     currentPlayer = null;
     gameState = GameState.NEW_GAME;
@@ -49,11 +49,11 @@ public class Game implements Serializable {
    *                                                *
    *************************************************/
 
-  public ArrayList<Player> getAllPlayers() {
+  public HashSet<Player> getAllPlayers() {
     return allPlayers;
   }
 
-  public void setAllPlayers(ArrayList<Player> players) {
+  public void setAllPlayers(HashSet<Player> players) {
     this.allPlayers = players;
   }
 
