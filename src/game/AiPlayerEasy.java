@@ -26,6 +26,11 @@ public class AiPlayerEasy extends Player implements AiPlayer {
     super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
+  
+  public AiPlayerEasy(PlayerColor color) {
+    super(AiPlayerNames.getRandomName(),color, Main.g);
+    Main.g.addAiNames(this.getName());
+  }
 
   /**
    * Method represents the acting of the Ai in the first phase. It computes a random number between

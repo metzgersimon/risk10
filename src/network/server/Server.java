@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import java.util.List;
+import game.PlayerColor;
 import main.Main;
 
 /**
@@ -76,7 +77,9 @@ public class Server extends Thread implements Serializable {
    */
   private BoardController boardController;
   DatagramSocket datagramSocket = null;
-
+  private PlayerColor[] colors = game.PlayerColor.values();
+  private ArrayList<PlayerColor> availableColors = new ArrayList<PlayerColor>();
+  private ArrayList<PlayerColor> unavailableColors = new ArrayList<PlayerColor>();
   /**
    * @author skaur
    * @param port : port of the server
@@ -85,6 +88,7 @@ public class Server extends Thread implements Serializable {
     this.port = port;
     this.noOfPlayer = noofPlayers;
     this.isRunning = true;
+    this.availableColors = this.feldToArray();
     Main.g.setNetworkGame(true);
 
     try {
@@ -257,5 +261,20 @@ public class Server extends Thread implements Serializable {
   public BoardController getBoardController() {
     return this.boardController;
   }
+  
+  public ArrayList<PlayerColor> feldToArray() {
+    for(int i = 0; i < colors.length; i++ ) {
+      this.availableColors.add(i, colors[i]);
+    }
+    return this.availableColors;
+  }
+  public ArrayList<PlayerColor> getAvailableColor() {
+    return this.availableColors;
+  }
+  
+  public ArrayList<PlayerColor> getUnavailableColor() {
+    return this.unavailableColors;
+  }
+  
   
 }

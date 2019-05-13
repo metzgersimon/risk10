@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import game.Player;
+import game.PlayerColor;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
 import java.net.Socket;
@@ -267,9 +268,13 @@ public class ClientConnection extends Thread {
    */
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
+    PlayerColor color = this.server.getAvailableColor().get(0);
+    System.out.println("Color : " + color.toString());
     this.player = new Player(message.getName(),
-        game.PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
+       color, Main.g);
     Main.g.addPlayer(player);
+    this.server.getAvailableColor().remove(0);
+    this.server.getAvailableColor().trimToSize();
     this.players.add(player);
     int index = Main.g.getPlayers().size();
     // update the list in the host game lobby
@@ -335,9 +340,12 @@ public class ClientConnection extends Thread {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-       server.getHostLobbyController().refreshList(message.getPlayer());
+        if (server.getHostLobbyController() != null) {
+         server.getHostLobbyController().refreshList(message.getPlayer());
+        }     
       }
     });
+    this.sendMessage(message);
     this.server.getConnections().remove(this);
     this.disconnect();
   }

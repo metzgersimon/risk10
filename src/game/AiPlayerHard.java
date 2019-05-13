@@ -38,6 +38,12 @@ public class AiPlayerHard extends Player implements AiPlayer {
     Main.g.addAiNames(this.getName());
   }
   
+  public AiPlayerHard(PlayerColor color) {
+    super(AiPlayerNames.getRandomName(), color, Main.g);
+    Main.g.addAiNames(this.getName());
+  }
+  
+  
   /**************************************************
    *                                                *
    *        Methods for the different main          *

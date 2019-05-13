@@ -11,6 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import main.Main;
+import network.messages.LeaveLobbyMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.LeaveGameResponseMessage;
 
@@ -59,6 +61,9 @@ public class JoinGameLobbyController {
    */
   @FXML
   void handleLeaveGame(ActionEvent event) {
+    LeaveLobbyMessage message =
+        new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());
+    NetworkController.gameFinder.getClient().sendMessage(message);
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
@@ -68,6 +73,7 @@ public class JoinGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    Main.g = new game.Game();
   }
 
   public void showMessage(String content) {

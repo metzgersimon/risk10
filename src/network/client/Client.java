@@ -251,6 +251,8 @@ public class Client extends Thread implements Serializable {
             break;
           case LEAVE_RESPONSE:
             this.disconnect();
+          case LEAVE_LOBBY:
+            this.disconnect();
           default:
             break;
         }

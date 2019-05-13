@@ -38,6 +38,11 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     super(AiPlayerNames.getRandomName(), PlayerColor.values()[Main.g.getPlayers().size()], Main.g);
     Main.g.addAiNames(this.getName());
   }
+  
+  public AiPlayerMedium(PlayerColor color) {
+    super(AiPlayerNames.getRandomName(), color, Main.g);
+    Main.g.addAiNames(this.getName());
+  }
 
   /**************************************************
    *                                                *

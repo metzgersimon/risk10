@@ -5,6 +5,7 @@ import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
 import game.Player;
+import game.PlayerColor;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -138,27 +139,29 @@ public class HostGameLobbyController {
    */
   @FXML
   void handleAddBot(ActionEvent event) {
-    Player p;
+    Player aiPlayer;
+    PlayerColor color = NetworkController.server.getAvailableColor().get(0);
     if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
       if (botLevel.getValue() == 0.0) {
-        p = new AiPlayerEasy();
+        aiPlayer = new AiPlayerEasy(color);
       } else if (botLevel.getValue() == 1.0) {
-        p = new AiPlayerMedium();
+        aiPlayer = new AiPlayerMedium(color);
       } else {
-        p = new AiPlayerHard();
+        aiPlayer = new AiPlayerHard(color);
       }
-      // add the player to the palyer list in the game class
-      Main.g.addPlayer(p);
-
+      // add the player to the player list in the game class
+      Main.g.addPlayer(aiPlayer);
+      NetworkController.server.getAvailableColor().remove(color);
       // update the list in the game lobby for host player
-      updateList(Main.g.getPlayers().size() - 1, p);
-      System.out.println("An AI player " + p.getName() + " has joined the game ");
+      updateList(Main.g.getPlayers().size() - 1, aiPlayer);
+      System.out.println("Color for AI :  " + color.getColorString());
+      System.out.println("An AI player " + aiPlayer.getName() + " has joined the game ");
 
       // enable the start button if possible
       this.enableStartButton();
 
     } else {
-      //show alert if the list is full
+      // show alert if the list is full
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
       alert.setHeaderText("Can not add player");
@@ -178,23 +181,31 @@ public class HostGameLobbyController {
     playerNames.add(box3);
     playerNames.add(box4);
     playerNames.add(box5);
-    hostBox.setSelected(true);
     for (int i = 0; i < HostGameGUIController.numberofPlayers; i++) {
       playerNames.get(i).setDisable(false);
     }
   }
 
+  int pos;
   /**
    * 
    * This method is called from the server class whenever a new player has joined the lobby and
    * whenever a new AI player is added to the game lobby,to update the list of players in the lobby.
    */
   public void updateList(int index , Player p) {  
+    pos = index;
+    for(int i = 0; i < playerNames.size(); i++) {
+      if(!playerNames.get(i).isSelected()) {
+        System.out.println(pos + " " +  i);
+        pos = i;
+        break;
+      }
+    }
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
         String name = p.getName();
-        switch ((index+1)) {
+        switch ((pos+1)) {
           case 1:
             // select the box
             playerNames.get(0).setSelected(true);
@@ -263,16 +274,15 @@ public class HostGameLobbyController {
   }
 
   public void refreshList(Player p) {
-    int position = 0;
-    for( Player player : Main.g.getPlayers()) {
-      if(player.equals(p)) {
+    for(CheckBox box : playerNames) {
+      if(box.getText().equalsIgnoreCase(p.getName())){
+        box.setText("");
+        box.setSelected(false);
         break;
       }
-      position++;
     }
-    System.out.println("Position : " + position);
-    Main.g.getPlayers().remove(position);
-    playerNames.get(position).setText("");
-    playerNames.get(position).setSelected(false);
+    Main.g.getPlayers().remove(p);
+    NetworkController.server.getAvailableColor().add(p.getColor());
+
   }
 }
