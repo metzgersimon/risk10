@@ -110,5 +110,6 @@ public class JoinGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    Main.g = new game.Game();
   }
 }
