@@ -119,7 +119,7 @@ public class HostGameLobbyController {
      NetworkController.gameFinder.getClient().sendMessage(message);    
     try {
       // Main.g.getServer().stopServer();
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
@@ -128,7 +128,6 @@ public class HostGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Main.g = new game.Game();
   }
 
   /**
@@ -261,6 +260,8 @@ public class HostGameLobbyController {
   public void enableStartButton() {
     if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
       startGame.setDisable(false);
+    } else {
+      startGame.setDisable(true);
     }
   }
 
@@ -285,6 +286,6 @@ public class HostGameLobbyController {
     }
     Main.g.getPlayers().remove(p);
     NetworkController.server.getAvailableColor().add(p.getColor());
-
+    enableStartButton();
   }
 }

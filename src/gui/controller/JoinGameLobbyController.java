@@ -11,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import main.Main;
 import network.messages.LeaveLobbyMessage;
 import network.messages.SendChatMessageMessage;
 import network.messages.game.LeaveGameResponseMessage;
@@ -65,7 +64,7 @@ public class JoinGameLobbyController {
         new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());
     NetworkController.gameFinder.getClient().sendMessage(message);
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
@@ -73,7 +72,6 @@ public class JoinGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Main.g = new game.Game();
   }
 
   public void showMessage(String content) {
@@ -102,7 +100,7 @@ public class JoinGameLobbyController {
 
     // take back to the multiplayer menu
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MultiplayerGUI.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
@@ -110,6 +108,5 @@ public class JoinGameLobbyController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Main.g = new game.Game();
   }
 }
