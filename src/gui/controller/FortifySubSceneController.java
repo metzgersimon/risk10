@@ -48,36 +48,38 @@ public class FortifySubSceneController implements Initializable {
     System.out.println(Main.b.getSelectedTerritory().getName());
     Thread th = new Thread() {
       public void run() {
-        int amount = (int) fortifySlider.getValue();
-        if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
-            Main.b.getSelectedTerritory_attacked(), amount)) {
-          // network game
-          if (Main.g.isNetworkGame()) {
-            FortifyMessage message = new FortifyMessage(Main.b.getSelectedTerritory().getId(),
-                Main.b.getSelectedTerritory_attacked().getId(), (int) fortifySlider.getValue());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-          }
-         
-          Platform.runLater(new Runnable() {
-            public void run() {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            int amount = (int) fortifySlider.getValue();
+            if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
+                Main.b.getSelectedTerritory_attacked(), amount)) {
               System.out.println(Main.b.getSelectedTerritory().getName());
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
-             
-            }
-          });
-        }
+              // network game
+              if (Main.g.isNetworkGame()) {
+                FortifyMessage message = new FortifyMessage(Main.b.getSelectedTerritory().getId(),
+                    Main.b.getSelectedTerritory_attacked().getId(), (int) fortifySlider.getValue());
+                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                NetworkController.gameFinder.getClient().sendMessage(message);
+              }
+              Main.g.getCurrentPlayer().setFortify(true);
+              Main.b.neutralizeGUIfortify();
+              Main.stagePanes.close();
 
-        Main.g.getCurrentPlayer().setFortify(true);
-        Main.b.neutralizeGUIfortify();
-        Platform.runLater(new Runnable() {
-          public void run() {
-            Main.stagePanes.close();
+            }
+
           }
         });
+        // Main.g.getCurrentPlayer().setFortify(true);
+        // Main.b.neutralizeGUIfortify();
+        // Platform.runLater(new Runnable() {
+        // public void run() {
+        // Main.stagePanes.close();
+        // }
+        // });
       }
     };
     th.start();
