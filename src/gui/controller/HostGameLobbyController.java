@@ -140,6 +140,7 @@ public class HostGameLobbyController {
   @FXML
   void handleAddBot(ActionEvent event) {
     Player aiPlayer;
+    if(NetworkController.server.getAvailableColor().size() > 0) {
     PlayerColor color = NetworkController.server.getAvailableColor().get(0);
     if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
       if (botLevel.getValue() == 0.0) {
@@ -159,7 +160,7 @@ public class HostGameLobbyController {
 
       // enable the start button if possible
       this.enableStartButton();
-
+    }
     } else {
       // show alert if the list is full
       Alert alert = new Alert(AlertType.ERROR);
@@ -168,6 +169,7 @@ public class HostGameLobbyController {
       alert.setContentText("Player Lobby already full");
       alert.showAndWait();
     }
+    
   }
 
   /**

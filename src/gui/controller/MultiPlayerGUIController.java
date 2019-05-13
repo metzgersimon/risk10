@@ -145,7 +145,7 @@ public class MultiPlayerGUIController {
     // call the method to connect to the server
     networkController.joinGameonDiscovery();
     try {
-      Thread.sleep(1000);
+      Thread.sleep(3000);
     } catch (InterruptedException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
@@ -230,7 +230,7 @@ public class MultiPlayerGUIController {
     networkController.joinGame(tokens[0], main.Parameter.PORT);
     
     try {
-      Thread.sleep(1000);
+      Thread.sleep(2000);
     } catch (InterruptedException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
