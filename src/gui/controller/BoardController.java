@@ -272,9 +272,6 @@ public class BoardController implements Initializable {
   public synchronized void prepareInitTerritoryDistribution() {
     Thread th = new Thread() {
       public void run() {
-        if (Main.g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-
-        }
         Platform.runLater(new Runnable() {
           public void run() {
             setTurns();
