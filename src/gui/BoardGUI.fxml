@@ -1166,7 +1166,10 @@
                               </Lighting>
                            </input>
                         </SepiaTone>
-                     </effect></Button>
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
 					</children>
 				</AnchorPane>
 				<BorderPane minWidth="256.0" style="-fx-background-color: white;">

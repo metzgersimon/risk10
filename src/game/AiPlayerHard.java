@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -135,9 +136,18 @@ public class AiPlayerHard extends Player implements AiPlayer {
                 public void run() {
                   Main.b.highlightTerritory(territory);
                   Main.b.updateLabelTerritory(territory);
+                 
                 }
               };
             th.start();
+//            System.out.println(new Date().toString());
+            try {
+              th.join();
+            } catch (InterruptedException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+//            System.out.println(new Date().toString());
             Main.g.furtherInitialArmyDistribution();
             // return;
              }
@@ -454,6 +464,14 @@ public class AiPlayerHard extends Player implements AiPlayer {
       }
     };
     th.start();
+    System.out.println(new Date().toString());
+    try {
+      th.join();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    System.out.println(new Date().toString());
     Main.g.furtherInitialArmyDistribution();
     // }
   }

@@ -587,10 +587,15 @@ public class Player implements Serializable {
       Territory defend, int numberOfAttackers) {
     attack.getOwner().setNumberOfAttacks(attack.getOwner().getNumberOfAttacks() + 1);
     // if (Main.g.isShowTutorialMessages()) {
-    Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
-        + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
-        + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
-    // }
+    if ((!Main.g.isNetworkGame() && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      Main.b.showMessage(attack.getOwner().getName() + " attacks " + defend.getOwner().getName()
+          + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
+          + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
+    }
+    
+//    else {
+//      
+//    }
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {

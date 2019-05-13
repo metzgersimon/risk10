@@ -3,6 +3,7 @@ package gui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -156,6 +157,24 @@ public class CreateProfileGUIController {
         name.setText(username);
       }
     }
-
+  }
+  
+  /**
+   * Event handle class invoked when back Button clicked
+   * 
+   * @author liwang
+   * @param event
+   */
+  @FXML
+  void handleBackButton(ActionEvent event) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      Parent root = fxmlLoader.load();
+      Stage stage = main.Main.stage;
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

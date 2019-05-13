@@ -278,7 +278,6 @@ public class BoardController implements Initializable {
         Platform.runLater(new Runnable() {
           public void run() {
             setTurns();
-            showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
             armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
           }
@@ -361,7 +360,6 @@ public class BoardController implements Initializable {
                 if(!Main.g.isNetworkGame()){
                 gameState.setText("Place your Armies initially!");
                 }
-                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.\n");
                 
                 //Tutorial Messages
                 if(Main.g.isShowTutorialMessages()) {
@@ -371,7 +369,6 @@ public class BoardController implements Initializable {
                 
               } else {               
                 setTurns();
-                showMessage("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
               }
             }
           });
@@ -706,14 +703,14 @@ public class BoardController implements Initializable {
                   NetworkController.gameFinder.getClient().sendMessage(message);
                   return;
                 }
-                if (!Main.g.getCurrentPlayer().getContinents().contains(t.getContinent())) {
+//                if (!Main.g.getCurrentPlayer().getContinents().contains(t.getContinent())) {
                   Platform.runLater(new Runnable() {
                     public void run() {
                       DropShadow d = (DropShadow) r.getEffect();
                       d.setInput(new Lighting());
                     }
                   });
-                }
+//                }
                 Main.g.furtherInitialTerritoryDistribution();
               }
             };

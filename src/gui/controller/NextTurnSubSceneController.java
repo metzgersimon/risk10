@@ -26,8 +26,8 @@ public class NextTurnSubSceneController implements Initializable{
   
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    turnPane.setText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn");
-    turnPane.setStyle("-fx-base: "+Main.g.getCurrentPlayer().getColor().getColorString()+";");
+//    turnPane.setText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn");
+//    turnPane.setStyle("-fx-base: "+Main.g.getCurrentPlayer().getColor().getColorString()+";");
     
     
   }

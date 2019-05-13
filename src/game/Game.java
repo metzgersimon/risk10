@@ -327,18 +327,20 @@ public class Game implements Serializable {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
       } else {
-        try {
-          FXMLLoader fxmlLoader =
-              new FXMLLoader(getClass().getResource("/gui/NextTurnStage.fxml"));
-          Parent root = fxmlLoader.load();
-          Main.turn = fxmlLoader.getController();
-          Main.stagePanes.setScene(new Scene(root));
-          Main.stagePanes.setX(Main.stage.getX() + 2);
-          Main.stagePanes.setY(Main.stage.getY() + 33);
-          Main.stagePanes.show();
-        }catch (Exception e) {
-          e.printStackTrace();
-        }
+        if(!this.isNetworkGame()) {
+          try {
+            FXMLLoader fxmlLoader =
+                new FXMLLoader(getClass().getResource("/gui/NextTurnSubScene.fxml"));
+            Parent root = fxmlLoader.load();
+            Main.turn = fxmlLoader.getController();
+            Main.stagePanes.setScene(new Scene(root));
+            Main.stagePanes.setX(Main.stage.getX() + 2);
+            Main.stagePanes.setY(Main.stage.getY() + 33);
+            Main.stagePanes.show();
+          }catch (Exception e) {
+            e.printStackTrace();
+          }
+        }       
       }
     }
   }
@@ -388,6 +390,20 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
+      }
+      else if(!this.isNetworkGame()) {
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/NextTurnSubScene.fxml"));
+          Parent root = fxmlLoader.load();
+          Main.turn = fxmlLoader.getController();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.setX(Main.stage.getX() + 2);
+          Main.stagePanes.setY(Main.stage.getY() + 33);
+          Main.stagePanes.show();
+        }catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     }
   }

@@ -65,6 +65,11 @@
                   <Image url="@../resources/avatar/0.jpg" />
                </image>
             </ImageView>
+            <Button fx:id="back" layoutX="55.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="60.0" prefWidth="210.0" stylesheets="@FontStyle.css" text="Back" textAlignment="CENTER">
+               <font>
+                  <Font name="Ubuntu Light" size="25.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
