@@ -66,7 +66,7 @@
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="427.0" GridPane.rowIndex="2">
                            <children>
                               <Button fx:id="sendButton" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="93.0" text="Send" />
-                              <TextField fx:id="textField1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="348.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="0.0">
+                              <TextField fx:id="textField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="348.0" promptText="Enter message..." styleClass="subHeadlines" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="0.0">
                                  <stylesheets>
                                     <URL value="@HostGameLobby.css" />
                                  </stylesheets>
