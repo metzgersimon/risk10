@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import gui.controller.NetworkController;
+import gui.controller.ProfileSelectionGUIController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -358,7 +359,8 @@ public class Game implements Serializable {
         Card c = this.cards.getLast();
         this.cards.removeLast();
         this.getCurrentPlayer().addCard(c);
-        if (!(this.getCurrentPlayer() instanceof AiPlayer)) {
+        if (!(this.getCurrentPlayer() instanceof AiPlayer) && this.getCurrentPlayer().getName()
+            .equals(ProfileSelectionGUIController.selectedPlayerName)) {
           Main.cardC.insertCards(c);
         }
       }
