@@ -248,13 +248,14 @@ public class ProfileSelectionGUIController {
 
     for (int i = 0; i < count; i++) {
       nameLabels.get(i).setText(names[i]);
-      nameLabels.get(i).setLayoutX(distance + (distance + 100) * i + 20);
+      int length = names[i].length();
+      nameLabels.get(i).setLayoutX(distance + (distance + 100) * i + 70 - length * 6);
       imageviews.get(i).setImage(images[i]);
       imageviews.get(i).setLayoutX(distance + (distance + 100) * i);
       editButtons.get(i).setOpacity(1);
       editButtons.get(i).setLayoutX(distance + (distance + 100) * i + 20);
     }
-
+    
     for (int i = count; i < 5; i++) {
       imageviews.get(i).setDisable(true);
       editButtons.get(i).setDisable(true);
