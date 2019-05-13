@@ -1412,7 +1412,7 @@ public class BoardController implements Initializable {
 
   public void endGame() {
 
-    // Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
+    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
     Platform.runLater(new Runnable() {
       public void run() {
         try {

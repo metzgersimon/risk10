@@ -229,6 +229,10 @@ public class Player implements Serializable {
   public void incrementNumberOfEliminatedPlayers() {
     this.numberOfEliminatedPlayers++;
   }
+  
+  public void updateNumberOfEliminatedPlayers() {
+    this.numberOfEliminatedPlayers = this.eliminatedPlayers.size();
+  }
 
   public void addCard(Card c) {
     this.cards.add(c);
@@ -643,14 +647,19 @@ public class Player implements Serializable {
       successfullAttack = true;
       Main.b.updateColorTerritory(defend);
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered() + 1);
+      
       if (Main.g.isShowTutorialMessages()) {
         Main.b.showMessage(TutorialMessages.conqueredTerritory);
       }
 
       if (!Main.g.getPlayers().contains(p)) {
+
+        
+        attack.getOwner().addElimiatedPlayer(p);
+        
         // set loser rank
         p.setRank(Main.g.getPlayers().size() + 1);
-        attack.getOwner().addElimiatedPlayer(p);
+        
         attack.getOwner().setCards(p.getCards());
         if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
           for (Card c : p.getCards()) {

@@ -29,9 +29,9 @@
          <columns>
             <TableColumn fx:id="c1" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Rank" />
             <TableColumn fx:id="c2" prefWidth="221.0" style="-fx-alignment: CENTER;" text="Player" />
-            <TableColumn fx:id="c3" prefWidth="113.0" style="-fx-alignment: CENTER;" text="Attacks" />
+            <TableColumn fx:id="c3" prefWidth="72.0" style="-fx-alignment: CENTER;" text="Attacks" />
             <TableColumn fx:id="c4" minWidth="20.0" prefWidth="198.0" style="-fx-alignment: CENTER;" text="Territories Conquered" />
-            <TableColumn fx:id="c5" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Session wins" />
+            <TableColumn fx:id="c5" prefWidth="161.0" style="-fx-alignment: CENTER;" text="Eliminated Players" />
          </columns>
       </TableView>
       <Button fx:id="back" layoutX="880.0" layoutY="594.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="62.0" prefWidth="251.0" stylesheets="@FontStyle.css" text="Main Menu" textAlignment="CENTER">

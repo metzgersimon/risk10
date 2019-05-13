@@ -116,8 +116,8 @@ public class StatisticController implements Initializable {
       ProfileManager.getSelectedProfile().incrementMatchesLost();
     }
 
-    // Update session stat
-    main.Main.session = true;
+    // Update eliminated players
+    thisPlayer.updateNumberOfEliminatedPlayers();
 
     ProfileManager.saveXml();
   }
