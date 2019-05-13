@@ -63,6 +63,5 @@ public class EndGameSubSceneController implements Initializable {
         }
       }
     });
-    Main.g = new game.Game();
   }
 }

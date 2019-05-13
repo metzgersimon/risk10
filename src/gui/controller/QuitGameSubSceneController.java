@@ -48,7 +48,6 @@ public class QuitGameSubSceneController {
             NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
             Main.g.setGameState(GameState.END_GAME);
           }
-          Main.g.setAllPlayers(Main.g.getAllPlayers());
           for (Player p : Main.g.getPlayers()) {
             Main.g.addToAllPlayers(p);
           }

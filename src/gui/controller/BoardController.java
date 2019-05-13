@@ -1500,7 +1500,6 @@ public class BoardController implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
         try {
-          Main.g.setAllPlayers(Main.g.getAllPlayers());
           for (Player p : Main.g.getPlayers()) {
             Main.g.addToAllPlayers(p);
           }

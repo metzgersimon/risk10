@@ -71,13 +71,6 @@ public class TestGame extends Game implements Serializable {
     }
   }
 
- 
-//  public void initGame() {
-//    // Compute number of armies
-//    super.initGame();
-//    setGameState(GameState.INITIALIZING_TERRITORY);
-//    prepareEndGameWinner();
-//    distributeArmies();
 
   public void initGame() {
     // Compute number of armies
@@ -91,7 +84,7 @@ public class TestGame extends Game implements Serializable {
     setGameState(GameState.INITIALIZING_TERRITORY);
      //Main.b.prepareInitTerritoryDistribution();
     //distributeTerritories();
-    prepareEndGameLoser();
+    prepareEndGameWinner();
     //distributeArmies();
     setGameState(GameState.ARMY_DISTRIBUTION);
 //    Card c = super.getCards().getLast();
