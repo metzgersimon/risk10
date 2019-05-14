@@ -1,10 +1,13 @@
 package game;
 
-import static org.junit.Assert.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import main.Main;
+import org.junit.Test;
+
 
 public class GameTest {
   Game g = new Game();
@@ -28,12 +31,12 @@ public class GameTest {
     Player p1 = new Player("Test", PlayerColor.MAGENTA, g);
     Player p2 = new Player("TestL", PlayerColor.GREEN, g);
     Player p3 = new Player("TestLL", PlayerColor.BLUE, g);
-    p1.addTerritories( Main.g.getWorld().getTerritories().get(10));
-    p1.addTerritories( Main.g.getWorld().getTerritories().get(30));
-    p2.addTerritories( Main.g.getWorld().getTerritories().get(40));
-    p2.addTerritories( Main.g.getWorld().getTerritories().get(1));
-    p2.addTerritories( Main.g.getWorld().getTerritories().get(20));
-    p2.addTerritories( Main.g.getWorld().getTerritories().get(27));
+    p1.addTerritories(Main.g.getWorld().getTerritories().get(10));
+    p1.addTerritories(Main.g.getWorld().getTerritories().get(30));
+    p2.addTerritories(Main.g.getWorld().getTerritories().get(40));
+    p2.addTerritories(Main.g.getWorld().getTerritories().get(1));
+    p2.addTerritories(Main.g.getWorld().getTerritories().get(20));
+    p2.addTerritories(Main.g.getWorld().getTerritories().get(27));
     Main.g.addPlayer(p1);
     Main.g.addPlayer(p2);
     Main.g.addPlayer(p3);
@@ -53,12 +56,12 @@ public class GameTest {
     Player p5 = new Player("TestLLLL", PlayerColor.RED, g);
     Player p6 = new Player("TestLLLLL", PlayerColor.ORANGE, g);
     
-    p1.addTerritories( Main.g.getWorld().getTerritories().get(10));
-    p2.addTerritories( Main.g.getWorld().getTerritories().get(30));
-    p3.addTerritories( Main.g.getWorld().getTerritories().get(40));
-    p4.addTerritories( Main.g.getWorld().getTerritories().get(1));
-    p5.addTerritories( Main.g.getWorld().getTerritories().get(20));
-    p6.addTerritories( Main.g.getWorld().getTerritories().get(27));
+    p1.addTerritories(Main.g.getWorld().getTerritories().get(10));
+    p2.addTerritories(Main.g.getWorld().getTerritories().get(30));
+    p3.addTerritories(Main.g.getWorld().getTerritories().get(40));
+    p4.addTerritories(Main.g.getWorld().getTerritories().get(1));
+    p5.addTerritories(Main.g.getWorld().getTerritories().get(20));
+    p6.addTerritories(Main.g.getWorld().getTerritories().get(27));
     
     Main.g.addPlayer(p1);
     Main.g.addPlayer(p2);
