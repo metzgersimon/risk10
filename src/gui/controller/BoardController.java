@@ -1310,14 +1310,14 @@ public class BoardController implements Initializable {
   public void showMessage(String message) {
     Platform.runLater(new Runnable() {
       public void run() {
-        chat.appendText(message + "\n_____________\n\n");
+        chat.appendText(message + "\n__________________________\n\n");
       }
     });
   }
 
   public void showAllianceMessage(String message) {
     chat.appendText(message + " (private) ");
-    chat.appendText("\n_____________\n\n");
+    chat.appendText("\n__________________________\n\n");
   }
   
   /**
