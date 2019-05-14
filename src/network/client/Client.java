@@ -488,6 +488,7 @@ public class Client extends Thread implements Serializable {
         defender.lostTerritories(defend);
         defend.setOwner(attacker);
         attacker.setSuccessfullAttack(true);
+        Main.g.getCards().removeLast();
         Main.b.updateColorTerritory(defend);
         attacker.addTerritories(defend);
         Main.g.checkAllPlayers();

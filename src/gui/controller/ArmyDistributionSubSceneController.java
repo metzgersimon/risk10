@@ -49,31 +49,28 @@ public class ArmyDistributionSubSceneController implements Initializable {
   public synchronized void confirmArmyDistribution() {
     Thread th = new Thread() {
       public void run() {
-        Territory t = Main.b.getSelectedTerritory();
-        int amount = (int) setArmySlider.getValue();
-
-        if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
-          if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-            FurtherDistributeArmyMessage message =
-                new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
-            message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-            NetworkController.gameFinder.getClient().sendMessage(message);
-          }
-
-          Platform.runLater(new Runnable() {
-            public void run() {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            Territory t = Main.b.getSelectedTerritory();
+            int amount = (int) setArmySlider.getValue();
+            if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
               Main.b.setTerritoryText(t);
               Main.b.setCircleArmiesToDistributeLable();
+              if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+                FurtherDistributeArmyMessage message =
+                    new FurtherDistributeArmyMessage(amount, Main.b.getSelectedTerritory().getId());
+                message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+                NetworkController.gameFinder.getClient().sendMessage(message);
+              }
             }
-          });
-
-        }
-
+            Main.b.neutralizeGUIarmyDistribution();
+            Main.stagePanes.close();
+          }
+        });
       }
     };
     th.start();
-    Main.b.neutralizeGUIarmyDistribution();
-    Main.stagePanes.close();
+
   }
 
   /**
