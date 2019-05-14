@@ -19,15 +19,16 @@ public class TutorialMessages {
       + " of each turn, you will be given a number of"
       + " armies to distribute across your territories.\n\n"
       + "You can then choose to attack,"
-      + " fortify or pass the round using the red arrow.\n"
-      + "Firstly, players take turns claming their territories. ";
+      + " fortify or pass the round using the red arrow.\n\n"
+      + "Firstly, players take turns claming their territories.\n"
+      + "Click on an unclaimed territory (gray) to claim it.";
   
   public static String distributing = "You are now in the "
       + "distributing phase. At the beginning of each turn,"
       + "the player receives a number of Armies "
       + "to distribute across their territories.\n\n"
       + "The number of armies you get for each turn is calculated "
-      + "from the number of territories owned, continents claimed"
+      + "from the number of territories owned, continents claimed "
       + "and number of cards traded in with a minimum of 3 armies.";
   
   public static String distributingTip = "Tip: Isolated "
@@ -70,8 +71,8 @@ public class TutorialMessages {
       + " It now belongs to your opponent";
   
   public static String fortify = "You can now move armies"
-      + " between adjacent territories. Each set of armies"
-      + " can only be moved once each round.";
+      + " between adjacent territories. You can only move"
+      + "one set of armies during each fortify turn.";
   
   public static String fortifyTip = "Tip: Decrease the chances "
       + "of weak spots by "
