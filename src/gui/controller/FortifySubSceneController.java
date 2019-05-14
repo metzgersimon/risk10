@@ -52,16 +52,16 @@ public class FortifySubSceneController implements Initializable {
           public void run() {
             int amount = (int) fortifySlider.getValue();
             if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
-                Main.b.getSelectedTerritory_attacked(), amount)) {
+                Main.b.getSelectedTerritoryAttacked(), amount)) {
               System.out.println(Main.b.getSelectedTerritory().getName());
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
-              Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                  .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+              Main.b.getSelectedTerritoryAttacked().getBoardRegion().getNumberOfArmy()
+                  .setText(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() + "");
               // network game
               if (Main.g.isNetworkGame()) {
                 FortifyMessage message = new FortifyMessage(Main.b.getSelectedTerritory().getId(),
-                    Main.b.getSelectedTerritory_attacked().getId(), (int) fortifySlider.getValue());
+                    Main.b.getSelectedTerritoryAttacked().getId(), (int) fortifySlider.getValue());
                 message.setColor(Main.g.getCurrentPlayer().getColor().toString());
                 NetworkController.gameFinder.getClient().sendMessage(message);
               }

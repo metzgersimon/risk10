@@ -65,11 +65,9 @@ import network.messages.SendAllianceMessage;
  */
 public class BoardController implements Initializable {
 
-
-  private boolean ready = false;
+  private SinglePlayerGUIController boardGui;
   private Territory selectedTerritory = null;
-  private Territory selectedTerritory_attacked = null;
-  private static int tradedCards = 0;
+  private Territory selectedTerritoryAttacked = null;
 
   /**
    * Elements for the chat.
@@ -170,9 +168,12 @@ public class BoardController implements Initializable {
   private Label endGame;
 
 
-  /**
-   * getters and setters.
-   */
+  /**************************************************
+   *                                                *
+   *                Getter and Setter               *
+   *                                                *
+   *************************************************/
+
   public Territory getSelectedTerritory() {
     return this.selectedTerritory;
   }
@@ -181,22 +182,25 @@ public class BoardController implements Initializable {
     this.selectedTerritory = t;
   }
 
-  public Territory getSelectedTerritory_attacked() {
-    return this.selectedTerritory_attacked;
+  public Territory getSelectedTerritoryAttacked() {
+    return this.selectedTerritoryAttacked;
   }
 
-  public void setSelectedTerritory_attacked(Territory t) {
-    this.selectedTerritory_attacked = t;
+  public void setSelectedTerritoryAttacked(Territory t) {
+    this.selectedTerritoryAttacked = t;
   }
 
   public Label getArmiesToDistributeLabel() {
     return armiesToDistribute;
   }
-
-
-  public SinglePlayerGUIController boardGui;
-
-
+  
+  
+  /**************************************************
+   *                                                *
+   *        Methods that initialize boardGUI        *
+   *                                                *
+   *************************************************/
+  
   /**
    * Create live statistic table columns.
    * 
@@ -213,7 +217,7 @@ public class BoardController implements Initializable {
     c1.setSortType(TableColumn.SortType.ASCENDING);
 
   }
-
+  
   /**
    * Method creates base of the game board.
    * 
@@ -231,20 +235,186 @@ public class BoardController implements Initializable {
   public void startBoard() {
     connectRegionTerritory();
   }
-
-  public synchronized boolean getReady() {
-    return ready;
-  }
-
-  public synchronized void setReady(boolean b) {
-    this.ready = b;
-  }
-
+  
+  
   /**************************************************
-   * * Methods to prepare Board * *
+   *                                                *
+   *        Methods that handle boardGUI from       *
+   *               different classes                *
+   *                                                *
    *************************************************/
 
+  public void setTerritoryText(Territory t) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+      }
+    });
+  }
+
+  public void setCircleArmiesToDistributeLable() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+      }
+    });
+  }
+
+  public synchronized void updateLabelTerritory(Territory t) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+      }
+    });
+  }
+
+  public synchronized void updateColorTerritory(Territory t) {
+    Thread th = new Thread() {
+      public void run() {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            t.getBoardRegion().getRegion()
+                .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+            t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
+            circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
+            armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
+          }
+        });
+      }
+    };
+    th.start();
+  }
+
+  public void highlightTerritory(Territory t) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        DropShadow d = (DropShadow) t.getBoardRegion().getRegion().getEffect();
+        d.setInput(null);
+      }
+    });
+  }
+  
   /**
+   * Method handles a glowing effect if a player owns a whole continent.
+   * 
+   * @author smetzger
+   */
+  public void handleContinentGlow(Continent c, boolean hasShadow) {
+    Thread th = new Thread() {
+      public void run() {
+        if (hasShadow) {
+          for (Territory tL : c.getTerritories()) {
+            Platform.runLater(new Runnable() {
+              public void run() {
+                DropShadow shadow = (DropShadow) tL.getBoardRegion().getRegion().getEffect();
+                shadow.setRadius(40.0);
+                shadow.setColor(tL.getOwner().getColor().getColor());
+              }
+            });
+          }
+        } else {
+          for (Territory t : c.getTerritories()) {
+            Platform.runLater(new Runnable() {
+              public void run() {
+                DropShadow shadow = (DropShadow) t.getBoardRegion().getRegion().getEffect();
+                shadow.setRadius(0.0);
+                shadow.setColor(null);
+              }
+            });
+          }
+        }
+      }
+    };
+    th.start();
+  }
+
+  public void disableAll() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        rootAnchor.setMouseTransparent(true);
+      }
+    });
+  }
+
+  public void enableAll() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        rootAnchor.setMouseTransparent(false);
+      }
+    });
+  }
+
+  /**
+   * 
+   * @param change the game state text
+   */
+  public synchronized void setState(String text) {
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        gameState.setText(text);
+      }
+    });
+  }
+
+
+  /**************************************************
+   *                                                *
+   *            Methods to prepare Board            * 
+   *                                                *
+   *************************************************/
+  
+  /**
+   * Method handles clicking on the skip button to end a given phase and come to the next one.
+   * 
+   * @author smetzger
+   * @author pcoberge
+   */
+  @FXML
+  public void handleSkipGameState() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        changeGameState.setEffect(new Bloom());
+        changeGameState.setDisable(true);
+        switch (Main.g.getGameState()) {
+          case ARMY_DISTRIBUTION:
+            gameState.setText("Attack!");
+            changeGameState.setDisable(false);
+            prepareAttack();
+            Main.g.setGameState(GameState.ATTACK);
+            break;
+          case ATTACK:
+            gameState.setText("Move your Armies!");
+            prepareFortify();
+            Main.g.setGameState(GameState.FORTIFY);
+            changeGameState.setDisable(false);
+            break;
+          case FORTIFY:
+            if (Main.g.isNetworkGame()) {
+              SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
+              message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+              NetworkController.gameFinder.getClient().sendMessage(message);
+            }
+            Main.g.getCurrentPlayer().setFortify(true);
+            neutralizeGUIfortify();
+            gameState.setText("End your turn!");
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e1) {
+              e1.printStackTrace();
+            }
+            Main.g.furtherFortify();
+            break;
+        }
+      }
+    });
+  }
+
+  /**
+   * Method to prepare boardGui for the initial territory distribution phase.
+   * 
    * @author smetzger
    * @author pcoberge
    */
@@ -258,7 +428,6 @@ public class BoardController implements Initializable {
             circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
           }
         });
-
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             if (t.getOwner() != null) {
@@ -288,35 +457,6 @@ public class BoardController implements Initializable {
   }
 
   /**
-   * This method changes the game state in network game, the current player name will be showed in
-   * game state.
-   * 
-   * @author qiychen
-   * 
-   */
-  public void setTurns() {
-    if (Main.g.isNetworkGame()) {
-      Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
-          gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
-          if (Main.g.getCurrentPlayer().getName()
-              .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
-            if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY) {
-              gameState.setText("Choose your Territory");
-            } else if (Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
-              gameState.setText("Place your Armies initially!");
-            } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-              gameState.setText("Place your Armies!");
-            }
-
-          }
-        }
-      });
-    }
-  }
-
-  /**
    * Method to prepare the BoardGUI for phase ARMY_DISTRIBUTION.
    * 
    * @author smetzger
@@ -340,13 +480,11 @@ public class BoardController implements Initializable {
                 if (!Main.g.isNetworkGame()) {
                   gameState.setText("Place your Armies initially!");
                 }
-
                 // Tutorial Messages
                 if (Main.g.isShowTutorialMessages()) {
                   showMessage(game.TutorialMessages.distributing);
                   showMessage(game.TutorialMessages.distributingTip);
                 }
-
               } else {
                 setTurns();
               }
@@ -364,7 +502,6 @@ public class BoardController implements Initializable {
             });
           }
         }
-
         if (Main.g.getCurrentPlayer() instanceof AiPlayer) {
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             Platform.runLater(new Runnable() {
@@ -381,7 +518,6 @@ public class BoardController implements Initializable {
               changeGameState.setDisable(false);
             }
           });
-
           for (Territory t : Main.g.getWorld().getTerritories().values()) {
             if (t.getOwner().equals(Main.g.getCurrentPlayer())) {
               Platform.runLater(new Runnable() {
@@ -393,10 +529,8 @@ public class BoardController implements Initializable {
                   t.getBoardRegion().getRegion().setDisable(false);
                 }
               });
-
             } else {
               Platform.runLater(new Runnable() {
-
                 @Override
                 public void run() {
                   t.getBoardRegion().getRegion().setDisable(true);
@@ -406,6 +540,7 @@ public class BoardController implements Initializable {
               });
             }
           }
+          // show Cardpane and force player to trade in cards
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
             Platform.runLater(new Runnable() {
               public void run() {
@@ -441,8 +576,6 @@ public class BoardController implements Initializable {
    * 
    * @author smetzger
    * @author pcoberge
-   * 
-   * 
    */
   public synchronized void prepareAttack() {
     Thread th = new Thread() {
@@ -457,7 +590,6 @@ public class BoardController implements Initializable {
             }
           });
         }
-
         for (Territory t : Main.g.getWorld().getTerritories().values()) {
           if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1
               && t.getHostileNeighbor().size() > 0) {
@@ -487,16 +619,13 @@ public class BoardController implements Initializable {
    * Method to prepare the BoradGUI for phase FORTIFY.
    * 
    * @author smetzger
-   * @author pcoberge
-   * 
-   * 
+   * @author pcoberge 
    */
   public synchronized void prepareFortify() {
     Thread th = new Thread() {
       public void run() {
         if (!gameState.getText().equals("Move your Armies!")) {
           Platform.runLater(new Runnable() {
-
             @Override
             public void run() {
               gameState.setText("Move your Armies!");
@@ -507,8 +636,6 @@ public class BoardController implements Initializable {
             }
           });
         }
-
-
         for (Territory t : Main.g.getWorld().getTerritories().values()) {
           if (t.getOwner().equals(Main.g.getCurrentPlayer()) && t.getNumberOfArmies() > 1
               && t.getHostileNeighbor().size() != t.getNeighbor().size()) {
@@ -534,123 +661,73 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
-
-
-
-  public void setTerritoryText(Territory t) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-
-      }
-    });
-  }
-
-  public void setCircleArmiesToDistributeLable() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-      }
-    });
-  }
-
-
-
-  public synchronized void updateLabelTerritory(Territory t) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-      }
-    });
-  }
-
-  public synchronized void updateColorTerritory(Territory t) {
-    Thread th = new Thread() {
-      public void run() {
-        Platform.runLater(new Runnable() {
-          public void run() {
-            t.getBoardRegion().getRegion()
-                .setBackground(new Background(new BackgroundFill(t.getOwner().getColor().getColor(),
-                    CornerRadii.EMPTY, Insets.EMPTY)));
-            t.getBoardRegion().getNumberOfArmy().setText(t.getNumberOfArmies() + "");
-            circle.setFill(Main.g.getCurrentPlayer().getColor().getColor());
-            armiesToDistribute.setText(Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + "");
-            // setReady(true);
-          }
-        });
-      }
-    };
-    th.start();
-  }
-
-  public void highlightTerritory(Territory t) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        DropShadow d = (DropShadow) t.getBoardRegion().getRegion().getEffect();
-        d.setInput(null);
-      }
-    });
-  }
-
-  public void disableAll() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        rootAnchor.setMouseTransparent(true);
-      }
-    });
-  }
-
-  public void enableAll() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        rootAnchor.setMouseTransparent(false);
-      }
-    });
-  }
-
+  
   /**
+   * This method changes the game state in network game, the current player name will be showed in
+   * game state.
    * 
-   * @param change the game state text
+   * @author qiychen
+   * 
    */
-  public synchronized void setState(String text) {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        gameState.setText(text);
-      }
-    });
+  public void setTurns() {
+    if (Main.g.isNetworkGame()) {
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          gameState.setText("It's " + Main.g.getCurrentPlayer().getName() + "'s turn.");
+          if (Main.g.getCurrentPlayer().getName()
+              .equals(NetworkController.gameFinder.getClient().getPlayer().getName())) {
+            if (Main.g.getGameState() == GameState.INITIALIZING_TERRITORY) {
+              gameState.setText("Choose your Territory");
+            } else if (Main.g.getGameState() == GameState.INITIALIZING_ARMY) {
+              gameState.setText("Place your Armies initially!");
+            } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
+              gameState.setText("Place your Armies!");
+            }
 
+          }
+        }
+      });
+    }
   }
 
+  
+  /**************************************************
+   *                                                *
+   *        Methods to handle clicks on Board       * 
+   *                                                *
+   *************************************************/
+
   /**
+   * The method is divided into two parts.
+   * 
+   * <p>1. Part: the previous selected Territory is not the same like the current selection.
+   * 
+   * <p>INITIALIZING_TERRITORY - the selected territory is highlighted in the color of the current
+   * player
+   * 
+   * <p>INITIALIZING_ARMY - if an army could be placed on the chosen territory the label of this
+   * territory is updated
+   * 
+   * <p>ARMY_DISTRIBUTION - if a territory is selected, the player has to choose how many armies he
+   * want to place at this territory. Therefore the slider in the background is set on the amount of
+   * armies the player is allowed to set. A pane with a slider to choose appears. The label of this
+   * territory will be updated. 
+   * 
+   * <p>ATTACK - if the selected territory is the first one, this territory
+   * is highlighted and all neighbors that do not belong to the same player will be highlighted as
+   * well. All other territories are disabled. if the selected territory is the second one, a pane
+   * appears in order to throw the dices.
+   * 
+   * <p>FORTIFY - if the selected territory is the first one, this territory is highlighted and all
+   * neighbors that belong to the same player will be highlighted as well. All other territories are
+   * disabled. if the selected territory is the second one, a pane appears in order to choose how
+   * many armies should be transferred.
+   * 
    * @author smetzger
    * @author pcoberge
    * @param MouseEvent The parameter contains the information which gui element triggers the
    *        actionlistener.
-   * 
-   *        The method is divided into two parts
-   * 
-   *        1. Part: the previous selected Territory is not the same like the current selection.
-   * 
-   *        INITIALIZING_TERRITORY -
-   * 
-   *        INITIALIZING_ARMY - if an army could be placed on the chosen territory the label of this
-   *        territory is updated
-   * 
-   *        ARMY_DISTRIBUTION - if a territory is selected, the player has to choose how many armies
-   *        he want to place at this territory. Therefore the slider in the background is set on the
-   *        amount of armies the player is allowed to set. A pane with a slider to choose appears.
-   *        The label of this territory will be updated. ATTACK - if the selected territory is the
-   *        first one, this territory is highlighted and all neighbors that do not belong to the
-   *        same player will be highlighted as well. All other territories are disabled. if the
-   *        selected territory is the second one, a pane appears in order to throw the dices.
-   * 
-   *        FORTIFY - if the selected territory is the first one, this territory is highlighted and
-   *        all neighbors that belong to the same player will be highlighted as well. All other
-   *        territories are disabled. if the selected territory is the second one, a pane appears in
-   *        order to choose how many armies should be transferred.
-   * 
    */
   @FXML
   public synchronized void clicked(MouseEvent e) {
@@ -671,9 +748,7 @@ public class BoardController implements Initializable {
 
     if (!t.equals(selectedTerritory)) {
       switch (Main.g.getGameState()) {
-        // new game
         case INITIALIZING_TERRITORY:
-
           if (Main.g.getCurrentPlayer().initialTerritoryDistribution(t)) {
             disableAll();
             Thread th = new Thread() {
@@ -687,21 +762,18 @@ public class BoardController implements Initializable {
                   NetworkController.gameFinder.getClient().sendMessage(message);
                   return;
                 }
-                // if (!Main.g.getCurrentPlayer().getContinents().contains(t.getContinent())) {
                 Platform.runLater(new Runnable() {
                   public void run() {
                     DropShadow d = (DropShadow) r.getEffect();
                     d.setInput(new Lighting());
                   }
                 });
-                // }
                 Main.g.furtherInitialTerritoryDistribution();
               }
             };
             th.start();
           }
           break;
-        // place armies
         case INITIALIZING_ARMY:
           if (Main.g.getCurrentPlayer().armyDistribution(1, t)) {
             disableAll();
@@ -721,18 +793,12 @@ public class BoardController implements Initializable {
                   NetworkController.gameFinder.getClient().sendMessage(armyMessage);
                   return;
                 }
-                // Platform.runLater(new Runnable() {
-                // public void run() {
-                // r.setEffect(new Lighting());
-                // }
-                // });
                 Main.g.furtherInitialArmyDistribution();
               }
             };
             th.start();
           }
           break;
-
         case ARMY_DISTRIBUTION:
           if (Main.g.getCurrentPlayer().getNumberArmiesToDistibute() > 0) {
             Platform.runLater(new Runnable() {
@@ -766,39 +832,19 @@ public class BoardController implements Initializable {
       } else if (Main.g.getGameState() == GameState.FORTIFY) {
         neutralizeGUIfortify();
       }
-      // selectedTerritory = null;
     }
   }
 
-
-  public void neutralizeGUIarmyDistribution() {
-    Region r = selectedTerritory.getBoardRegion().getRegion();
-    Thread th = new Thread() {
-      public void run() {
-        DropShadow d = (DropShadow) r.getEffect();
-        d.setInput(null);
-        // for (Territory t : selectedTerritory.getNeighbor()) {
-        // if (!t.getOwner().equals(selectedTerritory.getOwner())) {
-        // Platform.runLater(new Runnable() {
-        // public void run() {
-        // DropShadow d = (DropShadow) r.getEffect();
-        // d.setInput(new Lighting());
-        // }
-        // });
-        // }
-        // }
-        selectedTerritory = null;
-      }
-    };
-    th.start();
-  }
-
-
-
+  /**
+   * This method handles clicks in attack phase.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   * @param t = Territory that is chosen to attack with or to be attacked
+   */
   public void clickedAttack(Territory t) {
     // First click or change between own territories
     if (selectedTerritory == null || t.getOwner().equals(Main.g.getCurrentPlayer())) {
-      System.out.println(t.getName());
       Thread th = new Thread() {
         public void run() {
           if (selectedTerritory != null) {
@@ -822,11 +868,6 @@ public class BoardController implements Initializable {
               }
             });
           }
-          // try {
-          // this.sleep(50);
-          // } catch (InterruptedException e) {
-          // e.printStackTrace();
-          // }
           if (Main.g.isShowTutorialMessages() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
             showMessage(game.TutorialMessages.attacking2);
             showMessage(game.TutorialMessages.attackingTip);
@@ -836,7 +877,7 @@ public class BoardController implements Initializable {
       th.start();
       // Second Click
     } else if (selectedTerritory != null && selectedTerritory.getNeighbor().contains(t)) {
-      selectedTerritory_attacked = t;
+      selectedTerritoryAttacked = t;
 
       Thread th = new Thread() {
         public void run() {
@@ -865,51 +906,13 @@ public class BoardController implements Initializable {
     }
   }
 
-  public void neutralizeGUIattack() {
-    Region r1 = selectedTerritory.getBoardRegion().getRegion();
-    if (selectedTerritory.getNumberOfArmies() == 1
-        || selectedTerritory.getHostileNeighbor().size() == 0) {
-      Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
-          DropShadow d = (DropShadow) r1.getEffect();
-          d.setInput(new Lighting());
-          r1.setDisable(true);
-        }
-      });
-    }
-    if (selectedTerritory_attacked != null) {
-      Region r2 = selectedTerritory_attacked.getBoardRegion().getRegion();
-      if (selectedTerritory_attacked.getNumberOfArmies() > 1
-          && selectedTerritory_attacked.getHostileNeighbor().size() > 0) {
-        Platform.runLater(new Runnable() {
-
-          @Override
-          public void run() {
-            DropShadow d = (DropShadow) r2.getEffect();
-            d.setInput(null);
-            r2.setDisable(false);
-          }
-        });
-      }
-    }
-    for (Territory t : selectedTerritory.getNeighbor()) {
-      if (!(t.getOwner().equals(selectedTerritory.getOwner()))
-          || (t.getOwner().equals(selectedTerritory.getOwner())
-              && t.getHostileNeighbor().size() == 0)) {
-        Platform.runLater(new Runnable() {
-          public void run() {
-            DropShadow d = (DropShadow) t.getBoardRegion().getRegion().getEffect();
-            d.setInput(new Lighting());
-            t.getBoardRegion().getRegion().setDisable(true);
-          }
-        });
-      }
-    }
-    selectedTerritory = null;
-    selectedTerritory_attacked = null;
-  }
-
+  /**
+   * This method handles clicks in fortify phase.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   * @param t = Territory to move armies from or to move armies to
+   */
   public void clickedFortify(Territory t) {
     Thread th = new Thread() {
       public void run() {
@@ -947,7 +950,7 @@ public class BoardController implements Initializable {
               }
             }
           } else if (selectedTerritory != null) {
-            selectedTerritory_attacked = t;
+            selectedTerritoryAttacked = t;
             Platform.runLater(new Runnable() {
               public void run() {
                 try {
@@ -970,8 +973,89 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
+  
+  
+  /**************************************************
+   *                                                *
+   *    Methods to neutralize board depending on    *
+   *                  current phase                 * 
+   *                                                *
+   *************************************************/
+  
+  /**
+   * This method neutralizes board after an action in army distribution phase.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   */
+  public void neutralizeGUIarmyDistribution() {
+    Region r = selectedTerritory.getBoardRegion().getRegion();
+    Thread th = new Thread() {
+      public void run() {
+        DropShadow d = (DropShadow) r.getEffect();
+        d.setInput(null);
+        selectedTerritory = null;
+      }
+    };
+    th.start();
+  }
 
+  /**
+   * This method neutralizes board after an action in attack phase.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   */
+  public void neutralizeGUIattack() {
+    Region r1 = selectedTerritory.getBoardRegion().getRegion();
+    if (selectedTerritory.getNumberOfArmies() == 1
+        || selectedTerritory.getHostileNeighbor().size() == 0) {
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          DropShadow d = (DropShadow) r1.getEffect();
+          d.setInput(new Lighting());
+          r1.setDisable(true);
+        }
+      });
+    }
+    if (selectedTerritoryAttacked != null) {
+      Region r2 = selectedTerritoryAttacked.getBoardRegion().getRegion();
+      if (selectedTerritoryAttacked.getNumberOfArmies() > 1
+          && selectedTerritoryAttacked.getHostileNeighbor().size() > 0) {
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            DropShadow d = (DropShadow) r2.getEffect();
+            d.setInput(null);
+            r2.setDisable(false);
+          }
+        });
+      }
+    }
+    for (Territory t : selectedTerritory.getNeighbor()) {
+      if (!(t.getOwner().equals(selectedTerritory.getOwner()))
+          || (t.getOwner().equals(selectedTerritory.getOwner())
+              && t.getHostileNeighbor().size() == 0)) {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            DropShadow d = (DropShadow) t.getBoardRegion().getRegion().getEffect();
+            d.setInput(new Lighting());
+            t.getBoardRegion().getRegion().setDisable(true);
+          }
+        });
+      }
+    }
+    selectedTerritory = null;
+    selectedTerritoryAttacked = null;
+  }
 
+  /**
+   * This method neutralizes board after an action in fortify phase.
+   * 
+   * @author pcoberge
+   * @author smetzger
+   */
   public void neutralizeGUIfortify() {
     if (Main.g.getCurrentPlayer().getFortify()) {
       for (Territory t : Main.g.getCurrentPlayer().getTerritories()) {
@@ -984,16 +1068,6 @@ public class BoardController implements Initializable {
         });
       }
     } else {
-      // if (selectedTerritory_attacked != null) {
-      // Platform.runLater(new Runnable() {
-      // public void run() {
-      // DropShadow d =
-      // (DropShadow) selectedTerritory_attacked.getBoardRegion().getRegion().getEffect();
-      // d.setInput(new Lighting());
-      // selectedTerritory_attacked.getBoardRegion().getRegion().setDisable(true);
-      // }
-      // });
-      // }
       for (Territory t : Main.g.getCurrentPlayer().getTerritories()) {
         if (t.getHostileNeighbor().size() != t.getNeighbor().size() && t.getNumberOfArmies() > 1) {
           Platform.runLater(new Runnable() {
@@ -1014,31 +1088,32 @@ public class BoardController implements Initializable {
         }
       }
     }
-    // try {
-    // Thread.sleep(500);
-    // } catch (InterruptedException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
     selectedTerritory = null;
-    selectedTerritory_attacked = null;
+    selectedTerritoryAttacked = null;
   }
 
+  
+  /**************************************************
+   *                                                *
+   *       Methods to handle in-game statistic      * 
+   *                                                *
+   *************************************************/
+  
   /**
    * Handles click on statistic button during a game.
    * 
    * @author prto
    */
   public void handleLiveStats() {
-
     Main.g.updateLiveStatistics();
     ObservableList<Player> playerList = FXCollections.observableArrayList(Main.g.getPlayers());
     statistic.setItems(playerList);
     statistic.getSortOrder().add(c1);
     statistic.refresh();
-
     newSPane.setVisible(true);
-    showMessage("Click on the background to close the statistics screen");
+    if (!Main.g.isNetworkGame() && Main.g.isShowTutorialMessages()) {
+      showMessage("Click on the background to close the statistics screen");
+    }
   }
 
   /**
@@ -1047,11 +1122,16 @@ public class BoardController implements Initializable {
    * @author prto
    */
   public void handleCloseLiveStats() {
-    // grayPane.setVisible(false);
-    // grayPane.setMouseTransparent(true);
     newSPane.setVisible(false);
   }
 
+  
+  /**************************************************
+   *                                                *
+   *        Methods to show rule book and           *
+   *             to handle card pane                * 
+   *                                                *
+   *************************************************/
 
   /**
    * handle press on rule book button.
@@ -1072,7 +1152,11 @@ public class BoardController implements Initializable {
     }
   }
 
-
+  /**
+   * This method shows all cards of the local player.
+   * 
+   * @author smetzger
+   */
   @FXML
   public synchronized void handleCardPane() {
     Platform.runLater(new Runnable() {
@@ -1101,64 +1185,178 @@ public class BoardController implements Initializable {
             showMessage(TutorialMessages.tradeInTip);
           }
         }
-        // if (cardPane.isVisible()) {
-        // cardPane.setVisible(false);
-        // } else {
-        // cardPane.setVisible(true);
-        // }
       }
     });
-  }
+  }  
+  
+  
+  /**************************************************
+   *                                                *
+   *          Methods to handle quit game           * 
+   *                                                *
+   *************************************************/
 
   /**
-   * Method handles clicking on the skip button to end a given phase and come to the next one.
+   * This method handles the exit Button. When the user presses the exit-Button a pop-up window
+   * appears and stops the game.
    * 
-   * @author smetzger
    * @author pcoberge
    */
-  @FXML
-  public void handleSkipGameState() {
-
+  public synchronized void pressLeave() {
     Platform.runLater(new Runnable() {
       public void run() {
-
-        changeGameState.setEffect(new Bloom());
-        switch (Main.g.getGameState()) {
-          case ARMY_DISTRIBUTION:
-            gameState.setText("Attack!");
-            changeGameState.setDisable(false);
-            prepareAttack();
-            Main.g.setGameState(GameState.ATTACK);
-            break;
-          case ATTACK:
-            gameState.setText("Move your armies!");
-            prepareFortify();
-            Main.g.setGameState(GameState.FORTIFY);
-            break;
-          case FORTIFY:
-            if (Main.g.isNetworkGame()) {
-              SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
-              message.setColor(Main.g.getCurrentPlayer().getColor().toString());
-              NetworkController.gameFinder.getClient().sendMessage(message);
-            }
-            Main.g.getCurrentPlayer().setFortify(true);
-            neutralizeGUIfortify();
-            gameState.setText("End your turn!");
-            try {
-              Thread.sleep(100);
-            } catch (InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-            }
-            changeGameState.setDisable(true);
-            Main.g.furtherFortify();
-            break;
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/QuitGameSubScene.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Main.quit = fxmlLoader.getController();
+          Main.stagePanes.setScene(new Scene(root));
+          Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
+          Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
+          Main.stagePanes.show();
+        } catch (Exception e) {
+          e.printStackTrace();
         }
       }
     });
+  }
+  
+  /**
+   * This method shows a screen-message depending on winning or losing the game.
+   */
+  public void endGame() {
+    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          FXMLLoader fxmlLoader =
+              new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
+          Parent root = fxmlLoader.load();
+          Stage stage = Main.stagePanes;
+          stage.setScene(new Scene(root));
+          stage.setX(Main.stage.getX() + 2);
+          stage.setY(Main.stage.getY() + 24);
+          stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+  
+  
+  /**************************************************
+   *                                                *
+   *          Methods to handle multiplayer         * 
+   *                                                *
+   *************************************************/
 
+  /**
+   * Method handles the ability to send messages in a multiplayer situation.
+   * 
+   * @author qiychen
+   * @param event Messages regarding chat/alliance can be sent if a specific name is given, private
+   *        messages will be sent, otherwise the message will be sent to all members
+   */
+  @FXML
+  void handleSendMessage(ActionEvent event) {
+    String message = messages.getText();
+    String player = playername.getText();
+    String author = ProfileSelectionGUIController.selectedPlayerName;
+    if (Main.g.isNetworkGame()) {
+      Client client = NetworkController.gameFinder.getClient();
+      // don't send empty string
+      if (message.equals("")) {
+        return;
+      }
+      if (player.equals("") || player.isEmpty() || playername == null) {
+        GameMessageMessage chatmessage = new GameMessageMessage(author, message);
+        client.sendMessage(chatmessage);
+        this.messages.clear();
+        this.playername.clear();
+      } else {
+        this.showMessage(author.toUpperCase() + " : " + message + " (private to " + player + ")");
+        SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
+        client.sendMessage(privatemessage);
+        this.messages.clear();
+        this.playername.clear();
+      }
+    }
+  }
+  
+  public void showMessage(String message) {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        chat.appendText(message + "\n_____________\n\n");
+      }
+    });
   }
 
+  public void showAllianceMessage(String message) {
+    chat.appendText(message + " (private) ");
+    chat.appendText("\n_____________\n\n");
+  }
+  
+  /**
+   * This method is called in the client class, when a client receives the leave game by the host
+   * player message. After being called, this method shows an alert to every player connected to the
+   * game. The alert informs the players that the game is cancelled and asks them to leave the game
+   * by giving them to options.
+   * 
+   * @author skaur
+   */
+  public void gameCancelAlert() {
+    // show the alert that game is cancelled
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Game Cancelled");
+    alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
+        + "Please leave the Game Board");
+    alert.setContentText("Leave Game");
+    Optional<ButtonType> option = alert.showAndWait();
+    if (option.get() == null) {
+      // do nothing
+      alert.close();
+    } else if (option.get() == ButtonType.OK) {
+      // send a leave game response to the server
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
+      this.clientLeaveGame();
+    }
+  }
+
+  /**
+   * After the player choose to leave the game, this shows the game statistics to each player.
+   * 
+   * @author skaur
+   */
+  public void clientLeaveGame() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        try {
+          for (Player p : Main.g.getPlayers()) {
+            Main.g.addToAllPlayers(p);
+          }
+          Main.g.setGameState(GameState.END_GAME);
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
+          Parent root = (Parent) fxmlLoader.load();
+          Stage stage = main.Main.stage;
+          stage.setScene(new Scene(root));
+          stage.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+  
+  
+  /**************************************************
+   *                                                *
+   *          Methods to create connection          *
+   *            between logic and board             * 
+   *                                                *
+   *************************************************/
+  
   /**
    * This method creates a connection between the javafx region and label elements and the
    * equivalent territory.
@@ -1261,7 +1459,6 @@ public class BoardController implements Initializable {
               Lighting light = new Lighting();
               shadow.setRadius(0.0);
               shadow.setInput(light);
-              // shadow.setColor();
               t.getBoardRegion().getRegion().setEffect(shadow);
             }
           });
@@ -1272,190 +1469,4 @@ public class BoardController implements Initializable {
     th.start();
   }
 
-
-  /**
-   * Method handles a glowing effect if a player owns a whole continent.
-   * 
-   * @author smetzger
-   */
-  public void handleContinentGlow(Continent c, boolean hasShadow) {
-    Thread th = new Thread() {
-      public void run() {
-        if (hasShadow) {
-          for (Territory tL : c.getTerritories()) {
-            Platform.runLater(new Runnable() {
-              public void run() {
-                DropShadow shadow = (DropShadow) tL.getBoardRegion().getRegion().getEffect();
-                shadow.setRadius(40.0);
-                shadow.setColor(tL.getOwner().getColor().getColor());
-              }
-            });
-          }
-        } else {
-          for (Territory t : c.getTerritories()) {
-            Platform.runLater(new Runnable() {
-              public void run() {
-                DropShadow shadow = (DropShadow) t.getBoardRegion().getRegion().getEffect();
-                shadow.setRadius(0.0);
-                shadow.setColor(null);
-              }
-            });
-          }
-        }
-      }
-    };
-    th.start();
-  }
-
-  /**
-   * Method handles the ability to send messages in a multiplayer situation.
-   * 
-   * @author qiychen
-   * @param event Messages regarding chat/alliance can be sent if a specific name is given, private
-   *        messages will be sent, otherwise the message will be sent to all members
-   */
-  @FXML
-  void handleSendMessage(ActionEvent event) {
-    String message = messages.getText();
-    String player = playername.getText();
-    String author = ProfileSelectionGUIController.selectedPlayerName;
-    if (Main.g.isNetworkGame()) {
-      Client client = NetworkController.gameFinder.getClient();
-
-      // don't send empty string
-      if (message.equals("")) {
-        return;
-      }
-
-      if (player.equals("") || player.isEmpty() || playername == null) {
-        GameMessageMessage chatmessage = new GameMessageMessage(author, message);
-        client.sendMessage(chatmessage);
-        this.messages.clear();
-        this.playername.clear();
-      } else {
-        this.showMessage(author.toUpperCase() + " : " + message + " (private to " + player + ")");
-        SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
-        client.sendMessage(privatemessage);
-        this.messages.clear();
-        this.playername.clear();
-      }
-    }
-  }
-
-  public void showMessage(String message) {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        chat.appendText(message + "\n_____________\n\n");
-      }
-    });
-  }
-
-  public void showAllianceMessage(String message) {
-    chat.appendText(message + " (private) ");
-    chat.appendText("\n_____________\n\n");
-  }
-
-
-  public void endGame() {
-
-    Main.g.addToAllPlayers(Main.g.getPlayers().get(0));
-    Platform.runLater(new Runnable() {
-      public void run() {
-        try {
-          FXMLLoader fxmlLoader =
-              new FXMLLoader(getClass().getResource("/gui/EndGameSubScene.fxml"));
-          Parent root = fxmlLoader.load();
-          Stage stage = Main.stagePanes;
-          stage.setScene(new Scene(root));
-          stage.setX(Main.stage.getX() + 2);
-          stage.setY(Main.stage.getY() + 24);
-          stage.show();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**************************************************
-   * * Methods to handle quit game * *
-   *************************************************/
-
-  /**
-   * This method handles the exit Button. When the user presses the exit-Button a pop-up window
-   * appears and stops the game.
-   * 
-   * @author pcoberge
-   */
-  public synchronized void pressLeave() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        try {
-          FXMLLoader fxmlLoader =
-              new FXMLLoader(getClass().getResource("/gui/QuitGameSubScene.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Main.quit = fxmlLoader.getController();
-          Main.stagePanes.setScene(new Scene(root));
-          Main.stagePanes.setX(Main.stage.getX() + Parameter.WIDTH);
-          Main.stagePanes.setY(Main.stage.getY() + Parameter.HEIGHT);
-          Main.stagePanes.show();
-
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * This method is called in the client class, when a client receives the leave game by the host
-   * player message. After being called, this method shows an alert to every player connected to the
-   * game. The alert informs the players that the game is cancelled and asks them to leave the game
-   * by giving them to options.
-   * 
-   * @author skaur
-   */
-  public void gameCancelAlert() {
-    // show the alert that game is cancelled
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Game Cancelled");
-    alert.setHeaderText("A player has left the game. The game is now cancelled." + "\n"
-        + "Please leave the Game Board");
-    alert.setContentText("Leave Game");
-    Optional<ButtonType> option = alert.showAndWait();
-    if (option.get() == null) {
-      // do nothing
-      alert.close();
-    } else if (option.get() == ButtonType.OK) {
-      // send a leave game response to the server
-      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
-      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
-      this.clientLeaveGame();
-    }
-  }
-
-  /**
-   * After the player choose to leave the game, this shows the game statistics to each player.
-   * 
-   * @author skaur
-   */
-  public void clientLeaveGame() {
-    Platform.runLater(new Runnable() {
-      public void run() {
-        try {
-          for (Player p : Main.g.getPlayers()) {
-            Main.g.addToAllPlayers(p);
-          }
-          Main.g.setGameState(GameState.END_GAME);
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
-          Parent root = (Parent) fxmlLoader.load();
-          Stage stage = main.Main.stage;
-          stage.setScene(new Scene(root));
-          stage.show();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
 }

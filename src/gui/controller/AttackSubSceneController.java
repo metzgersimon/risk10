@@ -81,12 +81,12 @@ public class AttackSubSceneController implements Initializable {
         diceSlider.setValue(1.0);
 
         nameAttacker.setText(Main.b.getSelectedTerritory().getName().replaceAll("_", " "));
-        nameDefender.setText(Main.b.getSelectedTerritory_attacked().getName().replaceAll("_", " "));
+        nameDefender.setText(Main.b.getSelectedTerritoryAttacked().getName().replaceAll("_", " "));
         armiesAttacker.setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
         armiesDefender
-            .setText(String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
+            .setText(String.valueOf(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies()));
         int numberOfDicesOpponent =
-            Main.b.getSelectedTerritory_attacked().getNumberOfArmies() >= 2 ? 2 : 1;
+            Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() >= 2 ? 2 : 1;
         switch (numberOfDicesOpponent) {
           case (1):
             defendDice1.setVisible(true);
@@ -138,9 +138,9 @@ public class AttackSubSceneController implements Initializable {
    */
   public synchronized void throwDices() {
     if (Main.b.getSelectedTerritory().getNumberOfArmies() > 1
-        && Main.b.getSelectedTerritory_attacked().getNumberOfArmies() > 0) {
+        && Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() > 0) {
       int numberDicesOpponent =
-          Main.b.getSelectedTerritory_attacked().getNumberOfArmies() > 1 ? 2 : 1;
+          Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() > 1 ? 2 : 1;
       attacker = Dice.rollDices(numberOfDices);
       defender = Dice.rollDices(numberDicesOpponent);
       Thread th = new Thread() {
@@ -149,9 +149,9 @@ public class AttackSubSceneController implements Initializable {
             public void run() {
               nameAttacker.setText(Main.b.getSelectedTerritory().getName().replaceAll("_", " "));
               nameDefender
-                  .setText(Main.b.getSelectedTerritory_attacked().getName().replaceAll("_", " "));
+                  .setText(Main.b.getSelectedTerritoryAttacked().getName().replaceAll("_", " "));
               // update opponent number of dices
-              if (Main.b.getSelectedTerritory_attacked().getNumberOfArmies() == 1) {
+              if (Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() == 1) {
                 defendDice2.setVisible(false);
               }
               attackDice1.setImage(new Image(getClass()
@@ -186,7 +186,7 @@ public class AttackSubSceneController implements Initializable {
 
       boolean attackResult =
           Main.g.getCurrentPlayer().attack(attacker, defender, Main.b.getSelectedTerritory(),
-              Main.b.getSelectedTerritory_attacked(), (int) diceSlider.getValue());
+              Main.b.getSelectedTerritoryAttacked(), (int) diceSlider.getValue());
       if (attackResult || (Main.b.getSelectedTerritory().getNumberOfArmies() == 1)) {
         Thread th1 = new Thread() {
           public void run() {
@@ -195,21 +195,21 @@ public class AttackSubSceneController implements Initializable {
                 armiesAttacker
                     .setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
                 armiesDefender.setText(
-                    String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
+                    String.valueOf(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies()));
                 // back to map
                 clickBack();
                 // Main.b.updateLabelTerritory(Main.b.getSelectedTerritory());
                 // Main.b.updateLabelTerritory(Main.b.getSelectedTerritory_attacked());
                 Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                     .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
-                Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                    .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+                Main.b.getSelectedTerritoryAttacked().getBoardRegion().getNumberOfArmy()
+                    .setText(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() + "");
                 // network game
                 if (Main.g.isNetworkGame()) {
                   AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
-                      Main.b.getSelectedTerritory_attacked().getId(), false,
+                      Main.b.getSelectedTerritoryAttacked().getId(), false,
                       Main.b.getSelectedTerritory().getNumberOfArmies(),
-                      Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
+                      Main.b.getSelectedTerritoryAttacked().getNumberOfArmies());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   if (attackResult) {
                     message.setIfConquered(true);
@@ -239,17 +239,17 @@ public class AttackSubSceneController implements Initializable {
                     Main.b.showMessage(TutorialMessages.attackSuccess);
                   }
                 }
-                if (Main.b.getSelectedTerritory_attacked().getNumberOfArmies() == 1) {
+                if (Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() == 1) {
                   defendDice2.setVisible(false);
                 }
                 armiesAttacker
                     .setText(String.valueOf(Main.b.getSelectedTerritory().getNumberOfArmies()));
                 armiesDefender.setText(
-                    String.valueOf(Main.b.getSelectedTerritory_attacked().getNumberOfArmies()));
+                    String.valueOf(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies()));
                 Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                     .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
-                Main.b.getSelectedTerritory_attacked().getBoardRegion().getNumberOfArmy()
-                    .setText(Main.b.getSelectedTerritory_attacked().getNumberOfArmies() + "");
+                Main.b.getSelectedTerritoryAttacked().getBoardRegion().getNumberOfArmy()
+                    .setText(Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() + "");
                 int max = ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) % 10) == 0
                     ? ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10)
                     : ((Main.b.getSelectedTerritory().getNumberOfArmies() - 1) / 10) + 1;
@@ -264,9 +264,9 @@ public class AttackSubSceneController implements Initializable {
                 // network game message
                 if (Main.g.isNetworkGame()) {
                   AttackMessage message = new AttackMessage(Main.b.getSelectedTerritory().getId(),
-                      Main.b.getSelectedTerritory_attacked().getId(), false,
+                      Main.b.getSelectedTerritoryAttacked().getId(), false,
                       Main.b.getSelectedTerritory().getNumberOfArmies(),
-                      Main.b.getSelectedTerritory_attacked().getNumberOfArmies());
+                      Main.b.getSelectedTerritoryAttacked().getNumberOfArmies());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(message);
                   System.out.println("network message sent false");
