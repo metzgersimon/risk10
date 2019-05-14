@@ -543,6 +543,13 @@ public class BoardController implements Initializable {
           }
           // show Cardpane and force player to trade in cards
           if (Main.g.getCurrentPlayer().getCards().size() >= 5) {
+            // in network game show the pane only to the current client/player
+            if (Main.g.isNetworkGame()) {
+              if (!NetworkController.gameFinder.getClient().getPlayer()
+                  .equals(Main.g.getCurrentPlayer())) {
+                return;
+              }
+            }
             Platform.runLater(new Runnable() {
               public void run() {
                 try {

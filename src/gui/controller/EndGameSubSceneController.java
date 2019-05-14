@@ -85,7 +85,7 @@ public class EndGameSubSceneController implements Initializable {
       }
     });
     LeaveGameResponseMessage message = new LeaveGameResponseMessage();
-  NetworkController.gameFinder.getClient().sendMessage(message);
-  Main.g.setGameState(GameState.END_GAME);
+    NetworkController.gameFinder.getClient().sendMessage(message);
+    Main.g.setGameState(GameState.END_GAME);
   }
 }
