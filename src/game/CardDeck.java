@@ -7,7 +7,7 @@ import main.Main;
 
 
 /**
- * CardDeck represents the full risiko card set with 42 territory cards and two wildcards.
+ * CardDeck represents the full risk card set with 42 territory cards and two wildcards.
  * 
  * @author smetzger
  */

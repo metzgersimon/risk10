@@ -372,10 +372,7 @@ public class Game implements Serializable {
       this.getCurrentPlayer().setSuccessfullAttack(false);
       this.getCurrentPlayer().setFortify(false);
 
-      System.out.println(Main.g.getCurrentPlayer().getName());
       this.setNextPlayer();
-      System.out.println(Main.g.getCurrentPlayer().getName());
-
       this.getCurrentPlayer().computeAdditionalNumberOfArmies();
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");

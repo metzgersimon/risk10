@@ -23,15 +23,13 @@ public class Player implements Serializable {
 
   private Game game;
   private String name;
-  private int armies;
-  private boolean isAi = false;
+  private int armies;  
   private PlayerColor color;
   private HashSet<Territory> territories;
   private HashSet<Continent> continents;
   private ArrayList<Card> cards;
   private ArrayList<Player> eliminatedPlayers;
   private boolean successfullAttack;
-  private boolean startedDistribution;
   private boolean fortify;
 
   public int numberArmiesToDistribute;
@@ -99,18 +97,6 @@ public class Player implements Serializable {
     return armies;
   }
 
-  public void setArmies(int armies) {
-    this.armies = armies;
-  }
-
-  public boolean getIsAi() {
-    return isAi;
-  }
-
-  public void setIsAi(boolean isAi) {
-    this.isAi = isAi;
-  }
-
   public HashSet<Territory> getTerritories() {
     return territories;
   }
@@ -118,10 +104,6 @@ public class Player implements Serializable {
   public ArrayList<Territory> getTerritoriesArrayList() {
     ArrayList<Territory> list = new ArrayList<Territory>(this.territories);
     return list;
-  }
-
-  public void setTerritories(HashSet<Territory> territories) {
-    this.territories = territories;
   }
 
   public int getTradedCardSets() {
@@ -134,10 +116,6 @@ public class Player implements Serializable {
 
   public int getValueActuallyTradedIn() {
     return valueActuallyTradedIn;
-  }
-
-  public void setValueActuallyTradedIn(int valueActuallyTradedIn) {
-    this.valueActuallyTradedIn = valueActuallyTradedIn;
   }
 
   public int getNumberOfTerritories() {
@@ -186,10 +164,6 @@ public class Player implements Serializable {
     return sessionWins;
   }
 
-  public void setSessionWins(int sw) {
-    this.sessionWins = sw;
-  }
-
   public boolean getFortify() {
     return fortify;
   }
@@ -202,16 +176,8 @@ public class Player implements Serializable {
     return continents;
   }
 
-  public void setContinents(HashSet<Continent> continents) {
-    this.continents = continents;
-  }
-
   public String getColorString() {
     return colorString;
-  }
-
-  public void setColorString(String colorString) {
-    this.colorString = colorString;
   }
 
   public ArrayList<Card> getCards() {
@@ -224,10 +190,6 @@ public class Player implements Serializable {
   
   public void setNumberOfEliminatedPlayers(int n) {
     this.numberOfEliminatedPlayers = n;
-  }
-  
-  public void incrementNumberOfEliminatedPlayers() {
-    this.numberOfEliminatedPlayers++;
   }
   
   public void updateNumberOfEliminatedPlayers() {
@@ -257,16 +219,8 @@ public class Player implements Serializable {
     return color;
   }
 
-  public void setColor(PlayerColor color) {
-    this.color = color;
-  }
-
   public ArrayList<Player> getEliminatedPlayers() {
     return eliminatedPlayers;
-  }
-
-  public void setEliminatedPlayers(ArrayList<Player> eliminatedPlayers) {
-    this.eliminatedPlayers = eliminatedPlayers;
   }
 
   public int getNumberArmiesToDistibute() {

@@ -31,7 +31,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   /**
    * Method represents the acting of the Ai in the first phase. It computes a random number between
-   * one and 42 which represents a random territory the ai places an army on
+   * one and 42 which represents a random territory the ai places an army on.
    */
   public synchronized void initialTerritoryDistribution() {
     Thread th = new Thread() {
@@ -86,7 +86,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   /**
    * Method represents the acting of the AI in the third phase. The Ai trades in their risk cards as
-   * soon as possible It places a random number of armies on a random selected territory
+   * soon as possible It places a random number of armies on a random selected territory.
    */
 
   public synchronized void armyDistribution() {
@@ -146,7 +146,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
   /**
    * Method represents the acting of the AI in the fourth phase. It selects a random territory from
    * which the attack starts, a random territory to attack and a random number of armies to attack
-   * with
+   * with.
    */
   public synchronized void attack() {
 
@@ -222,7 +222,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
 
   /**
    * Method represents the acting of the AI in the last phase. It just skips the fortify stage and
-   * passes on to the next player
+   * passes on to the next player.
    */
   public synchronized void fortify() {
     if (NetworkController.server != null) {

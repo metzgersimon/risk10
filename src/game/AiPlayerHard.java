@@ -3,7 +3,6 @@ package game;
 import gui.controller.NetworkController;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -372,7 +371,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
 
     if (moveTo != null) {
       if (super.fortify(moveFrom, moveTo, moveFrom.getNumberOfArmies() - 1)) {
-        System.out.println("fortify successful");
         Main.b.updateLabelTerritory(moveFrom);
         Main.b.updateLabelTerritory(moveTo);
       }

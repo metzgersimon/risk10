@@ -11,6 +11,7 @@ import network.messages.game.SkipgamestateMessage;
 
 /**
  * Class defines the medium Ai including their strategy in the different game stages.
+ * 
  * @author pcoberge
  * @author smetzger
  *
@@ -30,7 +31,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
   
   
   /**
-   * Constructor creates an medium Ai player by calling the player constructor to intialize
+   * Constructor creates an medium Ai player by calling the player constructor to initialize
    * the name, color and the game the player will be active in.
    * After that the Ai is added into a HashSet to prevent the have same name multiple times.
    */

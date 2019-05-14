@@ -3,7 +3,7 @@ package game;
 import java.io.Serializable;
 
 /**
- * Class represents a risk card which is given to each player after a successfull attack.
+ * Class represents a risk card which is given to each player after a successful attack.
  * 
  * @author smetzger
  *
@@ -30,7 +30,7 @@ public class Card implements Serializable {
 
  
   /**
-   * Constructor to create a risk card that represents a ildcard.
+   * Constructor to create a risk card that represents a wildcard.
    * 
    * @author smetzger
    * @param id represents the id of the card

@@ -30,7 +30,6 @@ public class Dice {
    */
 
   public static Vector<Integer> rollDices(int numberOfDices) {
-    System.out.println("Number of Dices: " + numberOfDices);
     Vector<Integer> rolledNumbers = new Vector<Integer>();
     for (int i = 0; i < numberOfDices; i++) {
       rolledNumbers.add(rollSingleDice());
