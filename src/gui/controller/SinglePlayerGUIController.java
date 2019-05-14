@@ -95,9 +95,9 @@ public class SinglePlayerGUIController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println("-----------------------------");
+    //System.out.println("-----------------------------");
     Main.g.initGame();
-    System.out.println("2" + Main.g.getGameState());
+    //System.out.println("2" + Main.g.getGameState());
   }
 
   /**
@@ -135,7 +135,7 @@ public class SinglePlayerGUIController {
           break;
       }
       Main.g.addPlayer(p);
-      System.out.println(p.getName());
+      //System.out.println(p.getName());
       numberAI.setText(Main.g.getPlayers().size() - 1 + "");
       // System.out.println(p.getName());
 

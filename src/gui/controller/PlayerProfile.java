@@ -210,7 +210,7 @@ public class PlayerProfile {
       e.printStackTrace();
       System.out.println(e.getMessage());
     }
-    System.out.println("loading image for " + this.profileName);//
+    //System.out.println("loading image for " + this.profileName);//
     return SwingFXUtils.toFXImage(image, null);
   }
 
