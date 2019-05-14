@@ -1305,10 +1305,10 @@ public class BoardController implements Initializable {
   }
   
   /**
-   * This method is called in the client class, when a client receives the leave game by the host
-   * player message. After being called, this method shows an alert to every player connected to the
-   * game. The alert informs the players that the game is cancelled and asks them to leave the game
-   * by giving them to options.
+   * This method is called in the client class, when a client receives the leave game message from
+   * the host player. After being called, this method shows an alert to every player connected to
+   * the game. The alert informs the players that the game is cancelled and asks them to leave the
+   * game by clicking anywhere on the board.
    * 
    * @author skaur
    */
@@ -1321,18 +1321,25 @@ public class BoardController implements Initializable {
     alert.setContentText("Leave Game");
     Optional<ButtonType> option = alert.showAndWait();
     if (option.get() == null) {
-      // do nothing
-      alert.close();
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
+      this.clientLeaveGame();
     } else if (option.get() == ButtonType.OK) {
       // send a leave game response to the server
       LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
       NetworkController.gameFinder.getClient().sendMessage(responseMessage);
       this.clientLeaveGame();
+    } else {
+      LeaveGameResponseMessage responseMessage = new LeaveGameResponseMessage();
+      NetworkController.gameFinder.getClient().sendMessage(responseMessage);
+      this.clientLeaveGame();
     }
   }
+  
 
   /**
-   * After the player choose to leave the game, this shows the game statistics to each player.
+   * After the player choose to leave the game, this method shows the game statistics to each
+   * player.
    * 
    * @author skaur
    */
