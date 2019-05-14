@@ -1,6 +1,7 @@
 package gui.controller;
 
 import game.AiPlayer;
+import game.GameState;
 import game.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import main.Main;
 import network.messages.game.LeaveGameMessage;
+import network.messages.game.LeaveGameResponseMessage;
 
 /**
  * Class represents the end game subscene.
@@ -46,10 +48,17 @@ public class EndGameSubSceneController implements Initializable {
           System.out.println("EndGame Winner" + p.getName() + "Rank" + p.getRank());
           endGame.setText("You are the winner!");
           winnerCrown.setVisible(true);
+          //to end the connection with the server
+          Main.g.setGameState(GameState.END_GAME);
+          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
+          NetworkController.gameFinder.getClient().sendMessage(message);
         } else {
           System.out.println("EndGame Loser" + p.getName() + "Rank" + p.getRank());
           endGame.setText("You lost!");
           winnerCrown.setVisible(false);
+          Main.g.setGameState(GameState.END_GAME);
+          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
+          NetworkController.gameFinder.getClient().sendMessage(message);
         }
       } else {
         endGame.setText("You are the winner!");
