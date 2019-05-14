@@ -45,17 +45,33 @@ public class PlayerProfile {
     this.sessionWins = 0;
   }
 
-  // Name change method is used when an existing player profile name is being changed
+
+  /**
+   * Method to change the profile name of an existing profile.
+   * 
+   * @author prto
+   * @param name
+   */
   public void changePlayerNameTo(String name) {
     this.profileName = name;
   }
 
-  // Image ID change method is used when an existing player profile image is being changed
+ 
+  /**
+   * Changes the Image ID of an existing profile.
+   * 
+   * @author prto
+   * @param id
+   */
   public void changePlayerimageId(int id) {
     this.imageId = id;
   }
 
-  // get-methods
+  /**
+   * get methods.
+   * 
+   * @author prto
+   */
   public String getName() {
     return this.profileName;
   }
@@ -88,8 +104,12 @@ public class PlayerProfile {
     return "" + this.sessionWins;
   }
 
-  // The following methods are used to update profile game statistics such as total number of
-  // matches played etc.
+  
+  /**
+   * Methods used to update profile statistics post-game.
+   * 
+   * @author prto
+   */
   public void incrementMatchesPlayed() {
     this.matchesPlayed++;
   }
@@ -115,8 +135,11 @@ public class PlayerProfile {
   }
 
 
-  // set-methods for private variables
-
+  /**
+   * Setter methods.
+   * 
+   * @author prto
+   */
   public void setMatchesPlayed(int mp) {
     this.matchesPlayed = mp;
   }
@@ -138,7 +161,13 @@ public class PlayerProfile {
   }
 
 
-  // Returns to imageId corresponding Image
+ 
+  /**
+   * Return to imageId corresponding Image.
+   * 
+   * @author prto
+   * @return Image from current ImageId
+   */
   public javafx.scene.image.Image getImage() {
     BufferedImage image = null;
     try {
@@ -185,8 +214,12 @@ public class PlayerProfile {
     return SwingFXUtils.toFXImage(image, null);
   }
 
-
-  // Test print of profile data
+  
+  /**
+   * Prints profileData.
+   * 
+   * @author prto
+   */
   public void printProfile() {
     System.out.println("Name:\t" + this.profileName);
     System.out.println("imageId:\t" + this.imageId);

@@ -23,7 +23,7 @@ public class ProfileManager {
   public static PlayerProfile selectedProfile;
 
   /**
-   * Adds a new profile to the list
+   * Adds a new profile to the list.
    * 
    * @author prto
    * @param name profile name
@@ -41,7 +41,7 @@ public class ProfileManager {
   }
 
   /**
-   * Deletes a profile from list
+   * Deletes a profile from list.
    * 
    * @author prto
    * @param name of profile to be deleted
@@ -54,7 +54,7 @@ public class ProfileManager {
 
 
   /**
-   * Updates existing profile with new name and/or image id
+   * Updates existing profile with new name and/or image id.
    * 
    * @author prto
    * @param oldName old profile name
@@ -72,7 +72,7 @@ public class ProfileManager {
   }
 
   /**
-   * Sets the current profile
+   * Sets the current profile.
    * 
    * @author prto
    * @param key name of profile to be selected
@@ -85,8 +85,9 @@ public class ProfileManager {
   }
 
   /**
-   * Returns the selected profile
+   * Returns the selected profile.
    * 
+   * @author prto
    * @return currently selected player profile
    */
   public static PlayerProfile getSelectedProfile() {
@@ -94,7 +95,7 @@ public class ProfileManager {
   }
 
   /**
-   * Creates PlayerProfiles.xml in same directory as .jar in case it doesn't already exist
+   * Creates PlayerProfiles.xml in same directory as .jar in case it doesn't already exist.
    * 
    * @author prto
    */
@@ -117,7 +118,7 @@ public class ProfileManager {
 
 
   /**
-   * Loads all player profiles from PlayerProfiles.xml file and saves them in profileList
+   * Loads all player profiles from PlayerProfiles.xml file and saves them in profileList.
    * 
    * @author prto
    */
@@ -155,7 +156,7 @@ public class ProfileManager {
   }
 
   /**
-   * Saves all profiles from profileList into PlayerProfiles.xml
+   * Saves all profiles from profileList into PlayerProfiles.xml.
    * 
    * @author prto
    */
@@ -199,7 +200,7 @@ public class ProfileManager {
   }
 
   /**
-   * Prints all profiles from profileList into the console
+   * Prints all profiles from profileList into the console.
    * 
    * @author prto
    */

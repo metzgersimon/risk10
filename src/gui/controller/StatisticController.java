@@ -59,6 +59,8 @@ public class StatisticController implements Initializable {
    * Creates a table with the end game statistics.
    * 
    * @author prto
+   * @param arg0
+   * @param arg1
    * 
    */
   @Override
@@ -85,10 +87,9 @@ public class StatisticController implements Initializable {
   }
 
   /**
+   * Update player profile statistics.
    * 
    * @author prto
-   * 
-   *         update player profile statistics
    */
   public void updateProfileStats() {
 
@@ -125,6 +126,12 @@ public class StatisticController implements Initializable {
     ProfileManager.saveXml();
   }
 
+  /**
+   * Handles press on Main Menu Button
+   * 
+   * @author prto
+   * @param e
+   */
   public void backToMenu(ActionEvent e) {
     try {
       BorderPane root =
@@ -142,7 +149,9 @@ public class StatisticController implements Initializable {
   }
 
   /**
-   * @author prto closes the game
+   * Handles press on Exit game button.
+   * 
+   * @author prto
    */
   public void closeGame() {
     main.Main.stagePanes.close();
