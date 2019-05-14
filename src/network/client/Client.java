@@ -513,9 +513,15 @@ public class Client extends Thread implements Serializable {
           attacker.addElimiatedPlayer(defender);
           attacker.setNumberOfEliminatedPlayers(attacker.getNumberOfEliminatedPlayers()+1);
           System.out.println("Client"+attacker.getNumberOfEliminatedPlayers());
-          defender.setRank(Main.g.getPlayers().size() + 1);
+          System.out.println("client class playersize"+Main.g.getPlayers().size());
+          defender.setRank(Main.g.getPlayers().size() + 1);          
+          System.out.println("Client class: rank for loser"+defender.getRank());
           attacker.setCards(defender.getCards());           
           Main.b.showMessage(attacker.getName() + " defeated " + defender.getName() + "!");
+          if(!(defender instanceof AiPlayer)) {
+            Main.b.endGame();
+          }
+        
         }
         if (Main.g.getPlayers().size() == 1) {
           attacker.setRank(1);

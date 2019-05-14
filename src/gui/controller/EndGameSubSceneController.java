@@ -1,6 +1,7 @@
 package gui.controller;
 
 import game.AiPlayer;
+import game.Player;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -40,11 +41,14 @@ public class EndGameSubSceneController implements Initializable {
   public void initialize(URL arg0, ResourceBundle arg1) {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       if (Main.g.isNetworkGame()) {
-        if (Main.g.getPlayers().contains(NetworkController.gameFinder.getClient().getPlayer())) {
+        Player p = NetworkController.gameFinder.getClient().getPlayer();
+        if (Main.g.getPlayers().contains(p) && Main.g.getPlayers().size() == 1) {
+          System.out.println("EndGame Winner" + p.getName() + "Rank" + p.getRank());
           endGame.setText("You are the winner!");
           winnerCrown.setVisible(true);
         } else {
-          endGame.setText("You are the loser!");
+          System.out.println("EndGame Loser" + p.getName() + "Rank" + p.getRank());
+          endGame.setText("You lost!");
           winnerCrown.setVisible(false);
         }
       } else {
@@ -63,7 +67,7 @@ public class EndGameSubSceneController implements Initializable {
   public synchronized void handleLeave(ActionEvent event) {
     Platform.runLater(new Runnable() {
       public void run() {
-        try {       
+        try {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/StatisticGUI.fxml"));
           Parent root = (Parent) fxmlLoader.load();
           Main.stage.setScene(new Scene(root));
