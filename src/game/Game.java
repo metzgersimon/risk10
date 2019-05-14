@@ -1,11 +1,11 @@
 package game;
 
+import gui.controller.NetworkController;
+import gui.controller.ProfileSelectionGUIController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import gui.controller.NetworkController;
-import gui.controller.ProfileSelectionGUIController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,7 +46,7 @@ public class Game implements Serializable {
 
   /**************************************************
    *                                                *
-   *                Getter and Setter               *
+   *                Getter and Setter.              *
    *                                                *
    *************************************************/
 
@@ -138,7 +138,7 @@ public class Game implements Serializable {
    * This method adds a new player to the list.
    * 
    * @author qiychen
-   * @param player
+   * @param player = player instance that is added to the game
    */
   public void addPlayer(Player p) {
     if (gameState == GameState.NEW_GAME) {
@@ -155,7 +155,6 @@ public class Game implements Serializable {
    * This method removes a new player from the list.
    * 
    * @author liwang
-   * @param name 
    */
   public void removePlayer() {
     if (gameState == GameState.NEW_GAME) {
@@ -268,18 +267,18 @@ public class Game implements Serializable {
    *************************************************/
 
   /**
-   * This method represents choosing next player and preparing the gui for this player in initial territory distribution phase.
+   * This method represents choosing next player and preparing the gui for this player in initial
+   * territory distribution phase.
    * 
    * @author smetzger
    * @author pcoberge
    */
   public synchronized void furtherInitialTerritoryDistribution() {
-     try {
-     Thread.sleep(1000);
-     } catch (InterruptedException e1) {
-     // TODO Auto-generated catch block
-     e1.printStackTrace();
-     }
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
     this.setNextPlayer();
     if (this.unconqueredTerritories()) {
       Main.b.prepareInitTerritoryDistribution();
@@ -301,7 +300,8 @@ public class Game implements Serializable {
   }
 
   /**
-   * This method represents choosing next player and preparing the gui for this player in initial army distribution phase.
+   * This method represents choosing next player and preparing the gui for this player in initial
+   * army distribution phase.
    * 
    * @author smetzger
    * @author pcoberge
@@ -311,7 +311,7 @@ public class Game implements Serializable {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
-}
+    }
     this.setNextPlayer();
     Main.b.prepareArmyDistribution();
     if (this.getRemainingInitialArmies()) {
@@ -328,7 +328,7 @@ public class Game implements Serializable {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
       } else {
-        if(!this.isNetworkGame()) {
+        if (!this.isNetworkGame()) {
           try {
             FXMLLoader fxmlLoader =
                 new FXMLLoader(getClass().getResource("/gui/NextTurnSubScene.fxml"));
@@ -338,10 +338,10 @@ public class Game implements Serializable {
             Main.stagePanes.setX(Main.stage.getX() + 2);
             Main.stagePanes.setY(Main.stage.getY() + 33);
             Main.stagePanes.show();
-          }catch (Exception e) {
+          } catch (Exception e) {
             e.printStackTrace();
           }
-        }       
+        }
       }
     }
   }
@@ -380,10 +380,9 @@ public class Game implements Serializable {
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
 
-      // client macht alles nicht weiter
+      // client acts further on
       if (Main.g.isNetworkGame() && Main.g.getCurrentPlayer() instanceof AiPlayer
           && NetworkController.server == null) {
-        System.out.println("client macht alles nicht weiter");
         return;
       }
       Main.b.prepareArmyDistribution();
@@ -392,8 +391,7 @@ public class Game implements Serializable {
       if (this.getCurrentPlayer() instanceof AiPlayer) {
         AiPlayer p = (AiPlayer) this.getCurrentPlayer();
         p.armyDistribution();
-      }
-      else if(!this.isNetworkGame()) {
+      } else if (!this.isNetworkGame()) {
         try {
           FXMLLoader fxmlLoader =
               new FXMLLoader(getClass().getResource("/gui/NextTurnSubScene.fxml"));
@@ -403,7 +401,7 @@ public class Game implements Serializable {
           Main.stagePanes.setX(Main.stage.getX() + 2);
           Main.stagePanes.setY(Main.stage.getY() + 33);
           Main.stagePanes.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
           e.printStackTrace();
         }
       }
@@ -446,7 +444,6 @@ public class Game implements Serializable {
    *
    * @author prto
    * @author smetzger
-   * @param players
    * @return ArrayList of players who have 0 territories left and thus lost the game
    */
   public ArrayList<Player> checkAllPlayers() {

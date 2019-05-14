@@ -45,10 +45,27 @@ public class CreateProfileGUIController {
   private Button ok;
 
   /**
-   * this method opens ProfileImagePickerGUI when the default image file is clicked
+   * This method is to initialize this gui, if there is already name entered, it should be shown,
+   * when the image is chosen and go back to this gui, the chosen image will also be shown.
    * 
    * @author liwang
-   * @param event
+   */
+  public void initialize() {
+    if (toInizialied) {
+      if (image != null) {
+        profileImage.setImage(image);
+      }
+      if (username != null) {
+        name.setText(username);
+      }
+    }
+  }
+
+  /**
+   * This method opens ProfileImagePickerGUI when the default image file is clicked.
+   * 
+   * @author liwang
+   * @param event = mouseevent that invokes this method
    */
   @FXML
   void chooseImage(MouseEvent event) {
@@ -67,11 +84,11 @@ public class CreateProfileGUIController {
   }
 
   /**
-   * this method save the created profile and go back to profileSelection GUI, to be successfully
-   * saved, the name should not be empty or repeated and an image is selected
+   * This method save the created profile and go back to profileSelection GUI, to be successfully
+   * saved, the name should not be empty or repeated and an image is selected.
    * 
    * @author liwang
-   * @param event save the created profile and go back to profileSelection GUI
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void save(ActionEvent event) {
@@ -126,14 +143,13 @@ public class CreateProfileGUIController {
         System.out.println("Can't load ProfileSelectionGUI.fxml");
       }
     }
-
   }
 
   /**
-   * this method is to bring the warning to the back after user confirm the warning
+   * This method is to bring the warning to the back after user confirm the warning.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void handleOk(ActionEvent event) {
@@ -143,32 +159,16 @@ public class CreateProfileGUIController {
   }
 
   /**
-   * this method is to initialize this gui, if there is already name entered, it should be shown,
-   * when the image is chosen and go back to this gui, the chosen image will also be shown
+   * Event handle class invoked when back Button clicked.
    * 
    * @author liwang
-   */
-  public void initialize() {
-    if (toInizialied) {
-      if (image != null) {
-        profileImage.setImage(image);
-      }
-      if (username != null) {
-        name.setText(username);
-      }
-    }
-  }
-  
-  /**
-   * Event handle class invoked when back Button clicked
-   * 
-   * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void handleBackButton(ActionEvent event) {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));

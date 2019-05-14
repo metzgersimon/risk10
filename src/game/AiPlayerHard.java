@@ -1,17 +1,17 @@
 package game;
 
+import gui.controller.NetworkController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
-import gui.controller.NetworkController;
 import main.Main;
 import network.messages.game.SkipgamestateMessage;
 
 /** 
- * Class defines the hard Ai including their strategy in the different game stages
+ * Class defines the hard Ai including their strategy in the different game stages.
  * 
  * @author smetzger
  * @author pcoberge
@@ -72,9 +72,8 @@ public class AiPlayerHard extends Player implements AiPlayer {
               }
             }
           }
-
         }
-
+        
         if (minHostileTerritories.size() == 0) {
           minHostile = 42;
           // territories with least number of hostile neighbors
@@ -102,17 +101,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
         AiPlayerHard.super.initialTerritoryDistribution(selection);
-
         if (!Main.g.isNetworkGame()) {
           Main.b.updateColorTerritory(selection);
-        // try {
-        // Thread.sleep(1500);
-        // } catch (InterruptedException e1) {
-        // e1.printStackTrace();
-        // }
-        Main.g.furtherInitialTerritoryDistribution();
-         }
-
+          Main.g.furtherInitialTerritoryDistribution();
+        }
       }
     };
     th.start();
@@ -142,20 +134,10 @@ public class AiPlayerHard extends Player implements AiPlayer {
                 public void run() {
                   Main.b.highlightTerritory(territory);
                   Main.b.updateLabelTerritory(territory);
-                 
                 }
               };
               th.start();
-              // System.out.println(new Date().toString());
-              try {
-                th.join();
-              } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-              }
-              // System.out.println(new Date().toString());
               Main.g.furtherInitialArmyDistribution();
-              // return;
             }
             return;
           }
@@ -253,9 +235,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
             armiesDefend--;
-            // if (!Main.g.isNetworkGame()) {
             Main.b.updateLabelTerritory(t);
-            // }
           }
         }
       }
@@ -265,7 +245,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
         randomArmyDistribution();
       }
     }
-
     Main.g.setGameState(GameState.ATTACK);
     this.attack();
   }
@@ -279,12 +258,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
    * number of armies in compare with their neighbors.
    */
   public void attack() {
-//    try {
-//      Thrleep(2000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
-
     while (isCapableToAttack() && Main.g.getGameState() != GameState.END_GAME) {
       HashMap<Territory, Integer> hostileNeighbors = new HashMap<>();
       // get all hostile neighbor territories
@@ -358,11 +331,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
           } else {
             Main.b.updateLabelTerritory(attacker);
             Main.b.updateLabelTerritory(defender);
-//            try {
-//              Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//              e.printStackTrace();
-//            }
           }
         } else {
           break;
@@ -374,12 +342,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
     if (Main.g.getGameState() != GameState.END_GAME) {
       Main.g.setGameState(GameState.FORTIFY);
     }
-
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
     this.fortify();
   }
 
@@ -470,14 +432,6 @@ public class AiPlayerHard extends Player implements AiPlayer {
         }
       };
       th.start();
-      System.out.println(new Date().toString());
-      try {
-        th.join();
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      System.out.println(new Date().toString());
       Main.g.furtherInitialArmyDistribution();
     }
   }
@@ -506,14 +460,12 @@ public class AiPlayerHard extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
-      // if (!Main.g.isNetworkGame()) {
       Main.b.updateLabelTerritory(territory);
     }
-    // }
   }
 
   /**
-   * This method should be used if the hard army distribtuion algorithm won't work.
+   * This method should be used if the hard army distribution algorithm won't work.
    */
   public void greedyArmyDistribution() {
     int min = 0;

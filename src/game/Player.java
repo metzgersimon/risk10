@@ -83,7 +83,7 @@ public class Player implements Serializable {
 
   /**************************************************
    *                                                *
-   *                Getter and Setter               *
+   *                Getter and Setter.               *
    *                                                *
    *************************************************/
 
@@ -610,10 +610,6 @@ public class Player implements Serializable {
           + "\n-- " + attack.getName().replaceAll("_", " ") + " attacks "
           + defend.getName().replaceAll("_", " ") + " with " + numberOfAttackers + " armies --");
     }
-    
-//    else {
-//      
-//    }
     switch (defender.size()) {
       case (2):
         if (attacker.size() >= 2) {
@@ -635,7 +631,6 @@ public class Player implements Serializable {
 
     // if the defender has no more armies left on his territory
     if (defend.getNumberOfArmies() == 0) {
-      System.out.println("defend t is dead");
       Player p = defend.getOwner();
       p.lostTerritories(defend);
       defend.setOwner(attack.getOwner());
@@ -643,21 +638,20 @@ public class Player implements Serializable {
       Main.g.checkAllPlayers();
       attack.setNumberOfArmies(-numberOfAttackers);
       defend.setNumberOfArmies(numberOfAttackers);
-      System.out.println("defend Army " + defend.getNumberOfArmies());
       successfullAttack = true;
       Main.b.updateColorTerritory(defend);
       attack.getOwner().setTerritoriesConquered(attack.getOwner().getTerritoriesConquered() + 1);
-      
+
       if (Main.g.isShowTutorialMessages()) {
         Main.b.showMessage(TutorialMessages.conqueredTerritory);
       }
 
-      if (!Main.g.getPlayers().contains(p)) {     
-       attack.getOwner().addElimiatedPlayer(p);
-       attack.getOwner().setNumberOfEliminatedPlayers(attack.getOwner().getNumberOfEliminatedPlayers()+1);
-        System.out.println("player"+attack.getOwner().getNumberOfEliminatedPlayers());
+      if (!Main.g.getPlayers().contains(p)) {
+        attack.getOwner().addElimiatedPlayer(p);
+        attack.getOwner()
+            .setNumberOfEliminatedPlayers(attack.getOwner().getNumberOfEliminatedPlayers() + 1);
         // set loser rank
-        p.setRank(Main.g.getPlayers().size() + 1);     
+        p.setRank(Main.g.getPlayers().size() + 1);
         attack.getOwner().setCards(p.getCards());
         if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
           for (Card c : p.getCards()) {
@@ -694,7 +688,6 @@ public class Player implements Serializable {
       }
       return false;
     }
-
   }
 
 
@@ -748,7 +741,6 @@ public class Player implements Serializable {
           moveFrom.setReducedNumberOfArmies(armyToMove);
           moveTo.setNumberOfArmies(armyToMove);
           if (Main.g.isNetworkGame() && (Main.g.getCurrentPlayer() instanceof AiPlayer)) {
-            System.out.println(Main.g.getCurrentPlayer().getName() + " move " + armyToMove + " from " + moveFrom.getName() + " to " + moveTo.getName());
             this.fortifyNetwork(moveFrom.getId(), moveTo.getId(), armyToMove);
           }
           return true;

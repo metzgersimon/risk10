@@ -1,11 +1,11 @@
 package game;
 
+import gui.controller.NetworkController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
-import gui.controller.NetworkController;
 import main.Main;
 import network.messages.game.SkipgamestateMessage;
 
@@ -84,11 +84,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
             Main.g.getWorld().getTerritories().get(random)));
         if (!Main.g.isNetworkGame()) {
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-//          try {
-//            Thread.sleep(1500);
-//          } catch (InterruptedException e1) {
-//            e1.printStackTrace();
-//          }
           Main.g.furtherInitialTerritoryDistribution();
         }
       }
@@ -151,7 +146,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
    * 1. sort territories depending on number of armies on it - order them by highest values
    * 2. sort territories to balance the difference of numbers of armies - order them by lowest
    * values
-   * 
    */
   public void armyDistribution() {
     int max = 0;
@@ -191,9 +185,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            // if (!Main.g.isNetworkGame()) {
             Main.b.updateLabelTerritory(t);
-            // }
           }
         }
       }
@@ -216,11 +208,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
    * and those of the opponent is greatest.
    */
   public void attack() {
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
     int max = 0;
     int round = 1;
     Territory attacker = null;
@@ -252,11 +239,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         } else {
           Main.b.updateLabelTerritory(attacker);
           Main.b.updateLabelTerritory(defender);
-//          try {
-//            Thread.sleep(2000);
-//          } catch (InterruptedException e) {
-//            e.printStackTrace();
-//          }
         }
       } else {
         break;
@@ -280,7 +262,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
    * a bigger army.
    */
   public void fortify() {
-
     int min = 0;
     Territory own1 = null;
     Territory own2 = null;
@@ -299,8 +280,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
       }
     }
     if (own1 != null && own2 != null) {
-      System.out.println("fortify liefert: " + super.fortify(own1, own2, armiesToMove));
-      System.out.println("methode aufgerufen");
       Main.b.updateLabelTerritory(own1);
       Main.b.updateLabelTerritory(own2);
     }
@@ -341,10 +320,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
           }
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
-      
-//      if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territory);
-//      }
     }
   }
 
@@ -378,9 +354,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-//            if (!Main.g.isNetworkGame()) {
               Main.b.updateLabelTerritory(t);
-//            }
           }
         }
       }
@@ -389,6 +363,7 @@ public class AiPlayerMedium extends Player implements AiPlayer {
   
   /**
    * Method checks if Ai is able to attack.
+   * 
    * @return true in case an attack is possible, otherwise false
    */
   public boolean isCapableToAttack() {

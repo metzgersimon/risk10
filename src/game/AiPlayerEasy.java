@@ -1,12 +1,9 @@
 package game;
 
-import java.util.Vector;
 import gui.controller.NetworkController;
+import java.util.Vector;
 import main.Main;
-import network.messages.Message;
-import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.SkipgamestateMessage;
-import network.server.ClientConnection;
 
 /**
  * Class defines an easy ai player which acts completely random.
@@ -45,22 +42,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         } while (!AiPlayerEasy.super.initialTerritoryDistribution(
             Main.g.getWorld().getTerritories().get(random)));
         if (!Main.g.isNetworkGame()) {
-          // Main.b.updateLabelTerritory(Main.g.getWorld().getTerritories().get(random));
           Main.b.updateColorTerritory(Main.g.getWorld().getTerritories().get(random));
-//          try {
-//            Thread.sleep(1500);
-//          } catch (InterruptedException e1) {
-//            // TODO Auto-generated catch block
-//            e1.printStackTrace();
-//          }
-          // System.out.println(Platform.isFxApplicationThread());
-          // System.out.println(new Date().toString());
-          // try {
-          // Thread.sleep(1000);
-          // } catch (InterruptedException e) {
-          // e.printStackTrace();
-          // }
-          // System.out.println(new Date().toString());
           Main.g.furtherInitialTerritoryDistribution();
         }
       }
@@ -143,9 +125,7 @@ public class AiPlayerEasy extends Player implements AiPlayer {
         }
       } while (!super.armyDistribution(randomNumberOfArmies, territory));
 
-      // if (!Main.g.isNetworkGame()) {
       Main.b.updateLabelTerritory(territory);
-      // }
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
@@ -212,16 +192,12 @@ public class AiPlayerEasy extends Player implements AiPlayer {
       // attack chosen territory and update GUI
       if (super.attack(attackerDices, defenderDices, territoryOwn, territoryOpponent,
           randomNumberOfArmies)) {
-        // if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
         Main.b.updateColorTerritory(territoryOpponent);
-        // }
       } else {
-        // if (!Main.g.isNetworkGame()) {
         Main.b.updateLabelTerritory(territoryOwn);
         Main.b.updateLabelTerritory(territoryOpponent);
-        // }
 
       }
       try {

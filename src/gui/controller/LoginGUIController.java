@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Controller class for LoginGUI
+ * Controller class for LoginGUI.
  * 
  * @author liwang
  */
@@ -22,10 +22,10 @@ public class LoginGUIController {
 
 
   /**
-   * Event handle class invoked when the klickToStart Button clicked to open the MainMenuGUI
+   * Event handle class invoked when the klickToStart Button clicked to open the MainMenuGUI.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes method
    */
   @FXML
   void handleKlickToStastButton(ActionEvent event) {

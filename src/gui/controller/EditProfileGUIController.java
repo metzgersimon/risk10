@@ -21,7 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Controller class for EditProfileGUI
+ * Controller class for EditProfileGUI.
  * 
  * @author liwang
  */
@@ -59,10 +59,10 @@ public class EditProfileGUIController {
   private Label territoriesConquered;
 
   /**
-   * Event handle class invoked when the profile image is clicked
+   * Event handle class invoked when the profile image is clicked.
    * 
    * @author liwang
-   * @param event
+   * @param event = mouseevent that invokes this method
    */
   @FXML
   void chooseImage(MouseEvent event) {
@@ -86,10 +86,10 @@ public class EditProfileGUIController {
   }
 
   /**
-   * Event handle class invoked when delete button is clicked
+   * Event handle class invoked when delete button is clicked.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void delete(ActionEvent event) {
@@ -133,14 +133,13 @@ public class EditProfileGUIController {
         dialogStage.close();
       }
     });
-
   }
 
   /**
-   * Event handle class invoked when save button is clicked
+   * Event handle class invoked when save button is clicked.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void save(ActionEvent event) {
@@ -180,7 +179,6 @@ public class EditProfileGUIController {
         e.printStackTrace();
       }
     }
-
   }
 
   private void showNameEmpty() {
@@ -192,7 +190,6 @@ public class EditProfileGUIController {
       @Override
       public void handle(ActionEvent e) {
         dialogStage.close();
-
       }
     });
 
@@ -212,7 +209,6 @@ public class EditProfileGUIController {
       @Override
       public void handle(ActionEvent e) {
         dialogStage.close();
-
       }
     });
 
@@ -221,11 +217,10 @@ public class EditProfileGUIController {
     vbox.setPadding(new Insets(15));
     dialogStage.setScene(new Scene(vbox));
     dialogStage.show();
-
   }
 
   /**
-   * initialize the gui to ensure consistency
+   * Initialize the gui to ensure consistency.
    * 
    * @author liwang
    */
@@ -245,15 +240,13 @@ public class EditProfileGUIController {
     profileImage.setImage(image);
 
     // @prto Load stats
-    matchesPlayed.setText(
-        "Matches played:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesPlayed());
+    matchesPlayed.setText("Matches played:\t\t     "
+        + ProfileManager.profileList.get(profileName).getMatchesPlayed());
     matchesWon.setText(
         "Matches won:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesWon());
     matchesLost.setText(
         "Matches lost:\t\t     " + ProfileManager.profileList.get(profileName).getMatchesLost());
     territoriesConquered.setText("Territories conquered: "
         + ProfileManager.profileList.get(profileName).getTerritoriesConquered());
-
   }
-
 }

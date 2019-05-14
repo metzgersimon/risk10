@@ -1,11 +1,11 @@
 package gui.controller;
 
-import java.util.ArrayList;
 import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
 import game.Player;
 import game.PlayerColor;
+import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,58 +35,74 @@ import network.messages.game.StartGameMessage;
  */
 public class HostGameLobbyController {
 
-  /** 
-   * Text field in which a player writes his/her message to send to chat box. 
+  /**
+   * Text field in which a player writes his/her message to send to chat box.
    */
-  @FXML TextField textField;
+  @FXML
+  TextField textField;
 
   /**
-   *  to send a message in the chat box this button should be click.
+   * to send a message in the chat box this button should be click.
    */
-  @FXML Button sendButton;
+  @FXML
+  Button sendButton;
 
   /**
-   *  text area in which all the players can see the message. 
+   * text area in which all the players can see the message.
    */
-  @FXML TextArea chat;
+  @FXML
+  TextArea chat;
 
   /**
    * Button to leave the game.
    */
- @FXML  Button leaveGame;
+  @FXML
+  Button leaveGame;
 
- /**
-  * Button to start the game.
-  */
-  @FXML  Button startGame;
+  /**
+   * Button to start the game.
+   */
+  @FXML
+  Button startGame;
 
   /**
    * Button to add AI players.
    */
-  @FXML Button addBots;
+  @FXML
+  Button addBots;
 
   /**
    * slider to set the level of AI Player.
    */
-  @FXML Slider botLevel;
+  @FXML
+  Slider botLevel;
 
-  /** 
-   * check boxes shows the status of the joined player. 
+  /**
+   * check boxes shows the status of the joined player.
    */
-  @FXML CheckBox hostBox;
-  @FXML CheckBox box1;
-  @FXML CheckBox box2;
-  @FXML CheckBox box3;
-  @FXML CheckBox box4;
-  @FXML CheckBox box5;
+  @FXML
+  CheckBox hostBox;
+  @FXML
+  CheckBox box1;
+  @FXML
+  CheckBox box2;
+  @FXML
+  CheckBox box3;
+  @FXML
+  CheckBox box4;
+  @FXML
+  CheckBox box5;
 
-  @FXML ImageView image1;
+  @FXML
+  ImageView image1;
 
-  /** 
+  int pos;
+
+  /**
    * Check boxes lists for players joining the game.
    */
   public static ArrayList<CheckBox> playerNames;
-  
+
   /**
    * A list of players added to the game lobby
    */
@@ -94,7 +110,7 @@ public class HostGameLobbyController {
 
 
   /**
-   * to handle the event when the button "send" is clicked.
+   * To handle the event when the button "send" is clicked.
    */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -114,9 +130,9 @@ public class HostGameLobbyController {
    */
   @FXML
   public void handleLeaveLobby(ActionEvent event) {
-     LeaveGameMessage message = new LeaveGameMessage("HOST");
-     message.setLeaveLobby(true);
-     NetworkController.gameFinder.getClient().sendMessage(message);    
+    LeaveGameMessage message = new LeaveGameMessage("HOST");
+    message.setLeaveLobby(true);
+    NetworkController.gameFinder.getClient().sendMessage(message);
     try {
       // Main.g.getServer().stopServer();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/MainMenuGUI.fxml"));
@@ -139,27 +155,27 @@ public class HostGameLobbyController {
   @FXML
   void handleAddBot(ActionEvent event) {
     Player aiPlayer;
-    if(NetworkController.server.getAvailableColor().size() > 0) {
-    PlayerColor color = NetworkController.server.getAvailableColor().get(0);
-    if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
-      if (botLevel.getValue() == 0.0) {
-        aiPlayer = new AiPlayerEasy(color);
-      } else if (botLevel.getValue() == 1.0) {
-        aiPlayer = new AiPlayerMedium(color);
-      } else {
-        aiPlayer = new AiPlayerHard(color);
-      }
-      // add the player to the player list in the game class
-      Main.g.addPlayer(aiPlayer);
-      NetworkController.server.getAvailableColor().remove(color);
-      // update the list in the game lobby for host player
-      updateList(Main.g.getPlayers().size() - 1, aiPlayer);
-      System.out.println("Color for AI :  " + color.getColorString());
-      System.out.println("An AI player " + aiPlayer.getName() + " has joined the game ");
+    if (NetworkController.server.getAvailableColor().size() > 0) {
+      PlayerColor color = NetworkController.server.getAvailableColor().get(0);
+      if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
+        if (botLevel.getValue() == 0.0) {
+          aiPlayer = new AiPlayerEasy(color);
+        } else if (botLevel.getValue() == 1.0) {
+          aiPlayer = new AiPlayerMedium(color);
+        } else {
+          aiPlayer = new AiPlayerHard(color);
+        }
+        // add the player to the player list in the game class
+        Main.g.addPlayer(aiPlayer);
+        NetworkController.server.getAvailableColor().remove(color);
+        // update the list in the game lobby for host player
+        updateList(Main.g.getPlayers().size() - 1, aiPlayer);
+        System.out.println("Color for AI :  " + color.getColorString());
+        System.out.println("An AI player " + aiPlayer.getName() + " has joined the game ");
 
-      // enable the start button if possible
-      this.enableStartButton();
-    }
+        // enable the start button if possible
+        this.enableStartButton();
+      }
     } else {
       // show alert if the list is full
       Alert alert = new Alert(AlertType.ERROR);
@@ -168,7 +184,6 @@ public class HostGameLobbyController {
       alert.setContentText("Player Lobby already full");
       alert.showAndWait();
     }
-    
   }
 
   /**
@@ -187,17 +202,15 @@ public class HostGameLobbyController {
     }
   }
 
-  int pos;
   /**
-   * 
    * This method is called from the server class whenever a new player has joined the lobby and
    * whenever a new AI player is added to the game lobby,to update the list of players in the lobby.
    */
-  public void updateList(int index , Player p) {  
+  public void updateList(int index, Player p) {
     pos = index;
-    for(int i = 0; i < playerNames.size(); i++) {
-      if(!playerNames.get(i).isSelected()) {
-        System.out.println(pos + " " +  i);
+    for (int i = 0; i < playerNames.size(); i++) {
+      if (!playerNames.get(i).isSelected()) {
+        System.out.println(pos + " " + i);
         pos = i;
         break;
       }
@@ -206,7 +219,7 @@ public class HostGameLobbyController {
       @Override
       public void run() {
         String name = p.getName();
-        switch ((pos+1)) {
+        switch ((pos + 1)) {
           case 1:
             // select the box
             playerNames.get(0).setSelected(true);
@@ -236,21 +249,20 @@ public class HostGameLobbyController {
           default:
             break;
         }
-
       }
-
     });
-    //enable the  start button
+    // enable the start button
     this.enableStartButton();
-
   }
 
   /**
-   * @param content: text message
+   * This method shows messages in chat box.
+   * 
+   * @param content = text message
    */
   public void showMessage(String content) {
     chat.setStyle("-fx-font-size:15px;");
-    chat.appendText(content+ "\n");
+    chat.appendText(content + "\n");
     this.textField.clear();
   }
 
@@ -266,7 +278,8 @@ public class HostGameLobbyController {
   }
 
   /**
-   *  Enable the start button, once the all the clients have joined the lobby.
+   * Enable the start button, once the all the clients have joined the lobby.
+   * 
    * @param event clicked by the host player to start the game.
    */
   @FXML
@@ -277,8 +290,8 @@ public class HostGameLobbyController {
   }
 
   public void refreshList(Player p) {
-    for(CheckBox box : playerNames) {
-      if(box.getText().equalsIgnoreCase(p.getName())){
+    for (CheckBox box : playerNames) {
+      if (box.getText().equalsIgnoreCase(p.getName())) {
         box.setText("");
         box.setSelected(false);
         break;

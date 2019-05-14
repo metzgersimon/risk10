@@ -6,10 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import network.messages.LeaveLobbyMessage;
 import network.messages.SendChatMessageMessage;
@@ -55,6 +55,8 @@ public class JoinGameLobbyController {
   }
 
   /**
+   * This method handles leaving game of a client.
+   * 
    * @author qiychen
    * @param back to host and join game page and close the thread
    */
@@ -64,7 +66,8 @@ public class JoinGameLobbyController {
         new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());
     NetworkController.gameFinder.getClient().sendMessage(message);
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));
@@ -74,6 +77,11 @@ public class JoinGameLobbyController {
     }
   }
 
+  /**
+   * This method shows messages in chatbox.
+   * 
+   * @param content = chat message
+   */
   public void showMessage(String content) {
     chat.setStyle("-fx-font-size:15px;");
     chat.appendText(content + "\n");
@@ -100,7 +108,8 @@ public class JoinGameLobbyController {
 
     // take back to the multiplayer menu
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(getClass().getResource("/gui/ProfileSelectionGUI.fxml"));
       Parent root = (Parent) fxmlLoader.load();
       Stage stage = main.Main.stage;
       stage.setScene(new Scene(root));

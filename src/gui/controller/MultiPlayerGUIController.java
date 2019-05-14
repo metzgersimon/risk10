@@ -1,18 +1,18 @@
 package gui.controller;
 
+import game.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import main.Main;
 import network.client.Client;
@@ -68,7 +68,7 @@ public class MultiPlayerGUIController {
 
 
   /**
-   * List of players who have joined the game
+   * List of players who have joined the game.
    */
   public static List<Player> playersList = new ArrayList<Player>();
 
@@ -213,8 +213,8 @@ public class MultiPlayerGUIController {
     FXMLLoader fxmlLoader = null;
 
     // get the IP address given by the player to connect with the server
-    String ip_port = address.getText();
-    String[] tokens = ip_port.split("_");
+    String ipPort = address.getText();
+    String[] tokens = ipPort.split("_");
 
     // check if IP Address is correct, if not show the error
     if (!tokens[0].matches(ipAddressRegex)) {

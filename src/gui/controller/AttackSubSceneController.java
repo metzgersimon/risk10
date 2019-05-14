@@ -96,13 +96,15 @@ public class AttackSubSceneController implements Initializable {
             defendDice1.setVisible(true);
             defendDice2.setVisible(true);
             break;
+          default:
+            break;
         }
       }
     });
   }
 
   /**
-   * This method shows the correct number of dice images in gui
+   * This method shows the correct number of dice images in gui.
    */
   public synchronized void handleNumberOfDices() {
     Platform.runLater(new Runnable() {
@@ -134,7 +136,7 @@ public class AttackSubSceneController implements Initializable {
   }
 
   /**
-   * This method organises the images in gui after throwing dice and calls the attack method
+   * This method organises the images in gui after throwing dice and calls the attack method.
    */
   public synchronized void throwDices() {
     if (Main.b.getSelectedTerritory().getNumberOfArmies() > 1
@@ -220,9 +222,8 @@ public class AttackSubSceneController implements Initializable {
             });
           }
         };
-
-
         th1.start();
+        
       } else {
         Thread th2 = new Thread() {
           public void run() {

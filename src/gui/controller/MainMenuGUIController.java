@@ -10,14 +10,14 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Controller class for MainMenuGUI
+ * Controller class for MainMenuGUI.
  * 
  * @author liwang
  */
 public class MainMenuGUIController {
 
   /**
-   * singlePlayer or multiPlayer
+   * singlePlayer or multiPlayer.
    */
   public static String mode;
 
@@ -30,10 +30,10 @@ public class MainMenuGUIController {
 
   /**
    * Event handle class invoked when the single Player or multi Player Button clicked to choose the
-   * player profile
+   * player profile.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void openProfile(ActionEvent event) {
@@ -51,10 +51,10 @@ public class MainMenuGUIController {
   }
 
   /**
-   * Event handle class invoked when the settings Button clicked to open the SettingGUI
+   * Event handle class invoked when the settings Button clicked to open the SettingGUI.
    * 
    * @author liwang
-   * @param event
+   * @param event = actionevent that invokes this method
    */
   @FXML
   void openSettings(ActionEvent event) {
@@ -69,9 +69,11 @@ public class MainMenuGUIController {
       e.printStackTrace();
     }
   }
-  
+
   /**
-   * @author prto closes the game
+   * This method closes the game.
+   * 
+   * @author prto
    */
   public void exitGame() {
     main.Main.stagePanes.close();

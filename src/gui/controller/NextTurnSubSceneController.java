@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.Main;
 
-public class NextTurnSubSceneController implements Initializable{
+public class NextTurnSubSceneController {
 
   @FXML
   private Pane grayPane;
@@ -23,15 +23,7 @@ public class NextTurnSubSceneController implements Initializable{
   private TitledPane turnPane;
   @FXML
   private AnchorPane contentPane;
-  
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-//    turnPane.setText("It's "+Main.g.getCurrentPlayer().getName()+ "'s turn");
-//    turnPane.setStyle("-fx-base: "+Main.g.getCurrentPlayer().getColor().getColorString()+";");
-    
-    
-  }
-  
+
   /**
    * This method is used when a player wants to cancel the army distribution on a chosen territory.
    */

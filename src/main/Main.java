@@ -51,9 +51,6 @@ public class Main extends Application {
   public static AnchorPane board;
   public static AnchorPane cardPane;
   
-
-  // public static Game g;
-
   @Override
   public void start(Stage primaryStage) {
     Font ubuntuFontLight =
@@ -71,7 +68,6 @@ public class Main extends Application {
       cards = new Scene(cardPane);
 
       AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/LoginGUI.fxml"));
-      // scenePanes = new Scene(new Pane(), 1024, 720);
       scene = new Scene(root, 1280, 720);
       stage = primaryStage;
       stage.centerOnScreen();
@@ -84,13 +80,10 @@ public class Main extends Application {
 
         @Override
         public void handle(WindowEvent event) {
-          // TODO Auto-generated method stub
-
           if (Main.g != null) {
             if (Main.g.isNetworkGame()) {
               if (!Main.g.getGameState().equals(GameState.END_GAME)) {
-                LeaveGameMessage leaveMessage =
-                    new LeaveGameMessage("");
+                LeaveGameMessage leaveMessage = new LeaveGameMessage("");
                 leaveMessage.setColor(
                     NetworkController.gameFinder.getClient().getPlayer().getColorString());
                 NetworkController.gameFinder.getClient().sendMessage(leaveMessage);
@@ -98,10 +91,8 @@ public class Main extends Application {
               Main.g.setGameState(GameState.END_GAME);
             }
           }
-
           stagePanes.close();
           primaryStage.close();
-
         }
       });
       stagePanes = new Stage(StageStyle.TRANSPARENT);

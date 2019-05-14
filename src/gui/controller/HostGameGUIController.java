@@ -46,7 +46,7 @@ public class HostGameGUIController {
   private Button confirm;
 
   /**
-   * Controller for the host lobby
+   * Controller for the host lobby.
    */
   private HostGameLobbyController hostLobController = null;
 
@@ -69,7 +69,6 @@ public class HostGameGUIController {
     FXMLLoader fxmlLoader = null;
     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
     networkController.hostGame(numberofPlayers);
-
     // opens the host lobby
     try {
       fxmlLoader = new FXMLLoader(getClass().getResource("/gui/HostGameLobby.fxml"));
@@ -88,6 +87,9 @@ public class HostGameGUIController {
     NetworkController.gameFinder.getClient().register(name);
   }
 
+  /**
+   * This method initializes the choicebox with possible number of players.
+   */
   public void initialize() {
     ObservableList<String> nr = FXCollections.observableArrayList("2", "3", "4", "5", "6");
     choiceBox.setItems(nr);
@@ -96,7 +98,6 @@ public class HostGameGUIController {
       @Override
       public void changed(ObservableValue<? extends Number> observable, Number oldValue,
           Number newValue) {
-        // TODO Auto-generated method stub
         if (newValue != null) {
           confirm.setDisable(false);
         } else {
