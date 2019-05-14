@@ -54,6 +54,7 @@ public class ArmyDistributionSubSceneController implements Initializable {
             Territory t = Main.b.getSelectedTerritory();
             int amount = (int) setArmySlider.getValue();
             if (Main.g.getCurrentPlayer().armyDistribution(amount, Main.b.getSelectedTerritory())) {
+              Main.g.getCurrentPlayer().setDistributedArmies(true);
               Main.b.setTerritoryText(t);
               Main.b.setCircleArmiesToDistributeLable();
               if (Main.g.isNetworkGame() && !(Main.g.getCurrentPlayer() instanceof AiPlayer)) {

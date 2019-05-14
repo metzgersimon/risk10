@@ -491,6 +491,7 @@ public class BoardController implements Initializable {
             }
           });
         } else if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
+          Main.g.getCurrentPlayer().setDistributedArmies(false);
           if (!gameState.getText().equals("Place your Armies!")) {
             Platform.runLater(new Runnable() {
               public void run() {
@@ -1029,6 +1030,14 @@ public class BoardController implements Initializable {
             DropShadow d = (DropShadow) r2.getEffect();
             d.setInput(null);
             r2.setDisable(false);
+          }
+        });
+      } else {
+        Platform.runLater(new Runnable() {
+          public void run() {
+            DropShadow d = (DropShadow) r2.getEffect();
+            d.setInput(new Lighting());
+            r2.setDisable(true);
           }
         });
       }

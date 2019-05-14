@@ -31,6 +31,7 @@ public class Player implements Serializable {
   private ArrayList<Player> eliminatedPlayers;
   private boolean successfullAttack;
   private boolean fortify;
+  private boolean distributedArmies;
 
   public int numberArmiesToDistribute;
   private int tradedCardSets;
@@ -239,6 +240,14 @@ public class Player implements Serializable {
     this.successfullAttack = b;
   }
   
+  public boolean getDistributedArmies() {
+    return this.distributedArmies;
+  }
+  
+  public void setDistributedArmies(boolean b) {
+    this.distributedArmies = b;
+  }
+  
 
   /**************************************************
    *                                                *
@@ -336,7 +345,7 @@ public class Player implements Serializable {
    */
   public boolean tradeCards(Card c1, Card c2, Card c3) {
     // trade-in is only possible when the player did not start the army distribution yet
-    if (Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
+    if (!distributedArmies) {
       int armies = 0;
       int number = this.getTradedCardSets();
       // checks if the given cards are a valid set
@@ -399,7 +408,12 @@ public class Player implements Serializable {
         }
         Main.b.showMessage(this.getName() + " trades in cards and receives "
             + this.valueActuallyTradedIn + " number of armies");
-        this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
+        if (originalReceivedNumber < 3 && this.numberArmiesToDistribute == 3) {
+          this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
+        } else {
+          this.setNumberArmiesToDistribute(
+              this.numberArmiesToDistribute + this.valueActuallyTradedIn);
+        }
         this.valueActuallyTradedIn = 0;
         return true;
       } else {
