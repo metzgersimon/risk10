@@ -6,6 +6,7 @@ import game.Player;
  * 
  * @skaur
  */
+
 public class LeaveLobbyMessage extends Message {
   
   private static final long serialVersionUID = 1L;

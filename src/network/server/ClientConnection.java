@@ -42,22 +42,22 @@ public class ClientConnection extends Thread {
   private int port; 
   
   /**
-   * Socket of this connection
+   * Socket of this connection.
    */
   private Socket socket;
   
   /**
-   * Streams to read and write to the client
+   * Streams to read and write to the client.
    */
   private ObjectInputStream fromClient;
   private ObjectOutputStream toClient;
   
   /**
-   * Server of this connection
+   * Server of this connection.
    */
   private Server server;
   
-  /************************************************ Other variables. *****************************************/
+  /********************************************* Other variables. **************************************/
   
   private boolean active;
   private Player player; // player who represents this client connection
@@ -75,9 +75,9 @@ public class ClientConnection extends Thread {
    *************************************************/
   
   /**
-   * 
+   * Constructor,
    * @author qiychen
-   * @param socket for the communication
+   * @param s for the communication
    */
   public ClientConnection(Socket s) {
     this.socket = s;
@@ -93,9 +93,9 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * 
+   * Constructor.
    * @author qiychen
-   * @param socket for the communication
+   * @param s for the communication
    * @param server of the game
    */
   public ClientConnection(Socket s, Server server) {
@@ -114,7 +114,7 @@ public class ClientConnection extends Thread {
   
   /**************************************************
    *                                                *
-   *                Getter and Setter               *
+   *                Getter and Setter.              *
    *                                                *
    *************************************************/
 
@@ -158,7 +158,7 @@ public class ClientConnection extends Thread {
    *************************************************/
 
   /**
-   * server sends messages to client
+   * server sends messages to client.
    * 
    * @author qiychen
    */
@@ -172,10 +172,10 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * server sends message to all clients
+   * server sends message to all clients.
    * 
    * @author qiychen
-   * @param message
+   * @param message to send
    */
   public void sendMessagesToallClients(Message m) {
     for (int i = 0; i < server.getConnections().size(); i++) {
@@ -192,7 +192,8 @@ public class ClientConnection extends Thread {
 
 
   /**
-   * handle incoming messages from clients
+   * handle incoming messages from clients.
+   * @author liangda, qiychen, skaur
    */
   public void run() {
     System.out.println("connection works");
@@ -213,7 +214,7 @@ public class ClientConnection extends Thread {
             recieveLeaveGameResponse((LeaveGameResponseMessage) message);
             break;
           case LEAVE_LOBBY : 
-            recieveLeaveLobbyMessage( (LeaveLobbyMessage ) message);
+            recieveLeaveLobbyMessage((LeaveLobbyMessage ) message);
             break;
           case JOIN:
             handleJoinGame((JoinGameMessage) message);
@@ -287,12 +288,13 @@ public class ClientConnection extends Thread {
     JoinGameResponseMessage response = new JoinGameResponseMessage(player);
     this.sendMessage(response);
   }
+  
 
   /**
+   * send the message to all clients and server show message in host game lobby.
    * 
    * @param message
-   * 
-   *        send the message to all clients and server show message in host game lobby
+   *
    */
   private void receiveSendChatMessage(SendChatMessageMessage message) {
     String name = message.getUsername();
@@ -315,14 +317,25 @@ public class ClientConnection extends Thread {
    * 
    */
   private void recieveLeaveMessage(LeaveGameMessage message) {
+    //remove the connection
     this.server.getConnections().remove(this);
+    //send the message to other clients
     this.sendMessagesToallClients(message);
+    //send leave game response to itself
     LeaveGameResponseMessage m = new LeaveGameResponseMessage();
     this.sendMessage(m);
+    //finally disconnect the connection
     this.disconnect();
+    //stop the server if possible
     this.server.stopServer();
   }
 
+  /**
+   * This method disconnects the connection after a quit/leave game message is received.
+   * 
+   * @author skaur
+   * @param message in response to the quit or leave game response
+   */
   public void recieveLeaveGameResponse(LeaveGameResponseMessage message) {
     this.sendMessage(message);
     try {
@@ -330,25 +343,39 @@ public class ClientConnection extends Thread {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    // disconnect the connection
     this.server.getConnections().remove(this);
     this.disconnect();
+    // try to stop the server if possible
     this.server.stopServer();
   }
 
-  
+  /**
+   * After a client/player left the game lobby, server deletes that player from the list and refresh
+   * the list in host lobby. At last server disconnects and delete the client connection of that
+   * particular player.
+   * 
+   * @author skaur
+   * @param message containing the leave lobby message
+   * 
+   */
   public void recieveLeaveLobbyMessage(LeaveLobbyMessage message) {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
+        // update the lobby
         if (server.getHostLobbyController() != null) {
-         server.getHostLobbyController().refreshList(message.getPlayer());
-        }     
+          server.getHostLobbyController().refreshList(message.getPlayer());
+        }
       }
     });
+    // send response to the client
     this.sendMessage(message);
+    // remove and disconnect the connection
     this.server.getConnections().remove(this);
     this.disconnect();
   }
+
   /**
    * @author qiychen
    * @param message can be send only to a specific client only in this client gui will message be
@@ -367,9 +394,10 @@ public class ClientConnection extends Thread {
   }
 
   /**
-   * @author qiychen
+   * disconnect the connection.
    * 
-   *         disconnect the connection
+   * @author qiychen
+   *
    */
   public void disconnect() {
     this.active = false;

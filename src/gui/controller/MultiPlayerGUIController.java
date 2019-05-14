@@ -22,7 +22,7 @@ import network.client.Client;
  */
 public class MultiPlayerGUIController {
 
-  /******************************** Buttons for hosting/joining the game. **************************/
+  /****************************** Buttons for hosting/joining the game. **************************/
 
   /**
    * Button pressed to host the game.
@@ -67,9 +67,6 @@ public class MultiPlayerGUIController {
           + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
 
-  /**
-   * List of players who have joined the game.
-   */
   public static List<Player> playersList = new ArrayList<Player>();
 
   /*************************************** Controllers. *****************************************/
@@ -213,11 +210,10 @@ public class MultiPlayerGUIController {
     FXMLLoader fxmlLoader = null;
 
     // get the IP address given by the player to connect with the server
-    String ipPort = address.getText();
-    String[] tokens = ipPort.split("_");
+    String ipAddress = address.getText();
 
     // check if IP Address is correct, if not show the error
-    if (!tokens[0].matches(ipAddressRegex)) {
+    if (!ipAddress.matches(ipAddressRegex)) {
       alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error alert");
       alert.setHeaderText("Error in IP Address format !");
@@ -227,7 +223,7 @@ public class MultiPlayerGUIController {
       alert.showAndWait();
     }
 
-    networkController.joinGame(tokens[0], main.Parameter.PORT);
+    networkController.joinGame(ipAddress, main.Parameter.PORT);
     
     try {
       Thread.sleep(2000);

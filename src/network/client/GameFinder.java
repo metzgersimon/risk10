@@ -60,6 +60,27 @@ public class GameFinder extends Thread {
     this.client = new Client(ip, port);
     client.start();
   }
+  
+  
+  public void closeConnection() {
+    this.client.disconnect();
+    this.interrupt();
+  }
+
+  /**************************************************
+   *                                                *
+   *                      Getters.                  *
+   *                                                *
+   *************************************************/
+  
+  public Client getClient() {
+    return this.client;
+  }
+
+  public String getIp() {
+    return this.ip;
+  }
+
 
   /**************************************************
    *                                                *
@@ -113,17 +134,5 @@ public class GameFinder extends Thread {
     }
   }
   
-  public void closeConnection() { 
-    this.client.disconnect();
-    this.interrupt(); 
-  }
   
-  public Client getClient() {
-    return this.client;
-  }
-  
-  public String getIP() {
-    return this.ip;
-  }
-
 }

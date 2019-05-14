@@ -9,11 +9,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import gui.controller.BoardController;
 import gui.controller.HostGameLobbyController;
-import java.util.List;
 import game.PlayerColor;
+import java.util.ArrayList;
+import java.util.List;
 import main.Main;
 
 /**
@@ -26,6 +26,8 @@ public class Server extends Thread implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  /************ Variable needed for the communication between the server and client. ********/
+  
   /**
    * The port where server connects to the clients.
    */
@@ -72,17 +74,20 @@ public class Server extends Thread implements Serializable {
    */
   private InetAddress ipAddress;
 
-  /**
-   * Board Controller of the Game
-   */
+  /***************************************** Other variable.*********** *******************/
+  
   private BoardController boardController;
-  DatagramSocket datagramSocket = null;
+  private DatagramSocket datagramSocket = null;
   private PlayerColor[] colors = game.PlayerColor.values();
   private ArrayList<PlayerColor> availableColors = new ArrayList<PlayerColor>();
   private ArrayList<PlayerColor> unavailableColors = new ArrayList<PlayerColor>();
+
   /**
-   * @author skaur
+   * Constructor.
+   * 
    * @param port : port of the server
+   * @param noofPlayers is amount of players selected by the host player.
+   * @author skaur
    */
   public Server(int port, int noofPlayers) {
     this.port = port;
@@ -97,18 +102,17 @@ public class Server extends Thread implements Serializable {
     } catch (UnknownHostException e1) {
       e1.printStackTrace();
     }
-    
+
     try {
-       serverSocket = new ServerSocket(main.Parameter.PORT);
-    } catch (SocketException e) {      
+      serverSocket = new ServerSocket(main.Parameter.PORT);
+    } catch (SocketException e) {
       try {
         Thread.sleep(5000);
       } catch (InterruptedException e1) {
         // TODO Auto-generated catch block
         e1.printStackTrace();
       }
-    } 
-    catch (IOException e1) {
+    } catch (IOException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
@@ -159,74 +163,10 @@ public class Server extends Thread implements Serializable {
     t.start();
     this.start();
   }
-
-  /**
-   * Indicates that that the server has started running and starts listening to the clients.
-   * 
-   * @author skaur
-   */
-  @Override
-  public void run() {
-    System.out.println("Server started....");
-    while (this.isRunning) {
-      listen();
-    }
-  }
-
-  /**
-   * Opens the server socket on s specified port and starts accepting the connections creates an
-   * instance of client connection to the server and add the clients to the list of clients
-   * connected to this server.
-   * 
-   * @author skaur
-   */
-  public void listen() {
-    try {
-      Socket socket = serverSocket.accept();
-      // create a client connection instance for each client which connects to the server
-      ClientConnection c = new ClientConnection(socket, this);
-      clients.add(c);
-      c.start();
-    } catch (SocketException e) {
-//      System.out.println(" Socket closed!");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * @return list of client connections
-   */
-  public List<ClientConnection> getConnections() {
-    return this.clients;
-  }
-
-  /**
-   * Stops the server and send a broadcast message to all clients that server is shutting down.
-   * 
-   * @author skaur
-   */
-  public void stopServer() {
-    try {
-      if (this.getConnections().size() == 0) {
-        this.interrupt();
-        this.serverSocket.close();
-        this.datagramSocket.close();
-        this.isRunning = false;
-        System.out.println("Server is shutting down....");
-      }
-
-    } catch (SocketException e) {
-      System.out.println("Socket closed");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   
   /**************************************************
    *                                                *
-   *                Getter and Setter               *
+   *                Getter and Setter.              *
    *                                                *
    *************************************************/
 
@@ -261,20 +201,96 @@ public class Server extends Thread implements Serializable {
   public BoardController getBoardController() {
     return this.boardController;
   }
+
+  public ArrayList<PlayerColor> getAvailableColor() {
+    return this.availableColors;
+  }
+
+  public ArrayList<PlayerColor> getUnavailableColor() {
+    return this.unavailableColors;
+  }
+
+  public List<ClientConnection> getConnections() {
+    return this.clients;
+  }
   
+  public Socket getSocket() {
+    return this.socket;
+  }
+
+  /**************************************************
+   *                                                *
+   *                      Methods.                  *
+   *                                                *
+   *************************************************/
+  
+  /**
+   * Indicates that that the server has started running and starts listening to the clients.
+   * 
+   * @author skaur
+   */
+  @Override
+  public void run() {
+    System.out.println("Server started....");
+    while (this.isRunning) {
+      listen();
+    }
+  }
+
+  /**
+   * Opens the server socket on s specified port and starts accepting the connections creates an
+   * instance of client connection to the server and add the clients to the list of clients
+   * connected to this server.
+   * 
+   * @author skaur
+   */
+  public void listen() {
+    try {
+      Socket socket = serverSocket.accept();
+      // create a client connection instance for each client which connects to the server
+      ClientConnection c = new ClientConnection(socket, this);
+      clients.add(c);
+      c.start();
+    } catch (SocketException e) {
+      // System.out.println(" Socket closed!");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Stops the server and send a broadcast message to all clients that server is shutting down.
+   * 
+   * @author skaur
+   */
+  public void stopServer() {
+    try {
+      if (this.getConnections().size() == 0) {
+        this.interrupt();
+        this.serverSocket.close();
+        this.datagramSocket.close();
+        this.isRunning = false;
+        System.out.println("Server is shutting down....");
+      }
+
+    } catch (SocketException e) {
+      System.out.println("Socket closed");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * This method converts the available color feld into an array list.
+   * 
+   * @return arrayList of the colors available for the players
+   */
   public ArrayList<PlayerColor> feldToArray() {
-    for(int i = 0; i < colors.length; i++ ) {
+    for (int i = 0; i < colors.length; i++) {
       this.availableColors.add(i, colors[i]);
     }
     return this.availableColors;
   }
-  public ArrayList<PlayerColor> getAvailableColor() {
-    return this.availableColors;
-  }
-  
-  public ArrayList<PlayerColor> getUnavailableColor() {
-    return this.unavailableColors;
-  }
-  
-  
 }
+
+

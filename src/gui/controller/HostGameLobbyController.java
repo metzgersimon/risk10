@@ -96,18 +96,17 @@ public class HostGameLobbyController {
   @FXML
   ImageView image1;
 
-  int pos;
-
   /**
    * Check boxes lists for players joining the game.
    */
   public static ArrayList<CheckBox> playerNames;
 
   /**
-   * A list of players added to the game lobby
+   * A list of players added to the game lobby.
    */
   public ArrayList<Player> clients = new ArrayList<Player>();
 
+  private int pos;
 
   /**
    * To handle the event when the button "send" is clicked.
@@ -125,6 +124,7 @@ public class HostGameLobbyController {
   /**
    * This action method changes the current stage back to Multiplayer GUI.
    * 
+   * @author skaur
    * @param event parameter represents the element that invokes method by clicking leave button
    *
    */
@@ -150,6 +150,7 @@ public class HostGameLobbyController {
    * This methods add an AI player to the game, add the player the AI instance in the list and
    * update the list on the host lobby.
    * 
+   * @author skaur
    * @param event clicked to add the AI player
    */
   @FXML
@@ -188,6 +189,8 @@ public class HostGameLobbyController {
 
   /**
    * Enable the check boxes according to the selected number of players by the host player.
+   * 
+   * @author skaur
    */
   public void initialize() {
     playerNames = new ArrayList<CheckBox>();
@@ -205,6 +208,8 @@ public class HostGameLobbyController {
   /**
    * This method is called from the server class whenever a new player has joined the lobby and
    * whenever a new AI player is added to the game lobby,to update the list of players in the lobby.
+   * 
+   * @author skaur
    */
   public void updateList(int index, Player p) {
     pos = index;
@@ -268,6 +273,8 @@ public class HostGameLobbyController {
 
   /**
    * Enable the start button, ones the all the clients have joined the lobby.
+   * 
+   * @author skaur
    */
   public void enableStartButton() {
     if (Main.g.getPlayers().size() == HostGameGUIController.numberofPlayers) {
@@ -280,6 +287,7 @@ public class HostGameLobbyController {
   /**
    * Enable the start button, once the all the clients have joined the lobby.
    * 
+   * @author sakur
    * @param event clicked by the host player to start the game.
    */
   @FXML
@@ -289,16 +297,25 @@ public class HostGameLobbyController {
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   }
 
-  public void refreshList(Player p) {
+  /**
+   * refresh the player list after a client has left the game lobby before the game start.
+   * 
+   * @author skaur
+   * @param player who left the lobby
+   */
+  public void refreshList(Player player) {
     for (CheckBox box : playerNames) {
-      if (box.getText().equalsIgnoreCase(p.getName())) {
+      if (box.getText().equalsIgnoreCase(player.getName())) {
         box.setText("");
         box.setSelected(false);
         break;
       }
     }
-    Main.g.getPlayers().remove(p);
-    NetworkController.server.getAvailableColor().add(p.getColor());
+    // remove from the list
+    Main.g.getPlayers().remove(player);
+    // add the color to the color list
+    NetworkController.server.getAvailableColor().add(player.getColor());
+    // disable/enable the start button
     enableStartButton();
   }
 }

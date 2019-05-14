@@ -20,6 +20,12 @@ public class StartGameMessage extends Message {
    * List of players who have joined the game lobby.
    */
   private ArrayList<Player> playerList;
+
+  /**
+   * Constructor.
+   * 
+   * @param playerList of the players
+   */
   public StartGameMessage(ArrayList<Player> playerList) {
     super(MessageType.START_GAME);
     this.playerList = playerList;
@@ -28,6 +34,6 @@ public class StartGameMessage extends Message {
   public ArrayList<Player> getPlayerList() {
     return this.playerList;
   }
- 
+
 
 }
