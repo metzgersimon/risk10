@@ -1,6 +1,7 @@
 package game;
 
 import gui.controller.BoardRegion;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import main.Main;
@@ -12,7 +13,7 @@ import main.Main;
  * @author pcoberge
  */
 
-public class Territory {
+public class Territory implements Serializable{
   private String name;
   private int id;
   private int numberOfArmies;

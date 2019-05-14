@@ -380,17 +380,43 @@ public class BoardController implements Initializable {
         changeGameState.setDisable(true);
         switch (Main.g.getGameState()) {
           case ARMY_DISTRIBUTION:
-            gameState.setText("Attack!");
-            changeGameState.setDisable(false);
-            prepareAttack();
-            Main.g.setGameState(GameState.ATTACK);
-            break;
+            if (!Main.g.isNetworkGame()) {
+              gameState.setText("Attack!");
+              changeGameState.setDisable(false);
+              prepareAttack();
+              Main.g.setGameState(GameState.ATTACK);
+              break;
+            } else {
+              if (NetworkController.gameFinder.getClient().getPlayer()
+                  .equals(Main.g.getCurrentPlayer())) {
+                gameState.setText("Attack!");
+                changeGameState.setDisable(false);
+                prepareAttack();
+                Main.g.setGameState(GameState.ATTACK);
+                break;
+              } else {
+               break;
+              }
+            }
           case ATTACK:
+            if (!Main.g.isNetworkGame()) {
             gameState.setText("Move your Armies!");
             prepareFortify();
             Main.g.setGameState(GameState.FORTIFY);
             changeGameState.setDisable(false);
             break;
+          } else {
+            if (NetworkController.gameFinder.getClient().getPlayer()
+                .equals(Main.g.getCurrentPlayer())) {
+              gameState.setText("Move your Armies!");
+              prepareFortify();
+              Main.g.setGameState(GameState.FORTIFY);
+              changeGameState.setDisable(false);
+              break;
+            } else {
+             break;
+            }
+          }
           case FORTIFY:
             if (Main.g.isNetworkGame()) {
               SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);

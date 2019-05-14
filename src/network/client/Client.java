@@ -365,6 +365,10 @@ public class Client extends Thread implements Serializable {
         Main.g.initGame();
       }
     });
+    Main.g.setCardDeck(message.getCardDeck());
+//    for(Card c : Main.g.getCards()) {
+//      System.out.println("Card id for client + " + c.getId());
+//    }
   }
 
   /**

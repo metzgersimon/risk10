@@ -3,9 +3,11 @@ package gui.controller;
 import game.AiPlayerEasy;
 import game.AiPlayerHard;
 import game.AiPlayerMedium;
+import game.Card;
 import game.Player;
 import game.PlayerColor;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -292,7 +294,13 @@ public class HostGameLobbyController {
    */
   @FXML
   public void handleStartGameButton(ActionEvent event) {
-    StartGameMessage startGameMessage = new StartGameMessage(Main.g.getPlayers());
+    Main.g.initCardDeck();
+    StartGameMessage startGameMessage =
+        new StartGameMessage(Main.g.getPlayers(), Main.g.getCards());
+  //  LinkedList<Card> cards = Main.g.getCards();
+//    for (Card c : cards) {
+//      System.out.println("Card : " + c.getId());
+//    }
     // host player/client sends the message to the server
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   }

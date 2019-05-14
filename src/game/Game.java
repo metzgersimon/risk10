@@ -126,6 +126,10 @@ public class Game implements Serializable {
   public void setShowTutorialMessages(boolean showTutorialMessages) {
     this.showTutorialMessages = showTutorialMessages;
   }
+  
+  public void setCardDeck(LinkedList<Card> cardDeck) {
+    this.cards = cardDeck;
+  }
 
 
   /**************************************************
