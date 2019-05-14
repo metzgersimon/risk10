@@ -132,7 +132,6 @@ public class AiPlayerMedium extends Player implements AiPlayer {
     if (!Main.g.isNetworkGame()) {
       Thread th = new Thread() {
         public void run() {
-          Main.b.highlightTerritory(territory);
           Main.b.updateLabelTerritory(territory);
         }
       };
