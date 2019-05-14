@@ -347,9 +347,6 @@ public class Player implements Serializable {
     if (this.getContinents().contains(t.getContinent())) {
       this.lostContinents(t.getContinent());
     }
-    if (Main.g.isShowTutorialMessages()) {
-      Main.b.showMessage(TutorialMessages.lostTerritory);
-    }
   }
 
   /**
