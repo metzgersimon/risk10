@@ -50,15 +50,12 @@ public class EndGameSubSceneController implements Initializable {
           winnerCrown.setVisible(true);
           //to end the connection with the server
           Main.g.setGameState(GameState.END_GAME);
-          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
-          NetworkController.gameFinder.getClient().sendMessage(message);
+//          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
+//          NetworkController.gameFinder.getClient().sendMessage(message);
         } else {
           System.out.println("EndGame Loser" + p.getName() + "Rank" + p.getRank());
           endGame.setText("You lost!");
           winnerCrown.setVisible(false);
-          Main.g.setGameState(GameState.END_GAME);
-          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
-          NetworkController.gameFinder.getClient().sendMessage(message);
         }
       } else {
         endGame.setText("You are the winner!");
@@ -87,5 +84,8 @@ public class EndGameSubSceneController implements Initializable {
         }
       }
     });
+    LeaveGameResponseMessage message = new LeaveGameResponseMessage();
+  NetworkController.gameFinder.getClient().sendMessage(message);
+  Main.g.setGameState(GameState.END_GAME);
   }
 }
