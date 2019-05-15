@@ -242,7 +242,6 @@ public class Game implements Serializable {
     if (!Main.g.isNetworkGame()) {
       initCardDeck();
     }
-    System.out.println("init card deck");
     setCurrentPlayer(players.get(0));
     setGameState(GameState.INITIALIZING_TERRITORY);
     Main.b.prepareInitTerritoryDistribution();

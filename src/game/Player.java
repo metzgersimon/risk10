@@ -428,7 +428,6 @@ public class Player implements Serializable {
         }
 
         if (Main.g.isNetworkGame()) {
-          System.out.println("cardnachricht geschickt: number " + this.getNumberArmiesToDistibute());
           TradeCardMessage message = new TradeCardMessage(this.getNumberArmiesToDistibute(), c1.getId(),
               c2.getId(), c3.getId());
           message.setColor(Main.g.getCurrentPlayer().getColor().toString());

@@ -369,9 +369,6 @@ public class Client extends Thread implements Serializable {
       }
     });
     Main.g.setCardDeck(message.getCardDeck());
-    for(Card c : Main.g.getCards()) {
-      System.out.println("Card id for client + " + c.getId());
-    }
   }
 
   /**
@@ -411,9 +408,15 @@ public class Client extends Thread implements Serializable {
     });
   }
   
-  
+  /**
+   * After receiving the trade card information, every client updates the information in
+   * their game instance and game board.
+   * 
+   * @author liwang
+   * @param message
+   * 
+   */
   private void handleTradeCardArmy(TradeCardMessage message) {
-    System.out.println("message bekommen");
     if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       return;
     }
@@ -421,15 +424,13 @@ public class Client extends Thread implements Serializable {
         && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
       return;
     }
-    
+
     if (!(player.getColor().toString().equals(message.getColor()))) {
-      System.out.println("message da!");
-      // 43 44
+      // 43 44 are wildcard
       if (message.getCardId1() != 43 && message.getCardId1() != 44) {
         Territory t1 = Main.g.getWorld().getTerritories().get(message.getCardId1());
         if (Main.g.getCurrentPlayer()
             .equals(Main.g.getWorld().getTerritories().get(message.getCardId1()).getOwner())) {
-          System.out.println("extra 2 army auf " + t1.getName());
           t1.setNumberOfArmies(2);
           Main.b.updateLabelTerritory(t1);
         }
@@ -439,7 +440,6 @@ public class Client extends Thread implements Serializable {
         Territory t2 = Main.g.getWorld().getTerritories().get(message.getCardId2());
         if (Main.g.getCurrentPlayer()
             .equals(Main.g.getWorld().getTerritories().get(message.getCardId2()).getOwner())) {
-          System.out.println("extra 2 army auf " + t2.getName());
           t2.setNumberOfArmies(2);
           Main.b.updateLabelTerritory(t2);
         }
@@ -449,22 +449,17 @@ public class Client extends Thread implements Serializable {
         Territory t3 = Main.g.getWorld().getTerritories().get(message.getCardId3());
         if (Main.g.getCurrentPlayer()
             .equals(Main.g.getWorld().getTerritories().get(message.getCardId3()).getOwner())) {
-          System.out.println("extra 2 army auf " + t3.getName());
           t3.setNumberOfArmies(2);
           Main.b.updateLabelTerritory(t3);
         }
       }
-      
-      System.out.println("army amount to distribute " + message.getAmount());
+
       int army = message.getAmount() - Main.g.getCurrentPlayer().getNumberArmiesToDistibute();
-      Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " trades in cards and receives extra "
-          + army + " number of armies");
-      Main.g.getCurrentPlayer().removeCard(message.getCardId1());
-      System.out.println("try remove " + message.getCardId1());
+      Main.b.showMessage(Main.g.getCurrentPlayer().getName()
+          + " trades in cards and receives extra " + army + " number of armies");
+      Main.g.getCurrentPlayer().removeCard(message.getCardId1());    
       Main.g.getCurrentPlayer().removeCard(message.getCardId2());
-      System.out.println("try remove " + message.getCardId1());
       Main.g.getCurrentPlayer().removeCard(message.getCardId3());
-      System.out.println("try remove " + message.getCardId1());
       Main.g.setCard(message.getCardId1());
       Main.g.setCard(message.getCardId2());
       Main.g.setCard(message.getCardId3());
