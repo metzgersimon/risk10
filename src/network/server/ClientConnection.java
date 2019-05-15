@@ -196,7 +196,6 @@ public class ClientConnection extends Thread {
    * @author liangda, qiychen, skaur
    */
   public void run() {
-    System.out.println("connection works");
     while (active) {
       try {
         Message message = (Message) this.fromClient.readObject();
@@ -273,7 +272,6 @@ public class ClientConnection extends Thread {
   public void handleJoinGame(JoinGameMessage message) {
     playerN = message.getName();
     PlayerColor color = this.server.getAvailableColor().get(0);
-    System.out.println("Color : " + color.toString());
     this.player = new Player(message.getName(),
        color, Main.g);
     Main.g.addPlayer(player);
@@ -306,7 +304,6 @@ public class ClientConnection extends Thread {
     this.sendMessagesToallClients(message);
     // show message in host game lobby
     this.server.getHostLobbyController().showMessage(name.toUpperCase() + " : " + content);
-    System.out.println("Message from client with the content " + content + " sent to all clients");
     // gui.HostGameLobbyController.showMessage(content);
 
   }
@@ -387,7 +384,6 @@ public class ClientConnection extends Thread {
    */
   public void handleAllianceMessage(SendAllianceMessage message) {
     String playername = message.getPlayerName();
-    System.out.println("Clientconnection playername " + playername);
     for (int i = 0; i < server.getConnections().size(); i++) {
       ClientConnection c = server.getConnections().get(i);
       if (playername.equalsIgnoreCase(c.getPlayerName())) {

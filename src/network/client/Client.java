@@ -154,7 +154,6 @@ public class Client extends Thread implements Serializable {
       fromServer = new ObjectInputStream(s.getInputStream());
       toServer = new ObjectOutputStream(s.getOutputStream());
       this.active = true;
-      System.out.println("Socket opened successfully");
       return true;
     } catch (IOException e) {
       e.printStackTrace();

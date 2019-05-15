@@ -97,18 +97,18 @@ public class GameFinder extends Thread {
    */
   public void run() {
     try {
-      
+
       // opening socket on a random port and setting the broadcast to true
       datagramSocket = new DatagramSocket();
       datagramSocket.setBroadcast(true);
-      byte[] sendRequest = "GAME_REQUEST".getBytes();
+      byte[] sendRequest = "GameRequest".getBytes();
 
       try {
         // firstly broadcast to the default broadcast address
         DatagramPacket sendPacket = new DatagramPacket(sendRequest, sendRequest.length,
             InetAddress.getByName("255.255.255.255"), main.Parameter.PORT);
         this.datagramSocket.send(sendPacket);
-        System.out.println("A Game Request has been send to 255.255.255.255");
+        System.out.println("A Game Request has been send");
       } catch (SocketException e) {
         System.out.println(getClass().getName() + "Package cant be send");
         // e.printStackTrace();
@@ -118,21 +118,20 @@ public class GameFinder extends Thread {
       byte[] buf = new byte[1248];
       DatagramPacket responseP = new DatagramPacket(buf, buf.length);
       datagramSocket.receive(responseP);
-      System.out.println("A package is recieved from " + responseP.getAddress());
-      
+
       // get the IP address of the server and create a client for it
       InetAddress address = responseP.getAddress();
       client = new Client(address, port);
       client.start();
-      System.out.println("Client Created");
-      
-      //close after connecting
+      System.out.println("Client is connected to the server " + address.getHostName() + " server.");
+
+      // close after connecting
       this.datagramSocket.close();
-      
+
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
-  
-  
+
+
 }

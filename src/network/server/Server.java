@@ -143,9 +143,9 @@ public class Server extends Thread implements Serializable {
 
             // Don't send the response if enough clients have joined the game
             if (Main.g.getPlayers().size() < noOfPlayer) {
-              if (message.equals("GAME_REQUEST")) {
+              if (message.equalsIgnoreCase("GameRequest")) {
                 // sending a response back
-                byte[] sendResponse = "Game_RESPONSE".getBytes();
+                byte[] sendResponse = "GameResponse".getBytes();
                 DatagramPacket responsePacket = new DatagramPacket(sendResponse,
                     sendResponse.length, getPacket.getAddress(), getPacket.getPort());
                 datagramSocket.send(responsePacket);

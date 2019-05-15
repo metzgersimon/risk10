@@ -173,7 +173,6 @@ public class HostGameLobbyController {
         NetworkController.server.getAvailableColor().remove(color);
         // update the list in the game lobby for host player
         updateList(Main.g.getPlayers().size() - 1, aiPlayer);
-        System.out.println("Color for AI :  " + color.getColorString());
         System.out.println("An AI player " + aiPlayer.getName() + " has joined the game ");
 
         // enable the start button if possible
@@ -217,7 +216,6 @@ public class HostGameLobbyController {
     pos = index;
     for (int i = 0; i < playerNames.size(); i++) {
       if (!playerNames.get(i).isSelected()) {
-        System.out.println(pos + " " + i);
         pos = i;
         break;
       }
