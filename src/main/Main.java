@@ -23,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import network.messages.LeaveLobbyMessage;
 import network.messages.game.LeaveGameMessage;
 
 
@@ -82,7 +83,13 @@ public class Main extends Application {
         public void handle(WindowEvent event) {
           if (Main.g != null) {
             if (Main.g.isNetworkGame()) {
-              if (!Main.g.getGameState().equals(GameState.END_GAME)) {
+              // if a player exit the game lobby
+              if (Main.g.getGameState().equals(GameState.NEW_GAME)) {
+                LeaveLobbyMessage message =
+                    new LeaveLobbyMessage(NetworkController.gameFinder.getClient().getPlayer());
+                NetworkController.gameFinder.getClient().sendMessage(message);
+                // if a player exit the game board
+              } else if (!Main.g.getGameState().equals(GameState.END_GAME)) {
                 LeaveGameMessage leaveMessage = new LeaveGameMessage("");
                 leaveMessage.setColor(
                     NetworkController.gameFinder.getClient().getPlayer().getColorString());
