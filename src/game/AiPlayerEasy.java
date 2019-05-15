@@ -13,6 +13,8 @@ import network.messages.game.SkipgamestateMessage;
  *
  */
 public class AiPlayerEasy extends Player implements AiPlayer {
+ 
+  private static final long serialVersionUID = 1L;
   private Territory territory;
 
   /**

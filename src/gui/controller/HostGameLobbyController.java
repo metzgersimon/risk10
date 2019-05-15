@@ -158,16 +158,26 @@ public class HostGameLobbyController {
   @FXML
   void handleAddBot(ActionEvent event) {
     Player aiPlayer;
+    Client client = NetworkController.gameFinder.getClient();
+    String level;
+    SendChatMessageMessage m;
     if (NetworkController.server.getAvailableColor().size() > 0) {
       PlayerColor color = NetworkController.server.getAvailableColor().get(0);
       if (Main.g.getPlayers().size() < HostGameGUIController.numberofPlayers) {
         if (botLevel.getValue() == 0.0) {
           aiPlayer = new AiPlayerEasy(color);
+          level = "easy";
         } else if (botLevel.getValue() == 1.0) {
           aiPlayer = new AiPlayerMedium(color);
+          level = "medium";
         } else {
           aiPlayer = new AiPlayerHard(color);
+          level = "hard";
         }
+        // show message to everyone in the lobby
+        m = new SendChatMessageMessage("Lobby Info",
+            "An AI Player of " + level + " level has been added " + "\n" + "to the game lobby!");
+        client.sendMessage(m);
         // add the player to the player list in the game class
         Main.g.addPlayer(aiPlayer);
         NetworkController.server.getAvailableColor().remove(color);
