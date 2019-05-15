@@ -3,7 +3,6 @@ package game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.HashMap;
 import java.util.Vector;
 import org.junit.Before;
@@ -42,7 +41,7 @@ public class PlayerTest {
     Territory tutu = new Territory("Argentina", 13, CardSymbol.INFANTRY, Continente.SOUTHAMERICA);
     p.addTerritories(tutu);
     assertEquals(4, p.getTerritories().size());
-    // assertEquals(1, p.getContinents().size());
+
   }
 
   /**
@@ -64,7 +63,6 @@ public class PlayerTest {
     p.addTerritories(tu);
     p.addTerritories(tut);
     p.addTerritories(tutu);
-    // assertEquals(1, p.getContinents().size());
     p.lostTerritories(tutu);
     assertEquals(0, p.getContinents().size());
     assertEquals(3, p.getTerritories().size());
@@ -80,9 +78,8 @@ public class PlayerTest {
   @Test
   public void computeAdditionalNumberOfArmiesTest() {
     Main.g = g;
-//    Main.g.setGameState(GameState.ARMY_DISTRIBUTION);
-    PlayerTest t = new PlayerTest();
     Main.g.initCardDeck();
+    Main.g.isNetworkGame();
     // Player has only Territories
     // Test, if player would receive less than 3 armies, so the system would round to 3
     Player p = new Player("Test1", PlayerColor.RED, g);
@@ -94,32 +91,33 @@ public class PlayerTest {
     p.addTerritories(Main.g.getWorld().getTerritories().get(27));
     assertEquals(3, p.computeAdditionalNumberOfArmies());
 
+    p = new Player("Test3", PlayerColor.RED, g);
+    p.addTerritories(Main.g.getWorld().getTerritories().get(41));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(2));
+    assertEquals(3, p.computeAdditionalNumberOfArmies());
+
     // Test, if player would receive 3 armies
+    p = new Player("Test3", PlayerColor.RED, g);
     p.addTerritories(Main.g.getWorld().getTerritories().get(31));
     p.addTerritories(Main.g.getWorld().getTerritories().get(8));
     p.addTerritories(Main.g.getWorld().getTerritories().get(11));
     assertEquals(3, p.computeAdditionalNumberOfArmies());
 
     // Test, if player would receive more than 3 armies
+    p = new Player("Test3", PlayerColor.RED, g);
     p.addTerritories(Main.g.getWorld().getTerritories().get(9));
     p.addTerritories(Main.g.getWorld().getTerritories().get(12));
     p.addTerritories(Main.g.getWorld().getTerritories().get(19));
-    assertEquals(4, p.computeAdditionalNumberOfArmies());
-
-
-    // Player has Territories and traded-in Cards
-    p = new Player("Test3", PlayerColor.RED, g);
-    Card c1 = new Card(43, true);
-    Card c2 = new Card(43, true);
-    Card c3 = new Card(44, true);
-    p.addCard(c1);
-    p.addCard(c2);
-    p.addCard(c3);
-    p.computeAdditionalNumberOfArmies();
-    p.addTerritories(Main.g.getWorld().getTerritories().get(41));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(29));
     p.addTerritories(Main.g.getWorld().getTerritories().get(2));
-    p.tradeCards(c1,c2,c3);
-    assertTrue(p.getNumberArmiesToDistibute() == 3);
+    p.addTerritories(Main.g.getWorld().getTerritories().get(1));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(3));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(32));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(39));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(23));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(13));
+    p.addTerritories(Main.g.getWorld().getTerritories().get(28));
+    assertEquals(4, p.computeAdditionalNumberOfArmies());
   }
 
   /**
@@ -158,26 +156,6 @@ public class PlayerTest {
     assertFalse(p.armyDistribution(12, Main.g.getWorld().getTerritories().get(5)));
     assertFalse(p.armyDistribution(5, Main.g.getWorld().getTerritories().get(12)));
     assertFalse(p.armyDistribution(12, Main.g.getWorld().getTerritories().get(12)));
-  }
-
-  /**
-   * Test, whether the tradeCards method delivers the desired result.
-   * 
-   * @author pcoberge
-   * @author smetzger
-   */
-  @Test
-  public void tradeCardsTest() {
-    Main.g = g;
-    Main.g.initCardDeck();
-    Territory t = Main.g.getWorld().getTerritories().get(6);
-    Player p = new Player("Test1", PlayerColor.BLUE, g);
-    
-    Card c1 = new Card(43, true);
-    Card c2 = new Card(44, true);
-    Card c3 = new Card(t, false);
-    p.tradeCards(c1, c2, c3);
-    assertEquals(0, p.getCards().size());
   }
 
 
