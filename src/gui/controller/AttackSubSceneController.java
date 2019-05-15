@@ -139,7 +139,7 @@ public class AttackSubSceneController implements Initializable {
    * This method organises the images in gui after throwing dice and calls the attack method.
    */
   public synchronized void throwDices() {
-    if (Main.b.getSelectedTerritory().getNumberOfArmies() > 1
+    if (Main.b.getSelectedTerritory().getNumberOfArmies() >= numberOfDices + 1
         && Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() > 0) {
       int numberDicesOpponent =
           Main.b.getSelectedTerritoryAttacked().getNumberOfArmies() > 1 ? 2 : 1;
