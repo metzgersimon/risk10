@@ -380,9 +380,10 @@ public class ClientConnection extends Thread {
   }
 
   /**
+   * Message can be send only to a specific client only in this client gui will message be demostrated.
+   *        
    * @author qiychen
-   * @param message can be send only to a specific client only in this client gui will message be
-   *        demostrated
+   * @param 
    */
   public void handleAllianceMessage(SendAllianceMessage message) {
     String playername = message.getPlayerName();
@@ -391,9 +392,10 @@ public class ClientConnection extends Thread {
       ClientConnection c = server.getConnections().get(i);
       if (playername.equalsIgnoreCase(c.getPlayerName())) {
         c.sendMessage(message);
+        return;
       }
     }
-
+     Main.b.showMessage("No such Player!");
   }
 
   /**

@@ -15,6 +15,14 @@ public class FortifyMessage extends Message {
   private String color;
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   * 
+   * @author qiychen
+   * @param moveFromTerritoryID
+   * @param moveToTerritoryID
+   * @param amount
+   */
   public FortifyMessage(int moveFromTerritoryID, int moveToTerritoryID, int amount) {
     super(MessageType.FORTIFY);
     this.moveFromTerritoryID = moveFromTerritoryID;
