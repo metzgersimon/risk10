@@ -49,9 +49,13 @@ public class JoinGameLobbyController {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
+    if (message.equals("")) {
+      return;
+    }
     SendChatMessageMessage m =
         new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
     NetworkController.gameFinder.getClient().sendMessage(m);
+    this.textField.clear();
   }
 
   /**
@@ -85,7 +89,6 @@ public class JoinGameLobbyController {
   public void showMessage(String content) {
     chat.setStyle("-fx-font-size:15px;");
     chat.appendText(content + "\n");
-    textField.clear();
   }
 
   /**

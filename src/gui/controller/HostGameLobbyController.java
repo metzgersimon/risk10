@@ -116,10 +116,14 @@ public class HostGameLobbyController {
   @FXML
   void handleSendMessage(ActionEvent event) {
     String message = textField.getText();
+    if (message.equals("")) {
+      return;
+    }
     SendChatMessageMessage m =
         new SendChatMessageMessage(ProfileSelectionGUIController.selectedPlayerName, message);
     Client client = NetworkController.gameFinder.getClient();
     client.sendMessage(m);
+    this.textField.clear();
   }
 
   /**
@@ -277,7 +281,6 @@ public class HostGameLobbyController {
   public void showMessage(String content) {
     chat.setStyle("-fx-font-size:15px;");
     chat.appendText(content + "\n");
-    this.textField.clear();
   }
 
   /**
