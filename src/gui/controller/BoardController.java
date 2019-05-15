@@ -241,6 +241,10 @@ public class BoardController implements Initializable {
    *                                                *
    *************************************************/
 
+  /**
+   * set the number of armies for territory.
+   * @param t
+   */
   public void setTerritoryText(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -248,7 +252,10 @@ public class BoardController implements Initializable {
       }
     });
   }
-
+  
+  /**
+   * set the number of armies to distribute. 
+   */
   public void setCircleArmiesToDistributeLable() {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -256,7 +263,12 @@ public class BoardController implements Initializable {
       }
     });
   }
-
+  
+  /**
+   * This methods updates the label for territory.
+   * 
+   * @param t Territory to be updated.
+   */
   public synchronized void updateLabelTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -265,6 +277,11 @@ public class BoardController implements Initializable {
     });
   }
 
+  /**
+   * This method updates the color of territory.
+   * 
+   * @param t Territory to be updated.
+   */
   public synchronized void updateColorTerritory(Territory t) {
     Thread th = new Thread() {
       public void run() {
@@ -282,7 +299,12 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
-
+  
+  /**
+   * This method highlights the territory.
+   * 
+   * @param t The territory to be highlighted.
+   */
   public void highlightTerritory(Territory t) {
     Platform.runLater(new Runnable() {
       @Override
@@ -302,12 +324,12 @@ public class BoardController implements Initializable {
     Thread th = new Thread() {
       public void run() {
         if (hasShadow) {
-          for (Territory tL : c.getTerritories()) {
+          for (Territory t : c.getTerritories()) {
             Platform.runLater(new Runnable() {
               public void run() {
-                DropShadow shadow = (DropShadow) tL.getBoardRegion().getRegion().getEffect();
+                DropShadow shadow = (DropShadow) t.getBoardRegion().getRegion().getEffect();
                 shadow.setRadius(40.0);
-                shadow.setColor(tL.getOwner().getColor().getColor());
+                shadow.setColor(t.getOwner().getColor().getColor());
               }
             });
           }
@@ -326,7 +348,9 @@ public class BoardController implements Initializable {
     };
     th.start();
   }
-
+  /**
+  * This method disables the whole board.
+  */
   public void disableAll() {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -334,7 +358,9 @@ public class BoardController implements Initializable {
       }
     });
   }
-
+  /**
+   * This method enables the whole board fitting to the current players.
+   */
   public void enableAll() {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -1307,7 +1333,7 @@ public class BoardController implements Initializable {
    * 
    * @author qiychen
    * @param event Messages regarding chat/alliance can be sent if a specific name is given, private
-   *        messages will be sent, otherwise the message will be sent to all members
+   *        messages will be sent, otherwise the message will be sent to all members.
    */
   @FXML
   void handleSendMessage(ActionEvent event) {
@@ -1334,7 +1360,11 @@ public class BoardController implements Initializable {
       }
     }
   }
-  
+  /**
+   * show message in chat box.
+   * 
+   * @param message to be showed in chat.
+   */
   public void showMessage(String message) {
     Platform.runLater(new Runnable() {
       public void run() {
@@ -1342,7 +1372,12 @@ public class BoardController implements Initializable {
       }
     });
   }
-
+ /**
+ * show private message in chat box.
+ * 
+ * @author qiychen
+ * @param private message to be showed for a specific client.
+ */
   public void showAllianceMessage(String message) {
     chat.appendText(message + " (private) ");
     chat.appendText("\n____________________________________\n\n");
