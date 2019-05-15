@@ -12,6 +12,7 @@ import network.messages.game.DistributeArmyMessage;
 import network.messages.game.FortifyMessage;
 import network.messages.game.FurtherDistributeArmyMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
+import network.messages.game.TradeCardMessage;
 
 /**
  * Class defines a player in the game.
@@ -215,7 +216,17 @@ public class Player implements Serializable {
   public void removeCard(Card c) {
     this.cards.remove(c);
   }
-
+  
+  public void removeCard(int id) {
+    for (Card c : cards) {
+      if (c.getId() == id) { 
+        System.out.println("remove card " + id);
+        this.cards.remove(c);
+        break;
+      }
+    }
+  }
+  
   public PlayerColor getColor() {
     return color;
   }
@@ -406,7 +417,7 @@ public class Player implements Serializable {
         for (Continent c : this.getContinents()) {
           originalReceivedNumber += c.getValue();
         }
-        Main.b.showMessage(this.getName() + " trades in cards and receives "
+        Main.b.showMessage(this.getName() + " trades in cards and receives extra "
             + this.valueActuallyTradedIn + " number of armies");
         if (originalReceivedNumber < 3 && this.numberArmiesToDistribute == 3) {
           this.setNumberArmiesToDistribute(originalReceivedNumber + this.valueActuallyTradedIn);
@@ -414,6 +425,16 @@ public class Player implements Serializable {
           this.setNumberArmiesToDistribute(
               this.numberArmiesToDistribute + this.valueActuallyTradedIn);
         }
+
+        if (Main.g.isNetworkGame()) {
+          System.out.println("cardnachricht geschickt: number " + this.getNumberArmiesToDistibute());
+          TradeCardMessage message = new TradeCardMessage(this.getNumberArmiesToDistibute(), c1.getId(),
+              c2.getId(), c3.getId());
+          message.setColor(Main.g.getCurrentPlayer().getColor().toString());
+          NetworkController.gameFinder.getClient().sendMessage(message);
+          return true;
+        }
+
         this.valueActuallyTradedIn = 0;
         return true;
       } else {

@@ -231,6 +231,9 @@ public class ClientConnection extends Thread {
           case DISTRIBUTE_ARMY:
             this.sendMessagesToallClients(message);
             break;
+          case TRADE_CARD:
+            this.sendMessagesToallClients(message);
+            break;
           case FURTHER_DISTRIBUTE_ARMY:
             this.sendMessagesToallClients(message);
             break;

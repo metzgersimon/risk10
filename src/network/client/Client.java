@@ -33,6 +33,7 @@ import network.messages.game.LeaveGameMessage;
 import network.messages.game.SelectInitialTerritoryMessage;
 import network.messages.game.SkipgamestateMessage;
 import network.messages.game.StartGameMessage;
+import network.messages.game.TradeCardMessage;
 
 
 public class Client extends Thread implements Serializable {
@@ -239,6 +240,9 @@ public class Client extends Thread implements Serializable {
           case DISTRIBUTE_ARMY:
             handleDistributeArmy((DistributeArmyMessage) message);
             break;
+          case TRADE_CARD:
+            handleTradeCardArmy((TradeCardMessage) message);
+            break;
           case FURTHER_DISTRIBUTE_ARMY:
             handleFurtheDistributeAmry((FurtherDistributeArmyMessage) message);
             break;
@@ -269,7 +273,6 @@ public class Client extends Thread implements Serializable {
     }
   }
 
-  
   /**************************************************
    *                                                *
    *               Getters and Setters              *
@@ -407,6 +410,63 @@ public class Client extends Thread implements Serializable {
       }
     });
   }
+  
+  
+  private void handleTradeCardArmy(TradeCardMessage message) {
+    System.out.println("message bekommen");
+    if ((NetworkController.server != null && Main.g.getCurrentPlayer() instanceof AiPlayer)) {
+      return;
+    }
+    if ((NetworkController.server != null
+        && !(Main.g.getCurrentPlayer().getColor().toString().equals(message.getColor())))) {
+      return;
+    }
+    
+    if (!(player.getColor().toString().equals(message.getColor()))) {
+      System.out.println("message da!");
+      // 43 44
+      if (message.getCardId1() != 43 && message.getCardId1() != 44) {
+        Territory t1 = Main.g.getWorld().getTerritories().get(message.getCardId1());
+        if (Main.g.getCurrentPlayer()
+            .equals(Main.g.getWorld().getTerritories().get(message.getCardId1()).getOwner())) {
+          System.out.println("extra 2 army auf " + t1.getName());
+          t1.setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(t1);
+        }
+      }
+
+      if (message.getCardId2() != 43 && message.getCardId2() != 44) {
+        Territory t2 = Main.g.getWorld().getTerritories().get(message.getCardId2());
+        if (Main.g.getCurrentPlayer()
+            .equals(Main.g.getWorld().getTerritories().get(message.getCardId2()).getOwner())) {
+          System.out.println("extra 2 army auf " + t2.getName());
+          t2.setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(t2);
+        }
+      }
+
+      if (message.getCardId3() != 43 && message.getCardId3() != 44) {
+        Territory t3 = Main.g.getWorld().getTerritories().get(message.getCardId3());
+        if (Main.g.getCurrentPlayer()
+            .equals(Main.g.getWorld().getTerritories().get(message.getCardId3()).getOwner())) {
+          System.out.println("extra 2 army auf " + t3.getName());
+          t3.setNumberOfArmies(2);
+          Main.b.updateLabelTerritory(t3);
+        }
+      }
+      
+      System.out.println("army amount to distribute " + message.getAmount());
+      int army = message.getAmount() - Main.g.getCurrentPlayer().getNumberArmiesToDistibute();
+      Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " trades in cards and receives extra "
+          + army + " number of armies");
+      Main.g.getCurrentPlayer().removeCard(message.getCardId1());
+      Main.g.getCurrentPlayer().removeCard(message.getCardId2());
+      Main.g.getCurrentPlayer().removeCard(message.getCardId3());
+      Main.g.getCurrentPlayer().setNumberArmiesToDistribute(message.getAmount());
+      Main.b.setCircleArmiesToDistributeLable();
+    }
+  }
+
 
   /**
    * 

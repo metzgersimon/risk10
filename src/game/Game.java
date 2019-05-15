@@ -260,7 +260,7 @@ public class Game implements Serializable {
   public void initNumberOfArmies() {
     int number = 50 - (this.players.size() * 5);
     for (int i = 0; i < this.players.size(); i++) {
-      this.players.get(i).setNumberArmiesToDistribute(number);
+      this.players.get(i).setNumberArmiesToDistribute(8);
     }
   }
 
@@ -387,11 +387,12 @@ public class Game implements Serializable {
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " receives "
           + Main.g.getCurrentPlayer().getNumberArmiesToDistibute() + " armies.");
 
-      // client acts further on
+      // client doesn't act further on
       if (Main.g.isNetworkGame() && Main.g.getCurrentPlayer() instanceof AiPlayer
           && NetworkController.server == null) {
         return;
       }
+      
       Main.b.prepareArmyDistribution();
       this.setGameState(GameState.ARMY_DISTRIBUTION);
 

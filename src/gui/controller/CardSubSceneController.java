@@ -93,19 +93,19 @@ public class CardSubSceneController {
         left.getChildren().add(pane);
         topList.put(0, card);
         bottomList.remove(card.getId());
-        System.out.println(topList.get(0).getId());
+        System.out.println("erste" + topList.get(0).getId());
         pane.getStylesheets().clear();
       } else if (center.getChildren().isEmpty()) {
         center.getChildren().add(pane);
         topList.put(1, card);
         bottomList.remove(card.getId());
-        System.out.println(topList.get(1).getId());
+        System.out.println("zweite" + topList.get(1).getId());
         pane.setStyle(null);
       } else if (right.getChildren().isEmpty()) {
         right.getChildren().add(pane);
         topList.put(2, card);
         bottomList.remove(card.getId());
-        System.out.println(topList.get(2).getId());
+        System.out.println("dritte" + topList.get(2).getId());
         pane.setStyle(null);
       }
 
