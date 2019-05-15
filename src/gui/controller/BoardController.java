@@ -1295,10 +1295,10 @@ public class BoardController implements Initializable {
    * This method shows a screen-message depending on winning or losing the game.
    */
   public void endGame() {
+    //if a player lost the game, no change should be displayed for other players in game
     if (Main.g.isNetworkGame() && !(Main.g.onlyAiPlayersLeft())) {
       Player p = NetworkController.gameFinder.getClient().getPlayer();
       if (Main.g.getPlayers().contains(p) && Main.g.getPlayers().size() > 1) {
-        System.out.println("EndGame ingame" + p.getName() + "Rank" + p.getRank());
         return;
       }
     }

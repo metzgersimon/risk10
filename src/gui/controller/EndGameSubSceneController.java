@@ -44,16 +44,13 @@ public class EndGameSubSceneController implements Initializable {
     if (!(Main.g.getCurrentPlayer() instanceof AiPlayer)) {
       if (Main.g.isNetworkGame()) {
         Player p = NetworkController.gameFinder.getClient().getPlayer();
+        //for winner 
         if (Main.g.getPlayers().contains(p) && Main.g.getPlayers().size() == 1) {
-          System.out.println("EndGame Winner" + p.getName() + "Rank" + p.getRank());
           endGame.setText("You are the winner!");
           winnerCrown.setVisible(true);
-          //to end the connection with the server
           Main.g.setGameState(GameState.END_GAME);
-//          LeaveGameResponseMessage message = new LeaveGameResponseMessage();
-//          NetworkController.gameFinder.getClient().sendMessage(message);
         } else {
-          System.out.println("EndGame Loser" + p.getName() + "Rank" + p.getRank());
+          //for loser
           endGame.setText("You lost!");
           winnerCrown.setVisible(false);
         }
