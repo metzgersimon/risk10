@@ -77,9 +77,6 @@ public class StatisticController implements Initializable {
     hash.addAll(Main.g.getPlayers());
     ObservableList<Player> playerList = FXCollections.observableArrayList(hash);
     table.setItems(playerList);
-    for (Player p : playerList) {
-      System.out.println(p);
-    }
     table.getSortOrder().add(c1);
 
     updateProfileStats();

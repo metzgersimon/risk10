@@ -270,7 +270,6 @@ public class AttackSubSceneController implements Initializable {
                       Main.b.getSelectedTerritoryAttacked().getNumberOfArmies());
                   message.setColor(Main.g.getCurrentPlayer().getColor().toString());
                   NetworkController.gameFinder.getClient().sendMessage(message);
-                  System.out.println("network message sent false");
                 }
               }
             });

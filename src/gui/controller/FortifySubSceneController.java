@@ -53,7 +53,6 @@ public class FortifySubSceneController implements Initializable {
             int amount = (int) fortifySlider.getValue();
             if (Main.g.getCurrentPlayer().fortify(Main.b.getSelectedTerritory(),
                 Main.b.getSelectedTerritoryAttacked(), amount)) {
-              System.out.println(Main.b.getSelectedTerritory().getName());
               Main.b.getSelectedTerritory().getBoardRegion().getNumberOfArmy()
                   .setText(Main.b.getSelectedTerritory().getNumberOfArmies() + "");
               Main.b.getSelectedTerritoryAttacked().getBoardRegion().getNumberOfArmy()
@@ -68,18 +67,9 @@ public class FortifySubSceneController implements Initializable {
               Main.g.getCurrentPlayer().setFortify(true);
               Main.b.neutralizeGUIfortify();
               Main.stagePanes.close();
-
             }
-
           }
         });
-        // Main.g.getCurrentPlayer().setFortify(true);
-        // Main.b.neutralizeGUIfortify();
-        // Platform.runLater(new Runnable() {
-        // public void run() {
-        // Main.stagePanes.close();
-        // }
-        // });
       }
     };
     th.start();
@@ -96,7 +86,6 @@ public class FortifySubSceneController implements Initializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        // TODO Auto-generated method stub
         moveFrom.getBoardRegion().getNumberOfArmy().setText(moveFrom.getNumberOfArmies() + "");
         moveTo.getBoardRegion().getNumberOfArmy().setText(moveTo.getNumberOfArmies() + "");
         fortifySlider.setValue(moveFrom.getNumberOfArmies() - 1);
