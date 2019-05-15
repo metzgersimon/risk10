@@ -391,7 +391,6 @@ public class ClientConnection extends Thread {
         return;
       }
     }
-     Main.b.showMessage("No such Player!");
   }
 
   /**

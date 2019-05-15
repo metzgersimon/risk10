@@ -1352,11 +1352,22 @@ public class BoardController implements Initializable {
         this.messages.clear();
         this.playername.clear();
       } else {
-        this.showMessage(author.toUpperCase() + " : " + message + " (private to " + player + ")");
-        SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
-        client.sendMessage(privatemessage);
-        this.messages.clear();
-        this.playername.clear();
+        boolean playerExist=false;
+        for (int i = 0; i < Main.g.getPlayers().size(); i++) {
+          if(player.equals(Main.g.getPlayers().get(i).getName())) {
+            playerExist=true;
+          }
+        }
+        if(playerExist) {
+          this.showMessage(author.toUpperCase() + " : " + message + " (private to " + player + ")");
+          SendAllianceMessage privatemessage = new SendAllianceMessage(player, message, author);
+          client.sendMessage(privatemessage);
+          this.messages.clear();
+          this.playername.clear();
+        }else {
+          this.showMessage("No such Player!");
+        }
+        
       }
     }
   }
