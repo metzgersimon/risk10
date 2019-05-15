@@ -22,6 +22,7 @@ import network.messages.game.TradeCardMessage;
  */
 public class Player implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private Game game;
   private String name;
   private int armies;  

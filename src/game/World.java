@@ -13,6 +13,8 @@ import javafx.scene.layout.Region;
  * @author pcoberge
  */
 public class World implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
   static HashMap<Integer, Territory> territories = new HashMap<>();
   static HashMap<BoardRegion, Territory> territoriesBoardRegion = new HashMap<>();
   static HashMap<Region, Territory> territoriesRegion = new HashMap<>();

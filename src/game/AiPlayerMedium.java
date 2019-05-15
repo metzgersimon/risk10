@@ -17,6 +17,8 @@ import network.messages.game.SkipgamestateMessage;
  *
  */
 public class AiPlayerMedium extends Player implements AiPlayer {
+  
+  private static final long serialVersionUID = 1L;
   private Territory territory;
   private HashMap<Integer, HashSet<Territory>> ownTerritories;
   private ArrayList<Integer> sortedValues;

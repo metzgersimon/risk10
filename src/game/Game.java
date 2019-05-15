@@ -13,6 +13,7 @@ import main.Main;
 
 public class Game implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private World world;
   private HashSet<Player> allPlayers;
   private ArrayList<Player> players;

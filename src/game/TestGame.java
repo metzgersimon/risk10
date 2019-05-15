@@ -13,7 +13,7 @@ import main.Main;
  */
 public class TestGame extends Game implements Serializable {
 
-
+  private static final long serialVersionUID = 1L;
   public void distributeTerritories() {
 
     for (Territory t : this.getWorld().getTerritories().values()) {
