@@ -2,14 +2,11 @@ package gui.controller;
 
 import game.Card;
 import game.GameState;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -88,24 +85,20 @@ public class CardSubSceneController {
       Card card = (Card) img.getUserData();
       img.setMouseTransparent(true);
       StackPane pane = (StackPane) img.getParent();
-      System.out.println(card.getId());
       if (left.getChildren().isEmpty()) {
         left.getChildren().add(pane);
         topList.put(0, card);
         bottomList.remove(card.getId());
-        System.out.println("erste" + topList.get(0).getId());
         pane.getStylesheets().clear();
       } else if (center.getChildren().isEmpty()) {
         center.getChildren().add(pane);
         topList.put(1, card);
         bottomList.remove(card.getId());
-        System.out.println("zweite" + topList.get(1).getId());
         pane.setStyle(null);
       } else if (right.getChildren().isEmpty()) {
         right.getChildren().add(pane);
         topList.put(2, card);
         bottomList.remove(card.getId());
-        System.out.println("dritte" + topList.get(2).getId());
         pane.setStyle(null);
       }
 
@@ -113,8 +106,6 @@ public class CardSubSceneController {
           && !right.getChildren().isEmpty()
           && topList.get(0).canBeTraded(topList.get(1), topList.get(2))
           && Main.g.getGameState() == GameState.ARMY_DISTRIBUTION) {
-        System.out.println(
-            topList.get(0).getId() + " " + topList.get(1).getId() + " " + topList.get(2).getId());
         tradeIn.setDisable(false);
       }
     }

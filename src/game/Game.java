@@ -82,6 +82,7 @@ public class Game implements Serializable {
   public void setCard(int id) {
     for (Card c : cards) {
       if (c.getId() == id) { 
+        System.out.println("add card to front " + id);
         this.cards.addFirst(c);
         return;
       }
@@ -380,8 +381,9 @@ public class Game implements Serializable {
         Card c = this.cards.getLast();
         this.cards.removeLast();
         this.getCurrentPlayer().addCard(c);
-        if (!(this.getCurrentPlayer() instanceof AiPlayer) && this.getCurrentPlayer().getName()
-            .equals(ProfileSelectionGUIController.selectedPlayerName)) {
+        System.out.println("get card " + c.getId());
+        if (!(this.getCurrentPlayer() instanceof AiPlayer) && this.getCurrentPlayer()
+            .equals(NetworkController.gameFinder.getClient().getPlayer())) {
           Main.cardC.insertCards(c);
         }
       }
