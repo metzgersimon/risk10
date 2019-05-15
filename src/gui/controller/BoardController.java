@@ -26,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
@@ -59,9 +58,7 @@ import network.messages.SendAllianceMessage;
 
 
 /**
- * 
  * Class defines the controller class for the game board.
- *
  */
 public class BoardController implements Initializable {
 
@@ -170,7 +167,7 @@ public class BoardController implements Initializable {
 
   /**************************************************
    *                                                *
-   *                Getter and Setter               *
+   *                Getter and Setter.               *
    *                                                *
    *************************************************/
 
@@ -240,7 +237,7 @@ public class BoardController implements Initializable {
   /**************************************************
    *                                                *
    *        Methods that handle boardGUI from       *
-   *               different classes                *
+   *               different classes.               *
    *                                                *
    *************************************************/
 
@@ -347,8 +344,9 @@ public class BoardController implements Initializable {
   }
 
   /**
+   * This method sets the text of the gamestate.
    * 
-   * @param change the game state text
+   * @param text = change the game state text
    */
   public synchronized void setState(String text) {
     Platform.runLater(new Runnable() {
@@ -395,28 +393,28 @@ public class BoardController implements Initializable {
                 Main.g.setGameState(GameState.ATTACK);
                 break;
               } else {
-               break;
+                break;
               }
             }
           case ATTACK:
             if (!Main.g.isNetworkGame()) {
-            gameState.setText("Move your Armies!");
-            prepareFortify();
-            Main.g.setGameState(GameState.FORTIFY);
-            changeGameState.setDisable(false);
-            break;
-          } else {
-            if (NetworkController.gameFinder.getClient().getPlayer()
-                .equals(Main.g.getCurrentPlayer())) {
               gameState.setText("Move your Armies!");
               prepareFortify();
               Main.g.setGameState(GameState.FORTIFY);
               changeGameState.setDisable(false);
               break;
             } else {
-             break;
+              if (NetworkController.gameFinder.getClient().getPlayer()
+                  .equals(Main.g.getCurrentPlayer())) {
+                gameState.setText("Move your Armies!");
+                prepareFortify();
+                Main.g.setGameState(GameState.FORTIFY);
+                changeGameState.setDisable(false);
+                break;
+              } else {
+                break;
+              }
             }
-          }
           case FORTIFY:
             if (Main.g.isNetworkGame()) {
               SkipgamestateMessage message = new SkipgamestateMessage(GameState.FORTIFY);
@@ -432,6 +430,8 @@ public class BoardController implements Initializable {
               e1.printStackTrace();
             }
             Main.g.furtherFortify();
+            break;
+          default:
             break;
         }
       }
@@ -760,7 +760,7 @@ public class BoardController implements Initializable {
    * 
    * @author smetzger
    * @author pcoberge
-   * @param MouseEvent The parameter contains the information which gui element triggers the
+   * @param e = The parameter contains the information which gui element triggers the
    *        actionlistener.
    */
   @FXML
@@ -858,6 +858,8 @@ public class BoardController implements Initializable {
           break;
         case FORTIFY:
           clickedFortify(t);
+          break;
+        default:
           break;
       }
     } else if (t.equals(selectedTerritory)) {
@@ -1229,7 +1231,7 @@ public class BoardController implements Initializable {
         }
       }
     });
-  }  
+  }
   
   
   /**************************************************
@@ -1267,10 +1269,10 @@ public class BoardController implements Initializable {
    * This method shows a screen-message depending on winning or losing the game.
    */
   public void endGame() {
-    if (Main.g.isNetworkGame()&& !(Main.g.onlyAiPlayersLeft())) {
-      Player p=NetworkController.gameFinder.getClient().getPlayer();
-      if (Main.g.getPlayers().contains(p) && Main.g.getPlayers().size()>1) {
-        System.out.println("EndGame ingame"+p.getName()+ "Rank"+p.getRank());
+    if (Main.g.isNetworkGame() && !(Main.g.onlyAiPlayersLeft())) {
+      Player p = NetworkController.gameFinder.getClient().getPlayer();
+      if (Main.g.getPlayers().contains(p) && Main.g.getPlayers().size() > 1) {
+        System.out.println("EndGame ingame" + p.getName() + "Rank" + p.getRank());
         return;
       }
     }
