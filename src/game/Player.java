@@ -222,9 +222,10 @@ public class Player implements Serializable {
       if (c.getId() == id) { 
         System.out.println("remove card " + id);
         this.cards.remove(c);
-        break;
+        return;
       }
     }
+    // this.cards.remove(0);
   }
   
   public PlayerColor getColor() {

@@ -369,9 +369,9 @@ public class Client extends Thread implements Serializable {
       }
     });
     Main.g.setCardDeck(message.getCardDeck());
-//    for(Card c : Main.g.getCards()) {
-//      System.out.println("Card id for client + " + c.getId());
-//    }
+    for(Card c : Main.g.getCards()) {
+      System.out.println("Card id for client + " + c.getId());
+    }
   }
 
   /**
@@ -460,8 +460,14 @@ public class Client extends Thread implements Serializable {
       Main.b.showMessage(Main.g.getCurrentPlayer().getName() + " trades in cards and receives extra "
           + army + " number of armies");
       Main.g.getCurrentPlayer().removeCard(message.getCardId1());
+      System.out.println("try remove " + message.getCardId1());
       Main.g.getCurrentPlayer().removeCard(message.getCardId2());
+      System.out.println("try remove " + message.getCardId1());
       Main.g.getCurrentPlayer().removeCard(message.getCardId3());
+      System.out.println("try remove " + message.getCardId1());
+      Main.g.setCard(message.getCardId1());
+      Main.g.setCard(message.getCardId2());
+      Main.g.setCard(message.getCardId3());
       Main.g.getCurrentPlayer().setNumberArmiesToDistribute(message.getAmount());
       Main.b.setCircleArmiesToDistributeLable();
     }

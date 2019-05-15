@@ -79,6 +79,16 @@ public class Game implements Serializable {
     this.cards.addFirst(c);
   }
 
+  public void setCard(int id) {
+    for (Card c : cards) {
+      if (c.getId() == id) { 
+        System.out.println("add card to front " + id);
+        this.cards.addFirst(c);
+        return;
+      }
+    }
+  }
+  
   public Player getCurrentPlayer() {
     return this.currentPlayer;
   }
@@ -229,7 +239,10 @@ public class Game implements Serializable {
    */
   public void initGame() {
     initNumberOfArmies();
-    initCardDeck();
+    if (!Main.g.isNetworkGame()) {
+      initCardDeck();
+    }
+    System.out.println("init card deck");
     setCurrentPlayer(players.get(0));
     setGameState(GameState.INITIALIZING_TERRITORY);
     Main.b.prepareInitTerritoryDistribution();
@@ -369,6 +382,7 @@ public class Game implements Serializable {
         Card c = this.cards.getLast();
         this.cards.removeLast();
         this.getCurrentPlayer().addCard(c);
+        System.out.println("get card " + c.getId());
         if (!(this.getCurrentPlayer() instanceof AiPlayer) && this.getCurrentPlayer().getName()
             .equals(ProfileSelectionGUIController.selectedPlayerName)) {
           Main.cardC.insertCards(c);
