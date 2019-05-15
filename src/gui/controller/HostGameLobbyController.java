@@ -297,10 +297,6 @@ public class HostGameLobbyController {
     Main.g.initCardDeck();
     StartGameMessage startGameMessage =
         new StartGameMessage(Main.g.getPlayers(), Main.g.getCards());
-  //  LinkedList<Card> cards = Main.g.getCards();
-//    for (Card c : cards) {
-//      System.out.println("Card : " + c.getId());
-//    }
     // host player/client sends the message to the server
     NetworkController.gameFinder.getClient().sendMessage(startGameMessage);
   }

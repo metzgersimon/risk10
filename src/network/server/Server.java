@@ -39,17 +39,17 @@ public class Server extends Thread implements Serializable {
   private ServerSocket serverSocket;
 
   /**
-   * A list clients connected to the game server
+   * A list clients connected to the game server.
    */
   public List<ClientConnection> clients = new ArrayList<ClientConnection>();
 
   /**
-   * The socket used for communication
+   * The socket used for communication.
    */
   private Socket socket;
 
   /**
-   * Indicates if the server is running
+   * Indicates if the server is running.
    */
   private boolean isRunning;
 
@@ -59,18 +59,18 @@ public class Server extends Thread implements Serializable {
   private int noOfPlayer;
 
   /**
-   * Controller of the host game lobby
+   * Controller of the host game lobby.
    * 
    */
   private HostGameLobbyController lobbyController;
 
   /**
-   * Represents the socket of each client with this server
+   * Represents the socket of each client with this server.
    */
   private ClientConnection connection;
 
   /**
-   * IP address of this server
+   * IP address of this server.
    */
   private InetAddress ipAddress;
 

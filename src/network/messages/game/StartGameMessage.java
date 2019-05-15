@@ -29,7 +29,7 @@ public class StartGameMessage extends Message {
    * Constructor.
    * 
    * @param playerList of the players
-   * @param 
+   * @param card list 
    */
   public StartGameMessage(ArrayList<Player> playerList,LinkedList<Card> cards) {
     super(MessageType.START_GAME);

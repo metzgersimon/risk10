@@ -65,7 +65,7 @@ public class HostGameGUIController {
   @FXML
   void confirm(ActionEvent event) {
     // create an instance of the Player, add it to the Player list and link it to profile
-    String name = ProfileSelectionGUIController.selectedPlayerName;
+    final String name = ProfileSelectionGUIController.selectedPlayerName;
     FXMLLoader fxmlLoader = null;
     numberofPlayers = Integer.parseInt(choiceBox.getSelectionModel().getSelectedItem());
     networkController.hostGame(numberofPlayers);

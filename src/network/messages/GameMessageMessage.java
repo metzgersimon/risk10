@@ -13,6 +13,11 @@ public class GameMessageMessage extends Message {
   private String username;
   private String message;
 
+  /**
+   * Constructor.
+   * @param username of the player
+   * @param message sent from the player
+   */
   public GameMessageMessage(String username, String message) {
     super(MessageType.INGAME);
     this.username = username;
