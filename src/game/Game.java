@@ -273,7 +273,7 @@ public class Game implements Serializable {
   public void initNumberOfArmies() {
     int number = 50 - (this.players.size() * 5);
     for (int i = 0; i < this.players.size(); i++) {
-      this.players.get(i).setNumberArmiesToDistribute(8);
+      this.players.get(i).setNumberArmiesToDistribute(number);
     }
   }
 
