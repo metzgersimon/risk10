@@ -20,27 +20,27 @@ import main.Main;
 import java.util.ArrayList;
 
 /**
- * Controller class for ProfileSelectionGUI
+ * Controller class for ProfileSelectionGUI.
  */
 public class ProfileSelectionGUIController {
 
   /**
-   * the total number of profiles
+   * the total number of profiles.
    */
   public static int count = 0;
 
   /**
-   * which profile will be edited
+   * which profile will be edited.
    */
   public static int editNr;
 
   /**
-   * the selected Player name
+   * the selected Player name.
    */
   public static String selectedPlayerName = null;
 
   /**
-   * fields to save and order names and images of profiles
+   * fields to save and order names and images of profiles.
    */
   public static String[] names = new String[5];
   public static Image[] images = new Image[5];
@@ -64,7 +64,7 @@ public class ProfileSelectionGUIController {
   private Button createNewProfile;
 
   /**
-   * Event handle class invoked when back Button clicked
+   * Event handle class invoked when back Button clicked.
    * 
    * @author liwang
    * @param event
@@ -83,7 +83,7 @@ public class ProfileSelectionGUIController {
   }
 
   /**
-   * Event handle class invoked when create new Profile Button clicked
+   * Event handle class invoked when create new Profile Button clicked.
    * 
    * @author liwang
    * @param event
@@ -103,7 +103,7 @@ public class ProfileSelectionGUIController {
   }
 
   /**
-   * Event handle class invoked when edit Button clicked
+   * Event handle class invoked when edit Button clicked.
    * 
    * @author liwang
    * @param event
@@ -139,7 +139,7 @@ public class ProfileSelectionGUIController {
   }
 
   /**
-   * Event handle class invoked when a profile is clicked
+   * Event handle class invoked when a profile is clicked.
    * 
    * @author liwang
    * @param event
@@ -172,8 +172,6 @@ public class ProfileSelectionGUIController {
     }
 
     Main.g = new Game();
-    //Main.g = new Game();
-    //System.out.println(Main.g.getGameState().toString());
     String toOpen = "";
     if (MainMenuGUIController.mode.equals("singlePlayer")) {
       toOpen = "/gui/SinglePlayerGUI.fxml";
@@ -185,7 +183,6 @@ public class ProfileSelectionGUIController {
       FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/gui/BoardGUI.fxml"));
       Main.board = (AnchorPane) fxmlLoader1.load();
       Main.b = fxmlLoader1.getController();
-      // boardScene = new Scene(board);
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(toOpen));
       Parent root = fxmlLoader.load();
       Stage stage = main.Main.stage;
@@ -197,34 +194,29 @@ public class ProfileSelectionGUIController {
   }
 
   /**
-   * loads all saved player profiles
+   * loads all saved player profiles.
    * 
    * @author prto
    */
   public void loadProfiles() {
     ProfileManager.readXml();
-    // ProfileManager.printAllProfiles();
-
     count = 0;
     for (PlayerProfile x : ProfileManager.profileList.values()) {
       names[count] = x.getName();
-      // System.out.println("the name is " + names[count]);
       images[count] = x.getImage();
       count++;
     }
-    // System.out.println("there are " + count + " profiles");//
   }
 
 
   /**
-   * load all saved profiles, calculate the position and show them
+   * load all saved profiles, calculate the position and show them.
    * 
    * @author liwang
    */
   public void initialize() {
 
     loadProfiles();
-
 
     nameLabels.add(name1);
     nameLabels.add(name2);
@@ -255,7 +247,7 @@ public class ProfileSelectionGUIController {
       editButtons.get(i).setOpacity(1);
       editButtons.get(i).setLayoutX(distance + (distance + 100) * i + 20);
     }
-    
+
     for (int i = count; i < 5; i++) {
       imageviews.get(i).setDisable(true);
       editButtons.get(i).setDisable(true);

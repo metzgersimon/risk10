@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * Controller class of CreateProfile GUI
+ * Controller class of CreateProfile GUI.
  * 
  * @author liwang
  *

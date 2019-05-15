@@ -491,9 +491,7 @@ public class AiPlayerHard extends Player implements AiPlayer {
         for (int i = 0; i < sortedValues.size(); i++) {
           for (Territory t : ownTerritories.get(sortedValues.get(i))) {
             super.armyDistribution(1, t);
-            // if (!Main.g.isNetworkGame()) {
             Main.b.updateLabelTerritory(t);
-            // }
           }
         }
       }

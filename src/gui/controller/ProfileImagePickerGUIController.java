@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Controller class for ProfileImagePickerGUI
+ * Controller class for ProfileImagePickerGUI.
  * 
  * @author liwang
  */
@@ -19,7 +19,7 @@ public class ProfileImagePickerGUIController {
   private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10;
 
   /**
-   * this method saved the chosen image and go back to edit or create profile gui
+   * this method saved the chosen image and go back to edit or create profile gui.
    * 
    * @author liwang
    * @param event
@@ -44,7 +44,6 @@ public class ProfileImagePickerGUIController {
       try {
         CreateProfileGUIController.image = ((ImageView) event.getSource()).getImage();
         CreateProfileGUIController.id = getId(id);
-
         FXMLLoader fxmlLoader =
             new FXMLLoader(getClass().getResource("/gui/CreateProfileGUI.fxml"));
         AnchorPane root = (AnchorPane) fxmlLoader.load();
@@ -58,7 +57,7 @@ public class ProfileImagePickerGUIController {
   }
 
   /**
-   * convert the id from string to int since the id in scence builder can not be a simple int
+   * convert the id from string to int since the id in scence builder can not be a simple int.
    * 
    * @author liwang
    * @param id of the image type String
@@ -71,7 +70,6 @@ public class ProfileImagePickerGUIController {
       case ("image2"):
         return 2;
       case ("image3"):
-        EditProfileGUIController.imageId = 3;
         return 3;
       case ("image4"):
         return 4;
@@ -87,8 +85,9 @@ public class ProfileImagePickerGUIController {
         return 9;
       case ("image10"):
         return 10;
+      default:
+        return 0;
     }
-    return 0;
   }
 
 }

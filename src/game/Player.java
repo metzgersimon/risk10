@@ -482,8 +482,6 @@ public class Player implements Serializable {
               this.numberArmiesToDistribute -= amount;
               FurtherDistributeArmyMessage armyMessage =
                   new FurtherDistributeArmyMessage(amount, t.getId());
-              System.out.println("FurtherArmyDistribution geschickt: "
-                  + Main.g.getCurrentPlayer().getName() + " set " + amount + " on " + t.getName());
               armyMessage.setColor(Main.g.getCurrentPlayer().getColor().toString());
               NetworkController.gameFinder.getClient().sendMessage(armyMessage);
               return true;
@@ -755,7 +753,6 @@ public class Player implements Serializable {
    */
   public boolean fortifyNetwork(int moveFromTerritoryId, int moveToTerritoryId, int amount) {
     if (NetworkController.server != null) {
-      System.out.println("Fortify message geschickt!");
       FortifyMessage message = new FortifyMessage(moveFromTerritoryId, moveToTerritoryId, amount);
       message.setColor(Main.g.getCurrentPlayer().getColor().toString());
       NetworkController.gameFinder.getClient().sendMessage(message);

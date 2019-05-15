@@ -4,15 +4,12 @@ import game.Territory;
 import network.messages.Message;
 import network.messages.MessageType;
 
-
 /**
  * 
  * @author qiychen
  *
  */
 public class AttackMessage extends Message {
-  int lostArmiesAttacker;
-  int lostArmiesDefender;
   int attackerID;
   int defenderID;
   Territory territoryAttacker;
@@ -22,31 +19,6 @@ public class AttackMessage extends Message {
   int defendArmies;
   String color;
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Constructor.
-   * 
-   * @param lostArmiesAttacker
-   * @param lostArmiesDefender
-   * @param attackerID
-   * @param defenderID
-   * @param territoryAttacker
-   * @param territoryDefender
-   * @param ifConquered
-   */
-  public AttackMessage(int lostArmiesAttacker, int lostArmiesDefender, int attackerID,
-      int defenderID, Territory territoryAttacker, Territory territoryDefender,
-      boolean ifConquered) {
-    super(MessageType.ATTACK);
-    this.lostArmiesAttacker = lostArmiesAttacker;
-    this.lostArmiesDefender = lostArmiesDefender;
-    this.attackerID = attackerID;
-    this.defenderID = defenderID;
-    this.territoryAttacker = territoryAttacker;
-    this.territoryDefender = territoryDefender;
-    this.ifConquered = ifConquered;
-  }
-
 
   /**
    * Constructor.
@@ -72,13 +44,6 @@ public class AttackMessage extends Message {
    * 
    * @return armies
    */
-  public int getLostArmiesAttacker() {
-    return this.lostArmiesAttacker;
-  }
-
-  public int getLostArmiesDenfender() {
-    return this.lostArmiesDefender;
-  }
 
   public int getAttackerID() {
     return attackerID;
@@ -108,36 +73,25 @@ public class AttackMessage extends Message {
     this.color = color;
   }
 
-
-
   public int getAttackerArmies() {
     return attackerArmies;
   }
-
-
 
   public void setAttackerArmies(int attackerArmies) {
     this.attackerArmies = attackerArmies;
   }
 
-
-
   public int getDefendArmies() {
     return defendArmies;
   }
-
-
 
   public void setDefendArmies(int defendArmies) {
     this.defendArmies = defendArmies;
   }
 
-
-
   public void setIfConquered(boolean ifConquered) {
     this.ifConquered = ifConquered;
   }
-
 
 }
 
