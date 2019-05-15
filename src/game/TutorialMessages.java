@@ -2,6 +2,7 @@ package game;
 
 
 /**
+ * Messages for the tutorial mode
  * 
  * @author Preston
  *

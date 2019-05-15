@@ -7,7 +7,7 @@ import org.junit.runner.notification.Failure;
 public class TestRunner {
 
   /**
-   * Tests TestProfiles and outputs the result in the console
+   * Prints 'true' if TestProfiles.java ran successfully without errors
    * 
    * @author prto
    * @param args
